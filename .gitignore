@@ -1,0 +1,112 @@
+## Ignore Visual Studio temporary files, build results, and
+## other files generated during the development process.
+
+# User-specific files
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.ide
+
+# Auto-generated files
+Generated_Code/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# NuGet packages
+*.nupkg
+# The packages folder can be ignored unless you have checked in NuGet package sources.
+**/packages/*
+# learnhub >> README.md
+git init
+git add README.md
+git commit -m first commit
+git branch -M main
+git remote add origin https://github.com/giakiet05/learnhub.git
+git push -u origin main*/packages/build/
+# learnhub >> README.md
+git init
+git add README.md
+git commit -m first commit
+git branch -M main
+git remote add origin https://github.com/giakiet05/learnhub.git
+git push -u origin main*/packages/repositories.config
+
+# Include if using NuGet PackageReference in .csproj files (NuGet v4+)
+# except build folders.
+# learnhub >> README.md
+git init
+git add README.md
+git commit -m first commit
+git branch -M main
+git remote add origin https://github.com/giakiet05/learnhub.git
+git push -u origin main*/packages/*.props
+# learnhub >> README.md
+git init
+git add README.md
+git commit -m first commit
+git branch -M main
+git remote add origin https://github.com/giakiet05/learnhub.git
+git push -u origin main*/packages/*.targets
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+.BIN/
+
+# Backup files
+*.bak
+*.old
+*.orig
+*.tmp
+*.log
+
+# Resharper files
+_ReSharper*/
+*.DotSettings.user
+resharper-host/
+
+# Rider files
+.idea/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# C++ auto-generated cache files
+ipch/
+*.pch
+
+# Windows crash dump files
+*.dmp
+
+# Visual Studio Code workspace settings
+.vscode/
+
+# Dotnet SDK
+dotnet-tools.json
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+

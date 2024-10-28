@@ -58,12 +58,20 @@
                         materialDesign:HintAssist.Hint="Số Điện Thoại" FontSize="20"
                         HorizontalAlignment="Center" Width="298" Height="48"
                         Foreground="#FFF7F7" Margin="0 20 0 0"/>
-            
+
             <DatePicker x:Name="dpNgaySinh" Style="{StaticResource MaterialDesignFilledDatePicker}"
+                        Foreground="#FFF7F7"
                         materialDesign:HintAssist.Hint="Ngày Sinh" FontSize="20"
                         HorizontalAlignment="Center" Width="298" Height="48"
-                        Foreground="#FFF7F7" Margin="0 20 0 0"/>
-            
+                        Margin="0 20 0 0" Text="">
+                <DatePicker.CalendarStyle>
+                    <Style TargetType="Calendar">
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Style>
+                </DatePicker.CalendarStyle>
+                
+            </DatePicker>
+
             <TextBox x:Name="tbUsername" Style="{StaticResource MaterialDesignFilledTextBox}"
                      materialDesign:HintAssist.Hint="Tên Đăng Nhập" FontSize="20"
                      HorizontalAlignment="Center" Width="298" Height="48"

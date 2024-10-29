@@ -27,10 +27,13 @@ namespace QuanLyHoatDongDayHoc.ViewModel.LoginVM
         {
             
 
-            SignUpAdminCommand = new RelayCommand<TextBlock>((p) => { return true; }, (p) =>
+            SignUpAdminCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
+                p.Hide();
                 SignUpAdmin signUpAdmin = new SignUpAdmin();
                 signUpAdmin.ShowDialog();
+                p.Show();
+                p.Focus();
             });
         }
     }

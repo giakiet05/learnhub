@@ -11,15 +11,11 @@ namespace QuanLyHoatDongDayHoc.ViewModel.LoginVM.SignUpVM
 {
     public class SignUpViewModel : BaseViewModel
     {
-        public ICommand NextCommand { get; set; }
+        
 
         public SignUpViewModel()
         {
-            NextCommand = new RelayCommand<Border>((p) => { return true; }, (p) =>
-            {
-                
-                p.Visibility = Visibility.Visible;
-            });
+
         }
     }
 }

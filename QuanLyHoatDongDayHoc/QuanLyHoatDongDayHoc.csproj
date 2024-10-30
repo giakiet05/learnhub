@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
+    <Compile Include="ViewModel\LoginVM\SignUpVM\SignUpViewModel.cs" />
     <Compile Include="View\LoginWindow\SignUpAdmin.xaml.cs">
       <DependentUpon>SignUpAdmin.xaml</DependentUpon>
     </Compile>

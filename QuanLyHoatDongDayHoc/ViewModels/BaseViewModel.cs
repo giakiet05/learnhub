@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace QuanLyHoatDongDayHoc.ViewModel
+namespace QuanLyHoatDongDayHoc.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

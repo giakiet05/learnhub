@@ -76,13 +76,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
-    <Compile Include="ViewModel\LoginVM\SignUpVM\SignUpViewModel.cs" />
-    <Compile Include="View\LoginWindow\SignUpAdmin.xaml.cs">
-      <DependentUpon>SignUpAdmin.xaml</DependentUpon>
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\AuthenticationViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\AuthenticationViewModels\SignUpViewModel.cs" />
+    <Compile Include="Views\AuthenticationViews\SignUpAdminView.xaml.cs">
+      <DependentUpon>SignUpAdminView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\LoginWindow\LoginWindow.xaml">
+    <Page Include="Views\AuthenticationViews\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -90,14 +90,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LoginWindow\SignUpAdmin.xaml">
+    <Page Include="Views\AuthenticationViews\SignUpAdminView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="View\LoginWindow\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <Compile Include="Views\AuthenticationViews\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -138,9 +138,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="View\AdminWindow\" />
-    <Folder Include="View\MenuBar\" />
+    <Folder Include="Commands\" />
+    <Folder Include="Models\" />
+    <Folder Include="Stores\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resource\Icons\icons8-school-64.png" />

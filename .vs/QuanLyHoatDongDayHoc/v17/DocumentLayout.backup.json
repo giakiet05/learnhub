@@ -3,28 +3,36 @@
   "WorkspaceRootPath": "D:\\code\\Project LTTQ\\learnhub\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\view\\loginwindow\\signupadmin.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\view\\loginwindow\\signupadmin.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\views\\authenticationviews\\loginview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\views\\authenticationviews\\loginview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\viewmodel\\loginvm\\signupvm\\signupviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\viewmodel\\loginvm\\signupvm\\signupviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\viewmodels\\authenticationviewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\viewmodels\\authenticationviewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\resourcexaml\\mainresource.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\views\\authenticationviews\\loginview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\views\\authenticationviews\\loginview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\views\\authenticationviews\\signupadminview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\views\\authenticationviews\\signupadminview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|d:\\code\\project lttq\\learnhub\\quanlyhoatdongdayhoc\\resourcexaml\\mainresource.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\resourcexaml\\mainresource.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|d:\\code\\project lttq\\learnhub\\quanlyhoatdongdayhoc\\viewmodel\\loginvm\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\viewmodel\\loginvm\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\viewmodels\\authenticationviewmodels\\signupviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\viewmodels\\authenticationviewmodels\\signupviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\view\\loginwindow\\signupadmin.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\view\\loginwindow\\signupadmin.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\view\\loginwindow\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\view\\loginwindow\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|D:\\code\\Project LTTQ\\learnhub\\quanlyhoatdongdayhoc\\views\\authenticationviews\\signupadminview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{57997E2F-F953-4691-87F4-B67E3991B4C1}|QuanLyHoatDongDayHoc\\QuanLyHoatDongDayHoc.csproj|solutionrelative:quanlyhoatdongdayhoc\\views\\authenticationviews\\signupadminview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,20 +50,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SignUpViewModel.cs",
-              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ViewModel\\LoginVM\\SignUpVM\\SignUpViewModel.cs",
-              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\ViewModel\\LoginVM\\SignUpVM\\SignUpViewModel.cs",
-              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ViewModel\\LoginVM\\SignUpVM\\SignUpViewModel.cs",
-              "RelativeToolTip": "QuanLyHoatDongDayHoc\\ViewModel\\LoginVM\\SignUpVM\\SignUpViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAQwA0AAAAIAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\App.xaml",
+              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\App.xaml",
+              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\App.xaml",
+              "RelativeToolTip": "QuanLyHoatDongDayHoc\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-31T08:18:55.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SignUpAdminView.xaml.cs",
+              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\SignUpAdminView.xaml.cs",
+              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\SignUpAdminView.xaml.cs",
+              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\SignUpAdminView.xaml.cs",
+              "RelativeToolTip": "QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\SignUpAdminView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T16:54:44.478Z",
+              "WhenOpened": "2024-10-31T08:17:56.706Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "LoginView.xaml.cs",
+              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\LoginView.xaml.cs",
+              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\LoginView.xaml.cs",
+              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\LoginView.xaml.cs",
+              "RelativeToolTip": "QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\LoginView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T08:17:20.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoginView.xaml",
+              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\LoginView.xaml",
+              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\LoginView.xaml",
+              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\LoginView.xaml",
+              "RelativeToolTip": "QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\LoginView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-31T08:17:18.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SignUpAdminView.xaml",
+              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\SignUpAdminView.xaml",
+              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\SignUpAdminView.xaml",
+              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\SignUpAdminView.xaml",
+              "RelativeToolTip": "QuanLyHoatDongDayHoc\\Views\\AuthenticationViews\\SignUpAdminView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-31T08:16:12.419Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SignUpViewModel.cs",
+              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ViewModels\\AuthenticationViewModels\\SignUpViewModel.cs",
+              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\ViewModels\\AuthenticationViewModels\\SignUpViewModel.cs",
+              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ViewModels\\AuthenticationViewModels\\SignUpViewModel.cs",
+              "RelativeToolTip": "QuanLyHoatDongDayHoc\\ViewModels\\AuthenticationViewModels\\SignUpViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T08:11:15.102Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "MainResource.xaml",
               "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ResourceXAML\\MainResource.xaml",
               "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\ResourceXAML\\MainResource.xaml",
@@ -67,51 +135,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SignUpAdmin.xaml.cs",
-              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\View\\LoginWindow\\SignUpAdmin.xaml.cs",
-              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\View\\LoginWindow\\SignUpAdmin.xaml.cs",
-              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\View\\LoginWindow\\SignUpAdmin.xaml.cs",
-              "RelativeToolTip": "QuanLyHoatDongDayHoc\\View\\LoginWindow\\SignUpAdmin.xaml.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAgwB0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T14:55:50.164Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SignUpAdmin.xaml",
-              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\View\\LoginWindow\\SignUpAdmin.xaml",
-              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\View\\LoginWindow\\SignUpAdmin.xaml",
-              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\View\\LoginWindow\\SignUpAdmin.xaml",
-              "RelativeToolTip": "QuanLyHoatDongDayHoc\\View\\LoginWindow\\SignUpAdmin.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-28T14:23:41.235Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "LoginViewModel.cs",
-              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ViewModel\\LoginVM\\LoginViewModel.cs",
-              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\ViewModel\\LoginVM\\LoginViewModel.cs",
-              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ViewModel\\LoginVM\\LoginViewModel.cs",
-              "RelativeToolTip": "QuanLyHoatDongDayHoc\\ViewModel\\LoginVM\\LoginViewModel.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACMAAAAaAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ViewModels\\AuthenticationViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\ViewModels\\AuthenticationViewModels\\LoginViewModel.cs",
+              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\ViewModels\\AuthenticationViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "QuanLyHoatDongDayHoc\\ViewModels\\AuthenticationViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T15:17:00.014Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LoginWindow.xaml",
-              "DocumentMoniker": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\View\\LoginWindow\\LoginWindow.xaml",
-              "RelativeDocumentMoniker": "QuanLyHoatDongDayHoc\\View\\LoginWindow\\LoginWindow.xaml",
-              "ToolTip": "D:\\code\\Project LTTQ\\learnhub\\QuanLyHoatDongDayHoc\\View\\LoginWindow\\LoginWindow.xaml",
-              "RelativeToolTip": "QuanLyHoatDongDayHoc\\View\\LoginWindow\\LoginWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-24T10:02:18.962Z"
             }
           ]
         }

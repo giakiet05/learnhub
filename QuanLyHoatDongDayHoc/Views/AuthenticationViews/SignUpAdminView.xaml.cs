@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLyHoatDongDayHoc.View.LoginWindow
+namespace QuanLyHoatDongDayHoc.Views.AuthenticationViews
 {
     /// <summary>
     /// Interaction logic for SignUpAdmin.xaml
     /// </summary>
-    public partial class SignUpAdmin : Window
+    public partial class SignUpAdminView : Window
     {
-        public SignUpAdmin()
+        public SignUpAdminView()
         {
             InitializeComponent();
         }

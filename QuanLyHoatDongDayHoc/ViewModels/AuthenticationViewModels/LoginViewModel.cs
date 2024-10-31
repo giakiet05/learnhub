@@ -1,4 +1,4 @@
-﻿using QuanLyHoatDongDayHoc.View.LoginWindow;
+﻿using QuanLyHoatDongDayHoc.Views.AuthenticationViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace QuanLyHoatDongDayHoc.ViewModel.LoginVM
+namespace QuanLyHoatDongDayHoc.ViewModels.AutheticationViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
@@ -30,7 +30,7 @@ namespace QuanLyHoatDongDayHoc.ViewModel.LoginVM
             SignUpAdminCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 p.Hide();
-                SignUpAdmin signUpAdmin = new SignUpAdmin();
+                SignUpAdminView signUpAdmin = new SignUpAdminView();
                 signUpAdmin.ShowDialog();
                 p.Show();
                 p.Focus();

@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLyHoatDongDayHoc.View.LoginWindow
+namespace QuanLyHoatDongDayHoc.Views.AuthenticationViews
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginView : Window
     {
-        public LoginWindow()
+        public LoginView()
         {
             InitializeComponent();
         }

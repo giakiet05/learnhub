@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace QuanLyHoatDongDayHoc.ViewModel.LoginVM.SignUpVM
+namespace QuanLyHoatDongDayHoc.ViewModels.AutheticationViewModel
 {
     public class SignUpViewModel : BaseViewModel
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace QuanLyHoatDongDayHoc.Properties
+namespace LearnHub.Properties
 {
 
 

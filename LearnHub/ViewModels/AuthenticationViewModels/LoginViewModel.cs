@@ -1,4 +1,4 @@
-﻿using QuanLyHoatDongDayHoc.Views.AuthenticationViews;
+﻿using LearnHub.Views.AuthenticationViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace QuanLyHoatDongDayHoc.ViewModels.AutheticationViewModel
+namespace LearnHub.ViewModels.AutheticationViewModel
 {
     public class LoginViewModel : BaseViewModel
     {

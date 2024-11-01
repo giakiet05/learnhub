@@ -1,28 +1,14 @@
 ﻿<Window x:Class="LearnHub.Views.AuthenticationViews.LoginView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LearnHub.Views.AuthenticationViews"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        mc:Ignorable="d"
-        x:Name="loginWindow" Height="545" Width="480"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"     
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        ResizeMode="NoResize"
-        Background="Transparent"
-        AllowsTransparency="True"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
-        DataContext="{StaticResource LoginVM}"
-        Icon="/Resource/Icons/appIcon.png">
 
+﻿<UserControl x:Class="LearnHub.Views.AuthenticationViews.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LearnHub.Views.AuthenticationViews"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="490">
+    
 
     <Border CornerRadius="10" Background="#FFF7F7">
         <StackPanel Margin="0,10,0,0">
@@ -32,9 +18,9 @@
                        Margin="44,37,365,0"/>
 
                 <TextBlock Text="LearnHub" FontSize="60" Width="266" Height="60"
-                   HorizontalAlignment="Left" VerticalAlignment="Top"
                    FontFamily="/Resource/Fonts/Roboto-Bold.ttf #Roboto"
                    Margin="134,37,0,0" Foreground="#5CB3FF"/>
+                           Margin="134,37,0,0" Foreground="#5CB3FF"/>
             </Grid>
 
             <TextBlock Text="Đăng Nhập" FontSize="35" HorizontalAlignment="Center"
@@ -44,15 +30,19 @@
                        Margin="0 15 0 0"/>
 
             <Grid Margin="0 35 0 0">
+                
                 <!--tên đăng nhập-->
                 <TextBox x:Name="tbUsername" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          materialDesign:HintAssist.Hint="Tên Đăng Nhập" FontSize="20"
                          HorizontalAlignment="Center" Width="298" Height="48"
                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                
                 <Button x:Name="btnClear" Content="X" HorizontalAlignment="Right"
                         Background="Transparent" BorderThickness="0" Margin="0,16,78,0"
-                        Width="42" Foreground="Black" Opacity="0.7" Click="btnClear_Click" RenderTransformOrigin="-0.571,0.594"/>
+                        Width="42" Foreground="Black" Opacity="0.7" Click="btnClear_Click"/>
+            
             </Grid>
+            
             <!--mật khẩu-->
             <PasswordBox x:Name="pbPassword" Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
                          materialDesign:HintAssist.Hint="Mật Khẩu" FontSize="20"
@@ -66,36 +56,25 @@
 
             <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
                 <!--nút xác nhận-->
-                <Button x:Name="btnConfirm" Content="Đăng Nhập" Width="115" Height="41" FontSize="16"
-                        Background="#5CB3FF" Foreground="Black" Opacity="0.9"
+                <Button x:Name="btnConfirm" Content="Đăng Nhập" Width="115" Height="41" FontSize="14"
+                        Background="#87C5FC" Foreground="Black" Opacity="0.9"
                         materialDesign:ButtonAssist.CornerRadius="8" BorderThickness="0"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         FontWeight="SemiBold"
                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                         Margin="100 0 10 0"/>
+                
                 <!--nút thoát-->
-                <Button x:Name="btnCancel" Content="Thoát" Width="115" Height="41" FontSize="16"
-                        Background="#6D7B8D" Foreground="Black" Opacity="0.9"
+                        Background="#93A7BF" Foreground="Black" Opacity="0.9"
                         materialDesign:ButtonAssist.CornerRadius="8" BorderThickness="0"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         FontWeight="SemiBold"
                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-                        Margin="40 0 10 0" Click="Button_Click"/>
+                        Margin="40 0 10 0"/>
 
             </StackPanel>
-            <!--đăng kí tài khoản admin-->
-            <TextBlock x:Name="tbSignUp" Text="Đăng ký tài khoản Admin" HorizontalAlignment="Center"
-                       VerticalAlignment="Center" FontSize="16" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-                       Margin="0 30 0 0" Cursor="Hand"
                        FontStyle="Italic">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <i:InvokeCommandAction Command="{Binding SignUpAdminCommand}"
-                                               CommandParameter="{Binding ElementName=loginWindow}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBlock>
 
         </StackPanel>
     </Border>
-</Window>
+</UserControl>

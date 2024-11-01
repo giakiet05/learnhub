@@ -15,29 +15,17 @@ using System.Windows.Shapes;
 namespace LearnHub.Views.AuthenticationViews
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for LoginView.xaml
     /// </summary>
     public partial class LoginView : Window
+    public partial class LoginView : UserControl
     {
         public LoginView()
         {
             InitializeComponent();
         }
 
-
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if(e.LeftButton == MouseButtonState.Pressed)
-            {
-                this.DragMove();
-            }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             tbUsername.Clear();

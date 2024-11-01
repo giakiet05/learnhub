@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LearnHub.Views.AuthenticationViews
@@ -17,7 +18,6 @@ namespace LearnHub.Views.AuthenticationViews
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class LoginView : Window
     public partial class LoginView : UserControl
     {
         public LoginView()
@@ -25,7 +25,6 @@ namespace LearnHub.Views.AuthenticationViews
             InitializeComponent();
         }
 
-        }
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             tbUsername.Clear();

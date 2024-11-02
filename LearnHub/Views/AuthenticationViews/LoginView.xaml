@@ -1,4 +1,3 @@
-
 ﻿<UserControl x:Class="LearnHub.Views.AuthenticationViews.LoginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,7 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="490">
     
-
     <Border CornerRadius="10" Background="#FFF7F7">
         <StackPanel Margin="0,10,0,0">
             <Grid>
@@ -40,7 +38,6 @@
                 <Button x:Name="btnClear" Content="X" HorizontalAlignment="Right"
                         Background="Transparent" BorderThickness="0" Margin="0,16,78,0"
                         Width="42" Foreground="Black" Opacity="0.7" Click="btnClear_Click"/>
-            
             </Grid>
             
             <!--mật khẩu-->
@@ -54,9 +51,9 @@
             <TextBlock x:Name="tbForgot" Text="Quên mật khẩu?" FontSize="16"
                        FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                        HorizontalAlignment="Right" Margin="0 10 90 0"/>
-
+           
             <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
-                
+               
                 <!--nút xác nhận-->
                 <Button x:Name="btnConfirm" Content="Đăng Nhập" Width="115" Height="41" FontSize="14"
                         Background="#87C5FC" Foreground="Black" Opacity="0.9"

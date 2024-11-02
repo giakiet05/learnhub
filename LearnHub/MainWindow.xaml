@@ -8,22 +8,41 @@
         xmlns:authenticationview="clr-namespace:LearnHub.Views.AuthenticationViews"
         xmlns:authenticationvm="clr-namespace:LearnHub.ViewModels.AuthenticationViewModels" 
         xmlns:viewmodels="clr-namespace:LearnHub.ViewModels"
+        xmlns:components="clr-namespace:LearnHub.Components"
         mc:Ignorable="d"
         Title="LearnHub" Height="490" Width="800"
         Icon="/Resource/Icons/appIcon.png"
+        AllowsTransparency="True"
         ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Transparent"
         WindowStartupLocation="CenterScreen">
-    
+
     <Window.DataContext>
         <viewmodels:MainViewModel/>
     </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <ContentControl Content="{Binding CurrentView}">
+        <!--ControlBar-->
+        <components:ControlBar/>
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentView}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type authenticationvm:LoginViewModel}">
                     <authenticationview:LoginView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
+
+    </Grid>
+
+
+
+
 
 </Window>

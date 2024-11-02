@@ -16,7 +16,7 @@ namespace LearnHub.Models
         public string YearId { get; set; }
         public DateTime ExamDate { get; set; }
         public string ExamType { get; set; }
-        public string ExamRoom { get; set; }
+        public string? ExamRoom { get; set; }
         //Navigation Properties
         public Subject Subject { get; set; }
         public Semester Semester { get; set; }

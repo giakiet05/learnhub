@@ -9,7 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resource\Fonts\Roboto-Bold.ttf" />
+    <None Remove="Resource\Fonts\Roboto-Medium.ttf" />
+    <None Remove="Resource\Icons\appIcon.png" />
+    <None Remove="Resource\Icons\icons8-school-26.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
+    <PackageReference Include="SimpleModal.WPF" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resource\Fonts\Roboto-Bold.ttf" />
+    <Resource Include="Resource\Fonts\Roboto-Medium.ttf" />
+    <Resource Include="Resource\Icons\appIcon.png" />
+    <Resource Include="Resource\Icons\icons8-school-26.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

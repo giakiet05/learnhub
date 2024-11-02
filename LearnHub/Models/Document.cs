@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LearnHub.Models
+{
+    public class Document
+    {
+        [Key]
+        public string DocumentId { get; set; }
+
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public DateTime UploadDate { get; set; }
+
+        public string TeacherUsername { get; set; }
+        public string SubjectId { get; set; }
+        public string ClassroomId { get; set; }
+        //Navigation Properties
+        public Teacher Teacher { get; set; }
+        public Subject Subject { get; set; }
+        public Classroom Classroom { get; set; }
+    }
+}

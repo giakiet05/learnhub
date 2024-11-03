@@ -13,10 +13,10 @@ namespace LearnHub.Models
         public string YearId { get; set; }
         public string StudentUsername { get; set; }
 
-        public double? YearAverageScore { get; set; }
-        public double? FirstSemesterAverageScore { get; set; }
-        public double? SecondSemesterAverageScore { get; set; }
-        public string? Result { get; set; } // Kết quả
+        public double? YearAvgScore { get; set; }
+        public double? FirstSemAvgScore { get; set; }
+        public double? SecondSemAvgScore { get; set; }
+        public string? Result { get; set; } // Kết quả = hạnh kiểm + học lực
         public string? Conduct { get; set; } //Hạnh kiểm
         public string? AcademicPerformance { get; set; } //Học lực
         //Navigation Properties

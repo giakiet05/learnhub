@@ -14,6 +14,6 @@ namespace LearnHub.Models
         public string SemesterName { get; set; }
         //Navigation Properties
         public ICollection<ExamSchedule> ExamSchedules { get; set; }
-        public ICollection<YearResult> YearResults { get; set; }
+        public ICollection<SubjectResult> SubjectResults { get; set; }
     }
 }

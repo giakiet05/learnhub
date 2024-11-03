@@ -13,9 +13,9 @@ namespace LearnHub.Models
         [Key, ForeignKey("User")]
         public string Username { get; set; }
         public string FullName { get; set; }
+        public string Gender { get; set; }
         public string? Address { get; set; }
         public DateTime? BirthDay { get; set; }
-        public string Gender { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Ethnicity { get; set; }
         public string? Religion { get; set; }

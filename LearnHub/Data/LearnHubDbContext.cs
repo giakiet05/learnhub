@@ -52,14 +52,13 @@ namespace LearnHub.Data
 
             modelBuilder.Entity<Teacher>(e =>
             {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Male', 'Female')"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_User_CitizenID", "[CitizenID] IS NULL OR length([CitizenID]) = 12"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12"));
             });
 
             modelBuilder.Entity<Student>(e =>
             {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Male', 'Female')"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_User_CitizenID", "[CitizenID] IS NULL OR length([CitizenID]) = 12"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')"));
             });
 
             modelBuilder.Entity<TeachingAssignment>(e =>
@@ -81,6 +80,16 @@ namespace LearnHub.Data
                 e.ToTable(tb => tb.HasCheckConstraint("CK_MidTermScore", "[MidTermScore] BETWEEN 0 AND 10"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_FinalTermScore", "[FinalTermScore] BETWEEN 0 AND 10"));
 
+            });
+
+            modelBuilder.Entity<YearResult>(e =>
+            {
+                e.ToTable(tb => tb.HasCheckConstraint("CK_YearAvgScore", "[YearAvgScore] BETWEEN 0 AND 10"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_FirstSemAvgScore", "[FirstSemAvgScore] BETWEEN 0 AND 10"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_SecondSemAvgScore", "[SecondSemAvgScore] BETWEEN 0 AND 10"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Result", "[Result] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
             });
 
             base.OnModelCreating(modelBuilder);

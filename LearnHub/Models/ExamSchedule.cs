@@ -9,11 +9,11 @@ namespace LearnHub.Models
 {
     public class ExamSchedule
     {
+        [ForeignKey("AcademicYear")]
+        public string YearId { get; set; }
         public string SubjectId { get; set; }
         public string SemesterId { get; set; }
         public string ClassroomId { get; set; }
-        [ForeignKey("AcademicYear")]
-        public string YearId { get; set; }
         public DateTime ExamDate { get; set; }
         public string ExamType { get; set; }
         public string? ExamRoom { get; set; }

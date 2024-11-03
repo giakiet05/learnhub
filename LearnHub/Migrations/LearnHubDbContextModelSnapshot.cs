@@ -36,7 +36,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("ClassroomId")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Capacity")
+                    b.Property<int?>("Capacity")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ClassroomName")
@@ -44,7 +44,6 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("GradeId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TeacherInChargeUsername")
@@ -65,26 +64,23 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClassroomId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Content")
+                    b.Property<byte[]>("Content")
                         .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<DateTime?>("PublishTime")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SubjectId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TeacherUsername")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("UploadDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("DocumentId");
@@ -130,7 +126,10 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("YearId");
 
-                    b.ToTable("ExamSchedules");
+                    b.ToTable("ExamSchedules", t =>
+                        {
+                            t.HasCheckConstraint("CK_ExamType", "[ExamType] IN ('GK', 'CK')");
+                        });
                 });
 
             modelBuilder.Entity("LearnHub.Models.Exercise", b =>
@@ -139,21 +138,24 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClassroomId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime?>("EndTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("PublishTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("StartTime")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SubjectId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TeacherUsername")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -195,17 +197,16 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Creator")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("PublishDate")
+                    b.Property<DateTime?>("PublishDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -213,7 +214,7 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("ClassroomId");
 
-                    b.HasIndex("Username");
+                    b.HasIndex("Creator");
 
                     b.ToTable("Notifications");
                 });
@@ -314,7 +315,10 @@ namespace LearnHub.Migrations
 
                     b.HasKey("Username");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", t =>
+                        {
+                            t.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
+                        });
                 });
 
             modelBuilder.Entity("LearnHub.Models.StudentPlacement", b =>
@@ -343,7 +347,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("SubjectId")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("LessonNumber")
+                    b.Property<int?>("LessonNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SubjectName")
@@ -392,7 +396,16 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("YearId");
 
-                    b.ToTable("SubjectResults");
+                    b.ToTable("SubjectResults", t =>
+                        {
+                            t.HasCheckConstraint("CK_FifteenMinScore", "[FifteenMinScore] BETWEEN 0 AND 10");
+
+                            t.HasCheckConstraint("CK_FinalTermScore", "[FinalTermScore] BETWEEN 0 AND 10");
+
+                            t.HasCheckConstraint("CK_MidTermScore", "[MidTermScore] BETWEEN 0 AND 10");
+
+                            t.HasCheckConstraint("CK_OralScore", "[OralScore] BETWEEN 0 AND 10");
+                        });
                 });
 
             modelBuilder.Entity("LearnHub.Models.Teacher", b =>
@@ -441,7 +454,12 @@ namespace LearnHub.Migrations
 
                     b.HasKey("Username");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", t =>
+                        {
+                            t.HasCheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12");
+
+                            t.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
+                        });
                 });
 
             modelBuilder.Entity("LearnHub.Models.TeachingAssignment", b =>
@@ -458,10 +476,10 @@ namespace LearnHub.Migrations
                     b.Property<string>("TeacherUsername")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartTime")
                         .HasColumnType("TEXT");
 
                     b.HasKey("SubjectId", "ClassroomId", "YearId", "TeacherUsername");
@@ -472,7 +490,10 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("YearId");
 
-                    b.ToTable("TeachingAssignments");
+                    b.ToTable("TeachingAssignments", t =>
+                        {
+                            t.HasCheckConstraint("CK_TeachingAssignment_Time", "[StartTime] < [EndTime]");
+                        });
                 });
 
             modelBuilder.Entity("LearnHub.Models.User", b =>
@@ -492,10 +513,6 @@ namespace LearnHub.Migrations
 
                     b.ToTable("Users", t =>
                         {
-                            t.HasCheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12");
-
-                            t.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Male', 'Female')");
-
                             t.HasCheckConstraint("CK_User_Role", "[Role] IN ('Admin', 'Student', 'Teacher')");
                         });
                 });
@@ -514,37 +531,43 @@ namespace LearnHub.Migrations
                     b.Property<string>("Conduct")
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("FirstSemesterAverageScore")
+                    b.Property<double?>("FirstSemAvgScore")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Result")
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("SecondSemesterAverageScore")
+                    b.Property<double?>("SecondSemAvgScore")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("SemesterId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double?>("YearAverageScore")
+                    b.Property<double?>("YearAvgScore")
                         .HasColumnType("REAL");
 
                     b.HasKey("YearId", "StudentUsername");
 
-                    b.HasIndex("SemesterId");
-
                     b.HasIndex("StudentUsername");
 
-                    b.ToTable("YearResults");
+                    b.ToTable("YearResults", t =>
+                        {
+                            t.HasCheckConstraint("CK_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+
+                            t.HasCheckConstraint("CK_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+
+                            t.HasCheckConstraint("CK_FirstSemAvgScore", "[FirstSemAvgScore] BETWEEN 0 AND 10");
+
+                            t.HasCheckConstraint("CK_Result", "[Result] IN (N'Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+
+                            t.HasCheckConstraint("CK_SecondSemAvgScore", "[SecondSemAvgScore] BETWEEN 0 AND 10");
+
+                            t.HasCheckConstraint("CK_YearAvgScore", "[YearAvgScore] BETWEEN 0 AND 10");
+                        });
                 });
 
             modelBuilder.Entity("LearnHub.Models.Classroom", b =>
                 {
                     b.HasOne("LearnHub.Models.Grade", "Grade")
                         .WithMany("Classrooms")
-                        .HasForeignKey("GradeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GradeId");
 
                     b.HasOne("LearnHub.Models.Teacher", "TeacherInCharge")
                         .WithMany("Classrooms")
@@ -559,21 +582,15 @@ namespace LearnHub.Migrations
                 {
                     b.HasOne("LearnHub.Models.Classroom", "Classroom")
                         .WithMany("Documents")
-                        .HasForeignKey("ClassroomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClassroomId");
 
                     b.HasOne("LearnHub.Models.Subject", "Subject")
                         .WithMany("Documents")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubjectId");
 
                     b.HasOne("LearnHub.Models.Teacher", "Teacher")
                         .WithMany("Documents")
-                        .HasForeignKey("TeacherUsername")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherUsername");
 
                     b.Navigation("Classroom");
 
@@ -621,21 +638,15 @@ namespace LearnHub.Migrations
                 {
                     b.HasOne("LearnHub.Models.Classroom", "Classroom")
                         .WithMany("Exercises")
-                        .HasForeignKey("ClassroomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClassroomId");
 
                     b.HasOne("LearnHub.Models.Subject", "Subject")
                         .WithMany("Exercises")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubjectId");
 
                     b.HasOne("LearnHub.Models.Teacher", "Teacher")
                         .WithMany("Exercises")
-                        .HasForeignKey("TeacherUsername")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherUsername");
 
                     b.Navigation("Classroom");
 
@@ -654,7 +665,7 @@ namespace LearnHub.Migrations
 
                     b.HasOne("LearnHub.Models.User", "User")
                         .WithMany("Notifications")
-                        .HasForeignKey("Username")
+                        .HasForeignKey("Creator")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -715,7 +726,7 @@ namespace LearnHub.Migrations
             modelBuilder.Entity("LearnHub.Models.SubjectResult", b =>
                 {
                     b.HasOne("LearnHub.Models.Semester", "Semester")
-                        .WithMany()
+                        .WithMany("SubjectResults")
                         .HasForeignKey("SemesterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -795,10 +806,6 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.YearResult", b =>
                 {
-                    b.HasOne("LearnHub.Models.Semester", null)
-                        .WithMany("YearResults")
-                        .HasForeignKey("SemesterId");
-
                     b.HasOne("LearnHub.Models.Student", "Student")
                         .WithMany("YearResults")
                         .HasForeignKey("StudentUsername")
@@ -853,7 +860,7 @@ namespace LearnHub.Migrations
                 {
                     b.Navigation("ExamSchedules");
 
-                    b.Navigation("YearResults");
+                    b.Navigation("SubjectResults");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Student", b =>

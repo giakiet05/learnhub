@@ -11,13 +11,13 @@ namespace LearnHub.Models
 {
     public class TeachingAssignment
     {
+        [ForeignKey("AcademicYear")]
+        public string YearId { get; set; }
         public string ClassroomId { get; set; }
         public string SubjectId { get; set; }
         public string TeacherUsername { get; set; }
-        [ForeignKey("AcademicYear")]
-        public string YearId { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         //Navigation Properties
         public Classroom Classroom { get; set; }
         public Subject Subject { get; set; }

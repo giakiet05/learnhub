@@ -53,7 +53,7 @@ namespace LearnHub.Migrations
                 {
                     SubjectId = table.Column<string>(type: "TEXT", nullable: false),
                     SubjectName = table.Column<string>(type: "TEXT", nullable: false),
-                    LessonNumber = table.Column<int>(type: "INTEGER", nullable: false)
+                    LessonNumber = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,8 +71,6 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Username);
-                    table.CheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12");
-                    table.CheckConstraint("CK_User_Gender", "[Gender] IN ('Male', 'Female')");
                     table.CheckConstraint("CK_User_Role", "[Role] IN ('Admin', 'Student', 'Teacher')");
                 });
 
@@ -82,9 +80,9 @@ namespace LearnHub.Migrations
                 {
                     Username = table.Column<string>(type: "TEXT", nullable: false),
                     FullName = table.Column<string>(type: "TEXT", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     BirthDay = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Gender = table.Column<string>(type: "TEXT", nullable: false),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
                     Ethnicity = table.Column<string>(type: "TEXT", nullable: true),
                     Religion = table.Column<string>(type: "TEXT", nullable: true),
@@ -96,6 +94,7 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.Username);
+                    table.CheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
                     table.ForeignKey(
                         name: "FK_Students_Users_Username",
                         column: x => x.Username,
@@ -125,6 +124,8 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teachers", x => x.Username);
+                    table.CheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12");
+                    table.CheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
                     table.ForeignKey(
                         name: "FK_Teachers_Users_Username",
                         column: x => x.Username,
@@ -137,10 +138,10 @@ namespace LearnHub.Migrations
                 name: "SubjectResults",
                 columns: table => new
                 {
+                    YearId = table.Column<string>(type: "TEXT", nullable: false),
                     SemesterId = table.Column<string>(type: "TEXT", nullable: false),
                     SubjectId = table.Column<string>(type: "TEXT", nullable: false),
                     StudentUsername = table.Column<string>(type: "TEXT", nullable: false),
-                    YearId = table.Column<string>(type: "TEXT", nullable: false),
                     OralScore = table.Column<double>(type: "REAL", nullable: true),
                     FifteenMinScore = table.Column<double>(type: "REAL", nullable: true),
                     MidTermScore = table.Column<double>(type: "REAL", nullable: true),
@@ -150,6 +151,10 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SubjectResults", x => new { x.SubjectId, x.SemesterId, x.YearId, x.StudentUsername });
+                    table.CheckConstraint("CK_FifteenMinScore", "[FifteenMinScore] BETWEEN 0 AND 10");
+                    table.CheckConstraint("CK_FinalTermScore", "[FinalTermScore] BETWEEN 0 AND 10");
+                    table.CheckConstraint("CK_MidTermScore", "[MidTermScore] BETWEEN 0 AND 10");
+                    table.CheckConstraint("CK_OralScore", "[OralScore] BETWEEN 0 AND 10");
                     table.ForeignKey(
                         name: "FK_SubjectResults_AcademicYears_YearId",
                         column: x => x.YearId,
@@ -182,28 +187,28 @@ namespace LearnHub.Migrations
                 {
                     YearId = table.Column<string>(type: "TEXT", nullable: false),
                     StudentUsername = table.Column<string>(type: "TEXT", nullable: false),
-                    YearAverageScore = table.Column<double>(type: "REAL", nullable: true),
-                    FirstSemesterAverageScore = table.Column<double>(type: "REAL", nullable: true),
-                    SecondSemesterAverageScore = table.Column<double>(type: "REAL", nullable: true),
+                    YearAvgScore = table.Column<double>(type: "REAL", nullable: true),
+                    FirstSemAvgScore = table.Column<double>(type: "REAL", nullable: true),
+                    SecondSemAvgScore = table.Column<double>(type: "REAL", nullable: true),
                     Result = table.Column<string>(type: "TEXT", nullable: true),
                     Conduct = table.Column<string>(type: "TEXT", nullable: true),
-                    AcademicPerformance = table.Column<string>(type: "TEXT", nullable: true),
-                    SemesterId = table.Column<string>(type: "TEXT", nullable: true)
+                    AcademicPerformance = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_YearResults", x => new { x.YearId, x.StudentUsername });
+                    table.CheckConstraint("CK_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                    table.CheckConstraint("CK_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                    table.CheckConstraint("CK_FirstSemAvgScore", "[FirstSemAvgScore] BETWEEN 0 AND 10");
+                    table.CheckConstraint("CK_Result", "[Result] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                    table.CheckConstraint("CK_SecondSemAvgScore", "[SecondSemAvgScore] BETWEEN 0 AND 10");
+                    table.CheckConstraint("CK_YearAvgScore", "[YearAvgScore] BETWEEN 0 AND 10");
                     table.ForeignKey(
                         name: "FK_YearResults_AcademicYears_YearId",
                         column: x => x.YearId,
                         principalTable: "AcademicYears",
                         principalColumn: "YearId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_YearResults_Semesters_SemesterId",
-                        column: x => x.SemesterId,
-                        principalTable: "Semesters",
-                        principalColumn: "SemesterId");
                     table.ForeignKey(
                         name: "FK_YearResults_Students_StudentUsername",
                         column: x => x.StudentUsername,
@@ -218,8 +223,8 @@ namespace LearnHub.Migrations
                 {
                     ClassroomId = table.Column<string>(type: "TEXT", nullable: false),
                     ClassroomName = table.Column<string>(type: "TEXT", nullable: false),
-                    Capacity = table.Column<int>(type: "INTEGER", nullable: false),
-                    GradeId = table.Column<string>(type: "TEXT", nullable: false),
+                    Capacity = table.Column<int>(type: "INTEGER", nullable: true),
+                    GradeId = table.Column<string>(type: "TEXT", nullable: true),
                     TeacherInChargeUsername = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -229,8 +234,7 @@ namespace LearnHub.Migrations
                         name: "FK_Classrooms_Grades_GradeId",
                         column: x => x.GradeId,
                         principalTable: "Grades",
-                        principalColumn: "GradeId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "GradeId");
                     table.ForeignKey(
                         name: "FK_Classrooms_Teachers_TeacherInChargeUsername",
                         column: x => x.TeacherInChargeUsername,
@@ -244,11 +248,11 @@ namespace LearnHub.Migrations
                 {
                     DocumentId = table.Column<string>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Content = table.Column<string>(type: "TEXT", nullable: false),
-                    UploadDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TeacherUsername = table.Column<string>(type: "TEXT", nullable: false),
-                    SubjectId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClassroomId = table.Column<string>(type: "TEXT", nullable: false)
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: false),
+                    PublishTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    TeacherUsername = table.Column<string>(type: "TEXT", nullable: true),
+                    SubjectId = table.Column<string>(type: "TEXT", nullable: true),
+                    ClassroomId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -257,30 +261,27 @@ namespace LearnHub.Migrations
                         name: "FK_Documents_Classrooms_ClassroomId",
                         column: x => x.ClassroomId,
                         principalTable: "Classrooms",
-                        principalColumn: "ClassroomId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ClassroomId");
                     table.ForeignKey(
                         name: "FK_Documents_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
-                        principalColumn: "SubjectId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "SubjectId");
                     table.ForeignKey(
                         name: "FK_Documents_Teachers_TeacherUsername",
                         column: x => x.TeacherUsername,
                         principalTable: "Teachers",
-                        principalColumn: "Username",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Username");
                 });
 
             migrationBuilder.CreateTable(
                 name: "ExamSchedules",
                 columns: table => new
                 {
+                    YearId = table.Column<string>(type: "TEXT", nullable: false),
                     SubjectId = table.Column<string>(type: "TEXT", nullable: false),
                     SemesterId = table.Column<string>(type: "TEXT", nullable: false),
                     ClassroomId = table.Column<string>(type: "TEXT", nullable: false),
-                    YearId = table.Column<string>(type: "TEXT", nullable: false),
                     ExamDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ExamType = table.Column<string>(type: "TEXT", nullable: false),
                     ExamRoom = table.Column<string>(type: "TEXT", nullable: true)
@@ -288,6 +289,7 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExamSchedules", x => new { x.SubjectId, x.YearId, x.SemesterId, x.ClassroomId });
+                    table.CheckConstraint("CK_ExamType", "[ExamType] IN ('GK', 'CK')");
                     table.ForeignKey(
                         name: "FK_ExamSchedules_AcademicYears_YearId",
                         column: x => x.YearId,
@@ -320,11 +322,13 @@ namespace LearnHub.Migrations
                 {
                     ExerciseId = table.Column<string>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TeacherUsername = table.Column<string>(type: "TEXT", nullable: false),
-                    SubjectId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClassroomId = table.Column<string>(type: "TEXT", nullable: false)
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    TeacherUsername = table.Column<string>(type: "TEXT", nullable: true),
+                    SubjectId = table.Column<string>(type: "TEXT", nullable: true),
+                    ClassroomId = table.Column<string>(type: "TEXT", nullable: true),
+                    PublishTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    StartTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    EndTime = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -333,20 +337,17 @@ namespace LearnHub.Migrations
                         name: "FK_Exercise_Classrooms_ClassroomId",
                         column: x => x.ClassroomId,
                         principalTable: "Classrooms",
-                        principalColumn: "ClassroomId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ClassroomId");
                     table.ForeignKey(
                         name: "FK_Exercise_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
-                        principalColumn: "SubjectId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "SubjectId");
                     table.ForeignKey(
                         name: "FK_Exercise_Teachers_TeacherUsername",
                         column: x => x.TeacherUsername,
                         principalTable: "Teachers",
-                        principalColumn: "Username",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Username");
                 });
 
             migrationBuilder.CreateTable(
@@ -354,11 +355,11 @@ namespace LearnHub.Migrations
                 columns: table => new
                 {
                     NotificationId = table.Column<string>(type: "TEXT", nullable: false),
+                    Creator = table.Column<string>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Content = table.Column<string>(type: "TEXT", nullable: false),
-                    PublishDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ClassroomId = table.Column<string>(type: "TEXT", nullable: false),
-                    Username = table.Column<string>(type: "TEXT", nullable: false)
+                    Content = table.Column<string>(type: "TEXT", nullable: true),
+                    PublishDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -370,8 +371,8 @@ namespace LearnHub.Migrations
                         principalColumn: "ClassroomId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Notifications_Users_Username",
-                        column: x => x.Username,
+                        name: "FK_Notifications_Users_Creator",
+                        column: x => x.Creator,
                         principalTable: "Users",
                         principalColumn: "Username",
                         onDelete: ReferentialAction.Cascade);
@@ -381,9 +382,9 @@ namespace LearnHub.Migrations
                 name: "StudentPlacements",
                 columns: table => new
                 {
+                    YearId = table.Column<string>(type: "TEXT", nullable: false),
                     ClassroomId = table.Column<string>(type: "TEXT", nullable: false),
-                    StudentUsername = table.Column<string>(type: "TEXT", nullable: false),
-                    YearId = table.Column<string>(type: "TEXT", nullable: false)
+                    StudentUsername = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -412,16 +413,17 @@ namespace LearnHub.Migrations
                 name: "TeachingAssignments",
                 columns: table => new
                 {
+                    YearId = table.Column<string>(type: "TEXT", nullable: false),
                     ClassroomId = table.Column<string>(type: "TEXT", nullable: false),
                     SubjectId = table.Column<string>(type: "TEXT", nullable: false),
                     TeacherUsername = table.Column<string>(type: "TEXT", nullable: false),
-                    YearId = table.Column<string>(type: "TEXT", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    StartTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    EndTime = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TeachingAssignments", x => new { x.SubjectId, x.ClassroomId, x.YearId, x.TeacherUsername });
+                    table.CheckConstraint("CK_TeachingAssignment_Time", "[StartTime] < [EndTime]");
                     table.ForeignKey(
                         name: "FK_TeachingAssignments_AcademicYears_YearId",
                         column: x => x.YearId,
@@ -533,9 +535,9 @@ namespace LearnHub.Migrations
                 column: "ClassroomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notifications_Username",
+                name: "IX_Notifications_Creator",
                 table: "Notifications",
-                column: "Username");
+                column: "Creator");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Questions_ExerciseId",
@@ -584,11 +586,6 @@ namespace LearnHub.Migrations
                 column: "YearId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_YearResults_SemesterId",
-                table: "YearResults",
-                column: "SemesterId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_YearResults_StudentUsername",
                 table: "YearResults",
                 column: "StudentUsername");
@@ -625,10 +622,10 @@ namespace LearnHub.Migrations
                 name: "Exercise");
 
             migrationBuilder.DropTable(
-                name: "AcademicYears");
+                name: "Semesters");
 
             migrationBuilder.DropTable(
-                name: "Semesters");
+                name: "AcademicYears");
 
             migrationBuilder.DropTable(
                 name: "Students");

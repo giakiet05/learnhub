@@ -13,14 +13,15 @@ namespace LearnHub.Models
         [Key]
         public string NotificationId { get; set; }
 
+        [ForeignKey("User")]
+        public string Creator { get; set; }
         public string Title { get; set; }
-        public string Content { get; set; }
-        public DateTime PublishDate { get; set; }
 
         public string ClassroomId { get; set; }
 
-        [ForeignKey("User")]
-        public string Username { get; set; }
+        public string? Content { get; set; }
+        public DateTime? PublishDate { get; set; }
+
         //Navigation Properties
         public Classroom Classroom { get; set; }
         public User User { get; set; }

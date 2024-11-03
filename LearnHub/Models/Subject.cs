@@ -15,7 +15,7 @@ namespace LearnHub.Models
 
         public string SubjectName { get; set; }
 
-        public int LessonNumber { get; set; }
+        public int? LessonNumber { get; set; }
 
         //Navigation Properties
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }

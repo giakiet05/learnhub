@@ -9,11 +9,13 @@ namespace LearnHub.Models
 {
     public class SubjectResult
     {
+        
+        [ForeignKey("AcademicYear")]
+        public string YearId { get; set; }
         public string SemesterId { get; set; }
         public string SubjectId { get; set; }
         public string StudentUsername { get; set; }
-        [ForeignKey("AcademicYear")]
-        public string YearId { get; set; }
+
 
         public double? OralScore { get; set; }
         public double? FifteenMinScore { get; set; }

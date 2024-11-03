@@ -1,4 +1,5 @@
 ﻿using LearnHub.ViewModels.AuthenticationViewModels;
+using LearnHub.ViewModels.WaitingViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace LearnHub.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public LoginViewModel LoginVM { get; set; }
+        public WaitingViewModel WaitingVM { get; set; }
 
         private object _currentView;
 
@@ -21,8 +22,8 @@ namespace LearnHub.ViewModels
 
         public MainViewModel()
         {
-            LoginVM = new LoginViewModel();
-            CurrentView = LoginVM;
+            WaitingVM = new WaitingViewModel();
+            CurrentView = WaitingVM;
         }
     }
 }

@@ -12,7 +12,19 @@
     <None Remove="Resource\Fonts\Roboto-Bold.ttf" />
     <None Remove="Resource\Fonts\Roboto-Medium.ttf" />
     <None Remove="Resource\Icons\appIcon.png" />
+    <None Remove="Resource\Icons\calendar.png" />
+    <None Remove="Resource\Icons\class.png" />
+    <None Remove="Resource\Icons\home.png" />
     <None Remove="Resource\Icons\icons8-school-26.png" />
+    <None Remove="Resource\Icons\login.png" />
+    <None Remove="Resource\Icons\logout.png" />
+    <None Remove="Resource\Icons\menu.png" />
+    <None Remove="Resource\Icons\menu_effect.png" />
+    <None Remove="Resource\Icons\student.png" />
+    <None Remove="Resource\Icons\teacher.png" />
+    <None Remove="Resource\Icons\user.png" />
+    <None Remove="Resource\Icons\warning.png" />
+    <None Remove="Resource\Images\march7.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,9 +42,21 @@
     <Resource Include="Resource\Fonts\Roboto-Bold.ttf" />
     <Resource Include="Resource\Fonts\Roboto-Medium.ttf" />
     <Resource Include="Resource\Icons\appIcon.png" />
+    <Resource Include="Resource\Icons\calendar.png" />
+    <Resource Include="Resource\Icons\class.png" />
+    <Resource Include="Resource\Icons\home.png" />
     <Resource Include="Resource\Icons\icons8-school-26.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resource\Icons\login.png" />
+    <Resource Include="Resource\Icons\logout.png" />
+    <Resource Include="Resource\Icons\menu.png" />
+    <Resource Include="Resource\Icons\menu_effect.png" />
+    <Resource Include="Resource\Icons\student.png" />
+    <Resource Include="Resource\Icons\teacher.png" />
+    <Resource Include="Resource\Icons\user.png" />
+    <Resource Include="Resource\Icons\warning.png" />
+    <Resource Include="Resource\Images\march7.jpg" />
   </ItemGroup>
 
 </Project>

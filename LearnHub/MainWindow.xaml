@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LearnHub" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:authenticationview="clr-namespace:LearnHub.Views.AuthenticationViews"
-        xmlns:authenticationvm="clr-namespace:LearnHub.ViewModels.AuthenticationViewModels" 
+        xmlns:waitvm="clr-namespace:LearnHub.ViewModels.WaitingViewModels" 
         xmlns:viewmodels="clr-namespace:LearnHub.ViewModels"
-        xmlns:components="clr-namespace:LearnHub.Components"
+        xmlns:components="clr-namespace:LearnHub.Components" 
+        xmlns:waitingviews="clr-namespace:LearnHub.Views.WaitingViews"
         mc:Ignorable="d"
         Title="LearnHub" Height="490" Width="800"
         Icon="/Resource/Icons/appIcon.png"
@@ -33,8 +33,8 @@
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentView}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type authenticationvm:LoginViewModel}">
-                    <authenticationview:LoginView/>
+                <DataTemplate DataType="{x:Type waitvm:WaitingViewModel}">
+                    <waitingviews:WaitingView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

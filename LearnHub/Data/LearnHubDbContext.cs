@@ -29,12 +29,17 @@ namespace LearnHub.Data
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<Subject> Subjects { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // Build the path to the bin directory
-            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LearnHub.db");
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    // Build the path to the bin directory
+        //    var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LearnHub.db");
 
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        //    optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        //}
+
+        public LearnHubDbContext(DbContextOptions options) : base(options) 
+        {
+            
         }
 
 

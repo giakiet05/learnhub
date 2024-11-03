@@ -21,7 +21,7 @@ namespace LearnHub.Models
         public double? FifteenMinScore { get; set; }
         public double? MidTermScore { get; set; }
         public double? FinalTermScore { get; set; }
-        public double? AverageScore { get; set; }
+        public double? AvgScore { get; set; }
         //Navigation Properties
         public Semester Semester { get; set; }
         public Subject Subject { get; set; }

@@ -26,38 +26,27 @@ namespace LearnHub.Data
         public DbSet<SubjectResult> SubjectResults { get; set; }
         public DbSet<YearResult> YearResults { get; set; }
         public DbSet<TeachingAssignment> TeachingAssignments { get; set; }
-        public DbSet<Exercise> Exercise { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Subject> Subjects { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    // Build the path to the bin directory
-        //    var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LearnHub.db");
-
-        //    optionsBuilder.UseSqlite($"Data Source={dbPath}");
-        //}
-
-        public LearnHubDbContext(DbContextOptions options) : base(options) 
-        {
-            
-        }
+        public LearnHubDbContext(DbContextOptions options) : base(options) { }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Composite keys
-            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.YearId, e.SemesterId, e.ClassroomId});
+            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.YearId, e.SemesterId, e.ClassroomId });
             modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.YearId, e.TeacherUsername });
             modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentUsername, e.YearId });
-            modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.SemesterId, e.YearId, e.StudentUsername});
+            modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.SemesterId, e.YearId, e.StudentUsername });
             modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentUsername });
 
             //Check constraints
             modelBuilder.Entity<User>(e =>
             {
                 e.ToTable(tb => tb.HasCheckConstraint("CK_User_Role", "[Role] IN ('Admin', 'Student', 'Teacher')"));
-              
-               
+
+
             });
 
             modelBuilder.Entity<Teacher>(e =>

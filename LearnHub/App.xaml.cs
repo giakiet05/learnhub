@@ -34,8 +34,9 @@ namespace LearnHub
             {
                 DataContext = new MainViewModel(navigationStore)
             };
-        
+
             MainWindow.Show();
             base.OnStartup(e);
         }
+    }
 }

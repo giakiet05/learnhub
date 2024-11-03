@@ -11,11 +11,12 @@ namespace LearnHub.Models
     {
         
         [ForeignKey("AcademicYear")]
-        public string YearId { get; set; }
-        public string SemesterId { get; set; }
-        public string SubjectId { get; set; }
-        public string StudentUsername { get; set; }
+        public Guid YearId { get; set; }
+        //public Guid SemesterId { get; set; }
+        public Guid SubjectId { get; set; }
+        public Guid StudentId { get; set; }
 
+        public string Semester { get; set; }
 
         public double? OralScore { get; set; }
         public double? FifteenMinScore { get; set; }
@@ -23,7 +24,7 @@ namespace LearnHub.Models
         public double? FinalTermScore { get; set; }
         public double? AvgScore { get; set; }
         //Navigation Properties
-        public Semester Semester { get; set; }
+        //public Semester Semester { get; set; }
         public Subject Subject { get; set; }
         public Student Student { get; set; }
         public AcademicYear AcademicYear { get; set; }

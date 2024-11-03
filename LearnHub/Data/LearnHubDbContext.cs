@@ -22,7 +22,7 @@ namespace LearnHub.Data
         public DbSet<ExamSchedule> ExamSchedules { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<Semester> Semesters { get; set; }
+       // public DbSet<Semester> Semesters { get; set; }
         public DbSet<SubjectResult> SubjectResults { get; set; }
         public DbSet<YearResult> YearResults { get; set; }
         public DbSet<TeachingAssignment> TeachingAssignments { get; set; }
@@ -35,11 +35,11 @@ namespace LearnHub.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Composite keys
-            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.YearId, e.SemesterId, e.ClassroomId });
-            modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.YearId, e.TeacherUsername });
-            modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentUsername, e.YearId });
-            modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.SemesterId, e.YearId, e.StudentUsername });
-            modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentUsername });
+            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.YearId, e.Semester, e.ClassroomId });
+            modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.YearId, e.TeacherId });
+            modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentId, e.YearId });
+            modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId });
+            modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentId });
 
             //Check constraints
             modelBuilder.Entity<User>(e =>

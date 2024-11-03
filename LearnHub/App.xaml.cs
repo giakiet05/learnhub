@@ -5,6 +5,8 @@ using LearnHub.ViewModels;
 using System.Configuration;
 using System.Data;
 using System.Windows;
+using LearnHub.Services;
+using LearnHub.Models;
 
 namespace LearnHub
 {
@@ -15,18 +17,20 @@ namespace LearnHub
     {
         private readonly string _connectionString = "Data Source=LearnHubSqlite.db";
         private readonly LearnHubDbContextFactory _dbContextFactory;
-
+        
 
         public App()
         {
             _dbContextFactory = new LearnHubDbContextFactory(_connectionString);
         }
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             //Tự động cập nhật database hoặc tạo mới nếu chưa có từ migration mới nhất
             using (LearnHubDbContext context = _dbContextFactory.CreateDbContext())
             {
+
                 context.Database.Migrate();
+                
             }
             NavigationStore navigationStore = new NavigationStore();
 

@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class AcademicYear
+    public class AcademicYear : DomainObject
     {
-        [Key]
-        public string Id { get; set; }
+      
         public string Name { get; set; }
 
         //Navigation Properties
         public ICollection<YearResult> YearResults { get; set; }
-        public ICollection<StudentPlacement> StudentPlacement { get; set; }
+        public ICollection<StudentPlacement> StudentPlacements { get; set; }
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }
         public ICollection<ExamSchedule> ExamSchedules { get; set; }
         public ICollection<SubjectResult> SubjectResults { get; set; }

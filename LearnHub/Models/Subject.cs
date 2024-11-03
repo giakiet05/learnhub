@@ -11,9 +11,9 @@ namespace LearnHub.Models
     public class Subject
     {
         [Key]
-        public string SubjectId { get; set; }
+        public string Id { get; set; }
 
-        public string SubjectName { get; set; }
+        public string Name { get; set; }
 
         public int? LessonNumber { get; set; }
 

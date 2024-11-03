@@ -10,7 +10,7 @@ namespace LearnHub.Models
     public class Document
     {
         [Key]
-        public string DocumentId { get; set; }
+        public string Id { get; set; }
 
         public string Title { get; set; }
         public byte[] Content { get; set; } // mảng binary để lưu file hoặc hình ảnh

@@ -10,8 +10,8 @@ namespace LearnHub.Models
     public class Semester
     {
         [Key]
-        public string SemesterId { get; set; }
-        public string SemesterName { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
         //Navigation Properties
         public ICollection<ExamSchedule> ExamSchedules { get; set; }
         public ICollection<SubjectResult> SubjectResults { get; set; }

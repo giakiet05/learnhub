@@ -10,8 +10,8 @@ namespace LearnHub.Models
     public class AcademicYear
     {
         [Key]
-        public string YearId { get; set; }
-        public string YearName { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
 
         //Navigation Properties
         public ICollection<YearResult> YearResults { get; set; }

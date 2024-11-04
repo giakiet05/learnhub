@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace LearnHub.Commands
 {
@@ -15,9 +16,9 @@ namespace LearnHub.Commands
         {
             _navigationStore = navigationStore;
         }
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
-            _navigationStore.CurrentViewModel = new LoginViewModel();
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
         }
     }
 }

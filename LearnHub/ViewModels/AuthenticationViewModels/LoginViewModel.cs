@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearnHub.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-
+        public LoginViewModel(NavigationStore navigationStore) { }
+        public LoginViewModel() { }
     }
 }

@@ -15,14 +15,14 @@ namespace LearnHub.ViewModels.WaitingViewModels
     {
 
         
-        public ICommand NavigateHomeCommand {  get;  }
+        public ICommand NavigateLoginCommand {  get;  }
         public WaitingViewModel()
         {
             
         }
         public WaitingViewModel(NavigationStore navigationStore) 
         {
-            NavigateHomeCommand = new NavigateCommand<LoginViewModel>(navigationStore, () => new LoginViewModel(navigationStore));
+            NavigateLoginCommand = new NavigateLoginCommand(navigationStore);
         }
 
        

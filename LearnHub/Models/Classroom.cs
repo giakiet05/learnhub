@@ -11,9 +11,9 @@ namespace LearnHub.Models
     public class Classroom
     {
         [Key]
-        public string ClassroomId { get; set; }
+        public string Id { get; set; }
 
-        public string ClassroomName { get; set; }
+        public string Name { get; set; }
         public int? Capacity { get; set; }
         public string? GradeId { get; set; }
         public string? TeacherInChargeUsername { get; set; }

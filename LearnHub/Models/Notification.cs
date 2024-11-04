@@ -11,7 +11,7 @@ namespace LearnHub.Models
     public class Notification
     {
         [Key]
-        public string NotificationId { get; set; }
+        public string Id { get; set; }
 
         [ForeignKey("User")]
         public string Creator { get; set; }

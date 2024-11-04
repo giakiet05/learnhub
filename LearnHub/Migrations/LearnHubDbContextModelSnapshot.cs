@@ -19,21 +19,21 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.AcademicYear", b =>
                 {
-                    b.Property<string>("YearId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("YearName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("YearId");
+                    b.HasKey("Id");
 
                     b.ToTable("AcademicYears");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Classroom", b =>
                 {
-                    b.Property<string>("ClassroomId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("Capacity")
@@ -49,7 +49,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("TeacherInChargeUsername")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ClassroomId");
+                    b.HasKey("Id");
 
                     b.HasIndex("GradeId");
 
@@ -60,7 +60,7 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Document", b =>
                 {
-                    b.Property<string>("DocumentId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClassroomId")
@@ -83,7 +83,7 @@ namespace LearnHub.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("DocumentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ClassroomId");
 
@@ -134,7 +134,7 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Exercise", b =>
                 {
-                    b.Property<string>("ExerciseId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClassroomId")
@@ -162,7 +162,7 @@ namespace LearnHub.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ExerciseId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ClassroomId");
 
@@ -170,26 +170,26 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("TeacherUsername");
 
-                    b.ToTable("Exercise");
+                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Grade", b =>
                 {
-                    b.Property<string>("GradeId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("GradeName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("GradeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Notification", b =>
                 {
-                    b.Property<string>("NotificationId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClassroomId")
@@ -210,7 +210,7 @@ namespace LearnHub.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("NotificationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ClassroomId");
 
@@ -221,7 +221,7 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Question", b =>
                 {
-                    b.Property<string>("QuestionId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
@@ -252,7 +252,7 @@ namespace LearnHub.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("QuestionId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ExerciseId");
 
@@ -261,14 +261,14 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Semester", b =>
                 {
-                    b.Property<string>("SemesterId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SemesterName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("SemesterId");
+                    b.HasKey("Id");
 
                     b.ToTable("Semesters");
                 });
@@ -344,17 +344,17 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Subject", b =>
                 {
-                    b.Property<string>("SubjectId")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("LessonNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("SubjectName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("SubjectId");
+                    b.HasKey("Id");
 
                     b.ToTable("Subjects");
                 });
@@ -373,7 +373,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("StudentUsername")
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("AverageScore")
+                    b.Property<double?>("AvgScore")
                         .HasColumnType("REAL");
 
                     b.Property<double?>("FifteenMinScore")
@@ -555,7 +555,7 @@ namespace LearnHub.Migrations
 
                             t.HasCheckConstraint("CK_FirstSemAvgScore", "[FirstSemAvgScore] BETWEEN 0 AND 10");
 
-                            t.HasCheckConstraint("CK_Result", "[Result] IN (N'Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                            t.HasCheckConstraint("CK_Result", "[Result] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
 
                             t.HasCheckConstraint("CK_SecondSemAvgScore", "[SecondSemAvgScore] BETWEEN 0 AND 10");
 

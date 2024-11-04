@@ -10,8 +10,8 @@ namespace LearnHub.Models
     public class Grade
     {
         [Key]
-        public string GradeId { get; set; }
-        public string GradeName { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
         //Navigation Properties
         public ICollection<Classroom> Classrooms { get; set; }
     }

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Question
+    public class Question : DomainObject
     {
-        [Key]
-        public string Id { get; set; }
+        
 
         public string Content { get; set; }
         public string OptionA { get; set; }
@@ -18,7 +17,7 @@ namespace LearnHub.Models
         public string OptionC { get; set; }
         public string OptionD { get; set; }
         public string CorrectOption { get; set; }
-        public string ExerciseId { get; set; }
+        public Guid ExerciseId { get; set; }
         //Navigation Properties
         public Exercise Exercise { get; set; }
     }

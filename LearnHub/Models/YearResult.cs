@@ -10,8 +10,8 @@ namespace LearnHub.Models
     public class YearResult
     {
         [ForeignKey("AcademicYear")]
-        public string YearId { get; set; }
-        public string StudentUsername { get; set; }
+        public Guid YearId { get; set; }
+        public Guid StudentId { get; set; }
 
         public double? YearAvgScore { get; set; }
         public double? FirstSemAvgScore { get; set; }

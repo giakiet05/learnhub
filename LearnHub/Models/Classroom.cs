@@ -8,15 +8,12 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Classroom
+    public class Classroom : DomainObject
     {
-        [Key]
-        public string Id { get; set; }
-
         public string Name { get; set; }
         public int? Capacity { get; set; }
-        public string? GradeId { get; set; }
-        public string? TeacherInChargeUsername { get; set; }
+        public Guid? GradeId { get; set; }
+        public Guid? TeacherInChargeId { get; set; }
         //Navigation Properties
         public Grade Grade { get; set; }
         public Teacher TeacherInCharge { get; set; }

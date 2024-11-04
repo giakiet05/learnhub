@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Notification
+    public class Notification : DomainObject
     {
-        [Key]
-        public string Id { get; set; }
+       
 
         [ForeignKey("User")]
-        public string Creator { get; set; }
+        public Guid CreatorId { get; set; }
         public string Title { get; set; }
 
-        public string ClassroomId { get; set; }
+        public Guid ClassroomId { get; set; }
 
         public string? Content { get; set; }
         public DateTime? PublishDate { get; set; }

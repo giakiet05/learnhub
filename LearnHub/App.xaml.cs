@@ -25,14 +25,18 @@ namespace LearnHub
         {
             _dbContextFactory = new LearnHubDbContextFactory(_connectionString);
         }
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             //Tự động cập nhật database hoặc tạo mới nếu chưa có từ migration mới nhất
             using (LearnHubDbContext context = _dbContextFactory.CreateDbContext())
             {
 
                 context.Database.Migrate();
-                
+                //IDataService<User> dataService = new GenericDataService<User>(_dbContextFactory);
+                //IEnumerable<User> users = await dataService.GetByCondition(e => e.Username == "ChoNgu2" && e.Role == "Teacher");
+                //string userData = string.Join("\n", users.Select(user => $"{user.Username} - {user.Role}"));
+                //System.Windows.MessageBox.Show(userData, "User Data");
+
             }
             NavigationStore navigationStore = new NavigationStore();
             navigationStore.CurrentViewModel = new LoginViewModel();

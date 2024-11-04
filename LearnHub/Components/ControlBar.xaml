@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Components"
              mc:Ignorable="d" d:DesignWidth="800">
+    
     <Border Background="#1E1E1E">
         <Grid>
             <Grid.ColumnDefinitions>

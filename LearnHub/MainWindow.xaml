@@ -10,7 +10,7 @@
         xmlns:components="clr-namespace:LearnHub.Components" 
         xmlns:waitingviews="clr-namespace:LearnHub.Views.WaitingViews"
         mc:Ignorable="d"
-        Title="LearnHub" Height="490" Width="800"
+        Title="LearnHub" Height="600" Width="1000"
         Icon="/Resource/Icons/appIcon.png"
         AllowsTransparency="True"
         ResizeMode="NoResize"

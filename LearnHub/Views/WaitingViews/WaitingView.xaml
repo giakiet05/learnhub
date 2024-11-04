@@ -8,7 +8,7 @@
              xmlns:waitingviewmodels="clr-namespace:LearnHub.ViewModels.WaitingViewModels"
              xmlns:Menu="clr-namespace:LearnHub.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="1000">
     <UserControl.DataContext>
         <waitingviewmodels:WaitingViewModel/>
     </UserControl.DataContext>
@@ -82,7 +82,7 @@
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Menu items-->
-                <Grid Height="300">
+                <Grid Height="400">
                     <!--<StackPanel>
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30"
@@ -98,7 +98,8 @@
                     <ListView Background="Transparent"
                           BorderBrush="Transparent"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                        <ListViewItem HorizontalAlignment="Left" IsSelected="True" 
+                        <ListViewItem HorizontalAlignment="Left" IsSelected="True"
+                                      
                                       Style="{StaticResource lvItem_style}">
                             <StackPanel Orientation="Horizontal"
                                     Width="150">
@@ -111,7 +112,7 @@
                             </StackPanel>
                         </ListViewItem>
 
-                        <ListViewItem HorizontalAlignment="Left"
+                        <!--<ListViewItem HorizontalAlignment="Left"
               Style="{StaticResource lvItem_style}">
                             <StackPanel Orientation="Horizontal"
             Width="150">
@@ -122,7 +123,7 @@
                FontFamily="/Resource/Fonts/Roboto-Medium.ttf#Roboto"
                FontSize="18" Margin="10 14 0 0"/>
                             </StackPanel>
-                        </ListViewItem>
+                        </ListViewItem>-->
                     </ListView>
                 </Grid>
 
@@ -136,10 +137,10 @@
                         <ListViewItem HorizontalAlignment="Left" Style="{StaticResource lvItem_style}">
                             <StackPanel Orientation="Horizontal"
                                     Width="150">
-                                <Image Source="pack://application:,,,/LearnHub;component/Resource/Icons/user.png"
+                                <Image Source="pack://application:,,,/LearnHub;component/Resource/Icons/login.png"
                                    Stretch="Fill" Width="30" Height="30"
                                    Margin="4 0 0 0"/>
-                                <TextBlock Text="Tài khoản"
+                                <TextBlock Text="Đăng nhập"
                                        FontFamily="/Resource/Fonts/Roboto-Medium.ttf#Roboto"
                                        FontSize="18" Margin="10 14 0 0"/>
                             </StackPanel>

@@ -18,10 +18,6 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen">
 
-    <!--<Window.DataContext>
-        <viewmodels:MainViewModel/>
-    </Window.DataContext>-->
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

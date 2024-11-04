@@ -13,16 +13,15 @@
         <waitingviewmodels:WaitingViewModel/>
     </UserControl.DataContext>
 
-    <Grid Background="White">
+    <Grid Background="#FFF7F7">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!--Menubar grid-->
-        <Grid Grid.Column="0" Background="#FFF7F7">
-            <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="1" Fill="Black"/>
-
+        <Grid Grid.Column="0" Background="#ebd1d1">
+            
             <StackPanel Width="55" x:Name="menubar_pnl">
 
                 <!--Menu button-->
@@ -52,102 +51,68 @@
                             <ImageBrush ImageSource="pack://application:,,,/LearnHub;component/resource/icons/menu.png"
                                         Stretch="Fill"/>
                         </ToggleButton.Background>
-
-                        <ToggleButton.Triggers>
-                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="menubar_pnl"
-                                                         Storyboard.TargetProperty="Width"
-                                                         From="140" To="55"
-                                                         Duration="0:0:0.1"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="ToggleButton.Checked">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="menubar_pnl"
-                                                         Storyboard.TargetProperty="Width"
-                                                         From="55" To="140"
-                                                         Duration="0:0:0.1"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </ToggleButton.Triggers>
-
                     </ToggleButton>
                 </Grid>
 
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Menu items-->
-                <Grid Height="400">
-                    <!--<StackPanel>
+                <Grid Height="380">
+                    <StackPanel>
+                        <!--Home button-->
                         <RadioButton Margin="0,10,0,0"
-                                     FontSize="30"
+                                     FontSize="30" IsChecked="True"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     IsChecked="True" 
                                      Command="{Binding HomeViewCommand}"
-                                     Content="Menu">
+                                     Content="Trang chủ">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/home.png" />
                             </RadioButton.Tag>
                         </RadioButton>
-                    </StackPanel>-->
-                    <ListView Background="Transparent"
-                          BorderBrush="Transparent"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                        <ListViewItem HorizontalAlignment="Left" IsSelected="True"
-                                      
-                                      Style="{StaticResource lvItem_style}">
-                            <StackPanel Orientation="Horizontal"
-                                    Width="150">
-                                <Image Source="pack://application:,,,/LearnHub;component/resource/icons/home.png"
-                                   Stretch="Fill" Width="30" Height="30"
-                                   Margin="7 0 0 0"/>
-                                <TextBlock Text="Trang chủ"
-                                       FontFamily="/Resource/Fonts/Roboto-Medium.ttf#Roboto"
-                                       FontSize="18" Margin="10 14 0 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-
-                        <!--<ListViewItem HorizontalAlignment="Left"
-              Style="{StaticResource lvItem_style}">
-                            <StackPanel Orientation="Horizontal"
-            Width="150">
-                                <Image Source="pack://application:,,,/LearnHub;component/resource/icons/class.png"
-           Stretch="Fill" Width="30" Height="30"
-           Margin="7 0 0 0"/>
-                                <TextBlock Text="Lớp học"
-               FontFamily="/Resource/Fonts/Roboto-Medium.ttf#Roboto"
-               FontSize="18" Margin="10 14 0 0"/>
-                            </StackPanel>
-                        </ListViewItem>-->
-                    </ListView>
+                    </StackPanel>
                 </Grid>
 
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Account Items-->
                 <Grid>
-                    <ListView Background="Transparent"
-                          BorderBrush="Transparent"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                        <ListViewItem HorizontalAlignment="Left" Style="{StaticResource lvItem_style}">
-                            <StackPanel Orientation="Horizontal"
-                                    Width="150">
-                                <Image Source="pack://application:,,,/LearnHub;component/Resource/Icons/login.png"
-                                   Stretch="Fill" Width="30" Height="30"
-                                   Margin="4 0 0 0"/>
-                                <TextBlock Text="Đăng nhập"
-                                       FontFamily="/Resource/Fonts/Roboto-Medium.ttf#Roboto"
-                                       FontSize="18" Margin="10 14 0 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                    </ListView>
+                    <StackPanel>
+                        <!--Login button-->
+                        <RadioButton Margin="0,10,0,0" IsChecked="False"
+                                     FontSize="30"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding HomeViewCommand}"
+                                     Content="Đăng nhập">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/login.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                    </StackPanel>
                 </Grid>
             </StackPanel>
+            <Grid.Triggers>
+                <!-- Trigger to expand the menu when mouse enters -->
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="menubar_pnl"
+                                     Storyboard.TargetProperty="Width"
+                                     To="140" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <!-- Trigger to collapse the menu when mouse leaves -->
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="menubar_pnl"
+                                     Storyboard.TargetProperty="Width"
+                                     To="55" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
         </Grid>
 
         <!--Main content-->

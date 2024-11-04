@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Windows;
 using LearnHub.ViewModels.AuthenticationViewModels;
+using LearnHub.ViewModels.WaitingViewModels;
 
 namespace LearnHub
 {
@@ -30,7 +31,7 @@ namespace LearnHub
                 context.Database.Migrate();
             }
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new LoginViewModel();
+            navigationStore.CurrentViewModel = new WaitingViewModel();
 
             MainWindow = new MainWindow()
             {

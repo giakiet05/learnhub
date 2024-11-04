@@ -18,7 +18,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#FFF7F7"/>
+            <Setter Property="Foreground" Value="Black"/>
 
             <Setter Property="FontFamily" Value="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
 
@@ -38,15 +38,13 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#3D3D3D"/>
+                <Setter Property="Background" Value="#a8a8a8"/>
             </Trigger>
         </Style.Triggers>
 
     </Style>
 
     <!--togglebutton style template-->
-    <ImageBrush x:Key="tb_mouse_over"
-                ImageSource="pack://application:,,,/LearnHub;component/resource/icons/menu_effect.png"/>
     <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
 
         <Setter Property="Template">
@@ -57,21 +55,8 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}"
                             SnapsToDevicePixels="True">
-                        
+
                     </Border>
-                    <ControlTemplate.Triggers>
-
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
-                        </Trigger>
-
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
             
@@ -87,17 +72,17 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
-                        <Border x:Name="Border" Width="130" Height="50"
+                        <Border x:Name="Border"
                                 BorderThickness="0"
-                                Background="Transparent"
+                                Background="#ebd1d1"
                                 BorderBrush="Transparent">
 
                             <Grid>
-                                <StackPanel>
+                                <StackPanel Orientation="Horizontal">
                                     <Image Source="{Binding Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}" Width="40" Height="40" Stretch="Fill"
-                                       HorizontalAlignment="Left" Margin="5 0 30 0"/>
-                                    <TextBlock x:Name="textBlock" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                           Text="{TemplateBinding Content}" Style="{StaticResource font_style}"/>
+                                       HorizontalAlignment="Left" Margin="7 0 5 0"/>
+                                    <TextBlock x:Name="textBlock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5 0 0 0"
+                                               Text="{TemplateBinding Content}" Style="{StaticResource font_style}"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -116,50 +101,13 @@
                 </Setter.Value>
             </Setter>
 
-            <Setter Property="Width" Value="50"/>
+            <Setter Property="Width" Value="140"/>
             <Setter Property="Height" Value="50"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
 
         </Style.Setters>
-    </Style>
-    
-    <!--listviewitem style-->
-    <Style x:Key="lvItem_style" TargetType="ListViewItem">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                    <Border x:Name="Bd"
-                            Height="50"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Padding="{TemplateBinding Padding}"
-                            SnapsToDevicePixels="True">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="#E8E1E1"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="#E8E1E1"/>
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="#E8E1E1"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
     
     

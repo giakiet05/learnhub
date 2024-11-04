@@ -26,7 +26,7 @@ namespace LearnHub
         {
             _dbContextFactory = new LearnHubDbContextFactory(_connectionString);
         }
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             //Tự động cập nhật database hoặc tạo mới nếu chưa có từ migration mới nhất
             using (LearnHubDbContext context = _dbContextFactory.CreateDbContext())
@@ -34,6 +34,7 @@ namespace LearnHub
 
                 context.Database.Migrate();
                 
+
             }
             NavigationStore navigationStore = new NavigationStore();
             navigationStore.CurrentViewModel = new WaitingViewModel();

@@ -11,8 +11,6 @@ namespace LearnHub.Models
 {
     public class TeachingAssignment
     {
-        [ForeignKey("AcademicYear")]
-        public Guid YearId { get; set; }
         public Guid ClassroomId { get; set; }
         public Guid SubjectId { get; set; }
         public Guid TeacherId { get; set; }
@@ -22,6 +20,5 @@ namespace LearnHub.Models
         public Classroom Classroom { get; set; }
         public Subject Subject { get; set; }
         public Teacher Teacher { get; set; }
-        public AcademicYear AcademicYear { get; set; }
     }
 }

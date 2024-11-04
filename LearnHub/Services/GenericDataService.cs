@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text;
@@ -31,7 +32,7 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<T> Get(Guid id)
+        public async Task<T> GetItem(Guid id)
         {
             using (LearnHubDbContext context = _contextFactory.CreateDbContext())
             {
@@ -40,6 +41,17 @@ namespace LearnHub.Services
                 return entity;
             }
         }
+
+        public async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> predicate)
+        {
+            using (LearnHubDbContext context = _contextFactory.CreateDbContext())
+            {
+                
+                IEnumerable<T> entities = await context.Set<T>().Where(predicate).ToListAsync();
+                return entities;
+            }
+        }
+
 
         public async Task<T> Create(T entity)
         {

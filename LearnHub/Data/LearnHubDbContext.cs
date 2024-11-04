@@ -35,9 +35,9 @@ namespace LearnHub.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Composite keys
-            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.YearId, e.Semester, e.ClassroomId });
-            modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.YearId, e.TeacherId });
-            modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentId, e.YearId });
+            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId });
+            modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.TeacherId });
+            modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentId });
             modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId });
             modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentId });
 

@@ -7,6 +7,8 @@ using System.Data;
 using System.Windows;
 using LearnHub.Services;
 using LearnHub.Models;
+using LearnHub.ViewModels.AuthenticationViewModels;
+
 
 namespace LearnHub
 {
@@ -33,6 +35,7 @@ namespace LearnHub
                 
             }
             NavigationStore navigationStore = new NavigationStore();
+            navigationStore.CurrentViewModel = new LoginViewModel();
 
             MainWindow = new MainWindow()
             {

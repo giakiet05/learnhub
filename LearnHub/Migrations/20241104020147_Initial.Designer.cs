@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnHub.Migrations
 {
     [DbContext(typeof(LearnHubDbContext))]
-    [Migration("20241103132621_Initial")]
+    [Migration("20241104020147_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -131,10 +131,7 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("YearId");
 
-                    b.ToTable("ExamSchedules", t =>
-                        {
-                            t.HasCheckConstraint("CK_ExamType", "[ExamType] IN ('GK', 'CK')");
-                        });
+                    b.ToTable("ExamSchedules");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Exercise", b =>
@@ -309,7 +306,7 @@ namespace LearnHub.Migrations
 
                     b.ToTable("Students", t =>
                         {
-                            t.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
+                            t.HasCheckConstraint("CK_Student_Gender", "[Gender] IN ('Nam', 'Nữ')");
                         });
                 });
 
@@ -447,9 +444,9 @@ namespace LearnHub.Migrations
 
                     b.ToTable("Teachers", t =>
                         {
-                            t.HasCheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12");
+                            t.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12");
 
-                            t.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
+                            t.HasCheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')");
                         });
                 });
 

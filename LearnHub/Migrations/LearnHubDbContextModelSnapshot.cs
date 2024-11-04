@@ -128,10 +128,7 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("YearId");
 
-                    b.ToTable("ExamSchedules", t =>
-                        {
-                            t.HasCheckConstraint("CK_ExamType", "[ExamType] IN ('GK', 'CK')");
-                        });
+                    b.ToTable("ExamSchedules");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Exercise", b =>
@@ -306,7 +303,7 @@ namespace LearnHub.Migrations
 
                     b.ToTable("Students", t =>
                         {
-                            t.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
+                            t.HasCheckConstraint("CK_Student_Gender", "[Gender] IN ('Nam', 'Nữ')");
                         });
                 });
 
@@ -444,9 +441,9 @@ namespace LearnHub.Migrations
 
                     b.ToTable("Teachers", t =>
                         {
-                            t.HasCheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12");
+                            t.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12");
 
-                            t.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
+                            t.HasCheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')");
                         });
                 });
 

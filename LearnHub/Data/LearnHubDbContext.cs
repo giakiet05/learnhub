@@ -51,13 +51,13 @@ namespace LearnHub.Data
 
             modelBuilder.Entity<Teacher>(e =>
             {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12"));
             });
 
             modelBuilder.Entity<Student>(e =>
             {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Student_Gender", "[Gender] IN ('Nam', 'Nữ')"));
             });
 
             modelBuilder.Entity<TeachingAssignment>(e =>
@@ -65,11 +65,12 @@ namespace LearnHub.Data
                 e.ToTable(tb => tb.HasCheckConstraint("CK_TeachingAssignment_Time", "[StartTime] < [EndTime]"));
             });
 
-            modelBuilder.Entity<ExamSchedule>(e =>
-            {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_ExamType", "[ExamType] IN ('GK', 'CK')"));
+            //modelBuilder.Entity<ExamSchedule>(e =>
+            //{
+            //    e.ToTable(tb => tb.HasCheckConstraint("CK_ExamType", "[ExamType] IN ('GK', 'CK')"));
+            //    e.ToTable(tb => tb.HasCheckConstraint("CK_ExamSchedule_Semester", "[Semester] IN ('HK1', 'HK2')"));
 
-            });
+            //});
 
 
             modelBuilder.Entity<SubjectResult>(e =>
@@ -78,6 +79,7 @@ namespace LearnHub.Data
                 e.ToTable(tb => tb.HasCheckConstraint("CK_FifteenMinScore", "[FifteenMinScore] BETWEEN 0 AND 10"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_MidTermScore", "[MidTermScore] BETWEEN 0 AND 10"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_FinalTermScore", "[FinalTermScore] BETWEEN 0 AND 10"));
+                //e.ToTable(tb => tb.HasCheckConstraint("CK_SubjectResult_Semester", "[Semester] IN ('HK1', 'HK2')"));
 
             });
 

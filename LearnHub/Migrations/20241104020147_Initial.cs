@@ -83,7 +83,7 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.UserId);
-                    table.CheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
+                    table.CheckConstraint("CK_Student_Gender", "[Gender] IN ('Nam', 'Nữ')");
                     table.ForeignKey(
                         name: "FK_Students_Users_UserId",
                         column: x => x.UserId,
@@ -113,8 +113,8 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teachers", x => x.UserId);
-                    table.CheckConstraint("CK_User_CitizenID", "length([CitizenID]) = 12");
-                    table.CheckConstraint("CK_User_Gender", "[Gender] IN ('Nam', 'Nữ')");
+                    table.CheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12");
+                    table.CheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')");
                     table.ForeignKey(
                         name: "FK_Teachers_Users_UserId",
                         column: x => x.UserId,
@@ -273,7 +273,6 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExamSchedules", x => new { x.SubjectId, x.YearId, x.Semester, x.ClassroomId });
-                    table.CheckConstraint("CK_ExamType", "[ExamType] IN ('GK', 'CK')");
                     table.ForeignKey(
                         name: "FK_ExamSchedules_AcademicYears_YearId",
                         column: x => x.YearId,

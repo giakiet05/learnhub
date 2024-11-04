@@ -81,7 +81,7 @@
                         <RadioButton Margin="0,10,0,0" IsChecked="False"
                                      FontSize="30"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding HomeViewCommand}"
+                                     Command="{Binding NavigateLoginCommand}"
                                      Content="Đăng nhập">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/login.png" />

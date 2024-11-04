@@ -52,11 +52,16 @@ namespace LearnHub.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("YearId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GradeId");
 
                     b.HasIndex("TeacherInChargeId");
+
+                    b.HasIndex("YearId");
 
                     b.ToTable("Classrooms");
                 });
@@ -103,9 +108,6 @@ namespace LearnHub.Migrations
                     b.Property<Guid>("SubjectId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("YearId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Semester")
                         .HasColumnType("TEXT");
 
@@ -122,11 +124,9 @@ namespace LearnHub.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("SubjectId", "YearId", "Semester", "ClassroomId");
+                    b.HasKey("SubjectId", "Semester", "ClassroomId");
 
                     b.HasIndex("ClassroomId");
-
-                    b.HasIndex("YearId");
 
                     b.ToTable("ExamSchedules");
                 });
@@ -315,15 +315,10 @@ namespace LearnHub.Migrations
                     b.Property<Guid>("StudentId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("YearId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ClassroomId", "StudentId", "YearId");
+                    b.HasKey("ClassroomId", "StudentId");
 
                     b.HasIndex("StudentId")
                         .IsUnique();
-
-                    b.HasIndex("YearId");
 
                     b.ToTable("StudentPlacements");
                 });
@@ -455,9 +450,6 @@ namespace LearnHub.Migrations
                     b.Property<Guid>("ClassroomId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("YearId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("TeacherId")
                         .HasColumnType("TEXT");
 
@@ -467,13 +459,11 @@ namespace LearnHub.Migrations
                     b.Property<DateTime?>("StartTime")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("SubjectId", "ClassroomId", "YearId", "TeacherId");
+                    b.HasKey("SubjectId", "ClassroomId", "TeacherId");
 
                     b.HasIndex("ClassroomId");
 
                     b.HasIndex("TeacherId");
-
-                    b.HasIndex("YearId");
 
                     b.ToTable("TeachingAssignments", t =>
                         {
@@ -565,6 +555,12 @@ namespace LearnHub.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("LearnHub.Models.AcademicYear", "AcademicYear")
+                        .WithMany("Classrooms")
+                        .HasForeignKey("YearId");
+
+                    b.Navigation("AcademicYear");
+
                     b.Navigation("Grade");
 
                     b.Navigation("TeacherInCharge");
@@ -604,14 +600,6 @@ namespace LearnHub.Migrations
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LearnHub.Models.AcademicYear", "AcademicYear")
-                        .WithMany("ExamSchedules")
-                        .HasForeignKey("YearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcademicYear");
 
                     b.Navigation("Classroom");
 
@@ -694,14 +682,6 @@ namespace LearnHub.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LearnHub.Models.AcademicYear", "AcademicYear")
-                        .WithMany("StudentPlacements")
-                        .HasForeignKey("YearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcademicYear");
-
                     b.Navigation("Classroom");
 
                     b.Navigation("Student");
@@ -765,14 +745,6 @@ namespace LearnHub.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LearnHub.Models.AcademicYear", "AcademicYear")
-                        .WithMany("TeachingAssignments")
-                        .HasForeignKey("YearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcademicYear");
-
                     b.Navigation("Classroom");
 
                     b.Navigation("Subject");
@@ -801,13 +773,9 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.AcademicYear", b =>
                 {
-                    b.Navigation("ExamSchedules");
-
-                    b.Navigation("StudentPlacements");
+                    b.Navigation("Classrooms");
 
                     b.Navigation("SubjectResults");
-
-                    b.Navigation("TeachingAssignments");
 
                     b.Navigation("YearResults");
                 });

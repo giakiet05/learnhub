@@ -9,10 +9,9 @@ namespace LearnHub.Models
 {
     public class ExamSchedule
     {
-        [ForeignKey("AcademicYear")]
-        public Guid YearId { get; set; }
+      
         public Guid SubjectId { get; set; }
-        //public Guid SemesterId { get; set; }
+     
         public Guid ClassroomId { get; set; }
 
         public string Semester { get; set; }
@@ -22,9 +21,9 @@ namespace LearnHub.Models
         public string? ExamRoom { get; set; }
         //Navigation Properties
         public Subject Subject { get; set; }
-        //public Semester Semester { get; set; }
+      
         public Classroom Classroom { get; set; }
-        public AcademicYear AcademicYear { get; set; }
+    
       
     }
 }

@@ -1,0 +1,66 @@
+﻿<Page x:Class="LearnHub.Views.AdminViews.AdminClassView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!--grid nút chuyển view lớp hoc và khối lớp-->
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnLopHoc" Content="Lớp học" 
+                        BorderBrush="#5CB3FF" Background="#5CB3FF"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
+
+                <Button x:Name="btnKhoiLop" Content="Khối lớp"  
+                        BorderBrush="#5CB3FF" Background="White"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
+            </StackPanel>
+        </Grid>
+        
+        
+        <!--grid thông tin lớp học-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <!--datagrid để hiển thị list lớp-->
+            <DataGrid x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" 
+                      CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã lớp" Width="*"/>
+                    <DataGridTextColumn Header="Tên lớp" Width="*"/>
+                    <DataGridTextColumn Header="Sĩ số" Width="*"/>
+                    <DataGridTextColumn Header="Mã môn học" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Column="1">
+                <!--nút thêm lớp mới-->
+                <Button x:Name="btnThem" Content="Thêm" Margin="0 10 0 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+                <!--nút xoá lớp đã chọn-->
+                <Button x:Name="btnXoa" Content="Xoá" Margin="0 20 0 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+                <!--nút sửa lớp đã chọn-->
+                <Button x:Name="btnSua" Content="Sửa" Margin="0 20 0 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

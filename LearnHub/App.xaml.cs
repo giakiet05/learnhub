@@ -38,7 +38,7 @@ namespace LearnHub
 
             }
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new AdminViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new WaitingViewModel(navigationStore);
 
             MainWindow = new MainWindow()
             {

@@ -179,8 +179,8 @@
 
             <Separator Grid.Row="1" Background="Black" VerticalAlignment="Stretch"/>
             
-            <!--main content-->
-            <ContentControl Grid.Row="2" Content="{Binding CurrentAdminViewModel}"/>
+            <!--main frame-->
+            <Frame Grid.Row="2" Content="{Binding CurrentAdminViewModel}"/>
         </Grid>
 
     </Grid>

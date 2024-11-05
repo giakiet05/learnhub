@@ -9,34 +9,35 @@
       d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
         <!--datagrid để hiển thị list môn học-->
-        <DataGrid Grid.Column="0" x:Name="MonHocDG" AutoGenerateColumns="False" CanUserAddRows="True" 
+        <DataGrid Grid.Row="1" x:Name="MonHocDG" AutoGenerateColumns="False" CanUserAddRows="True" 
           CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã môn học" Width="*"/>
-                <DataGridTextColumn Header="Tên môn học" Width="*"/>
-                <DataGridTextColumn Header="Số tiết" Width="*"/>
+                <DataGridTextColumn Header="Mã môn học"/>
+                <DataGridTextColumn Header="Tên môn học" />
+                <DataGridTextColumn Header="Số tiết"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Column="1">
+        <!--stackpanel các nút chức năng-->
+        <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
             <!--nút thêm môn học mới-->
-            <Button x:Name="btnThem" Content="Thêm" Margin="0 10 0 0"
-        Background="#5CB3FF" BorderBrush="Transparent"
-        Style="{StaticResource btnStyle}"/>
+            <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
+                    Background="#5CB3FF" BorderBrush="Transparent"
+                    Style="{StaticResource btnStyle}"/>
             <!--nút xoá môn học đã chọn-->
-            <Button x:Name="btnXoa" Content="Xoá" Margin="0 20 0 0"
-        Background="#5CB3FF" BorderBrush="Transparent"
-        Style="{StaticResource btnStyle}"/>
+            <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
+                    Background="#5CB3FF" BorderBrush="Transparent"
+                    Style="{StaticResource btnStyle}"/>
             <!--nút sửa môn học đã chọn-->
-            <Button x:Name="btnSua" Content="Sửa" Margin="0 20 0 0"
-        Background="#5CB3FF" BorderBrush="Transparent"
-        Style="{StaticResource btnStyle}"/>
+            <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
+                    Background="#5CB3FF" BorderBrush="Transparent"
+                    Style="{StaticResource btnStyle}"/>
         </StackPanel>
     </Grid>
 </Page>

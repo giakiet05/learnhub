@@ -74,9 +74,6 @@ namespace LearnHub.Services
             }
         }
 
-       
-
-      
 
         public async Task<T> UpdateOneAsync(Expression<Func<T, bool>> predicate, T entity)
         {

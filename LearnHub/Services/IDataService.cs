@@ -7,6 +7,7 @@ namespace LearnHub.Services
 {
     public interface IDataService<T>
     //các phương thức dùng predicate có thể áp dụng cho các bảng có composite key
+    //param predicate là một biểu thức lambda
     {
         // Retrieval methods
         Task<IEnumerable<T>> GetAllAsync(); // lấy toàn bộ bảng

@@ -15,49 +15,49 @@
 
         <!--grid nút chuyển view lớp hoc và khối lớp-->
         <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnLopHoc" Content="Lớp học" 
-                BorderBrush="#5CB3FF" Background="#ffffff"
-                Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
-                Style="{StaticResource btnStyle}"/>
+                        BorderBrush="#5CB3FF" Background="#ffffff"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
 
-                <Button x:Name="btnKhoiLop" Content="Khối lớp"  
-                BorderBrush="#5CB3FF" Background="#5CB3FF"
-                Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
-                Style="{StaticResource btnStyle}"/>
+                <Button x:Name="btnKhoiLop" Content="Khối lớp" IsEnabled="False"
+                        BorderBrush="#5CB3FF" Background="#5CB3FF"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
+            </StackPanel>
+            <!--stackpanel các nút chức năng-->
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
+                <!--nút thêm khối mới-->
+                <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+                <!--nút xoá khối đã chọn-->
+                <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+                <!--nút sửa khối đã chọn-->
+                <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
             </StackPanel>
         </Grid>
 
 
         <!--grid thông tin khối học-->
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
             <!--datagrid để hiển thị list khối lớp-->
-            <DataGrid x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" 
+            <DataGrid x:Name="KhoiLopDG" AutoGenerateColumns="False" CanUserAddRows="True" 
               CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã khối" Width="*"/>
-                    <DataGridTextColumn Header="Tên khối" Width="*"/>
+                    <DataGridTextColumn Header="Mã khối"/>
+                    <DataGridTextColumn Header="Tên khối"/>
                 </DataGrid.Columns>
             </DataGrid>
-
-            <StackPanel Grid.Column="1">
-                <!--nút thêm khối lớp mới-->
-                <Button x:Name="btnThem" Content="Thêm" Margin="0 10 0 0"
-                Background="#5CB3FF" BorderBrush="Transparent"
-                Style="{StaticResource btnStyle}"/>
-                <!--nút xoá khối lớp đã chọn-->
-                <Button x:Name="btnXoa" Content="Xoá" Margin="0 20 0 0"
-                Background="#5CB3FF" BorderBrush="Transparent"
-                Style="{StaticResource btnStyle}"/>
-                <!--nút sửa khối lớp đã chọn-->
-                <Button x:Name="btnSua" Content="Sửa" Margin="0 20 0 0"
-                Background="#5CB3FF" BorderBrush="Transparent"
-                Style="{StaticResource btnStyle}"/>
-            </StackPanel>
         </Grid>
     </Grid>
 </Page>

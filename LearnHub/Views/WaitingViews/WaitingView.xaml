@@ -49,6 +49,28 @@
                             <ImageBrush ImageSource="pack://application:,,,/LearnHub;component/resource/icons/menu.png"
                                         Stretch="Fill"/>
                         </ToggleButton.Background>
+                        <ToggleButton.Triggers>
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="menubar_pnl"
+                                     Storyboard.TargetProperty="Width"
+                                     From="140" To="55"
+                                     Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="menubar_pnl"
+                                     Storyboard.TargetProperty="Width"
+                                     From="55" To="140"
+                                     Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
                     </ToggleButton>
                 </Grid>
 
@@ -61,7 +83,6 @@
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30" IsChecked="True"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding HomeViewCommand}"
                                      Content="Trang chủ">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/home.png" />
@@ -88,8 +109,8 @@
                     </StackPanel>
                 </Grid>
             </StackPanel>
-            <Grid.Triggers>
-                <!-- Trigger to expand the menu when mouse enters -->
+            <!--Grid.Triggers>
+                 Trigger to expand the menu when mouse enters 
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
@@ -100,7 +121,7 @@
                     </BeginStoryboard>
                 </EventTrigger>
 
-                <!-- Trigger to collapse the menu when mouse leaves -->
+                 Trigger to collapse the menu when mouse leaves 
                 <EventTrigger RoutedEvent="MouseLeave">
                     <BeginStoryboard>
                         <Storyboard>
@@ -110,7 +131,7 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
-            </Grid.Triggers>
+            </Grid.Triggers>-->
         </Grid>
 
         <!--Main content-->

@@ -1,0 +1,74 @@
+﻿<Page x:Class="LearnHub.Views.AdminViews.AdminTeacherView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--grid nút chuyển view giáo viên và phân công-->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnGiaoVien" Content="Giáo viên" IsEnabled="False"
+                        BorderBrush="#5CB3FF" Background="#5CB3FF"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
+
+                <Button x:Name="btnPhanCong" Content="Phân công"  
+                        BorderBrush="#5CB3FF" Background="#ffffff"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
+            </StackPanel>
+
+            <!--stackpanel các nút chức năng-->
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
+                <!--nút thêm t mới-->
+                <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+                <!--nút xoá thông báo đã chọn-->
+                <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+                <!--nút sửa thông báo đã chọn-->
+                <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+            </StackPanel>
+        </Grid>
+
+
+        <!--grid thông tin giáo viên-->
+        <Grid Grid.Row="1">
+            <!--datagrid để hiển thị list giáo viên-->
+            <DataGrid x:Name="GiaoVienDG" AutoGenerateColumns="False" CanUserAddRows="True" 
+                        CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã giáo viên"/>
+                    <DataGridTextColumn Header="Họ tên"/>
+                    <DataGridTextColumn Header="Số điện thoại" />
+                    <DataGridTextColumn Header="Ngày sinh" />
+                    <DataGridTextColumn Header="Giới tính" />
+                    <DataGridTextColumn Header="Tôn giáo" />
+                    <DataGridTextColumn Header="Dân tộc" />
+                    <DataGridTextColumn Header="Căn cước" />
+                    <DataGridTextColumn Header="Địa chỉ" />
+                    <DataGridTextColumn Header="Mức lương" />
+                    <DataGridTextColumn Header="Ngày vào làm" />
+                    <DataGridTextColumn Header="Hệ số" />
+                    <DataGridTextColumn Header="Chuyên môn" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,6 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:waitvm="clr-namespace:LearnHub.ViewModels.WaitingViewModels"  
+                    xmlns:authvm="clr-namespace:LearnHub.ViewModels.AuthenticationViewModels"  
+                    xmlns:adminvm="clr-namespace:LearnHub.ViewModels.AdminViewModels"
+                    xmlns:components="clr-namespace:LearnHub.Components" 
+                    xmlns:waitingviews="clr-namespace:LearnHub.Views.WaitingViews"
+                    xmlns:authviews="clr-namespace:LearnHub.Views.AuthenticationViews"
+                    xmlns:adminviews="clr-namespace:LearnHub.Views.AdminViews">
+
+    <!--#region DataTemplate -->
+    <DataTemplate DataType="{x:Type waitvm:WaitingViewModel}">
+        <waitingviews:WaitingView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type authvm:LoginViewModel}">
+        <authviews:LoginView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
+        <adminviews:AdminView/>
+    </DataTemplate>
+    <!--#endregion-->
+
     <!--Font Style-->
     <Style x:Key="font_style" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
@@ -45,6 +64,9 @@
     </Style>
 
     <!--togglebutton style template-->
+    <ImageBrush x:Key="tb_mouse_over"
+                ImageSource="pack://application:,,,/LearnHub;component/resource/icons/menu_effect.png"/>
+    
     <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
 
         <Setter Property="Template">
@@ -57,6 +79,17 @@
                             SnapsToDevicePixels="True">
 
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
             
@@ -108,6 +141,33 @@
             <Setter Property="BorderThickness" Value="0"/>
 
         </Style.Setters>
+    </Style>
+    
+    <!--button style-->
+    <Style x:Key="btnStyle" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontFamily" Value="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
+                            Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                            VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="20">
+                        <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#84b7e3"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     
     

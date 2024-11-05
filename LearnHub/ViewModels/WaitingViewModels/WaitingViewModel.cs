@@ -1,5 +1,6 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Stores;
+using LearnHub.ViewModels.AdminViewModels;
 using LearnHub.ViewModels.AuthenticationViewModels;
 using Microsoft.Xaml.Behaviors.Core;
 using System;
@@ -17,9 +18,9 @@ namespace LearnHub.ViewModels.WaitingViewModels
         
         public ICommand NavigateLoginCommand {  get;  }
         
-        public WaitingViewModel(NavigationStore navigationStore) 
+        public WaitingViewModel() 
         {
-            NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore,() => new LoginViewModel(navigationStore));
+            NavigateLoginCommand = new NavigateCommand<AdminViewModel>(() => new AdminViewModel());
         }
 
        

@@ -34,15 +34,15 @@ namespace LearnHub
             {
 
                 context.Database.Migrate();
-                
+
 
             }
-            NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new WaitingViewModel(navigationStore);
-
+            
+            NavigationStore.Instance.CurrentViewModel = new WaitingViewModel();
+            NavigationStore.Instance.CurrentLayoutModel = null;
             MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(navigationStore)
+            {            
+                DataContext = new MainViewModel()
             };
 
             MainWindow.Show();

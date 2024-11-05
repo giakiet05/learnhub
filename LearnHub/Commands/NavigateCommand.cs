@@ -11,16 +11,14 @@ namespace LearnHub.Commands
     public class NavigateCommand<TViewModel> : BaseConmand
         where TViewModel : BaseViewModel
     {
-        private readonly NavigationStore _navigationStore;
         private readonly Func<TViewModel> _createViewModel;
-        public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createViewModel)
+        public NavigateCommand( Func<TViewModel> createViewModel)
         {
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
+            _createViewModel = createViewModel;            
         }
         public override void Execute(object parameter)
         {
-            _navigationStore.CurrentViewModel = _createViewModel();
+            NavigationStore.Instance.CurrentViewModel = _createViewModel();
         }
     }
 }

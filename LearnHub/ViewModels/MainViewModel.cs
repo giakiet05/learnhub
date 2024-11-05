@@ -11,33 +11,12 @@ namespace LearnHub.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        //public WaitingViewModel WaitingVM { get; set; }
-        //public LoginViewModel LoginVM { get; set; }
-
-        //private object _currentView;
-
-        //public object CurrentView
-        //{
-        //    get { return _currentView; }
-        //    set { _currentView = value; OnPropertyChanged(); }
-        //}
-
-        //public MainViewModel()
-        //{
-        //    LoginVM = new LoginViewModel();
-        //    CurrentView = LoginVM;
-        //}
-
-        private readonly NavigationStore _navigationStore;
-
-        public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
-
-        public MainViewModel (NavigationStore navigationStore)
+        public BaseViewModel CurrentViewModel => NavigationStore.Instance.CurrentViewModel;
+       
+        public MainViewModel()
         {
-            _navigationStore = navigationStore;
-            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            NavigationStore.Instance.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
-
         private void OnCurrentViewModelChanged()
         {
           OnPropertyChanged(nameof(CurrentViewModel));

@@ -12,7 +12,7 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
     public class LoginViewModel : BaseViewModel
     {
         
-        public LoginViewModel(NavigationStore navigationStore) 
+        public LoginViewModel() 
         {
            
         }

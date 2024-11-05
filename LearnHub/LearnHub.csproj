@@ -21,6 +21,7 @@
     <None Remove="Resource\Icons\menu.png" />
     <None Remove="Resource\Icons\menu_effect.png" />
     <None Remove="Resource\Icons\student.png" />
+    <None Remove="Resource\Icons\subject.png" />
     <None Remove="Resource\Icons\teacher.png" />
     <None Remove="Resource\Icons\user.png" />
     <None Remove="Resource\Icons\warning.png" />
@@ -54,6 +55,7 @@
     <Resource Include="Resource\Icons\menu.png" />
     <Resource Include="Resource\Icons\menu_effect.png" />
     <Resource Include="Resource\Icons\student.png" />
+    <Resource Include="Resource\Icons\subject.png" />
     <Resource Include="Resource\Icons\teacher.png" />
     <Resource Include="Resource\Icons\user.png" />
     <Resource Include="Resource\Icons\warning.png" />

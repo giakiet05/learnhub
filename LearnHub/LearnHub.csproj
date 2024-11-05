@@ -9,13 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Services\**" />
-    <Page Remove="Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Resource\Fonts\Roboto-Bold.ttf" />
     <None Remove="Resource\Fonts\Roboto-Medium.ttf" />
     <None Remove="Resource\Icons\appIcon.png" />
@@ -65,6 +58,10 @@
     <Resource Include="Resource\Icons\user.png" />
     <Resource Include="Resource\Icons\warning.png" />
     <Resource Include="Resource\Images\march7.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

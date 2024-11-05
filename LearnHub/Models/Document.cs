@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Document
+    public class Document : DomainObject
     {
-        [Key]
-        public string Id { get; set; }
+        
 
         public string Title { get; set; }
         public byte[] Content { get; set; } // mảng binary để lưu file hoặc hình ảnh
         public DateTime? PublishTime { get; set; }
 
-        public string? TeacherUsername { get; set; }
-        public string? SubjectId { get; set; }
-        public string? ClassroomId { get; set; }
+        public Guid? TeacherId { get; set; }
+        public Guid? SubjectId { get; set; }
+        public Guid? ClassroomId { get; set; }
         //Navigation Properties
         public Teacher Teacher { get; set; }
         public Subject Subject { get; set; }

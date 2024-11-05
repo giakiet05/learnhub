@@ -1,0 +1,187 @@
+﻿<UserControl x:Class="LearnHub.Views.AdminViews.AdminView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000">
+    <Grid Background="#FFF7F7">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Menubar grid-->
+        <Grid Grid.Column="0" Background="#ebd1d1">
+
+            <StackPanel Width="55" x:Name="menubar_pnl">
+
+                <!--Menu button-->
+                <Grid Height="50">
+                    <TextBlock Text="M e n u" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               FontFamily="/Resource/Fonts/Roboto-Bold.ttf#Roboto"
+                               FontSize="24" Background="Transparent"
+                               Margin="56 0 0 0">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="10"
+                                      ShadowDepth="1"
+                                      Direction="-90"
+                                      Color="Black"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <ToggleButton x:Name="Tg_btn"
+                                  Grid.Column="0"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  Margin="2 0 0 0"
+                                  Height="50"
+                                  Width="50"
+                                  BorderThickness="0"
+                                  Style="{StaticResource tb_style}">
+
+                        <ToggleButton.Background>
+                            <ImageBrush ImageSource="pack://application:,,,/LearnHub;component/resource/icons/menu.png"
+                                Stretch="Fill"/>
+                        </ToggleButton.Background>
+                        <!--Hiệu ứng mở panel khi nhấn vào menu-->
+                        <ToggleButton.Triggers>
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="menubar_pnl"
+                                                         Storyboard.TargetProperty="Width"
+                                                         From="140" To="55"
+                                                         Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="menubar_pnl"
+                                                         Storyboard.TargetProperty="Width"
+                                                         From="55" To="140"
+                                                         Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                    </ToggleButton>
+                </Grid>
+
+                <Separator Background="Black" VerticalAlignment="Stretch"/>
+
+                <!--Menu items-->
+                <Grid Height="380">
+                    <StackPanel>
+                        <!--Home button-->
+                        <RadioButton Margin="0,10,0,0"
+                                     FontSize="30" IsChecked="True"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Trang chủ">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/home.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Class button-->
+                        <RadioButton Margin="0,10,0,0"
+                                     FontSize="30"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Lớp học">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/class.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Subject button-->
+                        <RadioButton Margin="0,10,0,0"
+                                     FontSize="30"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Môn học">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/subject.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Teacher button-->
+                        <RadioButton Margin="0,10,0,0"
+                                     FontSize="30"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Giáo viên">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/teacher.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Student button-->
+                        <RadioButton Margin="0,10,0,0"
+                                     FontSize="30"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Học sinh">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/student.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Calendar button-->
+                        <RadioButton Margin="0,10,0,0"
+                                     FontSize="30"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Lịch">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/calendar.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                    </StackPanel>
+                </Grid>
+
+                <Separator Background="Black" VerticalAlignment="Stretch"/>
+
+                <!--Account Items-->
+                <Grid>
+                    <StackPanel>
+                        <!--Account button-->
+                        <RadioButton Margin="0,10,0,0"
+                                     FontSize="30"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding NavigateLoginCommand}"
+                                     Content="Thông tin">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/user.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Logout button-->
+                        <RadioButton Margin="0,10,0,0"
+                                     FontSize="30"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding NavigateLoginCommand}"
+                                     Content="Đăng xuất">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/logout.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+        <!--Main content-->
+        <Grid  Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <Image Source="pack://application:,,,/LearnHub;component/resource/icons/user.png"
+                   HorizontalAlignment="Left" Margin="15 0 0 0" Height="40" Width="40"/>
+                <TextBlock Text="Admin" Style="{StaticResource font_style}" Foreground="#5CB3FF"
+                           FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
+            </StackPanel>
+
+            <Separator Grid.Row="1" Background="Black" VerticalAlignment="Stretch"/>
+            
+            <!--main content-->
+            <ContentControl Grid.Row="2" Content="{Binding CurrentAdminViewModel}"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

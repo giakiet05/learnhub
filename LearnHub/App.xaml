@@ -1,6 +1,13 @@
 ﻿<Application x:Class="LearnHub.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:waitvm="clr-namespace:LearnHub.ViewModels.WaitingViewModels"  
+                xmlns:authvm="clr-namespace:LearnHub.ViewModels.AuthenticationViewModels"  
+                xmlns:adminvm="clr-namespace:LearnHub.ViewModels.AdminViewModels"
+                xmlns:components="clr-namespace:LearnHub.Components" 
+                xmlns:waitingviews="clr-namespace:LearnHub.Views.WaitingViews"
+                xmlns:authviews="clr-namespace:LearnHub.Views.AuthenticationViews"
+                xmlns:adminviews="clr-namespace:LearnHub.Views.AdminViews"
              xmlns:local="clr-namespace:LearnHub">
     <Application.Resources>
       
@@ -12,6 +19,15 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary Source="/ResourceXAML/MainResource.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type waitvm:WaitingViewModel}">
+                <waitingviews:WaitingView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type authvm:LoginViewModel}">
+                <authviews:LoginView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
+                <adminviews:AdminView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

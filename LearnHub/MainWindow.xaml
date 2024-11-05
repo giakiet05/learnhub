@@ -7,10 +7,11 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:waitvm="clr-namespace:LearnHub.ViewModels.WaitingViewModels"  
         xmlns:authvm="clr-namespace:LearnHub.ViewModels.AuthenticationViewModels"  
-        xmlns:viewmodels="clr-namespace:LearnHub.ViewModels"
+        xmlns:adminvm="clr-namespace:LearnHub.ViewModels.AdminViewModels"
         xmlns:components="clr-namespace:LearnHub.Components" 
         xmlns:waitingviews="clr-namespace:LearnHub.Views.WaitingViews"
         xmlns:authviews="clr-namespace:LearnHub.Views.AuthenticationViews"
+        xmlns:adminviews="clr-namespace:LearnHub.Views.AdminViews"
         mc:Ignorable="d"
         Title="LearnHub" Height="600" Width="1000"
         Icon="/Resource/Icons/appIcon.png"
@@ -31,12 +32,15 @@
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type waitvm:WaitingViewModel}">
+                <!--<DataTemplate DataType="{x:Type waitvm:WaitingViewModel}">
                     <waitingviews:WaitingView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type authvm:LoginViewModel}">
                     <authviews:LoginView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
+                    <adminviews:AdminView/>
+                </DataTemplate>-->
             </ContentControl.Resources>
         </ContentControl>
 

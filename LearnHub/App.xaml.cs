@@ -9,6 +9,7 @@ using LearnHub.Services;
 using LearnHub.Models;
 using LearnHub.ViewModels.AuthenticationViewModels;
 using LearnHub.ViewModels.WaitingViewModels;
+using LearnHub.ViewModels.AdminViewModels;
 
 
 namespace LearnHub
@@ -37,7 +38,7 @@ namespace LearnHub
 
             }
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new WaitingViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new AdminViewModel(navigationStore);
 
             MainWindow = new MainWindow()
             {

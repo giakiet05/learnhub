@@ -1,6 +1,6 @@
 ﻿using LearnHub.Data;
 using Microsoft.EntityFrameworkCore;
-﻿using LearnHub.Stores;
+using LearnHub.Stores;
 using LearnHub.ViewModels;
 using System.Configuration;
 using System.Data;
@@ -20,7 +20,7 @@ namespace LearnHub
     {
         private readonly string _connectionString = "Data Source=LearnHubSqlite.db";
         private readonly LearnHubDbContextFactory _dbContextFactory;
-        
+
 
         public App()
         {
@@ -33,8 +33,6 @@ namespace LearnHub
             {
 
                 context.Database.Migrate();
-                
-
             }
             NavigationStore navigationStore = new NavigationStore();
             navigationStore.CurrentViewModel = new WaitingViewModel(navigationStore);

@@ -22,7 +22,6 @@ namespace LearnHub.Data
         public DbSet<ExamSchedule> ExamSchedules { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Question> Questions { get; set; }
-       // public DbSet<Semester> Semesters { get; set; }
         public DbSet<SubjectResult> SubjectResults { get; set; }
         public DbSet<YearResult> YearResults { get; set; }
         public DbSet<TeachingAssignment> TeachingAssignments { get; set; }
@@ -34,6 +33,19 @@ namespace LearnHub.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            // Configure Table-per-Type (TPT) inheritance for User, Teacher, and Student
+            //modelBuilder.Entity<User>()
+            //    .ToTable("Users");
+
+            //modelBuilder.Entity<Teacher>()
+            //    .ToTable("Teachers")
+            //    .HasBaseType<User>();
+
+            //modelBuilder.Entity<Student>()
+            //    .ToTable("Students")
+            //    .HasBaseType<User>();
+
             //Composite keys
             modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId });
             modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.TeacherId });
@@ -52,7 +64,7 @@ namespace LearnHub.Data
             modelBuilder.Entity<Teacher>(e =>
             {
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12"));
+                //e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12"));
             });
 
             modelBuilder.Entity<Student>(e =>

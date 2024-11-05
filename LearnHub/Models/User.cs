@@ -16,8 +16,6 @@ namespace LearnHub.Models
 
 
         //Navigation Properties
-        //public Teacher Teacher { get; set; }
-        //public Student Student { get; set; }
-        public ICollection<Notification> Notifications { get; set; }
+       public ICollection<Notification> Notifications { get; set; }
     }
 }

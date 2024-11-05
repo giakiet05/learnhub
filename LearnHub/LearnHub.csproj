@@ -60,8 +60,4 @@
     <Resource Include="Resource\Images\march7.jpg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

@@ -45,6 +45,9 @@
     </Style>
 
     <!--togglebutton style template-->
+    <ImageBrush x:Key="tb_mouse_over"
+                ImageSource="pack://application:,,,/LearnHub;component/resource/icons/menu_effect.png"/>
+    
     <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
 
         <Setter Property="Template">
@@ -57,6 +60,17 @@
                             SnapsToDevicePixels="True">
 
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource tb_mouse_over}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
             

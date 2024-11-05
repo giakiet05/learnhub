@@ -19,6 +19,7 @@
     <None Remove="Resource\Icons\login.png" />
     <None Remove="Resource\Icons\logout.png" />
     <None Remove="Resource\Icons\menu.png" />
+    <None Remove="Resource\Icons\menu_effect.png" />
     <None Remove="Resource\Icons\student.png" />
     <None Remove="Resource\Icons\teacher.png" />
     <None Remove="Resource\Icons\user.png" />
@@ -51,6 +52,7 @@
     <Resource Include="Resource\Icons\login.png" />
     <Resource Include="Resource\Icons\logout.png" />
     <Resource Include="Resource\Icons\menu.png" />
+    <Resource Include="Resource\Icons\menu_effect.png" />
     <Resource Include="Resource\Icons\student.png" />
     <Resource Include="Resource\Icons\teacher.png" />
     <Resource Include="Resource\Icons\user.png" />

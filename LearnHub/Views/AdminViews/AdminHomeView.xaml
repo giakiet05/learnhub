@@ -26,15 +26,17 @@
 
         <StackPanel Grid.Column="1">
             <!--nút thêm thông báo mới-->
-            <Button x:Name="btnThem" Content="Thêm" materialDesign:ButtonAssist.CornerRadius="20" 
-                    Foreground="Black" Background="#5CB3FF" BorderThickness="0" Margin="0 10 0 0"/>
+            <Button x:Name="btnThem" Content="Thêm" Margin="0 10 0 0"
+        Background="#5CB3FF" BorderBrush="Transparent"
+        Style="{StaticResource btnStyle}"/>
             <!--nút xoá thông báo đã chọn-->
-            <Button x:Name="btnXoa" Content="Xoá" materialDesign:ButtonAssist.CornerRadius="20" 
-                    Foreground="Black" Background="#5CB3FF" BorderThickness="0" Margin="0 20 0 0"/>
+            <Button x:Name="btnXoa" Content="Xoá" Margin="0 20 0 0"
+        Background="#5CB3FF" BorderBrush="Transparent"
+        Style="{StaticResource btnStyle}"/>
             <!--nút sửa thông báo đã chọn-->
-            <Button x:Name="btnSua" Content="Sửa" materialDesign:ButtonAssist.CornerRadius="20" 
-                    Foreground="Black" Background="#5CB3FF" BorderThickness="0" Margin="0 20 0 0"/>
-            
+            <Button x:Name="btnSua" Content="Sửa" Margin="0 20 0 0"
+        Background="#5CB3FF" BorderBrush="Transparent"
+        Style="{StaticResource btnStyle}"/>
         </StackPanel>
 
     </Grid>

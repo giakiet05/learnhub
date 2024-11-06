@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnHub.Migrations
 {
     [DbContext(typeof(LearnHubDbContext))]
-    [Migration("20241105145917_Initial")]
+    [Migration("20241106080135_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -271,8 +271,7 @@ namespace LearnHub.Migrations
 
                     b.HasKey("ClassroomId", "StudentId");
 
-                    b.HasIndex("StudentId")
-                        .IsUnique();
+                    b.HasIndex("StudentId");
 
                     b.ToTable("StudentPlacements");
                 });
@@ -391,6 +390,9 @@ namespace LearnHub.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users", t =>
                         {
                             t.HasCheckConstraint("CK_User_Role", "[Role] IN ('Admin', 'Student', 'Teacher')");
@@ -465,9 +467,11 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MotherName")
@@ -513,9 +517,11 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
@@ -533,6 +539,8 @@ namespace LearnHub.Migrations
                     b.ToTable("Teachers", t =>
                         {
                             t.HasCheckConstraint("CK_User_Role", "[Role] IN ('Admin', 'Student', 'Teacher')");
+
+                            t.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12");
 
                             t.HasCheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')");
                         });
@@ -659,8 +667,8 @@ namespace LearnHub.Migrations
                         .IsRequired();
 
                     b.HasOne("LearnHub.Models.Student", "Student")
-                        .WithOne("StudentPlacement")
-                        .HasForeignKey("LearnHub.Models.StudentPlacement", "StudentId")
+                        .WithMany("StudentPlacements")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -809,8 +817,7 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Student", b =>
                 {
-                    b.Navigation("StudentPlacement")
-                        .IsRequired();
+                    b.Navigation("StudentPlacements");
 
                     b.Navigation("SubjectResults");
 

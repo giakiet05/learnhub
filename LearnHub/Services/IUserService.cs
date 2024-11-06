@@ -14,9 +14,5 @@ namespace LearnHub.Services
         Task<T> GetUserWithRole<T>(User user) where T : User;
         public Task<User> CreateUser(User user);
 
-        public Task<Student> CreateStudent(Student student);
-
-        public Task<Teacher> CreateTeacher(Teacher teacher);
-
     }
 }

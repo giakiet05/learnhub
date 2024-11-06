@@ -68,8 +68,8 @@ namespace LearnHub.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    FullName = table.Column<string>(type: "TEXT", nullable: true),
-                    Gender = table.Column<string>(type: "TEXT", nullable: true),
+                    FullName = table.Column<string>(type: "TEXT", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     Birthday = table.Column<DateTime>(type: "TEXT", nullable: true),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
@@ -98,8 +98,8 @@ namespace LearnHub.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     CitizenID = table.Column<string>(type: "TEXT", nullable: true),
-                    FullName = table.Column<string>(type: "TEXT", nullable: true),
-                    Gender = table.Column<string>(type: "TEXT", nullable: true),
+                    FullName = table.Column<string>(type: "TEXT", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false),
                     Salary = table.Column<int>(type: "INTEGER", nullable: true),
                     DateOfJoining = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
@@ -113,6 +113,7 @@ namespace LearnHub.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teachers", x => x.Id);
+                    table.CheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12");
                     table.CheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')");
                     table.ForeignKey(
                         name: "FK_Teachers_Users_Id",
@@ -502,8 +503,7 @@ namespace LearnHub.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_StudentPlacements_StudentId",
                 table: "StudentPlacements",
-                column: "StudentId",
-                unique: true);
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubjectResults_StudentId",
@@ -524,6 +524,12 @@ namespace LearnHub.Migrations
                 name: "IX_TeachingAssignments_TeacherId",
                 table: "TeachingAssignments",
                 column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_YearResults_StudentId",

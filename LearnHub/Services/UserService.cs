@@ -49,26 +49,5 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<Student> CreateStudent(Student student)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                var createdResult = await context.Set<Student>().AddAsync(student);
-                await context.SaveChangesAsync();
-                return createdResult.Entity;
-            }
-        }
-        public async Task<Teacher> CreateTeacher(Teacher teacher)
-        {
-
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                var createdResult = await context.Set<Teacher>().AddAsync(teacher);
-                await context.SaveChangesAsync();
-                return createdResult.Entity;
-            }
-        }
-
-
     }
 }

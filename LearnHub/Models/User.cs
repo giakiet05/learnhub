@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace LearnHub.Models
 {
   public class User : DomainObject
     {
-       
         public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }

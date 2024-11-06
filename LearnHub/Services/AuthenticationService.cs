@@ -21,12 +21,15 @@ namespace LearnHub.Services
 
         public async Task<AccountCreationResult> CreateAccount(User user)
         {
-           User exisingUser = await _userService.GetByUsername(user.Username);
+            User exisingUser = await _userService.GetByUsername(user.Username);
             if (exisingUser != null) return AccountCreationResult.UsernameAlreadyExists;
+
             user.Password = _passwordHasher.HashPassword(user.Password);
+
             await _userService.CreateUser(user);
+
             return AccountCreationResult.Success;
-                
+
         }
 
         public async Task<User> Login(string username, string password)
@@ -34,7 +37,7 @@ namespace LearnHub.Services
             User existingUser = await _userService.GetByUsername(username);
             if (existingUser == null) return null;
 
-            bool isPasswordMatched = _passwordHasher.VerifyPassword(existingUser.Password, password);
+            bool isPasswordMatched = _passwordHasher.VerifyPassword(password, existingUser.Password);
             if (!isPasswordMatched) return null;
 
             switch (existingUser.Role)
@@ -47,8 +50,6 @@ namespace LearnHub.Services
 
                 case "Teacher":
                     return await _userService.GetUserWithRole<Teacher>(existingUser);
-
-
             }
             return null;
         }

@@ -34,18 +34,6 @@ namespace LearnHub.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            // Configure Table-per-Type (TPT) inheritance for User, Teacher, and Student
-            //modelBuilder.Entity<User>()
-            //    .ToTable("Users");
-
-            //modelBuilder.Entity<Teacher>()
-            //    .ToTable("Teachers")
-            //    .HasBaseType<User>();
-
-            //modelBuilder.Entity<Student>()
-            //    .ToTable("Students")
-            //    .HasBaseType<User>();
-
             //Composite keys
             modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId });
             modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.TeacherId });
@@ -53,18 +41,21 @@ namespace LearnHub.Data
             modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId });
             modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentId });
 
+            //Unique constraints
+            modelBuilder.Entity<User>().HasIndex(e => e.Username).IsUnique();
+
+
             //Check constraints
             modelBuilder.Entity<User>(e =>
             {
                 e.ToTable(tb => tb.HasCheckConstraint("CK_User_Role", "[Role] IN ('Admin', 'Student', 'Teacher')"));
-
-
+               
             });
 
             modelBuilder.Entity<Teacher>(e =>
             {
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')"));
-                //e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12"));
             });
 
             modelBuilder.Entity<Student>(e =>

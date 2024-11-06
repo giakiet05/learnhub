@@ -6,7 +6,9 @@
                     xmlns:components="clr-namespace:LearnHub.Components" 
                     xmlns:waitingviews="clr-namespace:LearnHub.Views.WaitingViews"
                     xmlns:authviews="clr-namespace:LearnHub.Views.AuthenticationViews"
-                    xmlns:adminviews="clr-namespace:LearnHub.Views.AdminViews">
+                    xmlns:adminviews="clr-namespace:LearnHub.Views.AdminViews"
+                    xmlns:views="clr-namespace:LearnHub.Views"
+                    xmlns:vm="clr-namespace:LearnHub.ViewModels"  >
 
     <!--#region DataTemplate -->
     <DataTemplate DataType="{x:Type waitvm:WaitingViewModel}">
@@ -15,7 +17,9 @@
     <DataTemplate DataType="{x:Type authvm:LoginViewModel}">
         <authviews:LoginView/>
     </DataTemplate>
-    
+    <DataTemplate DataType="{x:Type vm:LogoutConfirmViewModel}">
+        <views:LogoutConfirmView/>
+    </DataTemplate>
     <!--#region admin-->
     <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
         <adminviews:AdminView/>

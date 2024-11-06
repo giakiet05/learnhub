@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 namespace LearnHub.Services
 {
 
-
-
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserService _userService;
@@ -23,7 +21,12 @@ namespace LearnHub.Services
 
         public async Task<AccountCreationResult> CreateAccount(User user)
         {
-            throw new NotImplementedException();
+           User exisingUser = await _userService.GetByUsername(user.Username);
+            if (exisingUser != null) return AccountCreationResult.UsernameAlreadyExists;
+            user.Password = _passwordHasher.HashPassword(user.Password);
+            await _userService.CreateUser(user);
+            return AccountCreationResult.Success;
+                
         }
 
         public async Task<User> Login(string username, string password)

@@ -14,7 +14,6 @@ namespace LearnHub.ViewModels.WaitingViewModels
     public class WaitingViewModel : BaseViewModel
     {
 
-        
         public ICommand NavigateLoginCommand {  get;  }
         
         public WaitingViewModel(NavigationStore navigationStore) 

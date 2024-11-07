@@ -1,7 +1,6 @@
 ﻿using LearnHub.Data;
 using LearnHub.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,125 +18,270 @@ namespace LearnHub.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAll()
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                return await context.Set<T>().ToListAsync();
-            }
-        }
-
-        public async Task<T> GetByIdAsync(Guid id)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                return await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-            }
-        }
-
-        public async Task<T> GetOneAsync(Expression<Func<T, bool>> predicate)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                return await context.Set<T>().FirstOrDefaultAsync(predicate);
-            }
-        }
-
-        public async Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> predicate)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                return await context.Set<T>().Where(predicate).ToListAsync();
-            }
-        }
-
-        public async Task<T> CreateAsync(T entity)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                var createdResult = await context.Set<T>().AddAsync(entity);
-                await context.SaveChangesAsync();
-                return createdResult.Entity;
-            }
-        }
-
-        public async Task<T> UpdateByIdAsync(Guid id, T entity)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-
-                var existingEntity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-                if (existingEntity == null) return null;
-                context.Entry(existingEntity).CurrentValues.SetValues(entity);
-                await context.SaveChangesAsync();
-                return existingEntity;
-            }
-        }
-
-
-        public async Task<T> UpdateOneAsync(Expression<Func<T, bool>> predicate, T entity)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                var existingEntity = await context.Set<T>().FirstOrDefaultAsync(predicate);
-                if (existingEntity == null) return null;
-
-                context.Entry(existingEntity).CurrentValues.SetValues(entity);
-                await context.SaveChangesAsync();
-                return existingEntity;
-            }
-        }
-
-        public async Task<int> UpdateManyAsync(Expression<Func<T, bool>> predicate, T entity)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                var entities = await context.Set<T>().Where(predicate).ToListAsync();
-                if (!entities.Any()) return 0;
-
-                foreach (var existingEntity in entities)
+                try
                 {
-                    context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    return await context.Set<T>().ToListAsync();
                 }
-
-                return await context.SaveChangesAsync();
-            }
-        }
-        public async Task<bool> DeleteByIdAsync(Guid id)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-                if (entity == null) return false;
-
-                context.Set<T>().Remove(entity);
-                await context.SaveChangesAsync();
-                return true;
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
 
-        public async Task<bool> DeleteOneAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetById(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                var entity = await context.Set<T>().FirstOrDefaultAsync(predicate);
-                if (entity == null) return false;
-
-                context.Set<T>().Remove(entity);
-                await context.SaveChangesAsync();
-                return true;
+                try
+                {
+                    var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+                    if (entity == null)
+                    {
+                        throw new Exception();
+                    }
+                    return entity;
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
 
-        public async Task<int> DeleteManyAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetOne(Expression<Func<T, bool>> predicate)
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                var entities = await context.Set<T>().Where(predicate).ToListAsync();
-                if (!entities.Any()) return 0;
+                try
+                {
+                    return await context.Set<T>().FirstOrDefaultAsync(predicate);
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
 
-                context.Set<T>().RemoveRange(entities);
-                return await context.SaveChangesAsync();
+        public async Task<IEnumerable<T>> GetMany(Expression<Func<T, bool>> predicate)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    return await context.Set<T>().Where(predicate).ToListAsync();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<T> Create(T entity)
+        {
+            if (entity == null)
+            {
+                throw new Exception();
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var createdResult = await context.Set<T>().AddAsync(entity);
+                    await context.SaveChangesAsync();
+                    return createdResult.Entity;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<T> UpdateById(Guid id, T entity)
+        {
+            if (entity == null)
+            {
+                throw new Exception();
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var existingEntity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+                    if (existingEntity == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    await context.SaveChangesAsync();
+                    return existingEntity;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<T> UpdateOne(Expression<Func<T, bool>> predicate, T entity)
+        {
+            if (entity == null)
+            {
+                throw new Exception();
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var existingEntity = await context.Set<T>().FirstOrDefaultAsync(predicate);
+                    if (existingEntity == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    await context.SaveChangesAsync();
+                    return existingEntity;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<int> UpdateMany(Expression<Func<T, bool>> predicate, T entity)
+        {
+            if (entity == null)
+            {
+                throw new Exception();
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var entities = await context.Set<T>().Where(predicate).ToListAsync();
+                    if (!entities.Any())
+                    {
+                        return 0;
+                    }
+
+                    foreach (var existingEntity in entities)
+                    {
+                        context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    }
+
+                    return await context.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<bool> DeleteById(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+                    if (entity == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    context.Set<T>().Remove(entity);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<bool> DeleteOne(Expression<Func<T, bool>> predicate)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var entity = await context.Set<T>().FirstOrDefaultAsync(predicate);
+                    if (entity == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    context.Set<T>().Remove(entity);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<int> DeleteMany(Expression<Func<T, bool>> predicate)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var entities = await context.Set<T>().Where(predicate).ToListAsync();
+                    if (!entities.Any()) return 0;
+
+                    context.Set<T>().RemoveRange(entities);
+                    return await context.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
     }

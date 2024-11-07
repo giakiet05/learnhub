@@ -23,7 +23,13 @@ namespace LearnHub.Services
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                return await context.Set<User>().FirstOrDefaultAsync(e => e.Username == username);
+                try
+                {
+                    return await context.Set<User>().FirstOrDefaultAsync(e => e.Username == username);
+                }
+                catch (Exception) {
+                    throw new Exception();
+                }
             }
         }
 
@@ -31,11 +37,17 @@ namespace LearnHub.Services
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                T entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == user.Id);
-                entity.Role = user.Role;
-                entity.Username = user.Username;
-                entity.Password = user.Password;
-                return entity;
+                try
+                {
+                    T entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == user.Id);
+                    entity.Role = user.Role;
+                    entity.Username = user.Username;
+                    entity.Password = user.Password;
+                    return entity;
+                }
+                catch (Exception) {
+                    throw new Exception(); 
+                }
             }
         }
 
@@ -43,9 +55,19 @@ namespace LearnHub.Services
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                var createdResult = await context.Set<User>().AddAsync(user);
-                await context.SaveChangesAsync();
-                return createdResult.Entity;
+                try
+                {
+                    var createdResult = await context.Set<User>().AddAsync(user);
+                    await context.SaveChangesAsync();
+                    return createdResult.Entity;
+                }
+                catch(DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception) {
+                    throw new Exception();
+                }
             }
         }
 

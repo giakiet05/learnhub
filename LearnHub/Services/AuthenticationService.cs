@@ -37,7 +37,11 @@ namespace LearnHub.Services
             if (existingUser == null) throw new UserNotFoundException(username);
 
             bool isPasswordMatched = _passwordHasher.VerifyPassword(password, existingUser.Password);
-            if (!isPasswordMatched) throw new InvalidPasswordException(username, password);
+            if (!isPasswordMatched)
+            {
+               
+                throw new InvalidPasswordException(username, password);
+            }
 
             switch (existingUser.Role)
             {

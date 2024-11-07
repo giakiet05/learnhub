@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Teacher
+    [Table("Teachers")]
+    public class Teacher : User
     {
-        [Key, ForeignKey("User")]
-        public Guid UserId { get; set; }
+      
         public string CitizenID { get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }
@@ -27,7 +27,6 @@ namespace LearnHub.Models
         public string? Specialization { get; set; }
 
         //Navigation Properties 
-        public User User { get; set; }
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }
         public ICollection<Document> Documents { get; set; }
         public ICollection<Exercise> Exercises { get; set; }

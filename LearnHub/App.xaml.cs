@@ -1,6 +1,6 @@
 ﻿using LearnHub.Data;
 using Microsoft.EntityFrameworkCore;
-﻿using LearnHub.Stores;
+using LearnHub.Stores;
 using LearnHub.ViewModels;
 using System.Configuration;
 using System.Data;
@@ -21,7 +21,7 @@ namespace LearnHub
     {
         private readonly string _connectionString = "Data Source=LearnHubSqlite.db";
         private readonly LearnHubDbContextFactory _dbContextFactory;
-        
+
 
         public App()
         {
@@ -36,6 +36,64 @@ namespace LearnHub
                 context.Database.Migrate();
 
 
+                //-------------Test CreateAccount và Login-----------------
+                IAuthenticationService authenticationService = new AuthenticationService(new UserService(_dbContextFactory), new PasswordHasher());
+
+                //CreateAccount
+                User user1 = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    Username = "hieutruong",
+                    Password = "12345",
+                    Role = "Admin"
+                };
+                Student user2 = new Student()
+                {
+                    Id = Guid.NewGuid(),
+                    Username = "hs0001",
+                    Password = "12345",
+                    Role = "Student",
+                    FullName = "Nguyễn Thị Học Sinh 2",
+                    Gender = "Nữ"
+                };
+
+                Teacher user3 = new Teacher()
+                {
+                    Id = Guid.NewGuid(),
+                    Username = "gv0001",
+                    Password = "12345",
+                    Role = "Teacher",
+                    FullName = "Trần Văn Giáo Viên",
+                    Gender = "Nam",
+                    CitizenID = "123456123456"
+                };
+
+                await authenticationService.CreateAccount(user1);
+                await authenticationService.CreateAccount(user2);
+                await authenticationService.CreateAccount(user3);
+
+
+                //Login
+                User user = await authenticationService.Login("hieutruong", "12345"); //đổi username để login tài khoản khác
+                string userData = "";
+                if (user == null) userData = "User not found";
+                else
+                {
+                    if (user.Role == "Admin") userData = $"Đây là ông hiệu trưởng, username: {user.Username}";
+                    else if (user.Role == "Student")
+                    {
+                        Student student = user as Student;
+                        string fatherName = student.FatherName == null ? "Không biết" : student.FatherName;
+                        userData = $"Đây là thằng học sinh: username: {student.Username}, họ tên: {student.FullName}, tên cha: {fatherName}";
+                    }
+                    else if (user.Role == "Teacher")
+                    {
+                        Teacher teacher = user as Teacher;
+                        userData = $"Đây là ông thầy: username: {teacher.Username}, họ tên: {teacher.FullName}, cccd: {teacher.CitizenID}";
+                    }
+                }
+                MessageBox.Show(userData, "User Data");
+                //-------------Test CreateAccount và Login-----------------
             }
             
             NavigationStore.Instance.CurrentViewModel = new WaitingViewModel();

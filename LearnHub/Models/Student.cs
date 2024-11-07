@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Student 
+    [Table("Students")]
+    public class Student : User
     {
-        [Key, ForeignKey("User")]
-        public Guid UserId { get; set; }
+        
         public string FullName { get; set; }
         public string Gender { get; set; }
         public string? Address { get; set; }
@@ -23,9 +23,8 @@ namespace LearnHub.Models
         public string? MotherName { get; set; }
         public string? FatherPhone { get; set; }
         public string? MotherPhone { get; set; }
-         //Navigation Properties
-        public User User { get; set; }
-        public StudentPlacement StudentPlacement { get; set; }
+        //Navigation Properties
+        public ICollection<StudentPlacement> StudentPlacements { get; set; }
         public ICollection<SubjectResult> SubjectResults { get; set; }
         public ICollection<YearResult> YearResults { get; set; }
     }

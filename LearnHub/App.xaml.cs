@@ -54,7 +54,7 @@ namespace LearnHub
                         Username = "hs0001",
                         Password = "12345",
                         Role = "Student",
-                        FullName = "Nguyễn Thị Học Sinh 2",
+                        FullName = "Nguyễn Thị Học Sinh",
                         Gender = "Nữ"
                     };
 
@@ -69,13 +69,13 @@ namespace LearnHub
                         CitizenID = "123456123456"
                     };
 
-                    //await authenticationService.CreateAccount(user1);
-                    //await authenticationService.CreateAccount(user2);
-                    //await authenticationService.CreateAccount(user3);
+                    await authenticationService.CreateAccount(user1);
+                    await authenticationService.CreateAccount(user2);
+                    await authenticationService.CreateAccount(user3);
 
 
                     //Login
-                    User user = await authenticationService.Login("hieutruong", "12345f"); //đổi username để login tài khoản khác
+                    User user = await authenticationService.Login("gv0001", "12345"); //đổi username để login tài khoản khác
                     string userData = "";
                     if (user == null) userData = "User not found";
                     else

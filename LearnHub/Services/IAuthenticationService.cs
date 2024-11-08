@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 namespace LearnHub.Services
 {
 
-    public enum AccountCreationResult
-    {
-        Success,
-        PasswordsDoNotMatch,
-        UsernameAlreadyExists
-    }
+   
 
     public interface IAuthenticationService
     {
-        Task<AccountCreationResult> CreateAccount(User user);
+        Task<User> CreateAccount(User user);
         Task<User> Login(string username, string password);
     }
 }

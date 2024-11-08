@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LearnHub.Exceptions;
 
 namespace LearnHub.Services
 {
@@ -19,26 +20,28 @@ namespace LearnHub.Services
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<AccountCreationResult> CreateAccount(User user)
+        public async Task<User> CreateAccount(User user)
         {
             User exisingUser = await _userService.GetByUsername(user.Username);
-            if (exisingUser != null) return AccountCreationResult.UsernameAlreadyExists;
+            if (exisingUser != null) throw new UsernameAlreadyExistsException(exisingUser.Username);
 
-            user.Password = _passwordHasher.HashPassword(user.Password);
+            user.Password = _passwordHasher.HashPassword(user.Password); //mã hóa mật khẩu
 
-            await _userService.CreateUser(user);
-
-            return AccountCreationResult.Success;
+            return await _userService.CreateUser(user);
 
         }
 
         public async Task<User> Login(string username, string password)
         {
             User existingUser = await _userService.GetByUsername(username);
-            if (existingUser == null) return null;
+            if (existingUser == null) throw new UserNotFoundException(username);
 
             bool isPasswordMatched = _passwordHasher.VerifyPassword(password, existingUser.Password);
-            if (!isPasswordMatched) return null;
+            if (!isPasswordMatched)
+            {
+               
+                throw new InvalidPasswordException(username, password);
+            }
 
             switch (existingUser.Role)
             {

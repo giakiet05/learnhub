@@ -39,43 +39,43 @@ namespace LearnHub
                 //-------------Test CreateAccount và Login-----------------
                 IAuthenticationService authenticationService = new AuthenticationService(new UserService(_dbContextFactory), new PasswordHasher());
 
-                //CreateAccount
-                User user1 = new User()
+                try
                 {
-                    Id = Guid.NewGuid(),
-                    Username = "hieutruong",
-                    Password = "12345",
-                    Role = "Admin"
-                };
-                Student user2 = new Student()
-                {
-                    Id = Guid.NewGuid(),
-                    Username = "hs0001",
-                    Password = "12345",
-                    Role = "Student",
-                    FullName = "Nguyễn Thị Học Sinh 2",
-                    Gender = "Nữ"
-                };
+                    //CreateAccount
+                    User user1 = new User()
+                    {
+                        Id = Guid.NewGuid(),
+                        Username = "hieutruong",
+                        Password = "12345",
+                        Role = "Admin"
+                    };
+                    Student user2 = new Student()
+                    {
+                        Id = Guid.NewGuid(),
+                        Username = "hs0001",
+                        Password = "12345",
+                        Role = "Student",
+                        FullName = "Nguyễn Thị Học Sinh",
+                        Gender = "Nữ"
+                    };
 
-                Teacher user3 = new Teacher()
-                {
-                    Id = Guid.NewGuid(),
-                    Username = "gv0001",
-                    Password = "12345",
-                    Role = "Teacher",
-                    FullName = "Trần Văn Giáo Viên",
-                    Gender = "Nam",
-                    CitizenID = "123456123456"
-                };
+                    Teacher user3 = new Teacher()
+                    {
+                        Id = Guid.NewGuid(),
+                        Username = "gv0001",
+                        Password = "12345",
+                        Role = "Teacher",
+                        FullName = "Trần Văn Giáo Viên",
+                        Gender = "Nam",
+                        CitizenID = "123456123456"
+                    };
 
-                await authenticationService.CreateAccount(user1);
-                await authenticationService.CreateAccount(user2);
-                await authenticationService.CreateAccount(user3);
+                    await authenticationService.CreateAccount(user1);
+                    await authenticationService.CreateAccount(user2);
+                    await authenticationService.CreateAccount(user3);
 
 
-                
-                
-               
+
             }
             
             NavigationStore.Instance.CurrentViewModel = new WaitingViewModel();

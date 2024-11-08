@@ -28,14 +28,17 @@
         <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
             <!--nút thêm môn học mới-->
             <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
+                    Command="{Binding Add}"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
             <!--nút xoá môn học đã chọn-->
             <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
+                    Command="{Binding Delete}"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
             <!--nút sửa môn học đã chọn-->
             <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
+                    Command="{Binding Edit}"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
         </StackPanel>

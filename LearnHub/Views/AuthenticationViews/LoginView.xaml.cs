@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LearnHub.Commands;
+using LearnHub.ViewModels.AdminViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +31,12 @@ namespace LearnHub.Views.AuthenticationViews
         {
             tbUsername.Clear();
             tbUsername.Focus();
+        }
+
+        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        {
+            ICommand navigate= new NavigateViewCommand<AdminViewModel>(()=> new AdminViewModel());
+            navigate.Execute(this);
         }
     }
 }

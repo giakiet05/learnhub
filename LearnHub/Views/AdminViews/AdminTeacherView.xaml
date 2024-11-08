@@ -25,6 +25,7 @@
                         Style="{StaticResource btnStyle}"/>
 
                 <Button x:Name="btnPhanCong" Content="Phân công"  
+                        Command="{Binding Ass}"
                         BorderBrush="#5CB3FF" Background="#ffffff"
                         Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                         Style="{StaticResource btnStyle}"/>
@@ -34,14 +35,17 @@
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
                 <!--nút thêm t mới-->
                 <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
+                        Command="{Binding Add}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
                 <!--nút xoá thông báo đã chọn-->
                 <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
+                        Command="{Binding Delete}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
                 <!--nút sửa thông báo đã chọn-->
                 <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
+                        Command="{Binding Edit}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
             </StackPanel>

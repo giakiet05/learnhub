@@ -87,10 +87,12 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <!--button thêm-->
             <Button x:Name="btnThem" Content="Thêm" Style="{StaticResource btnStyle}"
+                    Command="{Binding Add}"
             Width="118"
             Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}"
+                    Command="{Binding Cancel}"
             Width="118"
             Margin="10 0 50 0" Background="#93A7BF" BorderBrush="Transparent"/>
         </StackPanel>

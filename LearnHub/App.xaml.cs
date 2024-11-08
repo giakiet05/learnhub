@@ -35,6 +35,7 @@ namespace LearnHub
 
                 context.Database.Migrate();
 
+
                 //-------------Test CreateAccount và Login-----------------
                 IAuthenticationService authenticationService = new AuthenticationService(new UserService(_dbContextFactory), new PasswordHasher());
 
@@ -74,43 +75,15 @@ namespace LearnHub
                     await authenticationService.CreateAccount(user3);
 
 
-                    //Login
-                    User user = await authenticationService.Login("gv0001", "12345"); //đổi username để login tài khoản khác
-                    string userData = "";
-                    if (user == null) userData = "User not found";
-                    else
-                    {
-                        if (user.Role == "Admin") userData = $"Đây là ông hiệu trưởng, username: {user.Username}";
-                        else if (user.Role == "Student")
-                        {
-                            Student student = user as Student;
-                            string fatherName = student.FatherName == null ? "Không biết" : student.FatherName;
-                            userData = $"Đây là thằng học sinh: username: {student.Username}, họ tên: {student.FullName}, tên cha: {fatherName}";
-                        }
-                        else if (user.Role == "Teacher")
-                        {
-                            Teacher teacher = user as Teacher;
-                            userData = $"Đây là ông thầy: username: {teacher.Username}, họ tên: {teacher.FullName}, cccd: {teacher.CitizenID}";
-                        }
-                    }
-                    MessageBox.Show(userData, "User Data");
-                }
-                catch(TimeoutException ex)
-                {
-                    MessageBox.Show(ex.Message, "Timeout Error");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error");
-                }
-                //-------------Test CreateAccount và Login-----------------
-            }
-            NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new WaitingViewModel(navigationStore);
 
+            }
+            
+            NavigationStore.Instance.CurrentViewModel = new WaitingViewModel();
+            NavigationStore.Instance.CurrentLayoutModel = null;
+            ModelNavigationStore.Instance.CurrentModelViewModel = null;
             MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(navigationStore)
+            {            
+                DataContext = new MainViewModel()
             };
 
             MainWindow.Show();

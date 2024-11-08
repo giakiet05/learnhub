@@ -12,11 +12,20 @@ namespace LearnHub.ViewModels
     public class MainViewModel : BaseViewModel
     {
         public BaseViewModel CurrentViewModel => NavigationStore.Instance.CurrentViewModel;
-       
+        public BaseViewModel CurrentModelViewModel => ModelNavigationStore.Instance.CurrentModelViewModel;
+        public bool IsOpen => ModelNavigationStore.Instance.IsOpen;
         public MainViewModel()
         {
             NavigationStore.Instance.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            ModelNavigationStore.Instance.CurrentModelViewModelChanged += OnCurrentModelViewModelChanged;
         }
+
+        private void OnCurrentModelViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentModelViewModel));
+            OnPropertyChanged(nameof(IsOpen));
+        }
+
         private void OnCurrentViewModelChanged()
         {
           OnPropertyChanged(nameof(CurrentViewModel));

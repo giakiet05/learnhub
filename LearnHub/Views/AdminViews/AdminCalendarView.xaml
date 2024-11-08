@@ -21,14 +21,17 @@
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
                         <!--nút thêm lịch học mới-->
                         <Button x:Name="btnThemTKB" Content="Thêm" Margin="20 0 0 0"
+                                Command="{Binding AddTKB}"
                                  Background="#5CB3FF" BorderBrush="Transparent"
                                  Style="{StaticResource btnStyle}"/>
                         <!--nút xoá lịch học đã chọn-->
                         <Button x:Name="btnXoaTKB" Content="Xoá" Margin="20 0 0 0"
                                  Background="#5CB3FF" BorderBrush="Transparent"
+                                Command="{Binding DeleteTKB}"
                                  Style="{StaticResource btnStyle}"/>
                         <!--nút sửa lịch học đã chọn-->
                         <Button x:Name="btnSuaTKB" Content="Sửa" Margin="20 0 20 0"
+                                Command="{Binding EditTKB}"
                                  Background="#5CB3FF" BorderBrush="Transparent"
                                  Style="{StaticResource btnStyle}"/>
                     </StackPanel>
@@ -56,14 +59,17 @@
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
                         <!--nút thêm lịch thi mới-->
                         <Button x:Name="btnThemLT" Content="Thêm" Margin="20 0 0 0"
+                                Command="{Binding AddLT}"
                                  Background="#5CB3FF" BorderBrush="Transparent"
                                  Style="{StaticResource btnStyle}"/>
                         <!--nút xoá lịch thi đã chọn-->
                         <Button x:Name="btnXoaLT" Content="Xoá" Margin="20 0 0 0"
+                                Command="{Binding DeleteLT}"
                                  Background="#5CB3FF" BorderBrush="Transparent"
                                  Style="{StaticResource btnStyle}"/>
                         <!--nút sửa lịch thi đã chọn-->
                         <Button x:Name="btnSuaLT" Content="Sửa" Margin="20 0 20 0"
+                                Command="{Binding EditLT}"
                                  Background="#5CB3FF" BorderBrush="Transparent"
                                  Style="{StaticResource btnStyle}"/>
                     </StackPanel>

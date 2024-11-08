@@ -78,6 +78,7 @@
                         <!--Home button-->
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30" IsChecked="True"
+                                     Command="{Binding HomeCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Trang chủ">
                             <RadioButton.Tag>
@@ -87,6 +88,7 @@
                         <!--Class button-->
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30"
+                                     Command="{Binding ClassCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Lớp học">
                             <RadioButton.Tag>
@@ -96,6 +98,7 @@
                         <!--Subject button-->
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30"
+                                     Command="{Binding SubjectCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Môn học">
                             <RadioButton.Tag>
@@ -105,6 +108,7 @@
                         <!--Teacher button-->
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30"
+                                     Command="{Binding TeacherCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Giáo viên">
                             <RadioButton.Tag>
@@ -115,6 +119,7 @@
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30"
                                      Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding StudentCommand}"
                                      Content="Học sinh">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/student.png" />
@@ -123,6 +128,7 @@
                         <!--Calendar button-->
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30"
+                                     Command="{Binding CalendarCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Lịch">
                             <RadioButton.Tag>
@@ -141,7 +147,8 @@
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding NavigateLoginCommand}"
+                                     Command="{Binding AccountCommand}"
+                                     
                                      Content="Thông tin">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/user.png" />
@@ -151,7 +158,7 @@
                         <RadioButton Margin="0,10,0,0"
                                      FontSize="30"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding NavigateLoginCommand}"
+                                     Command="{Binding LogoutCommand}"
                                      Content="Đăng xuất">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/logout.png" />

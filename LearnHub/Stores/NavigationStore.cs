@@ -29,7 +29,6 @@ namespace LearnHub.Stores
                 OnCurrentViewModelChanged();
             }
         }
-
         private void OnCurrentViewModelChanged()
         {
             CurrentViewModelChanged?.Invoke();
@@ -44,10 +43,17 @@ namespace LearnHub.Stores
                 OnCurrentLayoutModelChanged();
             }
         }
-
         private void OnCurrentLayoutModelChanged()
         {
             CurrentLayoutModelChanged?.Invoke();
+        }
+        public void NavigateCurrentViewModel<TViewModel> (Func<TViewModel> createViewModel) where TViewModel : BaseViewModel
+        {
+            CurrentViewModel = createViewModel();
+        }
+        public void NavigateCurrentLayoutModel<TViewModel>(Func<TViewModel> createViewModel) where TViewModel : BaseViewModel
+        {
+            CurrentLayoutModel = createViewModel();
         }
     }
 }

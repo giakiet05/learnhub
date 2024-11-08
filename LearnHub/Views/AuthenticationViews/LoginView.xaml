@@ -63,6 +63,7 @@
                         Background="#87C5FC" Foreground="Black" Opacity="0.9"
                         materialDesign:ButtonAssist.CornerRadius="8" BorderThickness="0"
                         Style="{StaticResource MaterialDesignRaisedButton}"
+                         Command="{Binding LoginCommand}"
                         FontWeight="SemiBold" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                         Margin="75 0 0 0"/>
                 
@@ -73,6 +74,7 @@
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         FontWeight="SemiBold"
                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                        Command="{Binding ExitCommand}"
                         Margin="30 0 0 0"/>
 
             </StackPanel>

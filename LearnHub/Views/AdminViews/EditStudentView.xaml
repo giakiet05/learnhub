@@ -186,9 +186,11 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <!--button thêm-->
             <Button x:Name="btnSua" Content="Sửa" Style="{StaticResource btnStyle}" Width="118"
+                    Command="{Binding Edit}"
 Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}" Width="118"
+                    Command="{Binding Cancel}"
 Margin="10 0 50 0" Background="#93A7BF" BorderBrush="Transparent"/>
         </StackPanel>
     </Grid>

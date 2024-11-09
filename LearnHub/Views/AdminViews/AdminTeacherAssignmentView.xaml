@@ -46,7 +46,7 @@
                 <StackPanel Margin="20" Orientation="Horizontal">
                     <TextBlock Text="Năm học: " Style="{StaticResource font_style}"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    <ComboBox x:Name="cbNamHoc" Width="100" Height="30" 
+                    <ComboBox x:Name="cbNamHoc" Width="100" Height="30"  FontSize="15"
                               Margin="10 0 0 0" Background="#d9d9d9d9"/>
                 </StackPanel>
                 
@@ -54,7 +54,7 @@
                 <StackPanel Margin="20" Orientation="Horizontal">
                     <TextBlock Text="Khối lớp: " Style="{StaticResource font_style}"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    <ComboBox x:Name="cbKhoiLop" Width="100" Height="30" 
+                    <ComboBox x:Name="cbKhoiLop" Width="100" Height="30"  FontSize="15"
                               Margin="10 0 0 0" Background="#d9d9d9d9"/>
                 </StackPanel>
                 
@@ -62,7 +62,7 @@
                 <StackPanel Margin="20" Orientation="Horizontal">
                     <TextBlock Text="Lớp: " Style="{StaticResource font_style}"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    <ComboBox x:Name="cbLop" Width="100" Height="30" 
+                    <ComboBox x:Name="cbLop" Width="100" Height="30"  FontSize="15"
                               Margin="10 0 0 0" Background="#d9d9d9d9"/>
                 </StackPanel>
 

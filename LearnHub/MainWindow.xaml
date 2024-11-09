@@ -30,7 +30,7 @@
 
         <!--ControlBar-->
         <components:ControlBar/>
-        <custom:Modal Grid.Row="1" Panel.ZIndex ="100" IsOpen="{Binding IsOpen}">
+        <custom:Modal Grid.RowSpan="2" Panel.ZIndex ="100" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModelViewModel}" />
         </custom:Modal>
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">

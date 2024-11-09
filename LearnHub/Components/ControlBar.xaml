@@ -3,9 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LearnHub.Components"
-             mc:Ignorable="d" d:DesignWidth="800">
-    
+             xmlns:local="clr-namespace:LearnHub.Components" 
+             xmlns:viewmodels="clr-namespace:LearnHub.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" d:DesignWidth="800"
+             Name="CustomControlbar">
+    <UserControl.DataContext>
+        <viewmodels:ControlBarViewModel/>
+    </UserControl.DataContext>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseMoveCommand}" 
+                                   CommandParameter="{Binding ElementName=CustomControlbar}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Border Background="#FFF7F7">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -28,11 +41,14 @@
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
 
                 <Button x:Name="btnMinimize" Content="-" FontSize="20"
-                    Style="{StaticResource btnControlBarStyle}">
-                </Button>
+                        Style="{StaticResource btnControlBarStyle}"
+                        Command="{Binding MinimizeCommand}"
+                        CommandParameter="{Binding ElementName=CustomControlbar}"/>
 
                 <Button x:Name="btnClose" Content="X"
-                    Style="{StaticResource btnControlBarStyle}"/>
+                        Style="{StaticResource btnControlBarStyle}"
+                        Command="{Binding CloseCommand}"
+                        CommandParameter="{Binding ElementName=CustomControlbar}"/>
 
             </StackPanel>
 

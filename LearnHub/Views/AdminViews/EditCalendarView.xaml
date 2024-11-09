@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="280"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
@@ -25,7 +25,7 @@
                     <TextBlock Text="Môn học:" Style="{StaticResource font_style}"
                         VerticalAlignment="Center" Width="80"/>
 
-                    <ComboBox x:Name="cbSubject" FontSize="20" Width="250" Height="30"
+                    <ComboBox x:Name="cbSubject" FontSize="15" Width="250" Height="30"
                       Margin="20 0 0 0" Background="#d9d9d9d9"
                       FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
@@ -35,7 +35,7 @@
                     <TextBlock Text="Ngày:" Style="{StaticResource font_style}"
      VerticalAlignment="Center" Width="80"/>
 
-                    <DatePicker x:Name="dpDate" FontSize="20" Width="170" Height="30"
+                    <DatePicker x:Name="dpDate" FontSize="15" Width="170" Height="30"
                       Margin="20 0 0 0" Background="#d9d9d9d9"
                       FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
@@ -45,7 +45,7 @@
                     <TextBlock Text="Giờ:" Style="{StaticResource font_style}"
                         VerticalAlignment="Center" Width="80"/>
 
-                    <TextBox x:Name="tbTime" FontSize="20" Width="100" Height="30"
+                    <TextBox x:Name="tbTime" FontSize="15" Width="100" Height="30"
                       Margin="20 0 0 0" Background="#d9d9d9d9"
                       FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
@@ -55,7 +55,7 @@
                     <TextBlock Text="Phòng học:" Style="{StaticResource font_style}"
                         VerticalAlignment="Center" Width="80"/>
 
-                    <ComboBox x:Name="cbRoom" FontSize="20" Width="100" Height="30"
+                    <ComboBox x:Name="cbRoom" FontSize="15" Width="100" Height="30"
                       Margin="20 0 0 0" Background="#d9d9d9d9"
                       FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>

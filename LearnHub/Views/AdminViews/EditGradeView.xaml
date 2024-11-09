@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="170"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
@@ -25,7 +25,7 @@
                     <TextBlock Text="Mã khối:" Style="{StaticResource font_style}"
                         VerticalAlignment="Center" Width="80"/>
 
-                    <TextBox x:Name="tbID" FontSize="20" Width="250" Height="30"
+                    <TextBox x:Name="tbID" FontSize="15" Width="250" Height="30"
                      Margin="20 0 0 0" Background="#d9d9d9d9"
                      FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
@@ -35,7 +35,7 @@
                     <TextBlock Text="Tên khối:" Style="{StaticResource font_style}"
                         VerticalAlignment="Center" Width="80"/>
 
-                    <TextBox x:Name="tbName" FontSize="20" Width="250" Height="30"
+                    <TextBox x:Name="tbName" FontSize="15" Width="250" Height="30"
                      Margin="20 0 0 0" Background="#d9d9d9d9"
                      FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>

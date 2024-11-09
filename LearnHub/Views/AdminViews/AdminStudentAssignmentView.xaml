@@ -42,7 +42,7 @@
             </Grid.ColumnDefinitions>
             
             <!--button chức năng-->
-            <StackPanel Margin="0 80 0 0" Grid.Column="1">
+            <StackPanel VerticalAlignment="Center" Margin="0 0 0 100" Grid.Column="1">
                 <Button x:Name="btnThem" Content="Thêm"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
@@ -56,14 +56,14 @@
                     Margin="5">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="30"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Thông tin lớp cũ" Style="{StaticResource font_style}"
-                               VerticalAlignment="Center" HorizontalAlignment="Left"
-                               Margin="20 0 0 0" Grid.Row="0"/>
+                    <TextBlock Grid.Row="0" Text="Thông tin lớp cũ" Style="{StaticResource font_style}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black"/>
                     <!--grid chọn năm khối lớp-->
                     <Grid Grid.Row="1">
                         <StackPanel>
@@ -72,21 +72,23 @@
                                 <StackPanel Margin="5" Orientation="Horizontal">
                                     <TextBlock Text="Năm học: " Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <ComboBox x:Name="cbNamHocCu" Width="100" Height="30" Background="#d9d9d9d9"/>
+                                    <ComboBox x:Name="cbNamHocCu" Width="100" Height="30" 
+                                              FontSize="15" Background="#d9d9d9d9"/>
                                 </StackPanel>
                                 <!--chọn khối lớp-->
                                 <StackPanel Margin="5" Orientation="Horizontal">
                                     <TextBlock Text="Khối lớp: " Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     <ComboBox x:Name="cbKhoiLopCu" Width="80" Height="30" 
-                                         Margin="10 0 0 0" Background="#d9d9d9d9"/>
+                                         FontSize="15" Margin="10 0 0 0" Background="#d9d9d9d9"/>
                                 </StackPanel>
                             </StackPanel>
                             <!--chọn lớp-->
                             <StackPanel Margin="5" Orientation="Horizontal">
                                 <TextBlock Text="Lớp: " Style="{StaticResource font_style}"
                                         VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <ComboBox x:Name="cbLopCu" Width="100" Height="30" Background="#d9d9d9d9"/>
+                                <ComboBox x:Name="cbLopCu" Width="100" Height="30"
+                                          FontSize="15" Background="#d9d9d9d9"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -107,14 +109,14 @@
                     Margin="5">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="30"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Thông tin lớp mới" Style="{StaticResource font_style}"
-                   VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Margin="20 0 0 0" Grid.Row="0"/>
+                    <TextBlock Grid.Row="0" Text="Thông tin lớp mới" Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black"/>
                     <!--grid chọn năm khối lớp-->
                     <Grid Grid.Row="1">
                         <StackPanel>
@@ -123,21 +125,23 @@
                                 <StackPanel Margin="5" Orientation="Horizontal">
                                     <TextBlock Text="Năm học: " Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <ComboBox x:Name="cbNamHocMoi" Width="100" Height="30" Background="#d9d9d9d9"/>
+                                    <ComboBox x:Name="cbNamHocMoi" Width="100" Height="30"
+                                               FontSize="15" Background="#d9d9d9d9"/>
                                 </StackPanel>
                                 <!--chọn khối lớp-->
                                 <StackPanel Margin="5" Orientation="Horizontal">
                                     <TextBlock Text="Khối lớp: " Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     <ComboBox x:Name="cbKhoiLopMoi" Width="80" Height="30" 
-                             Margin="10 0 0 0" Background="#d9d9d9d9"/>
+                             Margin="10 0 0 0" Background="#d9d9d9d9" FontSize="15"/>
                                 </StackPanel>
                             </StackPanel>
                             <!--chọn lớp-->
                             <StackPanel Margin="5" Orientation="Horizontal">
                                 <TextBlock Text="Lớp: " Style="{StaticResource font_style}"
                             VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <ComboBox x:Name="cbLopMoi" Width="100" Height="30" Background="#d9d9d9d9"/>
+                                <ComboBox x:Name="cbLopMoi" Width="100" Height="30" 
+                                           FontSize="15" Background="#d9d9d9d9"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>

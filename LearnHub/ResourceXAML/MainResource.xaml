@@ -231,24 +231,56 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="FontFamily" Value="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
+                    <Border x:Name="btn_bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
                             Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
                             VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="20">
                         <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Border.Effect>
+                            <DropShadowEffect x:Name="shadowEffect"
+                                              ShadowDepth="0"
+                                              Color="Black"
+                                              Direction="0"
+                                              Opacity="0"
+                                              BlurRadius="0"/>
+                        </Border.Effect>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect"
+                                                         Storyboard.TargetProperty="BlurRadius"
+                                                            To="10" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="0.5" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect"
+                                                         Storyboard.TargetProperty="BlurRadius"
+                                                         To="0" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#84b7e3"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
     
     

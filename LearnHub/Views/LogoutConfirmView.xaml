@@ -8,16 +8,16 @@
              d:DesignHeight="200" d:DesignWidth="400" Background="#fff7f7">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <Border Margin="10" Background="#87C5FC" CornerRadius="10">
             <StackPanel Orientation="Horizontal">
                 <Image Source="pack://application:,,,/LearnHub;component/resource/icons/warning.png"
-               Stretch="Uniform" Height="80" Width="80" Margin="25 0 0 0"/>
-                <TextBlock Text="Xác nhận thoát?" Style="{StaticResource font_style}"
-                   VerticalAlignment="Center" FontSize="30" Margin="20 0 0 0"/>
+               Stretch="Uniform" Height="80" Width="80" Margin="15 0 0 0"/>
+                <TextBlock Text="Xác nhận thoát ?" Style="{StaticResource font_style}"
+                   VerticalAlignment="Center" FontSize="30" Margin="10 0 0 0"/>
             </StackPanel>
         </Border>
 
@@ -25,10 +25,12 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <!--button xác nhận-->
             <Button x:Name="btnXacNhan" Content="Xác nhận" Style="{StaticResource btnStyle}" Width="118"
-            Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
+                    Command="{Binding Logout}"
+            Margin="10 0 10 10" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ" Style="{StaticResource btnStyle}" Width="118"
-            Margin="10 0 10 0" Background="#93A7BF" BorderBrush="Transparent"/>
+                    Command="{Binding Cancel}"
+            Margin="10 0 10 10" Background="#93A7BF" BorderBrush="Transparent"/>
         </StackPanel>
     </Grid>
 </UserControl>

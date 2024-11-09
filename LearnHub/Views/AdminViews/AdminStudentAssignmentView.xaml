@@ -21,6 +21,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnHocSinh" Content="Học sinh"
+                        Command="{Binding Student}"
                 BorderBrush="#5CB3FF" Background="#ffffff"
                 Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                 Style="{StaticResource btnStyle}"/>
@@ -44,9 +45,11 @@
             <!--button chức năng-->
             <StackPanel VerticalAlignment="Center" Margin="0 0 0 100" Grid.Column="1">
                 <Button x:Name="btnThem" Content="Thêm"
+                        Command="{Binding Add}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
                 <Button x:Name="btnXoa" Content="Xoá" Margin="0 20 0 0"
+                        Command="{Binding Delete}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
             </StackPanel>

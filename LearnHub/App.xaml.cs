@@ -1,6 +1,6 @@
 ﻿using LearnHub.Data;
 using Microsoft.EntityFrameworkCore;
-﻿using LearnHub.Stores;
+using LearnHub.Stores;
 using LearnHub.ViewModels;
 using System.Configuration;
 using System.Data;
@@ -21,7 +21,7 @@ namespace LearnHub
     {
         private readonly string _connectionString = "Data Source=LearnHubSqlite.db";
         private readonly LearnHubDbContextFactory _dbContextFactory;
-        
+
 
         public App()
         {
@@ -34,19 +34,62 @@ namespace LearnHub
             {
 
                 context.Database.Migrate();
-                
 
+
+                //-------------Test CreateAccount và Login-----------------
+                IAuthenticationService authenticationService = new AuthenticationService(new UserService(_dbContextFactory), new PasswordHasher());
+
+                //try
+                //{
+                //    //CreateAccount
+                //    User user1 = new User()
+                //    {
+                //        Id = Guid.NewGuid(),
+                //        Username = "hieutruong",
+                //        Password = "12345",
+                //        Role = "Admin"
+                //    };
+                //    Student user2 = new Student()
+                //    {
+                //        Id = Guid.NewGuid(),
+                //        Username = "hs0001",
+                //        Password = "12345",
+                //        Role = "Student",
+                //        FullName = "Nguyễn Thị Học Sinh",
+                //        Gender = "Nữ"
+                //    };
+
+                //    Teacher user3 = new Teacher()
+                //    {
+                //        Id = Guid.NewGuid(),
+                //        Username = "gv0001",
+                //        Password = "12345",
+                //        Role = "Teacher",
+                //        FullName = "Trần Văn Giáo Viên",
+                //        Gender = "Nam",
+                //        CitizenID = "123456123456"
+                //    };
+
+                //    await authenticationService.CreateAccount(user1);
+                //    await authenticationService.CreateAccount(user2);
+                //    await authenticationService.CreateAccount(user3);
+
+
+
+                //}
+
+
+            NavigationStore.Instance.CurrentViewModel = new WaitingViewModel();
+                NavigationStore.Instance.CurrentLayoutModel = null;
+                ModelNavigationStore.Instance.CurrentModelViewModel = null;
+                MainWindow = new MainWindow()
+                {
+                    DataContext = new MainViewModel()
+                };
+
+                MainWindow.Show();
+                base.OnStartup(e);
             }
-            NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new WaitingViewModel(navigationStore);
-
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(navigationStore)
-            };
-
-            MainWindow.Show();
-            base.OnStartup(e);
         }
     }
 }

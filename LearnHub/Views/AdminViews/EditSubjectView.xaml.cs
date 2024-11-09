@@ -24,5 +24,7 @@ namespace LearnHub.Views.AdminViews
         {
             InitializeComponent();
         }
+
+       
     }
 }

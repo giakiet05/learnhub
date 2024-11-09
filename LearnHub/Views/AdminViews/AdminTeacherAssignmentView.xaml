@@ -21,6 +21,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnGiaoVien" Content="Giáo viên" 
+                        Command="{Binding Teacher}"
                 BorderBrush="#5CB3FF" Background="#ffffff"
                 Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                 Style="{StaticResource btnStyle}"/>

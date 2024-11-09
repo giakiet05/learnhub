@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace LearnHub.Commands
 {
-    public abstract class BaseConmand : ICommand
+    public abstract class BaseCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 

@@ -1,14 +1,10 @@
 ﻿using LearnHub.Data;
 using LearnHub.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LearnHub.Services
@@ -24,63 +20,268 @@ namespace LearnHub.Services
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            using (LearnHubDbContext context = _contextFactory.CreateDbContext())
+            using (var context = _contextFactory.CreateDbContext())
             {
-
-                IEnumerable<T> entities = await context.Set<T>().ToListAsync();
-                return entities;
+                try
+                {
+                    return await context.Set<T>().ToListAsync();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
 
-        public async Task<T> GetItem(Guid id)
+        public async Task<T> GetById(Guid id)
         {
-            using (LearnHubDbContext context = _contextFactory.CreateDbContext())
+            using (var context = _contextFactory.CreateDbContext())
             {
-
-                T entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-                return entity;
+                try
+                {
+                    var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+                    if (entity == null)
+                    {
+                        throw new Exception();
+                    }
+                    return entity;
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
 
-        public async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetOne(Expression<Func<T, bool>> predicate)
         {
-            using (LearnHubDbContext context = _contextFactory.CreateDbContext())
+            using (var context = _contextFactory.CreateDbContext())
             {
-                
-                IEnumerable<T> entities = await context.Set<T>().Where(predicate).ToListAsync();
-                return entities;
+                try
+                {
+                    return await context.Set<T>().FirstOrDefaultAsync(predicate);
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
 
+        public async Task<IEnumerable<T>> GetMany(Expression<Func<T, bool>> predicate)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    return await context.Set<T>().Where(predicate).ToListAsync();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
 
         public async Task<T> Create(T entity)
         {
-            using (LearnHubDbContext context = _contextFactory.CreateDbContext())
+            if (entity == null)
             {
-                EntityEntry<T> createdResult = await context.Set<T>().AddAsync(entity);
-                await context.SaveChangesAsync();
-                return createdResult.Entity;
+                throw new Exception();
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var createdResult = await context.Set<T>().AddAsync(entity);
+                    await context.SaveChangesAsync();
+                    return createdResult.Entity;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
 
-        public async Task<T> Update(Guid id, T entity)
+        public async Task<T> UpdateById(Guid id, T entity)
         {
-            using (LearnHubDbContext context = _contextFactory.CreateDbContext())
+            if (entity == null)
             {
-                entity.Id = id;
-                context.Set<T>().Update(entity);
-                await context.SaveChangesAsync();
-                return entity;
+                throw new Exception();
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var existingEntity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+                    if (existingEntity == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    await context.SaveChangesAsync();
+                    return existingEntity;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
-        public async Task<bool> Delete(Guid id)
+
+        public async Task<T> UpdateOne(Expression<Func<T, bool>> predicate, T entity)
         {
-            using (LearnHubDbContext context = _contextFactory.CreateDbContext())
+            if (entity == null)
             {
-                T entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-                context.Set<T>().Remove(entity);
-                await context.SaveChangesAsync();
-                return true;
+                throw new Exception();
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var existingEntity = await context.Set<T>().FirstOrDefaultAsync(predicate);
+                    if (existingEntity == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    await context.SaveChangesAsync();
+                    return existingEntity;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<int> UpdateMany(Expression<Func<T, bool>> predicate, T entity)
+        {
+            if (entity == null)
+            {
+                throw new Exception();
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var entities = await context.Set<T>().Where(predicate).ToListAsync();
+                    if (!entities.Any())
+                    {
+                        return 0;
+                    }
+
+                    foreach (var existingEntity in entities)
+                    {
+                        context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    }
+
+                    return await context.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<bool> DeleteById(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+                    if (entity == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    context.Set<T>().Remove(entity);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<bool> DeleteOne(Expression<Func<T, bool>> predicate)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var entity = await context.Set<T>().FirstOrDefaultAsync(predicate);
+                    if (entity == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    context.Set<T>().Remove(entity);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task<int> DeleteMany(Expression<Func<T, bool>> predicate)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    var entities = await context.Set<T>().Where(predicate).ToListAsync();
+                    if (!entities.Any()) return 0;
+
+                    context.Set<T>().RemoveRange(entities);
+                    return await context.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException();
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
     }

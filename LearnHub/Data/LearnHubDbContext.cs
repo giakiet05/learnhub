@@ -22,7 +22,6 @@ namespace LearnHub.Data
         public DbSet<ExamSchedule> ExamSchedules { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Question> Questions { get; set; }
-       // public DbSet<Semester> Semesters { get; set; }
         public DbSet<SubjectResult> SubjectResults { get; set; }
         public DbSet<YearResult> YearResults { get; set; }
         public DbSet<TeachingAssignment> TeachingAssignments { get; set; }
@@ -34,6 +33,7 @@ namespace LearnHub.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             //Composite keys
             modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId });
             modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.TeacherId });
@@ -41,12 +41,15 @@ namespace LearnHub.Data
             modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId });
             modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentId });
 
+            //Unique constraints
+            modelBuilder.Entity<User>().HasIndex(e => e.Username).IsUnique();
+
+
             //Check constraints
             modelBuilder.Entity<User>(e =>
             {
                 e.ToTable(tb => tb.HasCheckConstraint("CK_User_Role", "[Role] IN ('Admin', 'Student', 'Teacher')"));
-
-
+               
             });
 
             modelBuilder.Entity<Teacher>(e =>

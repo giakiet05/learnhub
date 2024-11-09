@@ -22,6 +22,7 @@
         WindowStartupLocation="CenterScreen">
 
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>

@@ -31,6 +31,7 @@
             <Button x:Name="btnHuy" Content="Huỷ" Style="{StaticResource btnStyle}" Width="118"
                     Command="{Binding Cancel}"
                     Margin="10 0 10 10" Background="#93A7BF" BorderBrush="Transparent"/>
+
         </StackPanel>
 
     </Grid>

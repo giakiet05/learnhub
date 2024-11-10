@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LearnHub.Commands
 {
     public abstract class BaseCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
-        public virtual bool CanExecute(object parameter)
+        public virtual bool CanExecute(object? parameter) // Sửa object thành object?
         {
             return true;
         }
 
-        public abstract void Execute(object parameter);
-        protected void OnCanExecuteChanged() 
+        public abstract void Execute(object? parameter); // Sửa object thành object?
+
+        protected void OnCanExecuteChanged()
         {
-            CanExecuteChanged?.Invoke(this,new EventArgs());
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
-        
     }
 }

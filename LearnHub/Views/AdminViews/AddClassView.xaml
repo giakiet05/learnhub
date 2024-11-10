@@ -37,27 +37,31 @@
 
                     <TextBox x:Name="tbName" FontSize="15" Width="250" Height="30"
                              Margin="20 0 0 0" Background="#d9d9d9d9"
-                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+							 Text ="{Binding Name}"/>
                 </StackPanel>
                 
                 <!--Khối lớp-->
-                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" Width="80"/>
+				<StackPanel Margin="25 25 0 0" Orientation="Horizontal">
+					<TextBlock Text="Khối lớp:" Style="{StaticResource font_style}" VerticalAlignment="Center" Width="80"/>
 
-                    <ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
-                              Margin="20 0 0 0" Background="#d9d9d9d9"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                </StackPanel>
+					<ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
+							  Margin="20 0 0 0" Background="#d9d9d9d9"
+							  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+							  ItemsSource="{Binding Grades}"
+							  SelectedItem="{Binding SelectedGrade}"/>
+				</StackPanel>
 
-                <!--Sĩ số-->
+
+				<!--Sĩ số-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Sĩ số:" Style="{StaticResource font_style}"
                        VerticalAlignment="Center" Width="80"/>
 
                     <TextBox x:Name="tbNumber" FontSize="15" Width="70" Height="30"
                       Margin="20 0 0 0" Background="#d9d9d9d9"
-                      FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                      FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+					  Text="{Binding Capacity}"/>
                 </StackPanel>
                 
                 <!--Năm học-->
@@ -67,7 +71,11 @@
 
                     <ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
                               Margin="20 0 0 0" Background="#d9d9d9d9"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+                        <ComboBoxItem Content="2023-2024" />
+                        <ComboBoxItem Content="2024-2025" />
+                        <ComboBoxItem Content="2025-2026" />
+                    </ComboBox>
                 </StackPanel>
                 
                 <!--Giáo viên chủ nhiệm-->
@@ -77,7 +85,11 @@
 
                     <ComboBox x:Name="cbTeacher" FontSize="15" Width="200" Height="30"
                               Margin="20 0 0 0" Background="#d9d9d9d9"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+                        <ComboBoxItem Content="Thầy A" />
+                        <ComboBoxItem Content="Cô B" />
+                        <ComboBoxItem Content="Thầy C" />
+                    </ComboBox>
                 </StackPanel>
 
             </StackPanel>

@@ -73,11 +73,10 @@
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Menu items-->
-                <Grid Height="380">
+                <Grid Height="410">
                     <StackPanel>
                         <!--Home button-->
-                        <RadioButton Margin="0,10,0,0"
-                                     FontSize="30" IsChecked="True"
+                        <RadioButton  FontSize="30" IsChecked="True"
                                      Command="{Binding HomeCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Trang chủ">
@@ -86,8 +85,7 @@
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Class button-->
-                        <RadioButton Margin="0,10,0,0"
-                                     FontSize="30"
+                        <RadioButton   FontSize="30"
                                      Command="{Binding ClassCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Lớp học">
@@ -96,8 +94,7 @@
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Subject button-->
-                        <RadioButton Margin="0,10,0,0"
-                                     FontSize="30"
+                        <RadioButton FontSize="30"
                                      Command="{Binding SubjectCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Môn học">
@@ -106,8 +103,7 @@
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Teacher button-->
-                        <RadioButton Margin="0,10,0,0"
-                                     FontSize="30"
+                        <RadioButton FontSize="30"
                                      Command="{Binding TeacherCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Giáo viên">
@@ -116,8 +112,7 @@
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Student button-->
-                        <RadioButton Margin="0,10,0,0"
-                                     FontSize="30"
+                        <RadioButton FontSize="30"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding StudentCommand}"
                                      Content="Học sinh">
@@ -126,13 +121,21 @@
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Calendar button-->
-                        <RadioButton Margin="0,10,0,0"
-                                     FontSize="30"
+                        <RadioButton FontSize="30"
                                      Command="{Binding CalendarCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Lịch">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/calendar.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Semester button-->
+                        <RadioButton FontSize="30"
+                                     Command="{Binding SemesterCommand}"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Năm học">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/semester.png" />
                             </RadioButton.Tag>
                         </RadioButton>
                     </StackPanel>
@@ -144,19 +147,16 @@
                 <Grid>
                     <StackPanel>
                         <!--Account button-->
-                        <RadioButton Margin="0,10,0,0"
-                                     FontSize="30"
+                        <RadioButton FontSize="30"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding AccountCommand}"
-                                     
                                      Content="Thông tin">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/user.png" />
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Logout button-->
-                        <RadioButton Margin="0,10,0,0"
-                                     FontSize="30"
+                        <RadioButton FontSize="30"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding LogoutCommand}"
                                      Content="Đăng xuất">
@@ -185,7 +185,7 @@
             </StackPanel>
 
             <Separator Grid.Row="1" Background="Black" VerticalAlignment="Stretch"/>
-            
+
             <!--main frame-->
             <Frame Grid.Row="2" Content="{Binding CurrentAdminViewModel}" NavigationUIVisibility="Hidden"/>
         </Grid>

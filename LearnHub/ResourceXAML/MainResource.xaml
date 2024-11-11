@@ -24,6 +24,9 @@
     <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
         <adminviews:AdminView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AdminSemesterViewModel}">
+        <adminviews:AdminSemesterView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AdminHomeViewModel}">
         <adminviews:AdminHomeView/>
     </DataTemplate>
@@ -60,6 +63,9 @@
     <DataTemplate DataType="{x:Type adminvm:AddGradeViewModel}">
         <adminviews:AddGradeView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AddSemesterViewModel}">
+        <adminviews:AddSemesterView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AddNotificationViewModel}">
         <adminviews:AddNotificationView/>
     </DataTemplate>
@@ -74,6 +80,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditClassViewModel}">
         <adminviews:EditClassView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:EditSemesterViewModel}">
+        <adminviews:EditSemesterView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditCalendarViewModel}">
         <adminviews:EditCalendarView/>
@@ -193,9 +202,9 @@
 
                             <Grid>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}" Width="40" Height="40" Stretch="Fill"
-                                       HorizontalAlignment="Left" Margin="7 0 5 0"/>
-                                    <TextBlock x:Name="textBlock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5 0 0 0"
+                                    <Image Source="{Binding Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}" Width="30" Height="30" Stretch="Fill"
+                                       HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                                    <TextBlock x:Name="textBlock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15 0 0 0"
                                                Text="{TemplateBinding Content}" Style="{StaticResource font_style}"/>
                                 </StackPanel>
                             </Grid>

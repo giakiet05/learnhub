@@ -33,7 +33,7 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<T> GetById(Guid id)
+        public async Task<T> GetById(string id)
         {
             using (var context = _contextFactory.CreateDbContext())
             {
@@ -109,7 +109,7 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<T> UpdateById(Guid id, T entity)
+        public async Task<T> UpdateById(string id, T entity)
         {
             if (entity == null)
             {
@@ -208,7 +208,7 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<bool> DeleteById(Guid id)
+        public async Task<bool> DeleteById(string id)
         {
             using (var context = _contextFactory.CreateDbContext())
             {

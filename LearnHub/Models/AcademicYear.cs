@@ -10,7 +10,7 @@ namespace LearnHub.Models
     public class AcademicYear : DomainObject
     {
       
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         //Navigation Properties
         public ICollection<YearResult> YearResults { get; set; }

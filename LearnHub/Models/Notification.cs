@@ -11,12 +11,11 @@ namespace LearnHub.Models
     public class Notification : DomainObject
     {
        
-
+        public string? Title { get; set; }
         [ForeignKey("User")]
-        public Guid CreatorId { get; set; }
-        public string Title { get; set; }
+        public string? CreatorId { get; set; }
 
-        public Guid ClassroomId { get; set; }
+        public string? ClassroomId { get; set; }
 
         public string? Content { get; set; }
         public DateTime? PublishDate { get; set; }

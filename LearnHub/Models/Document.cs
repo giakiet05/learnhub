@@ -11,8 +11,8 @@ namespace LearnHub.Models
     {
         
 
-        public string Title { get; set; }
-        public byte[] Content { get; set; } // mảng binary để lưu file hoặc hình ảnh
+        public string? Title { get; set; }
+        public byte[]? Content { get; set; } // mảng binary để lưu file hoặc hình ảnh
         public DateTime? PublishTime { get; set; }
 
         public string? TeacherId { get; set; }

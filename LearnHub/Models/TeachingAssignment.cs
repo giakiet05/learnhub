@@ -11,9 +11,9 @@ namespace LearnHub.Models
 {
     public class TeachingAssignment
     {
-        public Guid ClassroomId { get; set; }
-        public Guid SubjectId { get; set; }
-        public Guid TeacherId { get; set; }
+        public string ClassroomId { get; set; }
+        public string SubjectId { get; set; }
+        public string TeacherId { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         //Navigation Properties

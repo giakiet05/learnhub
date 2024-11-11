@@ -11,10 +11,10 @@ namespace LearnHub.Models
     {
         
         [ForeignKey("AcademicYear")]
-        public Guid YearId { get; set; }
+        public string YearId { get; set; }
      
-        public Guid SubjectId { get; set; }
-        public Guid StudentId { get; set; }
+        public string SubjectId { get; set; }
+        public string StudentId { get; set; }
 
         public string Semester { get; set; }
 

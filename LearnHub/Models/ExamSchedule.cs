@@ -10,14 +10,14 @@ namespace LearnHub.Models
     public class ExamSchedule
     {
       
-        public Guid SubjectId { get; set; }
+        public string SubjectId { get; set; }
      
-        public Guid ClassroomId { get; set; }
+        public string ClassroomId { get; set; }
 
         public string Semester { get; set; }
 
         public DateTime? ExamDate { get; set; }
-        public string ExamType { get; set; }
+        public string? ExamType { get; set; }
         public string? ExamRoom { get; set; }
         //Navigation Properties
         public Subject Subject { get; set; }

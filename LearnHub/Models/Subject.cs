@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Subject
+    public class Subject : DomainObject
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
+        
+        public string? Name { get; set; }
 
         public int? LessonNumber { get; set; }
 

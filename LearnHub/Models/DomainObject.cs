@@ -8,6 +8,6 @@ namespace LearnHub.Models
 {
     public class DomainObject
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
     }
 }

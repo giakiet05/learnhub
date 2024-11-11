@@ -34,8 +34,7 @@ namespace LearnHub
             {
 
                 context.Database.Migrate();
-
-
+         
                 //-------------Test CreateAccount và Login-----------------
                 IAuthenticationService authenticationService = new AuthenticationService(new UserService(_dbContextFactory), new PasswordHasher());
 

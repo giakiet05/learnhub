@@ -13,11 +13,11 @@ namespace LearnHub.Models
     {
         public string Name { get; set; }
         public int? Capacity { get; set; }
-        public Guid? GradeId { get; set; }
-        public Guid? TeacherInChargeId { get; set; }
+        public string? GradeId { get; set; }
+        public string? TeacherInChargeId { get; set; }
 
         [ForeignKey("AcademicYear")]
-        public Guid? YearId { get; set; }
+        public string? YearId { get; set; }
         //Navigation Properties
         public Grade Grade { get; set; }
         public Teacher TeacherInCharge { get; set; }

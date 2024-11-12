@@ -14,7 +14,7 @@ namespace LearnHub.Commands.AdminCommands
             // làm gì đó không biết
 
             // sau đó đóng popup
-            ModelNavigationStore.Instance.Close();
+            ModalNavigationStore.Instance.Close();
         }
     }
   

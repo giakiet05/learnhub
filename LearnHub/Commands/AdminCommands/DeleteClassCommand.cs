@@ -15,7 +15,7 @@ namespace LearnHub.Commands.AdminCommands
             // làm gì đó ko biết
 
             //sau đó mở xác nhận xóa
-            ModelNavigationStore.Instance.NavigateCurrentModelViewModel(() => new DeleteConfirmViewModel());
+            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new DeleteConfirmViewModel());
         }
     }
    

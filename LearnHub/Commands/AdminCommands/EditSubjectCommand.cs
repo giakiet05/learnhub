@@ -15,7 +15,7 @@ namespace LearnHub.Commands.AdminCommands
             // làm gì đó không biết
 
             // sau đó mở popup EditSubjectViewModel
-            ModelNavigationStore.Instance.NavigateCurrentModelViewModel(() => new EditSubjectViewModel());
+            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new EditSubjectViewModel());
         }
     }
 }

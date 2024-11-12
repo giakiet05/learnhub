@@ -16,7 +16,7 @@ namespace LearnHub.Commands.AdminCommands
 
             //sau đó mở popup AddCalendarViewModel
             // càn truyền thêm tham trị
-            ModelNavigationStore.Instance.NavigateCurrentModelViewModel(() => new AddCalendarViewModel());
+            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new AddCalendarViewModel());
         }
     }
 }

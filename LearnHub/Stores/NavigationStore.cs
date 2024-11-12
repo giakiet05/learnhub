@@ -10,7 +10,7 @@ namespace LearnHub.Stores
     public class NavigationStore
     {
         private static NavigationStore _instance;
-        NavigationStore() { }
+        NavigationStore() { _instance = this; }
 
         public static NavigationStore Instance
         {

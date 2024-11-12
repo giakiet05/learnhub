@@ -15,7 +15,7 @@ namespace LearnHub.Commands.AdminCommands
             // làm gì đó ko biết
 
             //sau đó mở popup AddClassViewModel
-            ModelNavigationStore.Instance.NavigateCurrentModelViewModel(() => new AddClassViewModel());
+            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new AddClassViewModel());
         }
     }
 }

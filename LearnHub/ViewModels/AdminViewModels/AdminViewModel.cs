@@ -29,7 +29,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             TeacherCommand = new NavigateLayoutCommand<AdminTeacherViewModel>(() => new AdminTeacherViewModel());
             StudentCommand = new NavigateLayoutCommand<AdminStudentViewModel>(() => new AdminStudentViewModel());
             CalendarCommand = new NavigateLayoutCommand<AdminCalendarViewModel>(() => new AdminCalendarViewModel());
-            LogoutCommand = new NavigateModelCommand<LogoutConfirmViewModel>(() =>new LogoutConfirmViewModel());
+            LogoutCommand = new NavigateModalCommand<LogoutConfirmViewModel>(() =>new LogoutConfirmViewModel());
             NavigationStore.Instance.CurrentLayoutModelChanged += OnCurrentLayoutModelChanged;
             NavigationStore.Instance.CurrentLayoutModel = new AdminHomeViewModel();
         }

@@ -56,17 +56,18 @@
         <!--grid thông tin lớp học-->
         <Grid Grid.Row="1">
             <!--datagrid để hiển thị list lớp-->
-            <DataGrid x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                      CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã lớp" />
-                    <DataGridTextColumn Header="Tên lớp" />
-                    <DataGridTextColumn Header="Khối" />
-                    <DataGridTextColumn Header="Sĩ số" />
-                    <DataGridTextColumn Header="Năm học" />
-                    <DataGridTextColumn Header="Giáo viên" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
+			<DataGrid x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True"
+                  CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
+                  ItemsSource="{Binding Classrooms}">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Mã lớp" Binding="{Binding Name}" />
+					<DataGridTextColumn Header="Tên lớp" Binding="{Binding Name}" />
+					<DataGridTextColumn Header="Khối" Binding="{Binding GradeId}" />
+					<DataGridTextColumn Header="Sĩ số" Binding="{Binding Capacity}" />
+					<DataGridTextColumn Header="Năm học" Binding="{Binding YearId}" />
+					<DataGridTextColumn Header="Giáo viên" Binding="{Binding TeacherInChargeId}" />
+				</DataGrid.Columns>
+			</DataGrid>
+		</Grid>
     </Grid>
 </Page>

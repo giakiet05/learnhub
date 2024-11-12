@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearnHub.ViewModels.AdminViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace LearnHub.Views.AdminViews
         public AdminClassView()
         {
             InitializeComponent();
+            DataContext = new AdminClassViewModel();
         }
     }
 }

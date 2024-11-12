@@ -97,7 +97,7 @@ namespace LearnHub
 
                 NavigationStore.Instance.CurrentViewModel = new WaitingViewModel();
                 NavigationStore.Instance.CurrentLayoutModel = null;
-                ModelNavigationStore.Instance.CurrentModelViewModel = null;
+                ModalNavigationStore.Instance.CurrentModalViewModel = null;
                 MainWindow = new MainWindow()
                 {
                     DataContext = new MainViewModel()

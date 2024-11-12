@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Commands
 {
-    public class NavigateModelCommand<TViewModel> : BaseCommand
+    public class NavigateModalCommand<TViewModel> : BaseCommand
         where TViewModel : BaseViewModel
     {
         private readonly Func<TViewModel> _createViewModel;
-        public NavigateModelCommand(Func<TViewModel> createViewModel)
+        public NavigateModalCommand(Func<TViewModel> createViewModel)
         {
             _createViewModel = createViewModel;
         }
         public override void Execute(object parameter)
         {
-            ModelNavigationStore.Instance.CurrentModelViewModel = _createViewModel();
+            ModalNavigationStore.Instance.CurrentModalViewModel = _createViewModel();
         }
     }
 }

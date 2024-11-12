@@ -15,7 +15,7 @@ namespace LearnHub.Commands.AdminCommands
             // đăng xuất
 
             // sau đó đóng popup và quay về waitingview
-            ModelNavigationStore.Instance.Close();
+            ModalNavigationStore.Instance.Close();
             NavigationStore.Instance.CurrentViewModel = new WaitingViewModel();
         }
     }

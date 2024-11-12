@@ -16,7 +16,7 @@ namespace LearnHub.Commands.AdminCommands
 
             // sau đó mở popup EditCalenderViewModel
             // cần truyền tham trị
-            ModelNavigationStore.Instance.NavigateCurrentModelViewModel(() => new EditCalendarViewModel());
+            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new EditCalendarViewModel());
         }
     }
 }

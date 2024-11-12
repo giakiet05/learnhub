@@ -196,8 +196,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Border x:Name="Border"
-                                BorderThickness="0"
-                                Background="#ebd1d1"
+                                BorderThickness="0"  
                                 BorderBrush="Transparent">
 
                             <Grid>
@@ -212,12 +211,10 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#E8E1E1"/>
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#E8E1E1"/>
+                                <Setter TargetName="Border" Property="Background" Value="#c0e5fa"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#E8E1E1"/>
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#E8E1E1"/>
+                                <Setter TargetName="Border" Property="Background" Value="#c0e5fa"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

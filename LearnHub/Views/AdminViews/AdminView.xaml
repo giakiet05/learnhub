@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Menubar grid-->
-        <Grid Grid.Column="0" Background="#ebd1d1">
+        <Grid Grid.Column="0" Background="#7ec4ed">
 
             <StackPanel Width="55" x:Name="menubar_pnl">
 

@@ -56,7 +56,14 @@
         <Grid Grid.Row="1">
             <!--datagrid để hiển thị list giáo viên-->
             <DataGrid x:Name="GiaoVienDG" AutoGenerateColumns="False" CanUserAddRows="True" 
+                      IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
                         CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
+                <DataGrid.CellStyle>
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Mã giáo viên"/>
                     <DataGridTextColumn Header="Họ tên"/>

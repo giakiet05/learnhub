@@ -11,11 +11,16 @@ namespace LearnHub.Services
 {
     public class GenericDataService<T> : IDataService<T> where T : DomainObject
     {
+        private static readonly Lazy<GenericDataService<T>> _instance = new Lazy<GenericDataService<T>>(() => new GenericDataService<T>());
         private readonly LearnHubDbContextFactory _contextFactory;
 
-        public GenericDataService(LearnHubDbContextFactory contextFactory)
+        // Singleton instance property
+        public static GenericDataService<T> Instance => _instance.Value;
+
+        // Private constructor to ensure the service is only instantiated once
+        private GenericDataService()
         {
-            _contextFactory = contextFactory;
+            _contextFactory = LearnHubDbContextFactory.Instance;
         }
 
         public async Task<IEnumerable<T>> GetAll()
@@ -28,7 +33,7 @@ namespace LearnHub.Services
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while retrieving all entities.");
                 }
             }
         }
@@ -42,13 +47,13 @@ namespace LearnHub.Services
                     var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
                     if (entity == null)
                     {
-                        throw new Exception();
+                        throw new Exception("Entity not found.");
                     }
                     return entity;
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while retrieving the entity.");
                 }
             }
         }
@@ -63,7 +68,7 @@ namespace LearnHub.Services
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while retrieving the entity.");
                 }
             }
         }
@@ -78,7 +83,7 @@ namespace LearnHub.Services
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while retrieving multiple entities.");
                 }
             }
         }
@@ -87,7 +92,7 @@ namespace LearnHub.Services
         {
             if (entity == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
             }
 
             using (var context = _contextFactory.CreateDbContext())
@@ -100,11 +105,11 @@ namespace LearnHub.Services
                 }
                 catch (DbUpdateException)
                 {
-                    throw new DbUpdateException();
+                    throw new DbUpdateException("An error occurred while saving the entity.");
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while creating the entity.");
                 }
             }
         }
@@ -113,7 +118,7 @@ namespace LearnHub.Services
         {
             if (entity == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
             }
 
             using (var context = _contextFactory.CreateDbContext())
@@ -123,7 +128,7 @@ namespace LearnHub.Services
                     var existingEntity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
                     if (existingEntity == null)
                     {
-                        throw new Exception();
+                        throw new Exception("Entity not found.");
                     }
 
                     context.Entry(existingEntity).CurrentValues.SetValues(entity);
@@ -132,11 +137,11 @@ namespace LearnHub.Services
                 }
                 catch (DbUpdateException)
                 {
-                    throw new DbUpdateException();
+                    throw new DbUpdateException("An error occurred while updating the entity.");
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while updating the entity.");
                 }
             }
         }
@@ -145,7 +150,7 @@ namespace LearnHub.Services
         {
             if (entity == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
             }
 
             using (var context = _contextFactory.CreateDbContext())
@@ -155,7 +160,7 @@ namespace LearnHub.Services
                     var existingEntity = await context.Set<T>().FirstOrDefaultAsync(predicate);
                     if (existingEntity == null)
                     {
-                        throw new Exception();
+                        throw new Exception("Entity not found.");
                     }
 
                     context.Entry(existingEntity).CurrentValues.SetValues(entity);
@@ -164,11 +169,11 @@ namespace LearnHub.Services
                 }
                 catch (DbUpdateException)
                 {
-                    throw new DbUpdateException();
+                    throw new DbUpdateException("An error occurred while updating the entity.");
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while updating the entity.");
                 }
             }
         }
@@ -177,7 +182,7 @@ namespace LearnHub.Services
         {
             if (entity == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
             }
 
             using (var context = _contextFactory.CreateDbContext())
@@ -185,10 +190,7 @@ namespace LearnHub.Services
                 try
                 {
                     var entities = await context.Set<T>().Where(predicate).ToListAsync();
-                    if (!entities.Any())
-                    {
-                        return 0;
-                    }
+                    if (!entities.Any()) return 0;
 
                     foreach (var existingEntity in entities)
                     {
@@ -199,11 +201,11 @@ namespace LearnHub.Services
                 }
                 catch (DbUpdateException)
                 {
-                    throw new DbUpdateException();
+                    throw new DbUpdateException("An error occurred while updating multiple entities.");
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while updating multiple entities.");
                 }
             }
         }
@@ -217,7 +219,7 @@ namespace LearnHub.Services
                     var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
                     if (entity == null)
                     {
-                        throw new Exception();
+                        throw new Exception("Entity not found.");
                     }
 
                     context.Set<T>().Remove(entity);
@@ -226,11 +228,11 @@ namespace LearnHub.Services
                 }
                 catch (DbUpdateException)
                 {
-                    throw new DbUpdateException();
+                    throw new DbUpdateException("An error occurred while deleting the entity.");
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while deleting the entity.");
                 }
             }
         }
@@ -244,7 +246,7 @@ namespace LearnHub.Services
                     var entity = await context.Set<T>().FirstOrDefaultAsync(predicate);
                     if (entity == null)
                     {
-                        throw new Exception();
+                        throw new Exception("Entity not found.");
                     }
 
                     context.Set<T>().Remove(entity);
@@ -253,11 +255,11 @@ namespace LearnHub.Services
                 }
                 catch (DbUpdateException)
                 {
-                    throw new DbUpdateException();
+                    throw new DbUpdateException("An error occurred while deleting the entity.");
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while deleting the entity.");
                 }
             }
         }
@@ -276,11 +278,11 @@ namespace LearnHub.Services
                 }
                 catch (DbUpdateException)
                 {
-                    throw new DbUpdateException();
+                    throw new DbUpdateException("An error occurred while deleting multiple entities.");
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception("An error occurred while deleting multiple entities.");
                 }
             }
         }

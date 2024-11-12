@@ -44,8 +44,8 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
 
         public LoginViewModel() 
         {
-            //LoginCommand = new LoginCommand(this, authenticationService);
-            //ExitCommand = new ExitCommand();
+            LoginCommand = new LoginCommand(this);
+            ExitCommand = new ExitCommand();
         }
    
     }

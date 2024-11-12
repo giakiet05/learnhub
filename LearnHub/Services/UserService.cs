@@ -14,15 +14,19 @@ namespace LearnHub.Services
         // Singleton property to access the instance
         public static UserService Instance => _instance.Value;
 
+        // Private field to hold the LearnHubDbContextFactory instance
+        private readonly LearnHubDbContextFactory _contextFactory;
+
         // Private constructor to prevent external instantiation
         private UserService()
         {
-            // No need to inject DbContextFactory anymore; use Singleton instance
+            // Initialize the context factory field
+            _contextFactory = LearnHubDbContextFactory.Instance;
         }
 
         public async Task<User> GetByUsername(string username)
         {
-            using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 try
                 {
@@ -37,7 +41,7 @@ namespace LearnHub.Services
 
         public async Task<T> GetUserWithRole<T>(User user) where T : User
         {
-            using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 try
                 {
@@ -56,7 +60,7 @@ namespace LearnHub.Services
 
         public async Task<User> CreateUser(User user)
         {
-            using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 try
                 {

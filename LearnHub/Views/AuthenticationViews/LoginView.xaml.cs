@@ -1,5 +1,6 @@
 ﻿using LearnHub.Commands;
 using LearnHub.ViewModels.AdminViewModels;
+using LearnHub.ViewModels.AuthenticationViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,5 +39,6 @@ namespace LearnHub.Views.AuthenticationViews
             ICommand navigate= new NavigateViewCommand<AdminViewModel>(()=> new AdminViewModel());
             navigate.Execute(this);
         }
+      
     }
 }

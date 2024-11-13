@@ -1,25 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LearnHub.Data
 {
-   public class LearnHubDbContextFactory
+    public class LearnHubDbContextFactory
     {
-        private readonly string _connectionString;
+        private readonly string _connectionString = "Data Source=LearnHubSqlite.db";
 
-        public LearnHubDbContextFactory(string connectionString)
+        // Singleton instance (Lazy initialization for thread safety)
+        private static readonly Lazy<LearnHubDbContextFactory> _instance = new Lazy<LearnHubDbContextFactory>(() => new LearnHubDbContextFactory());
+
+        // Public property to access the Singleton instance
+        public static LearnHubDbContextFactory Instance => _instance.Value;
+
+        // Private constructor to prevent external instantiation
+        private LearnHubDbContextFactory()
         {
-            _connectionString = connectionString;
+            // Optionally, you can set the connection string here or pass it dynamically
         }
 
-        public LearnHubDbContext CreateDbContext() {
+        // Method to create DbContext
+        public LearnHubDbContext CreateDbContext()
+        {
             DbContextOptions options = new DbContextOptionsBuilder().UseSqlite(_connectionString).Options;
             return new LearnHubDbContext(options);
         }
-
     }
 }

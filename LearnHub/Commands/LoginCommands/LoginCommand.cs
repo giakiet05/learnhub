@@ -1,39 +1,80 @@
-﻿using LearnHub.Models;
+﻿using LearnHub.Exceptions;
+using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
 using LearnHub.ViewModels.AdminViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using LearnHub.ViewModels.AuthenticationViewModels;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LearnHub.Commands.LoginCommands
 {
-    public class LoginCommand : BaseCommand
+    public class LoginCommand : BaseAsyncCommand
     {
-        public override void Execute(object parameter)
-        {
+        private readonly LoginViewModel _loginViewModel;
+        private readonly IAuthenticationService _authenticationService;
 
-            //User user = await authenticationService.Login("hieutruong", "12345"); //đổi username để login tài khoản khác
-            //string userData = "";
-            //if (user == null) userData = "User not found";
-            //else
-            //{
-            //    if (user.Role == "Admin") userData = $"Đây là ông hiệu trưởng, username: {user.Username}";
-            //    else if (user.Role == "Student")
-            //    {
-            //        Student student = user as Student;
-            //        string fatherName = student.FatherName == null ? "Không biết" : student.FatherName;
-            //        userData = $"Đây là thằng học sinh: username: {student.Username}, họ tên: {student.FullName}, tên cha: {fatherName}";
-            //    }
-            //    else if (user.Role == "Teacher")
-            //    {
-            //        Teacher teacher = user as Teacher;
-            //        userData = $"Đây là ông thầy: username: {teacher.Username}, họ tên: {teacher.FullName}, cccd: {teacher.CitizenID}";
-            //    }
-            //}
-            NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
+        public LoginCommand(LoginViewModel loginViewModel)
+        {
+            _loginViewModel = loginViewModel;
+            _authenticationService = AuthenticationService.Instance;
+            _loginViewModel.PropertyChanged += OnViewModelPropertyChanged;
+        }
+
+        public override async Task ExecuteAsync(object parameter)
+        {
+            try
+            {
+
+                User user = await _authenticationService.Login(_loginViewModel.Username, _loginViewModel.Password);
+
+
+                if (user == null) MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
+                else
+                {
+                    switch (user.Role)
+                    {
+                        case "Admin":
+                            NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
+                            break;
+
+                        case "Student":
+                            MessageBox.Show("Dây là tài khoản học sinh. Hiện tại chỉ hỗ trợ Admin");
+
+
+                            break;
+
+                        case "Teacher":
+                            MessageBox.Show("Dây là tài khoản giáo viên. Hiện tại chỉ hỗ trợ Admin");
+                            break;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
+            }
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return !string.IsNullOrEmpty(_loginViewModel.Username) && !string.IsNullOrEmpty(_loginViewModel.Password);
+        }
+
+        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_loginViewModel.Username) || e.PropertyName == nameof(_loginViewModel.Password))
+            {
+                OnCanExecuteChanged();
+            }
+        }
+
+        public override void Dispose()
+        {
+            _loginViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            base.Dispose();
         }
     }
 }

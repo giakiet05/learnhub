@@ -1,22 +1,27 @@
-﻿using LearnHub.Data;
-using LearnHub.Models;
+﻿using LearnHub.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
+using LearnHub.Data;
 
 namespace LearnHub.Services
 {
     public class UserService : IUserService
     {
+        // Singleton instance
+        private static readonly Lazy<UserService> _instance = new Lazy<UserService>(() => new UserService());
+
+        // Singleton property to access the instance
+        public static UserService Instance => _instance.Value;
+
+        // Private field to hold the LearnHubDbContextFactory instance
         private readonly LearnHubDbContextFactory _contextFactory;
 
-        public UserService(LearnHubDbContextFactory contextFactory)
+        // Private constructor to prevent external instantiation
+        private UserService()
         {
-            _contextFactory = contextFactory;
+            // Initialize the context factory field
+            _contextFactory = LearnHubDbContextFactory.Instance;
         }
 
         public async Task<User> GetByUsername(string username)
@@ -27,8 +32,9 @@ namespace LearnHub.Services
                 {
                     return await context.Set<User>().FirstOrDefaultAsync(e => e.Username == username);
                 }
-                catch (Exception) {
-                    throw new Exception();
+                catch (Exception)
+                {
+                    throw new Exception("An error occurred while fetching the user.");
                 }
             }
         }
@@ -45,8 +51,9 @@ namespace LearnHub.Services
                     entity.Password = user.Password;
                     return entity;
                 }
-                catch (Exception) {
-                    throw new Exception(); 
+                catch (Exception)
+                {
+                    throw new Exception("An error occurred while fetching the user with role.");
                 }
             }
         }
@@ -61,15 +68,15 @@ namespace LearnHub.Services
                     await context.SaveChangesAsync();
                     return createdResult.Entity;
                 }
-                catch(DbUpdateException)
+                catch (DbUpdateException)
                 {
-                    throw new DbUpdateException();
+                    throw new DbUpdateException("An error occurred while creating the user.");
                 }
-                catch (Exception) {
-                    throw new Exception();
+                catch (Exception)
+                {
+                    throw new Exception("An error occurred while creating the user.");
                 }
             }
         }
-
     }
 }

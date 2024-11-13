@@ -59,6 +59,13 @@
             <DataGrid x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                 CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       ItemsSource="{Binding Students}">
+                      IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single">
+                <DataGrid.CellStyle>
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Username}"/>
                     <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}"/>

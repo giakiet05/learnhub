@@ -15,66 +15,72 @@ namespace LearnHub.Commands.LoginCommands
         private readonly LoginViewModel _loginViewModel;
         private readonly IAuthenticationService _authenticationService;
 
-        public LoginCommand(LoginViewModel loginViewModel)
+        public override Task ExecuteAsync(object parameter)
         {
-            _loginViewModel = loginViewModel;
-            _authenticationService = AuthenticationService.Instance;
-            _loginViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
+            return Task.CompletedTask;
         }
 
-        public override async Task ExecuteAsync(object parameter)
-        {
-            try
-            {
+        //public LoginCommand(LoginViewModel loginViewModel)
+        //{
+        //    _loginViewModel = loginViewModel;
+        //    _authenticationService = AuthenticationService.Instance;
+        //    _loginViewModel.PropertyChanged += OnViewModelPropertyChanged;
+        //}
 
-                User user = await _authenticationService.Login(_loginViewModel.Username, _loginViewModel.Password);
+        //public override async Task ExecuteAsync(object parameter)
+        //{
+        //    try
+        //    {
 
-
-                if (user == null) MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
-                else
-                {
-                    switch (user.Role)
-                    {
-                        case "Admin":
-                            NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
-                            break;
-
-                        case "Student":
-                            MessageBox.Show("Dây là tài khoản học sinh. Hiện tại chỉ hỗ trợ Admin");
+        //        User user = await _authenticationService.Login(_loginViewModel.Username, _loginViewModel.Password);
 
 
-                            break;
+        //        if (user == null) MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
+        //        else
+        //        {
+        //            switch (user.Role)
+        //            {
+        //                case "Admin":
+        //                    NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
+        //                    break;
 
-                        case "Teacher":
-                            MessageBox.Show("Dây là tài khoản giáo viên. Hiện tại chỉ hỗ trợ Admin");
-                            break;
-                    }
-                }
-            }
-            catch (Exception)
-            {
+        //                case "Student":
+        //                    MessageBox.Show("Dây là tài khoản học sinh. Hiện tại chỉ hỗ trợ Admin");
 
-                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
-            }
-        }
 
-        public override bool CanExecute(object parameter)
-        {
-            return !string.IsNullOrEmpty(_loginViewModel.Username) && !string.IsNullOrEmpty(_loginViewModel.Password);
-        }
+        //                    break;
 
-        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(_loginViewModel.Username) || e.PropertyName == nameof(_loginViewModel.Password))
-            {
-                OnCanExecuteChanged();
-            }
-        }
+        //                case "Teacher":
+        //                    MessageBox.Show("Dây là tài khoản giáo viên. Hiện tại chỉ hỗ trợ Admin");
+        //                    break;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
 
-        public override void Dispose()
-        {
-            _loginViewModel.PropertyChanged -= OnViewModelPropertyChanged;
-            base.Dispose();
-        }
+        //        MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
+        //    }
+        //}
+
+        //public override bool CanExecute(object parameter)
+        //{
+        //    return !string.IsNullOrEmpty(_loginViewModel.Username) && !string.IsNullOrEmpty(_loginViewModel.Password);
+        //}
+
+        //private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName == nameof(_loginViewModel.Username) || e.PropertyName == nameof(_loginViewModel.Password))
+        //    {
+        //        OnCanExecuteChanged();
+        //    }
+        //}
+
+        //public override void Dispose()
+        //{
+        //    _loginViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        //    base.Dispose();
+        //}
     }
 }

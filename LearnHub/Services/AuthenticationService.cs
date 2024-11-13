@@ -28,31 +28,29 @@ namespace LearnHub.Services
 
         public async Task<User> CreateAccount(User user)
         {
-            // Check if the user already exists
             User existingUser = await _userService.GetByUsername(user.Username);
             if (existingUser != null)
                 throw new UsernameAlreadyExistsException(existingUser.Username);
 
-            // Hash the password using ASP.NET Identity's PasswordHasher
+          
             user.Password = _passwordHasher.HashPassword(user, user.Password);
 
-            // Create and return the new user
+       
             return await _userService.CreateUser(user);
         }
 
         public async Task<User> Login(string username, string password)
         {
-            // Retrieve the user by username
+           
             User existingUser = await _userService.GetByUsername(username);
             if (existingUser == null)
                 throw new UserNotFoundException(username);
 
-            // Verify the password using ASP.NET Identity's PasswordHasher
+          
             var result = _passwordHasher.VerifyHashedPassword(existingUser, existingUser.Password, password);
             if (result != PasswordVerificationResult.Success)
                 throw new InvalidPasswordException(username, password);
 
-            // Return user based on their role
             switch (existingUser.Role)
             {
                 case "Admin":

@@ -1,4 +1,5 @@
 ﻿using LearnHub.Stores;
+using LearnHub.ViewModels;
 using LearnHub.ViewModels.AdminViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,12 @@ namespace LearnHub.Commands.ModalCommands
 {
     public class ShowEditModalCommand : BaseCommand
     {
+        private readonly BaseViewModel _modalViewModel;
+
+        public ShowEditModalCommand(BaseViewModel modalViewModel)
+        {
+            _modalViewModel = modalViewModel;
+        }
         public override void Execute(object parameter)
         {
             ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new EditStudentViewModel());

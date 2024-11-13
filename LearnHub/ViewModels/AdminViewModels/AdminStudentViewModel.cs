@@ -25,8 +25,8 @@ namespace LearnHub.ViewModels.AdminViewModels
         public AdminStudentViewModel()
         {
             //Delete = new DeleteStudentCommand();
-            ShowAddModalCommand = new ShowAddModalCommand();
-            ShowEditModalCommand = new ShowEditModalCommand();
+            ShowAddModalCommand = new ShowAddModalCommand(new AddStudentViewModel());
+            ShowEditModalCommand = new ShowEditModalCommand(new EditStudentViewModel());
 
 
             Ass = new NavigateLayoutCommand<AdminStudentAssignmentViewModel>(() => new AdminStudentAssignmentViewModel());

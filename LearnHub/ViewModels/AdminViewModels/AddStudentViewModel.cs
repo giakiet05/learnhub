@@ -10,6 +10,9 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AddStudentViewModel : BaseViewModel
     {
+
+        private string _username;
+        private string _password;
         private string _fullName;
         private string _gender;
         private string _address;
@@ -21,6 +24,26 @@ namespace LearnHub.ViewModels.AdminViewModels
         private string _motherName;
         private string _fatherPhone;
         private string _motherPhone;
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                _username = value;
+                OnPropertyChanged(nameof(Username));
+            }
+        }
+
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                _password = value;
+                OnPropertyChanged(nameof(Password));
+            }
+        }
 
         public string FullName
         {
@@ -132,12 +155,15 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
         }
 
-        public ICommand Add { get; }
-        public ICommand Cancel { get; }
+        public ICommand SubmitCommand { get; }
+        public ICommand CancelCommand { get; }
+
+
         public AddStudentViewModel()
         {
-            Add = new Confirm_AddStudentCommand();
-            Cancel = new Cancel_AddStudentCommand();
+
+            SubmitCommand = new AddStudentCommand(this);
+            CancelCommand = new Cancel_AddStudentCommand();
         }
     }
 }

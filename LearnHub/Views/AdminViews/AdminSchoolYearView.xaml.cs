@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LearnHub.Components
+namespace LearnHub.Views.AdminViews
 {
     /// <summary>
-    /// Interaction logic for SemesterDetailsForm.xaml
+    /// Interaction logic for AdminSchoolYearView.xaml
     /// </summary>
-    public partial class SemesterDetailsForm : UserControl
+    public partial class AdminSchoolYearView : Page
     {
-        public SemesterDetailsForm()
+        public AdminSchoolYearView()
         {
             InitializeComponent();
         }

@@ -131,7 +131,7 @@
                         </RadioButton>
                         <!--Semester button-->
                         <RadioButton FontSize="30"
-                                     Command="{Binding SemesterCommand}"
+                                     Command="{Binding SchoolYearCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Năm học">
                             <RadioButton.Tag>

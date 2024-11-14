@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace LearnHub.Views.AdminViews
 {
     /// <summary>
-    /// Interaction logic for AdminSemesterView.xaml
+    /// Interaction logic for EditSchoolYearView.xaml
     /// </summary>
-    public partial class AdminSemesterView : Page
+    public partial class EditSchoolYearView : UserControl
     {
-        public AdminSemesterView()
+        public EditSchoolYearView()
         {
             InitializeComponent();
         }

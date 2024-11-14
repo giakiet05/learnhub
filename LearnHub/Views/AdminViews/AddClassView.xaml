@@ -3,98 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+             xmlns:local="clr-namespace:LearnHub.Views.AdminViews" xmlns:components="clr-namespace:LearnHub.Components"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="550" Background="#fff7f7">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="400"/>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="440"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Thêm lớp học" Style="{StaticResource font_style}"
            HorizontalAlignment="Left" VerticalAlignment="Center"
            FontSize="30" Margin="10 0 0 0"/>
 
-        <!--hộp thông tin lớp học-->
-        <Border Grid.Row="1" Background="#87C5FC" Margin="15" CornerRadius="10">
-            <StackPanel>
-                <!--Mã lớp-->
-                <StackPanel Margin="25" Orientation="Horizontal">
-                    <TextBlock Text="Mã lớp:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="80"/>
-
-                    <TextBox x:Name="tbID" FontSize="15" Width="250" Height="30"
-                     Margin="20 0 0 0" Background="#d9d9d9d9"
-                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                </StackPanel>
-
-                <!--Tên lớp-->
-                <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Tên lớp:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="80"/>
-
-                    <TextBox x:Name="tbName" FontSize="15" Width="250" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
-                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                </StackPanel>
-                
-                <!--Khối lớp-->
-                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" Width="80"/>
-
-                    <ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
-                              Margin="20 0 0 0" Background="#d9d9d9d9"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                </StackPanel>
-
-                <!--Sĩ số-->
-                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Sĩ số:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="80"/>
-
-                    <TextBox x:Name="tbNumber" FontSize="15" Width="70" Height="30"
-                      Margin="20 0 0 0" Background="#d9d9d9d9"
-                      FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                </StackPanel>
-                
-                <!--Năm học-->
-                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Năm học:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="80"/>
-
-                    <ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
-                              Margin="20 0 0 0" Background="#d9d9d9d9"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                </StackPanel>
-                
-                <!--Giáo viên chủ nhiệm-->
-                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Giáo viên:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="80"/>
-
-                    <ComboBox x:Name="cbTeacher" FontSize="15" Width="200" Height="30"
-                              Margin="20 0 0 0" Background="#d9d9d9d9"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                </StackPanel>
-
-            </StackPanel>
-        </Border>
-
-        <!--các nút điều khiển-->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <!--button thêm-->
-            <Button x:Name="btnThem" Content="Thêm" Style="{StaticResource btnStyle}"
-                    Command="{Binding Add}"
-            Width="118"
-            Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
-            <!--button huỷ-->
-            <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}"
-                    Command="{Binding Cancel}"
-            Width="118"
-            Margin="10 0 50 0" Background="#93A7BF" BorderBrush="Transparent"/>
-        </StackPanel>
+        <components:ClassDetailsForm Grid.Row="1"/>
     </Grid>
 </UserControl>

@@ -1,6 +1,7 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Commands.AdminCommands;
 using LearnHub.Models;
+using LearnHub.Services;
 using LearnHub.Stores;
 using System;
 using System.Collections.Generic;
@@ -14,27 +15,33 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminClassViewModel : BaseViewModel
     {
+
+        private readonly ObservableCollection<Classroom> _classrooms;
+        public IEnumerable<Classroom> Classrooms => _classrooms;
+        private readonly IDataService<Classroom> _classroomService = GenericDataService<Classroom>.Instance;
+       
         public ICommand Add { get; }
         public ICommand Delete { get; }
         public ICommand Edit { get; }
         public ICommand Grade { get; }
 
-        // ObservableCollection để giữ danh sách lớp học
-        public ObservableCollection<Classroom> Classrooms { get; }
+    
 
         public AdminClassViewModel()
         {
-            Add = new AddClassCommand();
-            Delete = new DeleteClassCommand();
-            Edit = new EditClassCommand();
-            Grade = new NavigateLayoutCommand<AdminGradeViewModel>(() => new AdminGradeViewModel());
+            ShowAddModalCommand = new ShowAddModalCommand(new AddClassViewModel());
+            ShowEditModalCommand = new ShowEditModalCommand(new EditClassViewModel());
 
-            // Khởi tạo dữ liệu mẫu
-            Classrooms = new ObservableCollection<Classroom>
-            {
-                new Classroom { Name = "Lớp 10A1", Capacity = 30, GradeId = "10", YearId = "2023", TeacherInChargeId = "GV001" },
-                new Classroom { Name = "Lớp 11A2", Capacity = 32, GradeId = "11", YearId = "2023", TeacherInChargeId = "GV002" },
-            };
+            _classrooms = new ObservableCollection<Classroom>();
+            LoadClassroomsAsync();
+        }
+        private async Task LoadClassroomsAsync()
+        {
+            var classrooms = await _classroomService.GetAll();
+            foreach (var classroom in classrooms) {
+                _classrooms.Add(classroom);
+            
+            }
         }
     }
 }

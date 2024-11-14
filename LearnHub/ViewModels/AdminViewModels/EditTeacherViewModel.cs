@@ -14,8 +14,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand Cancel { get; }
         public EditTeacherViewModel()
         {
-            Edit = new Confirm_EditTeacherViewModel();
-            Cancel = new Cancel_EditTeacherViewModel();
+           
         }
     }
 }

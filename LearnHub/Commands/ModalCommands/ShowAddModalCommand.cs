@@ -12,16 +12,17 @@ namespace LearnHub.Commands.ModalCommands
 {
     public class ShowAddModalCommand : BaseCommand
     {
-        private readonly BaseViewModel _modalViewModel;
+        private readonly Func<BaseViewModel> _createViewModel;
 
-        public ShowAddModalCommand(BaseViewModel modalViewModel)
+        public ShowAddModalCommand(Func<BaseViewModel> createViewModel)
         {
-            _modalViewModel = modalViewModel;
+            _createViewModel = createViewModel;
         }
 
         public override void Execute(object parameter)
         {
-            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => _modalViewModel);
+            var viewModel = _createViewModel();
+            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => viewModel);
         }
     }
 }

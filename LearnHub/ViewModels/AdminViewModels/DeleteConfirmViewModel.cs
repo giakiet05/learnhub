@@ -14,8 +14,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand Cancel { get; }
         public DeleteConfirmViewModel()
         {
-            Delete = new Confirm_DeleteConfirmCommand();
-            Cancel = new Cancel_DeleteConfirmCommand();
+          
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using LearnHub.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace LearnHub.Services
 {
-    public interface IDataService<T>
+    public interface IDataService<T> where T: DomainObject
     //các phương thức dùng predicate có thể áp dụng cho các bảng có composite key
     //param predicate là một biểu thức lambda
     {

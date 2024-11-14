@@ -34,34 +34,33 @@ namespace LearnHub.ViewModels.AdminViewModels
 
 
         private readonly IDataService<Student> _studentService = GenericDataService<Student>.Instance;
-      
-        
+
+
         public ICommand ShowAddModalCommand { get; }
-        public ICommand Delete { get; }
+        public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
         public ICommand Ass { get; }
         public AdminStudentViewModel()
         {
-            //Delete = new DeleteStudentCommand();
+            ShowDeleteModalCommand = new ShowDeleteModalCommand(() => new DeleteConfirmViewModel());
             ShowAddModalCommand = new ShowAddModalCommand(() => new AddStudentViewModel());
             ShowEditModalCommand = new ShowEditModalCommand(() => new EditStudentViewModel());
 
 
             Ass = new NavigateLayoutCommand<AdminStudentAssignmentViewModel>(() => new AdminStudentAssignmentViewModel());
-            _students = StudentStore.Instance.Students;
+
+            _students = StudentStore.Instance.Students; //lấy students từ store để binding cho view
 
 
             LoadStudentsAsync();
 
         }
 
-        private async Task LoadStudentsAsync()
+        private async void LoadStudentsAsync()
         {
-            var students = await _studentService.GetAll();
-            foreach (var student in students)
-            {
-                _students.Add(student);
-            }
+            var students = await GenericDataService<Student>.Instance.GetAll();
+            StudentStore.Instance.LoadStudents(students);
         }
+
     }
 }

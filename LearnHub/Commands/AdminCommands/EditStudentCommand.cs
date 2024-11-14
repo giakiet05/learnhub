@@ -11,7 +11,7 @@ namespace LearnHub.Commands.AdminCommands
     public class EditStudentCommand : BaseAsyncCommand
     {
         private readonly EditStudentViewModel _viewModel;
-        private readonly IDataService<Student> _studentDataService = GenericDataService<Student>.Instance;
+       
 
         public EditStudentCommand(EditStudentViewModel viewModel)
         {
@@ -58,7 +58,7 @@ namespace LearnHub.Commands.AdminCommands
             try
             {
                 // Update the student in the database
-                await _studentDataService.UpdateById(selectedStudent.Id, selectedStudent);
+                await GenericDataService<Student>.Instance.UpdateById(selectedStudent.Id, selectedStudent);
 
                 // Notify UI about the update
                 //StudentStore.Instance.OnSelectedStudentChanged().inInvoke(selectedStudent);

@@ -41,7 +41,7 @@
                         Style="{StaticResource btnStyle}"/>
                 <!--nút xoá học sinh đã chọn-->
                 <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
-                        Command="{Binding Delete}"
+                        Command="{Binding ShowDeleteModalCommand}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
                 <!--nút sửa học sinh đã chọn-->

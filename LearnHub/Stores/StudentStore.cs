@@ -1,4 +1,5 @@
 ﻿using LearnHub.Models;
+using LearnHub.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -70,6 +71,21 @@ namespace LearnHub.Stores
             }
         }
 
+        public void DeleteStudent(string studentId)
+        {
+            var existingStudent = Students.FirstOrDefault(s => s.Id == studentId);
+            if (existingStudent != null)
+            {
+                // If the deleted student is the currently selected student, clear the selection
+                if (SelectedStudent?.Id == studentId)
+                {
+                    SelectedStudent = null; // Or set to another fallback student if needed
+                }
+
+          
+                Students.Remove(existingStudent);
+            }
+        }
 
         public void LoadStudents(IEnumerable<Student> students)
         {

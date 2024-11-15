@@ -73,7 +73,7 @@
                     <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Username}"/>
                     <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}"/>
                     <DataGridTextColumn Header="Số điện thoại" Binding="{Binding PhoneNumber}"/>
-                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding Birthday}" />
+                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding Birthday, StringFormat='{}{0:dd/MM/yyyy}'}" />
                     <DataGridTextColumn Header="Giới tính" Binding="{Binding Gender}"/>
                     <DataGridTextColumn Header="Tôn giáo" Binding="{Binding Religion}"/>
                     <DataGridTextColumn Header="Dân tộc" Binding="{Binding Ethnicity}"/>

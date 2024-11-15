@@ -15,7 +15,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         private string _fullName;
         private string _gender;
         private string _address;
-        private DateTime _birthday;
+        private DateTime _birthday = new DateTime(2000,1,1);
         private string _phoneNumber;
         private string _ethnicity;
         private string _religion;

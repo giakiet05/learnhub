@@ -36,7 +36,7 @@ namespace LearnHub.Views.AuthenticationViews
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            ICommand navigate= new NavigateViewCommand<AdminViewModel>(()=> new AdminViewModel());
+            ICommand navigate= new NavigateViewCommand(()=> new AdminViewModel());
             navigate.Execute(this);
         }
       

@@ -41,8 +41,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 StudentDetailsFormViewModel.MotherName = selectedStudent.MotherName;
                 StudentDetailsFormViewModel.FatherPhone = selectedStudent.FatherPhone;
                 StudentDetailsFormViewModel.MotherPhone = selectedStudent.MotherPhone;
-
-                //StudentDetailsFormViewModel.Password = selectedStudent.Password;
+              
             }
         }
     }

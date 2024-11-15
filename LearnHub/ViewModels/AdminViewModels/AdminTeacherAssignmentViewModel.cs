@@ -13,7 +13,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand Teacher { get; }
         public AdminTeacherAssignmentViewModel()
         {
-            Teacher = new NavigateLayoutCommand<AdminTeacherViewModel>(()=>new AdminTeacherViewModel());
+            Teacher = new NavigateLayoutCommand(()=>new AdminTeacherViewModel());
         }
     }
 }

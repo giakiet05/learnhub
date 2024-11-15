@@ -23,12 +23,12 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand LogoutCommand {  get; }
         public AdminViewModel()
         {
-            HomeCommand = new NavigateLayoutCommand<AdminHomeViewModel>(() => new AdminHomeViewModel());
-            ClassCommand = new NavigateLayoutCommand<AdminClassViewModel>(() => new AdminClassViewModel());
-            SubjectCommand = new NavigateLayoutCommand<AdminSubjectViewModel>(() => new AdminSubjectViewModel());
-            TeacherCommand = new NavigateLayoutCommand<AdminTeacherViewModel>(() => new AdminTeacherViewModel());
-            StudentCommand = new NavigateLayoutCommand<AdminStudentViewModel>(() => new AdminStudentViewModel());
-            CalendarCommand = new NavigateLayoutCommand<AdminCalendarViewModel>(() => new AdminCalendarViewModel());
+            HomeCommand = new NavigateLayoutCommand(() => new AdminHomeViewModel());
+            ClassCommand = new NavigateLayoutCommand(() => new AdminClassViewModel());
+            SubjectCommand = new NavigateLayoutCommand(() => new AdminSubjectViewModel());
+            TeacherCommand = new NavigateLayoutCommand(() => new AdminTeacherViewModel());
+            StudentCommand = new NavigateLayoutCommand(() => new AdminStudentViewModel());
+            CalendarCommand = new NavigateLayoutCommand(() => new AdminCalendarViewModel());
             LogoutCommand = new NavigateModalCommand(() =>new LogoutConfirmViewModel());
             NavigationStore.Instance.CurrentLayoutModelChanged += OnCurrentLayoutModelChanged;
             NavigationStore.Instance.CurrentLayoutModel = new AdminHomeViewModel();

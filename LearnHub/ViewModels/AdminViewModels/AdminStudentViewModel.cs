@@ -47,7 +47,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowEditModalCommand = new NavigateModalCommand(() => new EditStudentViewModel(), () => _selectedStudent != null, "Chưa chọn học sinh để sửa");
 
 
-            Ass = new NavigateLayoutCommand<AdminStudentAssignmentViewModel>(() => new AdminStudentAssignmentViewModel());
+            Ass = new NavigateLayoutCommand(() => new AdminStudentAssignmentViewModel());
 
             _students = StudentStore.Instance.Students; //lấy students từ store để binding cho view
 

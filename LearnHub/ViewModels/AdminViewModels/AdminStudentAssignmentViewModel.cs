@@ -16,7 +16,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand Delete { get; }
         public AdminStudentAssignmentViewModel()
         {
-            Student = new NavigateLayoutCommand<AdminStudentViewModel>(()=> new AdminStudentViewModel());
+            Student = new NavigateLayoutCommand(()=> new AdminStudentViewModel());
             Add = new AddStudentAssignmentCommand();
             Delete = new DeleteStudentAssignmentCommand();
         }

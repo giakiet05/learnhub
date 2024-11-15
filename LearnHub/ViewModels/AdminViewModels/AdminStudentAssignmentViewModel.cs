@@ -1,5 +1,5 @@
 ﻿using LearnHub.Commands;
-using LearnHub.Commands.AdminCommands;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +17,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public AdminStudentAssignmentViewModel()
         {
             Student = new NavigateLayoutCommand(()=> new AdminStudentViewModel());
-            Add = new AddStudentAssignmentCommand();
-            Delete = new DeleteStudentAssignmentCommand();
+            
         }
     }
 }

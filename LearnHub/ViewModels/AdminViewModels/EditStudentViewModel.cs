@@ -1,10 +1,15 @@
-﻿using LearnHub.Commands.AdminCommands;
+﻿using LearnHub.Commands;
+
+using LearnHub.Models;
+using LearnHub.Services;
 using LearnHub.Stores;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace LearnHub.ViewModels.AdminViewModels
@@ -15,7 +20,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         public EditStudentViewModel()
         {
-            ICommand submitCommand = new EditStudentCommand(this);
+            ICommand submitCommand = new RelayCommand(ExecuteSubmit);
             ICommand cancelCommand = new CancelCommand();
             StudentDetailsFormViewModel = new StudentDetailsFormViewModel(submitCommand, cancelCommand);
 
@@ -42,6 +47,53 @@ namespace LearnHub.ViewModels.AdminViewModels
                 StudentDetailsFormViewModel.FatherPhone = selectedStudent.FatherPhone;
                 StudentDetailsFormViewModel.MotherPhone = selectedStudent.MotherPhone;
               
+            }
+        }
+
+        private async void ExecuteSubmit()
+        {
+            StudentDetailsFormViewModel formViewModel = StudentDetailsFormViewModel;
+
+            if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
+                string.IsNullOrWhiteSpace(formViewModel.FullName))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin cơ bản");
+                return;
+            }
+
+
+            var selectedStudent = StudentStore.Instance.SelectedStudent;
+
+            //cập nhật thông tin của selected student dựa vào thông tin từ form
+            selectedStudent.Username = formViewModel.Username;
+            selectedStudent.FullName = formViewModel.FullName;
+            selectedStudent.PhoneNumber = formViewModel.PhoneNumber;
+            selectedStudent.Address = formViewModel.Address;
+            selectedStudent.Birthday = formViewModel.Birthday;
+            selectedStudent.Gender = formViewModel.Gender;
+            selectedStudent.Ethnicity = formViewModel.Ethnicity;
+            selectedStudent.Religion = formViewModel.Religion;
+            selectedStudent.FatherName = formViewModel.FatherName;
+            selectedStudent.MotherName = formViewModel.MotherName;
+            selectedStudent.FatherPhone = formViewModel.FatherPhone;
+            selectedStudent.MotherPhone = formViewModel.MotherPhone;
+
+            //chỉ cập nhật mật mẩu nếu như nó được điền mới
+            if (formViewModel.Password != null)
+            {
+                var passwordHasher = new PasswordHasher<Student>();
+                selectedStudent.Password = passwordHasher.HashPassword(selectedStudent, formViewModel.Password);
+            }
+
+            try
+            {
+                await GenericDataService<Student>.Instance.UpdateById(selectedStudent.Id, selectedStudent);
+                StudentStore.Instance.UpdateStudent(selectedStudent);
+                ModalNavigationStore.Instance.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Cập nhật thất bại");
             }
         }
     }

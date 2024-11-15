@@ -1,4 +1,4 @@
-﻿using LearnHub.Commands.AdminCommands;
+﻿
 using LearnHub.Commands;
 using System;
 using System.Collections.Generic;
@@ -17,9 +17,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand Edit { get; }
         public AdminSubjectViewModel()
         {
-            Add = new AddSubjectCommand();
-            Delete = new DeleteSubjectCommand();
-            Edit = new EditSubjectCommand();
+           
            
         }
     }

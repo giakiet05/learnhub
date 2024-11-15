@@ -1,4 +1,4 @@
-﻿using LearnHub.Commands.AdminCommands;
+﻿
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -19,12 +19,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand DeleteLT { get; }
         public AdminCalendarViewModel()
         {
-            AddTKB = new AddTKBCommand();
-            EditTKB = new EditTKBCommand();
-            DeleteTKB = new DeleteTKBCommand();
-            AddLT = new AddLTCommand();
-            EditLT = new EditLTCommand();
-            DeleteLT = new DeleteLTCommand();
+           
         }
 
     }

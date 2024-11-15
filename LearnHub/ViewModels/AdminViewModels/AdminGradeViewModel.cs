@@ -1,5 +1,5 @@
 ﻿using LearnHub.Commands;
-using LearnHub.Commands.AdminCommands;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +17,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand Class { get; }
         public AdminGradeViewModel()
         {
-            Add = new AddGradeCommand();
-            Delete = new DeleteGradeCommand();
-            Edit = new EditGradeCommand();
+           
             Class = new NavigateLayoutCommand(() => new AdminClassViewModel());
         }
     }

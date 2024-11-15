@@ -1,11 +1,13 @@
-﻿using LearnHub.Commands.AdminCommands;
+﻿using LearnHub.Commands;
+using LearnHub.Services;
+using LearnHub.Models;
 using LearnHub.Stores;
+using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -15,12 +17,77 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         public EditTeacherViewModel()
         {
-            ICommand submitCommand = new EditTeacherCommand(this);
+
+            ICommand submitCommand = new RelayCommand(ExecuteSubmit);
             ICommand cancelCommand = new CancelCommand();
+
             TeacherDetailsFormViewModel = new TeacherDetailsFormViewModel(submitCommand, cancelCommand);
 
-            //Truyền thông tin của selected teacher vào các input
+            // Load selected teacher data into the form
             LoadSelectedTeacherData();
+        }
+
+
+        private async void ExecuteSubmit()
+        {
+            var formViewModel = TeacherDetailsFormViewModel;
+
+            // Validate input fields
+            if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
+               string.IsNullOrWhiteSpace(formViewModel.FullName) ||
+               formViewModel.Salary == null ||
+               formViewModel.Coefficient == null)
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin cơ bản nha");
+                return;
+            }
+
+            if (!int.TryParse(formViewModel.Salary.ToString(), out int salary) || salary <= 0)
+            {
+                MessageBox.Show("Lương phải là một số nguyên dương");
+                return;
+            }
+
+            if (!double.TryParse(formViewModel.Coefficient.ToString(), out double coefficient) || coefficient <= 0)
+            {
+                MessageBox.Show("Hệ số phải là một số thập phân lớn hơn 0.");
+                return;
+            }
+
+            var selectedTeacher = TeacherStore.Instance.SelectedTeacher;
+
+            // Update selected teacher's information based on the form data
+            selectedTeacher.Username = formViewModel.Username;
+            selectedTeacher.FullName = formViewModel.FullName;
+            selectedTeacher.PhoneNumber = formViewModel.PhoneNumber;
+            selectedTeacher.Address = formViewModel.Address;
+            selectedTeacher.Birthday = formViewModel.Birthday;
+            selectedTeacher.Gender = formViewModel.Gender;
+            selectedTeacher.Ethnicity = formViewModel.Ethnicity;
+            selectedTeacher.Religion = formViewModel.Religion;
+            selectedTeacher.Coefficient = formViewModel.Coefficient;
+            selectedTeacher.Specialization = formViewModel.Specialization;
+            selectedTeacher.Salary = formViewModel.Salary;
+            selectedTeacher.CitizenID = formViewModel.CitizenID;
+            selectedTeacher.DateOfJoining = formViewModel.DateOfJoining;
+
+            // Only update password if it's provided
+            if (formViewModel.Password != null)
+            {
+                var passwordHasher = new PasswordHasher<Teacher>();
+                selectedTeacher.Password = passwordHasher.HashPassword(selectedTeacher, formViewModel.Password);
+            }
+
+            try
+            {
+                await GenericDataService<Teacher>.Instance.UpdateById(selectedTeacher.Id, selectedTeacher);
+                TeacherStore.Instance.UpdateTeacher(selectedTeacher);
+                ModalNavigationStore.Instance.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Cập nhật thất bại");
+            }
         }
 
         private void LoadSelectedTeacherData()
@@ -28,7 +95,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             var selectedTeacher = TeacherStore.Instance.SelectedTeacher;
             if (selectedTeacher != null)
             {
-                //Điền vào các input thông tin từ selectecTeacher (trừ mật khẩu)
+                // Populate form fields with selected teacher's data (except password)
                 TeacherDetailsFormViewModel.Username = selectedTeacher.Username;
                 TeacherDetailsFormViewModel.FullName = selectedTeacher.FullName;
                 TeacherDetailsFormViewModel.PhoneNumber = selectedTeacher.PhoneNumber;

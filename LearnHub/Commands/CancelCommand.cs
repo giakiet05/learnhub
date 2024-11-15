@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearnHub.Commands.AdminCommands
+namespace LearnHub.Commands
 {
     public class CancelCommand : BaseCommand
     {
@@ -14,5 +14,5 @@ namespace LearnHub.Commands.AdminCommands
             ModalNavigationStore.Instance.Close();
         }
     }
-  
+
 }

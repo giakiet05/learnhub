@@ -40,9 +40,10 @@
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Họ và tên:" Style="{StaticResource font_style}"
                        VerticalAlignment="Center" Width="120"/>
-                                    <TextBox x:Name="tbName" FontSize="15" Width="200" Height="30"
+                                    <TextBlock Text="*" Foreground="Red" FontSize="18"/>
+                                    <TextBox x:Name="tbName" FontSize="15" Width="180" Height="30"
                                      Text="{Binding FullName}"
-                                Margin="20 0 0 0" Background="#d9d9d9d9"
+                                Margin="15 0 0 0" Background="#d9d9d9d9"
                      FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
@@ -62,7 +63,7 @@
                                 <!--Ngày sinh-->
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Ngày sinh:" Style="{StaticResource font_style}" 
-                       VerticalAlignment="Center" Width="120"/>
+                                                VerticalAlignment="Center" Width="120"/>
                                     <DatePicker x:Name="tbDOB" FontSize="15" Width="150" Height="30" SelectedDate="{Binding Birthday, StringFormat=dd/MM/yyy}"
                                                 Margin="20 0 0 0" Background="#d9d9d9" SelectedDateFormat="Short" Language="en-GB"
                                                 FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
@@ -73,19 +74,19 @@
                                 <!--SDT-->
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Số điện thoại:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="120"/>
+                                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbPhone" FontSize="15" Width="200" Height="30"
-                     Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding PhoneNumber}"
-                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding PhoneNumber}"
+                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
                                 <!--Tôn giáo-->
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Tôn giáo:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="120"/>
+                                                VerticalAlignment="Center" Width="120"/>
 									<ComboBox x:Name="tbReligion" FontSize="15" Width="200" Height="30"
-Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Religion}"
-FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+                                                Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Religion}"
+                                                FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
 										<ComboBoxItem Content="Không"/>
 										<ComboBoxItem Content="Phật giáo"/>
 										<ComboBoxItem Content="Công giáo"/>
@@ -100,10 +101,10 @@ FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
                                 <!--Dân tộc-->
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Dân tộc:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="120"/>
+                                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbEthnic" FontSize="15" Width="200" Height="30"
-                     Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Ethnicity}"
-                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Ethnicity}"
+                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
                             </StackPanel>
 
@@ -111,46 +112,46 @@ FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
                                 <!--Địa chỉ-->
                                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Địa chỉ:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="130"/>
+                                            VerticalAlignment="Center" Width="130"/>
                                     <TextBox x:Name="tbAddress" FontSize="15" Width="200" Height="30" Text="{Binding Address}"
-                     Margin="20 0 0 0" Background="#d9d9d9"
-                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                             Margin="20 0 0 0" Background="#d9d9d9"
+                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
                                 <!--Họ tên cha-->
                                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Họ tên cha:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="130"/>
+                                                VerticalAlignment="Center" Width="130"/>
                                     <TextBox x:Name="tbFatherName" FontSize="15" Width="200" Height="30"
-                     Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding FatherName}"
-                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding FatherName}"
+                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
                                 <!--số điện thoại cha-->
                                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Số điện thoại cha:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="130"/>
+                                                VerticalAlignment="Center" Width="130"/>
                                     <TextBox x:Name="tbFatherPhone" FontSize="15" Width="200" Height="30"
-                     Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding FatherPhone}"
-                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                         Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding FatherPhone}"
+                                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
                                 <!--Họ tên mẹ-->
                                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Họ tên mẹ:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="130"/>
+                                            VerticalAlignment="Center" Width="130"/>
                                     <TextBox x:Name="tbMotherName" FontSize="15" Width="200" Height="30"
-                     Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding MotherName}"
-                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding MotherName}"
+                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
                                 <!--số điện thoại mẹ-->
                                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Số điện thoại mẹ:" Style="{StaticResource font_style}"
-                       VerticalAlignment="Center" Width="130"/>
+                                                VerticalAlignment="Center" Width="130"/>
                                     <TextBox x:Name="tbMotherPhone" FontSize="15" Width="200" Height="30"
-                     Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding MotherPhone}"
-                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding MotherPhone}"
+                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
                             </StackPanel>
@@ -175,7 +176,7 @@ FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
                         <StackPanel Grid.Column="0">
                             <!--Tên đăng nhập-->
                             <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
-                                <TextBlock Text="Tên đăng nhập:" Style="{StaticResource font_style}"
+                                <TextBlock Text="*Tên đăng nhập:" Style="{StaticResource font_style}"
                                         VerticalAlignment="Center" Width="120"/>
                                 <TextBox x:Name="tbUsername" FontSize="15" Width="250" Height="30"
                                      Margin="20 0 0 0" Background="#d9d9d9d9"
@@ -185,7 +186,7 @@ FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
 
                             <!--Mật khẩu-->
                             <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                <TextBlock Text="Mật khẩu:" Style="{StaticResource font_style}"
+                                <TextBlock Text="*Mật khẩu:" Style="{StaticResource font_style}"
                        VerticalAlignment="Center" Width="120"/>
                                 <TextBox x:Name="tbPassword" FontSize="15" Width="250" Height="30"
                      Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding Password}"

@@ -31,7 +31,20 @@ namespace LearnHub.Commands.AdminCommands
                 return;
             }
 
+            if (formViewModel.Salary != null &&
+                           (!int.TryParse(formViewModel.Salary.ToString(), out int salary) || salary <= 0))
+            {
+                MessageBox.Show("Lương phải là một số nguyên dương");
+                return;
+            }
 
+            // Coefficient validation (skip if null)
+            if (formViewModel.Coefficient != null &&
+                (!double.TryParse(formViewModel.Coefficient.ToString(), out double coefficient) || coefficient <= 0))
+            {
+                MessageBox.Show("Hệ số phải là một số thập phân lớn hơn 0.");
+                return;
+            }
             var selectedTeacher = TeacherStore.Instance.SelectedTeacher;
 
             //cập nhật thông tin của selected student dựa vào thông tin từ form

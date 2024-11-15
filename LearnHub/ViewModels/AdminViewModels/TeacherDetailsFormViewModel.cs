@@ -21,8 +21,8 @@ namespace LearnHub.ViewModels.AdminViewModels
         private string? _religion;
         private string? _citizenID;
         private int? _salary;
-        private DateTime? _dateOfJoining;
-        private double? _coefficient;
+        private DateTime? _dateOfJoining = new DateTime(1975, 1,1);
+        private double? _coefficient = 1;
         private string? _specialization;
         public string Username
         {
@@ -163,7 +163,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(Specialization));
             }
         }
-
+      
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
         public TeacherDetailsFormViewModel(ICommand submitCommand, ICommand cancelCommand)

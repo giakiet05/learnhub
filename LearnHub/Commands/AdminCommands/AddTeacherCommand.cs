@@ -26,10 +26,28 @@ namespace LearnHub.Commands.AdminCommands
 
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
                 string.IsNullOrWhiteSpace(formViewModel.Password) ||
-                string.IsNullOrWhiteSpace(formViewModel.FullName))
+                string.IsNullOrWhiteSpace(formViewModel.FullName) ||
+                formViewModel.Salary == null ||
+                formViewModel.Coefficient == null
+
+                )
 
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin cơ bản");
+                return;
+            }
+
+
+            if (!int.TryParse(formViewModel.Salary.ToString(), out int salary) || salary <= 0)
+            {
+                MessageBox.Show("Lương phải là một số nguyên dương");
+                return;
+            }
+
+
+            if (!double.TryParse(formViewModel.Coefficient.ToString(), out double coefficient) || coefficient <= 0)
+            {
+                MessageBox.Show("Hệ số phải là một số thập phân lớn hơn 0.");
                 return;
             }
 

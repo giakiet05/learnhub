@@ -13,7 +13,7 @@ namespace LearnHub.Commands.AdminCommands
 {
     public class DeleteStudentCommand : BaseAsyncCommand
     {
-
+      
         public override async Task ExecuteAsync(object parameter)
         {
             var selectedStudent = StudentStore.Instance.SelectedStudent;

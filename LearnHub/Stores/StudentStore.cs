@@ -11,7 +11,7 @@ namespace LearnHub.Stores
 
         public ObservableCollection<Student> Students { get; set; } //student list
 
-        private Student _selectedStudent;
+        private Student _selectedStudent; // student được chọn trên listview
         public Student SelectedStudent
         {
             get
@@ -51,15 +51,13 @@ namespace LearnHub.Stores
         }
         public void UpdateStudent(Student updatedStudent)
         {
-            // Find the existing student with the same Id
             var existingStudent = Students.FirstOrDefault(s => s.Id == updatedStudent.Id);
 
             if (existingStudent != null)
             {
-                // Remove the existing student
+             
                 Students.Remove(existingStudent);
 
-                // Add the updated student
                 Students.Insert(0, updatedStudent);
 
                 // Update the SelectedStudent if it matches the updated student
@@ -76,13 +74,6 @@ namespace LearnHub.Stores
             var existingStudent = Students.FirstOrDefault(s => s.Id == studentId);
             if (existingStudent != null)
             {
-                // If the deleted student is the currently selected student, clear the selection
-                if (SelectedStudent?.Id == studentId)
-                {
-                    SelectedStudent = null; // Or set to another fallback student if needed
-                }
-
-          
                 Students.Remove(existingStudent);
             }
         }

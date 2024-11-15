@@ -31,13 +31,13 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             var selectedStudent = StudentStore.Instance.SelectedStudent;
             if (selectedStudent != null)
-            {
+            {  
+                //Điền vào các input thông tin từ selectecStudent (trừ mật khẩu)
                 StudentDetailsFormViewModel.Username = selectedStudent.Username;
-                StudentDetailsFormViewModel.Password = selectedStudent.Password;
                 StudentDetailsFormViewModel.FullName = selectedStudent.FullName;
                 StudentDetailsFormViewModel.PhoneNumber = selectedStudent.PhoneNumber;
                 StudentDetailsFormViewModel.Address = selectedStudent.Address;
-               // StudentDetailsFormViewModel.Birthday = selectedStudent.Birthday;
+                StudentDetailsFormViewModel.Birthday = (DateTime)selectedStudent.Birthday;
                 StudentDetailsFormViewModel.Gender = selectedStudent.Gender;
                 StudentDetailsFormViewModel.Ethnicity = selectedStudent.Ethnicity;
                 StudentDetailsFormViewModel.Religion = selectedStudent.Religion;
@@ -45,6 +45,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                 StudentDetailsFormViewModel.MotherName = selectedStudent.MotherName;
                 StudentDetailsFormViewModel.FatherPhone = selectedStudent.FatherPhone;
                 StudentDetailsFormViewModel.MotherPhone = selectedStudent.MotherPhone;
+
+                //StudentDetailsFormViewModel.Password = selectedStudent.Password;
             }
         }
 

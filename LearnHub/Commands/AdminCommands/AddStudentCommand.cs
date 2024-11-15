@@ -65,7 +65,7 @@ namespace LearnHub.Commands.AdminCommands
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to create");
+                MessageBox.Show("Tạo thất bại");
             }
         }
 

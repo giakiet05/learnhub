@@ -35,17 +35,17 @@
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
                 <!--nút thêm t mới-->
                 <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
-                        Command="{Binding Add}"
+                       Command="{Binding ShowAddModalCommand}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
                 <!--nút xoá thông báo đã chọn-->
                 <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
-                        Command="{Binding Delete}"
+                      Command="{Binding ShowDeleteModalCommand}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
                 <!--nút sửa thông báo đã chọn-->
                 <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
-                        Command="{Binding Edit}"
+                       Command="{Binding ShowEditModalCommand}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
             </StackPanel>
@@ -57,6 +57,8 @@
             <!--datagrid để hiển thị list giáo viên-->
             <DataGrid x:Name="GiaoVienDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                       IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                      ItemsSource="{Binding Teachers}"
+                      SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                         CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -65,19 +67,19 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã giáo viên"/>
-                    <DataGridTextColumn Header="Họ tên"/>
-                    <DataGridTextColumn Header="Số điện thoại" />
-                    <DataGridTextColumn Header="Ngày sinh" />
-                    <DataGridTextColumn Header="Giới tính" />
-                    <DataGridTextColumn Header="Tôn giáo" />
-                    <DataGridTextColumn Header="Dân tộc" />
-                    <DataGridTextColumn Header="Căn cước" />
-                    <DataGridTextColumn Header="Địa chỉ" />
-                    <DataGridTextColumn Header="Mức lương" />
-                    <DataGridTextColumn Header="Ngày vào làm" />
-                    <DataGridTextColumn Header="Hệ số" />
-                    <DataGridTextColumn Header="Chuyên môn" />
+                    <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Username}"/>
+                    <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}"/>
+                    <DataGridTextColumn Header="CCCD" Binding="{Binding CitizenID}"/>
+                    <DataGridTextColumn Header="Số điện thoại" Binding="{Binding PhoneNumber}"/>
+                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding Birthday, StringFormat='dd/MM/yyyy'}"/>
+                    <DataGridTextColumn Header="Giới tính" Binding="{Binding Gender}"/>
+                    <DataGridTextColumn Header="Tôn giáo" Binding="{Binding Religion}"/>
+                    <DataGridTextColumn Header="Dân tộc" Binding="{Binding Ethnicity}"/>
+                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding Address}"/>
+                    <DataGridTextColumn Header="Mức lương" Binding="{Binding Salary}"/>
+                      <DataGridTextColumn Header="Ngày vào làm" Binding="{Binding DateOfJoining, StringFormat='dd/MM/yyyy'}"/>
+                    <DataGridTextColumn Header="Hệ số" Binding="{Binding Coefficient}"/>
+                    <DataGridTextColumn Header="Chuyên môn" Binding="{Binding Specialization}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

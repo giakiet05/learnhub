@@ -18,11 +18,6 @@ namespace LearnHub.Commands.AdminCommands
         {
             var selectedStudent = StudentStore.Instance.SelectedStudent;
 
-            if (selectedStudent == null)
-            {
-                MessageBox.Show("Không có sinh viên nào được chọn");
-                return;
-            }
             try
             {
                 await GenericDataService<Student>.Instance.DeleteById(selectedStudent.Id);
@@ -33,7 +28,7 @@ namespace LearnHub.Commands.AdminCommands
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to delete");
+                MessageBox.Show("Xóa thất bại");
             }
         }
     }

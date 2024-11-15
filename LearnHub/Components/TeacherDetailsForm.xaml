@@ -40,37 +40,40 @@
                                     <TextBlock Text="Họ và tên:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbName" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding FullName}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
-                                <!--Ngày sinh-->
-                                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Ngày sinh:" Style="{StaticResource font_style}"
-                               VerticalAlignment="Center" Width="120"/>
-                                    <DatePicker x:Name="tbDOB" FontSize="15" Width="150" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
-                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
 
-                                <!--Ngày sinh-->
+
+                                <!--Giới tính-->
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Giới tính:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <ComboBox x:Name="cbGender" FontSize="15" Width="150" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Gender}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
                                         <ComboBoxItem Content="Nam"/>
                                         <ComboBoxItem Content="Nữ"/>
                                     </ComboBox>
                                 </StackPanel>
 
-                                <!--Giới tính-->
+                                <!--Ngày sinh-->
+                                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                    <TextBlock Text="Ngày sinh:" Style="{StaticResource font_style}"
+                                    VerticalAlignment="Center" Width="120"/>
+                                    <DatePicker x:Name="tbDOB" FontSize="15" Width="150" Height="30"
+                                    Margin="20 0 0 0" Background="#d9d9d9" SelectedDate="{Binding Birthday, StringFormat=dd/MM/yyy}"
+                                                SelectedDateFormat="Short" Language="en-GB"
+                                    FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                </StackPanel>
+
+                                <!--SDT-->
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Số điện thoại:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbPhone" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding PhoneNumber}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
@@ -79,7 +82,7 @@
                                     <TextBlock Text="Tôn giáo:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbReligion" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Religion}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
@@ -88,7 +91,7 @@
                                     <TextBlock Text="Dân tộc:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbEthnic" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Ethnicity}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
                             </StackPanel>
@@ -98,7 +101,7 @@
                                     <TextBlock Text="Căn cước:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbID" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding CitizenID}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
@@ -107,7 +110,7 @@
                                     <TextBlock Text="Địa chỉ:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbAddress" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Address}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
@@ -116,7 +119,7 @@
                                     <TextBlock Text="Mức lương:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbSalary" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Salary}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
@@ -125,8 +128,9 @@
                                     <TextBlock Text="Ngày vào làm:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <DatePicker x:Name="tbStartDay" FontSize="15" Width="150" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
-                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                             Margin="20 0 0 0" Background="#d9d9d9"  SelectedDate="{Binding DateOfJoining, StringFormat=dd/MM/yyy}"
+                            SelectedDateFormat="Short" Language="en-GB"
+                                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
                                 <!--Hệ số-->
@@ -134,7 +138,7 @@
                                     <TextBlock Text="Hệ số:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbCoefficient" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Coefficient}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
@@ -143,7 +147,7 @@
                                     <TextBlock Text="Chuyên môn:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                     <TextBox x:Name="tbSpecialize" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Specialization}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
                             </StackPanel>
@@ -170,7 +174,7 @@
                                 <TextBlock Text="Tên đăng nhập:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                 <TextBox x:Name="tbUsername" FontSize="15" Width="250" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding Username}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                             </StackPanel>
 
@@ -179,7 +183,7 @@
                                 <TextBlock Text="Mật khẩu:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
                                 <TextBox x:Name="tbPassword" FontSize="15" Width="250" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
+                             Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding Password}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                             </StackPanel>
                         </StackPanel>
@@ -192,12 +196,12 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
             <!--button thêm-->
             <Button x:Name="btnThem" Content="Đồng ý" Style="{StaticResource btnStyle}" Width="118"
-            Command="{Binding Add}"
+            Command="{Binding SubmitCommand}"
 
     Margin="10 0 10 10" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}" Width="118"
-            Command="{Binding Cancel}"
+            Command="{Binding CancelCommand}"
     Margin="10 0 50 10" Background="#93A7BF" BorderBrush="Transparent"/>
 
         </StackPanel>

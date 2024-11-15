@@ -62,9 +62,9 @@ namespace LearnHub.Stores
             }
         }
 
-        public void DeleteStudent(string studentId)
+        public void DeleteStudent(string id)
         {
-            var existingStudent = Students.FirstOrDefault(s => s.Id == studentId);
+            var existingStudent = Students.FirstOrDefault(s => s.Id == id);
             if (existingStudent != null)
             {
                 Students.Remove(existingStudent);

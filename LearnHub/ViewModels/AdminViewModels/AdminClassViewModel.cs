@@ -27,7 +27,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             Add = new AddClassCommand();
             Delete = new DeleteClassCommand();
             Edit = new EditClassCommand();
-            Grade = new NavigateLayoutCommand<AdminGradeViewModel>(() => new AdminGradeViewModel());
+            Grade = new NavigateLayoutCommand(() => new AdminGradeViewModel());
 
             // Khởi tạo dữ liệu mẫu
             Classrooms = new ObservableCollection<Classroom>

@@ -14,8 +14,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand Cancel { get; }
         public AddCalendarViewModel()
         {
-            Add = new Confirm_AddCalendarCommand();
-            Cancel = new Cancel_AddCalendarCommand();
+          
         }
     }
 }

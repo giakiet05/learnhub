@@ -5,20 +5,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LearnHub.Commands
 {
-    public class NavigateModalCommand<TViewModel> : BaseCommand
-        where TViewModel : BaseViewModel
+    public class NavigateModalCommand : BaseCommand
     {
-        private readonly Func<TViewModel> _createViewModel;
-        public NavigateModalCommand(Func<TViewModel> createViewModel)
+        private readonly Func<BaseViewModel> _createViewModel;
+        private readonly Func<bool> _canOpenModal;
+        private readonly string _message;
+        public NavigateModalCommand(Func<BaseViewModel> createViewModel, Func<bool> canOpenModal = null, string message = null)
         {
             _createViewModel = createViewModel;
+            _canOpenModal = canOpenModal ?? (() => true);
+            _message = message;
         }
+
         public override void Execute(object parameter)
         {
-            ModalNavigationStore.Instance.CurrentModalViewModel = _createViewModel();
+            if (_canOpenModal())
+            {
+
+            
+                ModalNavigationStore.Instance.CurrentModalViewModel = _createViewModel();
+            }
+            else
+            {
+                MessageBox.Show(_message);
+            }
         }
     }
 }

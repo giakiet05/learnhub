@@ -1,22 +1,40 @@
-﻿using LearnHub.Stores;
+﻿using LearnHub.Models;
+using LearnHub.Services;
+using LearnHub.Stores;
 using LearnHub.ViewModels.AdminViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LearnHub.Commands.AdminCommands
 {
-     public class DeleteStudentCommand : BaseCommand
+    public class DeleteStudentCommand : BaseAsyncCommand
     {
-        public override void Execute(object parameter)
+      
+        public override async Task ExecuteAsync(object parameter)
         {
-            // làm gì đó ko biết
+            var selectedStudent = StudentStore.Instance.SelectedStudent;
 
-            //sau đó mở xác nhận xóa
-            //cần truyền tham trị
-            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new DeleteConfirmViewModel());
+            if (selectedStudent == null)
+            {
+                MessageBox.Show("Không có sinh viên nào được chọn");
+                return;
+            }
+            try
+            {
+                await GenericDataService<Student>.Instance.DeleteById(selectedStudent.Id);
+
+                StudentStore.Instance.DeleteStudent(selectedStudent.Id);
+
+                ModalNavigationStore.Instance.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to delete");
+            }
         }
     }
 }

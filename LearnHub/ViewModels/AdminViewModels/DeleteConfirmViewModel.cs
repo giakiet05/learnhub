@@ -10,12 +10,16 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class DeleteConfirmViewModel : BaseViewModel
     {
-        public ICommand Delete { get; }
-        public ICommand Cancel { get; }
-        public DeleteConfirmViewModel()
+        public ICommand DeleteCommand { get; }
+        public ICommand CancelCommand { get; }
+
+         
+        public DeleteConfirmViewModel(Func<ICommand> createDeleteCommand)
         {
-            Delete = new Confirm_DeleteConfirmCommand();
-            Cancel = new Cancel_DeleteConfirmCommand();
+            DeleteCommand = createDeleteCommand();
+            CancelCommand = new CancelCommand();
         }
+
+       
     }
 }

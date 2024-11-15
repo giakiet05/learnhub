@@ -20,7 +20,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             Add = new AddGradeCommand();
             Delete = new DeleteGradeCommand();
             Edit = new EditGradeCommand();
-            Class = new NavigateLayoutCommand<AdminClassViewModel>(() => new AdminClassViewModel());
+            Class = new NavigateLayoutCommand(() => new AdminClassViewModel());
         }
     }
 }

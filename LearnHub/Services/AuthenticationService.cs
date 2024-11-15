@@ -15,15 +15,15 @@ namespace LearnHub.Services
         // Singleton property to access the instance
         public static AuthenticationService Instance => _instance.Value;
 
-        private readonly IUserService _userService; // Access UserService Singleton
-        private readonly PasswordHasher<User> _passwordHasher; // Use ASP.NET Identity's PasswordHasher
+        private readonly IUserService _userService; 
+        private readonly PasswordHasher<User> _passwordHasher;
 
-        // Private constructor to prevent external instantiation
+      
         private AuthenticationService()
         {
-            // Use Singleton instance of UserService
+          
             _userService = UserService.Instance;
-            _passwordHasher = new PasswordHasher<User>(); // Initialize ASP.NET Identity's PasswordHasher
+            _passwordHasher = new PasswordHasher<User>(); 
         }
 
         public async Task<User> CreateAccount(User user)

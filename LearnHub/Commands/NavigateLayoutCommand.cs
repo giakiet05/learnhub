@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Commands
 {
-    public class NavigateLayoutCommand<TViewModel> : BaseCommand
-        where TViewModel : BaseViewModel
+    public class NavigateLayoutCommand: BaseCommand
+     
     {
-        private readonly Func<TViewModel> _createViewModel;
-        public NavigateLayoutCommand(Func<TViewModel> createViewModel)
+        private readonly Func<BaseViewModel> _createViewModel;
+        public NavigateLayoutCommand(Func<BaseViewModel> createViewModel)
         {
             _createViewModel = createViewModel;
         }

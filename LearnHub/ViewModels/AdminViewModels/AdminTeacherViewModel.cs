@@ -20,7 +20,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             Add = new AddTeacherCommand();
             Delete = new DeleteTeacherCommand();
             Edit = new EditTeacherCommand();
-            Ass = new NavigateLayoutCommand<AdminTeacherAssignmentViewModel>(() => new AdminTeacherAssignmentViewModel());
+            Ass = new NavigateLayoutCommand(() => new AdminTeacherAssignmentViewModel());
         }
     }
 }

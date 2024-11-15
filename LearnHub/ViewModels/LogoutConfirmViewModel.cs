@@ -14,8 +14,7 @@ namespace LearnHub.ViewModels
         public ICommand Cancel { get; }
         public LogoutConfirmViewModel()
         {
-            Logout = new Confirm_LogoutConfirmCommand();
-            Cancel = new Cancel_LogoutComfirmCommand();
+          
         }
     }
 }

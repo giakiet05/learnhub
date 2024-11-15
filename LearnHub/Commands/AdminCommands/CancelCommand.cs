@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Commands.AdminCommands
 {
-     public class Cancel_EditCalendarViewModel : BaseCommand
+    public class CancelCommand : BaseCommand
     {
         public override void Execute(object parameter)
         {
-            // làm gì đó không biết
-
-            // sau đó đóng popup
             ModalNavigationStore.Instance.Close();
         }
     }
+  
 }

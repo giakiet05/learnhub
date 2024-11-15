@@ -40,7 +40,7 @@
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Họ và tên:" Style="{StaticResource font_style}"
                        VerticalAlignment="Center" Width="120"/>
-                                    <TextBlock Text="*" Foreground="Red" FontSize="18"/>
+                                    <TextBlock Text="*" Foreground="Red"/>
                                     <TextBox x:Name="tbName" FontSize="15" Width="180" Height="30"
                                      Text="{Binding FullName}"
                                 Margin="15 0 0 0" Background="#d9d9d9d9"
@@ -176,8 +176,9 @@
                         <StackPanel Grid.Column="0">
                             <!--Tên đăng nhập-->
                             <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
-                                <TextBlock Text="*Tên đăng nhập:" Style="{StaticResource font_style}"
+                                <TextBlock Text="Tên đăng nhập:" Style="{StaticResource font_style}"
                                         VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="*" Foreground="Red"/>
                                 <TextBox x:Name="tbUsername" FontSize="15" Width="250" Height="30"
                                      Margin="20 0 0 0" Background="#d9d9d9d9"
                                  Text="{Binding Username}"
@@ -186,8 +187,9 @@
 
                             <!--Mật khẩu-->
                             <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                <TextBlock Text="*Mật khẩu:" Style="{StaticResource font_style}"
+                                <TextBlock Text="Mật khẩu:" Style="{StaticResource font_style}"
                        VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="*" Foreground="Red"/>
                                 <TextBox x:Name="tbPassword" FontSize="15" Width="250" Height="30"
                      Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding Password}"
                      FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>

@@ -38,10 +38,10 @@
                                 <!--Họ và tên-->
                                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Họ và tên:" Style="{StaticResource font_style}"
-                               VerticalAlignment="Center" Width="110"/>
+                               VerticalAlignment="Center" Width="120"/>
                                     <TextBlock Text="*" Foreground="Red"/>
                                     <TextBox x:Name="tbName" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding FullName}"
+                             Margin="15 0 0 0" Background="#d9d9d9d9" Text="{Binding FullName}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                                 </StackPanel>
 
@@ -119,8 +119,9 @@
                                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Mức lương:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
+                                    <TextBlock Text="*" Foreground="Red"/>
                                     <TextBox x:Name="tbSalary" FontSize="15" Width="200" Height="30"
-                                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Salary}"
+                                             Margin="15 0 0 0" Background="#d9d9d9" Text="{Binding Salary}"
                                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                                              PreviewTextInput="tbSalary_PreviewTextInput"/>
                                 </StackPanel>
@@ -139,8 +140,9 @@
                                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                                     <TextBlock Text="Hệ số:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
+                                    <TextBlock Text="*" Foreground="Red"/>
                                     <TextBox x:Name="tbCoefficient" FontSize="15" Width="200" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Coefficient}"
+                             Margin="15 0 0 0" Background="#d9d9d9" Text="{Binding Coefficient}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                                              PreviewTextInput="tbCoefficient_PreviewTextInput"/>
                                 </StackPanel>
@@ -174,8 +176,9 @@
                         <StackPanel Grid.Column="0">
                             <!--Tên đăng nhập-->
                             <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
-                                <TextBlock Text="*Tên đăng nhập:" Style="{StaticResource font_style}"
+                                <TextBlock Text="Tên đăng nhập:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="*" Foreground="Red"/>
                                 <TextBox x:Name="tbUsername" FontSize="15" Width="250" Height="30"
                              Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding Username}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
@@ -183,8 +186,9 @@
 
                             <!--Mật khẩu-->
                             <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                <TextBlock Text="*Mật khẩu:" Style="{StaticResource font_style}"
+                                <TextBlock Text="Mật khẩu:" Style="{StaticResource font_style}"
                                VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="*" Foreground="Red"/>
                                 <TextBox x:Name="tbPassword" FontSize="15" Width="250" Height="30"
                              Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding Password}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>

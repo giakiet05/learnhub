@@ -42,7 +42,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             //truyền _selectedStudent của viewmodel chứ ko phải của store
             //vì khi chuyển view, _selectedStudent của viewmodel mất nhưng của store vẫn còn
             //PHẦN NÀY SẼ XỬ LÍ SAU, CHO _SELECTEDSTUDENT CỦA STORE THÀNH NULL SAU KHI ĐỔI VIEW
-            ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(new DeleteStudentCommand()), () => _selectedStudent != null, "Chưa chọn học sinh để xóa");
+            ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(() => new DeleteStudentCommand()), () => _selectedStudent != null, "Chưa chọn học sinh để xóa");
             ShowAddModalCommand = new NavigateModalCommand(() => new AddStudentViewModel());
             ShowEditModalCommand = new NavigateModalCommand(() => new EditStudentViewModel(), () => _selectedStudent != null, "Chưa chọn học sinh để sửa");
 

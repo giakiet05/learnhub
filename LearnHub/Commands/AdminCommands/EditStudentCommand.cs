@@ -31,10 +31,10 @@ namespace LearnHub.Commands.AdminCommands
                 return;
             }
 
-            // Retrieve the selected student from StudentStore
+           
             var selectedStudent = StudentStore.Instance.SelectedStudent;
 
-            // Update the selected student's properties with the new data
+         //cập nhật thông tin của selected student dựa vào thông tin từ form
             selectedStudent.Username = formViewModel.Username;
             selectedStudent.FullName = formViewModel.FullName;
             selectedStudent.PhoneNumber = formViewModel.PhoneNumber;
@@ -62,7 +62,7 @@ namespace LearnHub.Commands.AdminCommands
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to update student");
+                MessageBox.Show("Cập nhật thất bại");
             }
         }
     }

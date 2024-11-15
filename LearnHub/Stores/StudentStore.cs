@@ -21,7 +21,7 @@ namespace LearnHub.Stores
             set
             {
                 _selectedStudent = value;
-                OnSelectedStudentChanged();
+
             }
         }
         private StudentStore()
@@ -59,13 +59,6 @@ namespace LearnHub.Stores
                 Students.Remove(existingStudent);
 
                 Students.Insert(0, updatedStudent);
-
-                // Update the SelectedStudent if it matches the updated student
-                if (SelectedStudent?.Id == updatedStudent.Id)
-                {
-                    SelectedStudent = updatedStudent;
-                    OnSelectedStudentChanged();
-                }
             }
         }
 
@@ -85,12 +78,6 @@ namespace LearnHub.Stores
             {
                 Students.Add(student);
             }
-        }
-
-        public event Action SelectedStudentChanged; 
-        private void OnSelectedStudentChanged()
-        {
-            SelectedStudentChanged?.Invoke();
         }
     }
 }

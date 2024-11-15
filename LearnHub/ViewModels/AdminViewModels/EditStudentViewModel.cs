@@ -19,19 +19,15 @@ namespace LearnHub.ViewModels.AdminViewModels
             ICommand cancelCommand = new CancelCommand();
             StudentDetailsFormViewModel = new StudentDetailsFormViewModel(submitCommand, cancelCommand);
 
-            // Populate fields with SelectedStudent's data
+         //Truyền thông tin của selected student vào các input
             LoadSelectedStudentData();
-
-            // Subscribe to changes in SelectedStudent
-            StudentStore.Instance.SelectedStudentChanged += OnSelectedStudentChanged;
-
         }
 
         private void LoadSelectedStudentData()
         {
             var selectedStudent = StudentStore.Instance.SelectedStudent;
             if (selectedStudent != null)
-            {  
+            {
                 //Điền vào các input thông tin từ selectecStudent (trừ mật khẩu)
                 StudentDetailsFormViewModel.Username = selectedStudent.Username;
                 StudentDetailsFormViewModel.FullName = selectedStudent.FullName;
@@ -49,18 +45,5 @@ namespace LearnHub.ViewModels.AdminViewModels
                 //StudentDetailsFormViewModel.Password = selectedStudent.Password;
             }
         }
-
-        private void OnSelectedStudentChanged()
-        {
-            LoadSelectedStudentData();
-        }
-
-        ~EditStudentViewModel()
-        {
-            // Unsubscribe from event to prevent memory leaks
-            StudentStore.Instance.SelectedStudentChanged -= OnSelectedStudentChanged;
-        }
-
-
     }
 }

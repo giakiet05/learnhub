@@ -13,7 +13,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand DeleteCommand { get; }
         public ICommand CancelCommand { get; }
 
-
+         
         public DeleteConfirmViewModel(Func<ICommand> createDeleteCommand)
         {
             DeleteCommand = createDeleteCommand();

@@ -14,13 +14,12 @@ namespace LearnHub.Services
         // Singleton property to access the instance
         public static UserService Instance => _instance.Value;
 
-        // Private field to hold the LearnHubDbContextFactory instance
+      
         private readonly LearnHubDbContextFactory _contextFactory;
 
-        // Private constructor to prevent external instantiation
+       
         private UserService()
         {
-            // Initialize the context factory field
             _contextFactory = LearnHubDbContextFactory.Instance;
         }
 

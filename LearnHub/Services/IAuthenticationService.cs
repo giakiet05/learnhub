@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Services
 {
-
-   
-
     public interface IAuthenticationService
     {
         Task<User> CreateAccount(User user);

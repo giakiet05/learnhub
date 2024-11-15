@@ -24,8 +24,6 @@ namespace LearnHub.ViewModels.AdminViewModels
         private string _fatherPhone;
         private string _motherPhone;
 
-
-
         public string Username
         {
             get => _username;

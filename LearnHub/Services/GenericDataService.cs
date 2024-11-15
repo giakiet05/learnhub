@@ -17,7 +17,6 @@ namespace LearnHub.Services
         // Singleton instance property
         public static GenericDataService<T> Instance => _instance.Value;
 
-        // Private constructor to ensure the service is only instantiated once
         private GenericDataService()
         {
             _contextFactory = LearnHubDbContextFactory.Instance;

@@ -1,5 +1,5 @@
 ﻿using LearnHub.Commands;
-using LearnHub.Commands.AdminCommands;
+
 using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.Generic;
@@ -17,9 +17,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand EditNotificationCommand { get; }
         public AdminHomeViewModel()
         {
-            AddNotificationCommand = new AddNotificationCommand();
-            DeleteNotificationCommand = new DeleteNotificationCommand();
-            EditNotificationCommand = new EditNotificationCommand();
+           
         }
     }
 }

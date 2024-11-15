@@ -1,25 +1,21 @@
-﻿using LearnHub.Commands.AdminCommands;
+﻿using LearnHub.Commands;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class DeleteConfirmViewModel : BaseViewModel
     {
-        public ICommand DeleteCommand { get; }
+        public RelayCommand DeleteCommand { get; }
         public ICommand CancelCommand { get; }
 
-         
-        public DeleteConfirmViewModel(Func<ICommand> createDeleteCommand)
+        // Constructor that accepts an Action for DeleteCommand and keeps CancelCommand as is
+        public DeleteConfirmViewModel(Action deleteAction)
         {
-            DeleteCommand = createDeleteCommand();
+            // Create the RelayCommand for the DeleteCommand with the given Action
+            DeleteCommand = new RelayCommand(deleteAction);
             CancelCommand = new CancelCommand();
         }
-
-       
     }
 }

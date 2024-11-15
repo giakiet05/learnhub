@@ -1,5 +1,5 @@
 ﻿using LearnHub.Commands;
-using LearnHub.Commands.AdminCommands;
+
 using LearnHub.Models;
 using LearnHub.Stores;
 using System;
@@ -24,9 +24,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         public AdminClassViewModel()
         {
-            Add = new AddClassCommand();
-            Delete = new DeleteClassCommand();
-            Edit = new EditClassCommand();
+           
             Grade = new NavigateLayoutCommand(() => new AdminGradeViewModel());
 
             // Khởi tạo dữ liệu mẫu

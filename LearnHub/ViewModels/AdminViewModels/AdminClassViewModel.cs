@@ -1,5 +1,6 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Commands.AdminCommands;
+using LearnHub.Commands.ModalCommands;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -24,6 +25,8 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand Delete { get; }
         public ICommand Edit { get; }
         public ICommand Grade { get; }
+        public ICommand ShowAddModalCommand { get; }  
+        public ICommand ShowEditModalCommand {  get; }
 
     
 
@@ -40,7 +43,6 @@ namespace LearnHub.ViewModels.AdminViewModels
             var classrooms = await _classroomService.GetAll();
             foreach (var classroom in classrooms) {
                 _classrooms.Add(classroom);
-            
             }
         }
     }

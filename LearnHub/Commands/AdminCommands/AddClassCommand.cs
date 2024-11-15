@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LearnHub.Commands.AdminCommands
 {
@@ -22,12 +23,10 @@ namespace LearnHub.Commands.AdminCommands
         public override async Task ExecuteAsync(object parameter)
         {
             // Check if required fields are provided
-            if (string.IsNullOrWhiteSpace(_addClassViewModel.Name) ||
-                string.IsNullOrWhiteSpace(_addClassViewModel.GradeId) ||
-                string.IsNullOrWhiteSpace(_addClassViewModel.TeacherInChargeId) ||
-                string.IsNullOrWhiteSpace(_addClassViewModel.YearId))
-
-
+            if (string.IsNullOrWhiteSpace(_addClassViewModel.Name))
+                //||
+                //string.IsNullOrWhiteSpace(_addClassViewModel.GradeId) ||
+                //string.IsNullOrWhiteSpace(_addClassViewModel.TeacherInChargeId))
 
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin cơ bản");
@@ -42,8 +41,8 @@ namespace LearnHub.Commands.AdminCommands
                 Name = _addClassViewModel.Name,
                 Capacity = _addClassViewModel.Capacity,
                 GradeId = _addClassViewModel.GradeId,
-                YearId = _addClassViewModel.YearId,
-                TeacherInChargeID = _addClassViewModel.TeacherInChargeId,
+                //AcademicYear = _addClassViewModel.AcademicYear,
+                //TeacherInChargeId = _addClassViewModel.TeacherInChargeId,
             };
 
             try
@@ -51,9 +50,9 @@ namespace LearnHub.Commands.AdminCommands
                 await GenericDataService<Classroom>.Instance.Create(newClassroom);
                 ModalNavigationStore.Instance.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to create");
+                MessageBox.Show($"Failed to create {ex.Message}");
             }
         }
     }

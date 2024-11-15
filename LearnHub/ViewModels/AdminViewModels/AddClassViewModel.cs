@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands.AdminCommands;
+using LearnHub.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace LearnHub.ViewModels.AdminViewModels
         private string _name;
         private int _capacity;
         private string _gradeId;
-        private string _teacherInChargeId;
+        //private AcademicYear _academicYear;
+        //private string _teacherInChargeId;
+        
 
         public string Name
         {
@@ -24,7 +27,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(Name));
             }
         }
-        public string Capacity
+        public int Capacity
         {
             get => _capacity;
             set
@@ -42,31 +45,31 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(GradeId));
             }
         }
-        public string YearId
-        {
-            get => _yearId;
-            set
-            {
-                _yearId = value;
-                OnPropertyChanged(nameof(YearId));
-            }
-        }
-        public string TeacherInChargeId
-        {
-            get => _teacherInChargeId;
-            set
-            {
-                _teacherInChargeId = value;
-                OnPropertyChanged(nameof(TeacherInChargeId));
-            }
+        //public AcademicYear AcademicYear
+        //{
+        //    get => _academicYear;
+        //    set
+        //    {
+        //        _academicYear = value;  
+        //        OnPropertyChanged(nameof(AcademicYear));    
+        //    }
+        //}
+        //public string TeacherInChargeId
+        //{
+        //    get => _teacherInChargeId;
+        //    set
+        //    {
+        //        _teacherInChargeId = value;
+        //        OnPropertyChanged(nameof(TeacherInChargeId));
+        //    }
 
-        }
+        //}
         public ICommand Add { get; }
         public ICommand Cancel { get; }
 
         public AddClassViewModel()
         {
-            Add = new  Confirm_AddClassCommand();
+            Add = new AddClassCommand(this);
             Cancel = new Cancel_AddClassCommand();
         }
     }

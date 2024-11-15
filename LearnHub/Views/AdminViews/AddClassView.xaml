@@ -75,8 +75,7 @@
 
 					<ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
 							  Margin="20 0 0 0" Background="#d9d9d9d9"
-							  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-							  Text ="{Binding YearId}">
+							  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
 						<ComboBoxItem Content="2022-2023" />
 						<ComboBoxItem Content="2023-2024" />
 						<ComboBoxItem Content="2024-2025" />
@@ -91,8 +90,7 @@
 
                     <TextBox x:Name="cbTeacher" FontSize="15" Width="200" Height="30"
                               Margin="20 0 0 0" Background="#d9d9d9d9"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-							 Text ="{Binding TeacherInChargeId}"/>
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
             </StackPanel>

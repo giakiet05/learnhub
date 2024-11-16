@@ -21,7 +21,7 @@
 
                     <TextBox x:Name="tbID" FontSize="15" Width="250" Height="30"
          Margin="20 0 0 0" Background="#d9d9d9d9"
-         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding Id}"/>
                 </StackPanel>
 
                 <!--Tên môn học-->
@@ -31,7 +31,7 @@
 
                     <TextBox x:Name="tbName" FontSize="15" Width="250" Height="30"
          Margin="20 0 0 0" Background="#d9d9d9d9"
-         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding Name}"/>
                 </StackPanel>
 
                 <!--Số tiết-->
@@ -41,7 +41,7 @@
 
                     <TextBox x:Name="tbNumber" FontSize="15" Width="100" Height="30"
          Margin="20 0 0 0" Background="#d9d9d9d9"
-         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding LessonNumber}"/>
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -50,11 +50,11 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
             <!--button thêm-->
             <Button x:Name="btnSua" Content="Đồng ý" Style="{StaticResource btnStyle}" Width="118"
-                Command="{Binding Edit}"
+                Command="{Binding SubmitCommand}"
 Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}" Width="118"
-                Command="{Binding Cancel}"
+                Command="{Binding CancelCommand}"
 Margin="10 0 50 0" Background="#93A7BF" BorderBrush="Transparent"/>
         </StackPanel>
     </Grid>

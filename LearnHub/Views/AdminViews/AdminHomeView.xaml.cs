@@ -18,7 +18,7 @@ namespace LearnHub.Views.AdminViews
     /// <summary>
     /// Interaction logic for AdminHomeView.xaml
     /// </summary>
-    public partial class AdminHomeView : Page
+    public partial class AdminHomeView : UserControl
     {
         public AdminHomeView()
         {

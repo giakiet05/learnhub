@@ -39,6 +39,12 @@
     <DataTemplate DataType="{x:Type adminvm:AdminSubjectViewModel}">
         <adminviews:AdminSubjectView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AdminStudentAssignment_AddStudentViewModel}">
+        <adminviews:AdminStudentAssignment_AddStudentView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AdminStudentAssignment_ChangeGradeViewModel}">
+        <adminviews:AdminStudentAssignment_ChangeGradeView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AdminCalendarViewModel}">
         <adminviews:AdminCalendarView/>
     </DataTemplate>

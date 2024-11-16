@@ -18,7 +18,7 @@ namespace LearnHub.Views.AdminViews
     /// <summary>
     /// Interaction logic for AdminCalendarView.xaml
     /// </summary>
-    public partial class AdminCalendarView : Page
+    public partial class AdminCalendarView : UserControl
     {
         public AdminCalendarView()
         {

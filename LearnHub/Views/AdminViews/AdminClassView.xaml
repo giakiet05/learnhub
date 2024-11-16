@@ -27,7 +27,7 @@
                         Style="{StaticResource btnStyle}"/>
 
                 <Button x:Name="btnKhoiLop" Content="Khối lớp"  
-                        Command="{Binding Grade}"
+                        Command="{Binding SwitchToGradeCommand}"
                         BorderBrush="#5CB3FF" Background="White"
                         Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                         Style="{StaticResource btnStyle}"/>

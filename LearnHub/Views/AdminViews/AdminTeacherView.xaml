@@ -25,7 +25,7 @@
                         Style="{StaticResource btnStyle}"/>
 
                 <Button x:Name="btnPhanCong" Content="Phân công"  
-                        Command="{Binding Ass}"
+                        Command="{Binding SwitchToAssignmentCommand}"
                         BorderBrush="#5CB3FF" Background="#ffffff"
                         Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                         Style="{StaticResource btnStyle}"/>

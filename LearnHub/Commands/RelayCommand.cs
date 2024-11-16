@@ -5,28 +5,48 @@ namespace LearnHub.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
+        private readonly Action<object> _executeWithParameter;
+        private readonly Action _executeWithoutParameter;
+        private readonly Func<object, bool> _canExecute;
 
-        // Constructor nhận cả Action và Func để kiểm tra điều kiện có thể thực thi lệnh hay không
+        // Constructor cho Action không tham số
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _executeWithoutParameter = execute ?? throw new ArgumentNullException(nameof(execute));
+            if (canExecute != null)
+            {
+                _canExecute = _ => canExecute();
+            }
+        }
+
+        // Constructor cho Action có tham số
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            _executeWithParameter = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
-        // Sự kiện để thông báo khi CanExecute có thể thay đổi
         public event EventHandler CanExecuteChanged
         {
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested -= value;
         }
 
-        // Kiểm tra xem lệnh có thể được thực thi không
-        // Nếu không có Func thì mặc định là true
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute(parameter);
+        }
 
-        // Thực thi hành động khi lệnh được gọi
-        public void Execute(object parameter) => _execute();
+        public void Execute(object parameter)
+        {
+            if (_executeWithoutParameter != null)
+            {
+                _executeWithoutParameter();
+            }
+            else
+            {
+                _executeWithParameter(parameter);
+            }
+        }
     }
 }

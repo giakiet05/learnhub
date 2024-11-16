@@ -70,7 +70,8 @@
             
             <!--datagrid để hiển thị list môn học và giáo viên để chọn-->
             <DataGrid Grid.Row="1" x:Name="PhanCongDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                        CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
+                        CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
+                      PreviewMouseLeftButtonDown="PhanCongDG_PreviewMouseLeftButtonDown">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                         <Setter Property="BorderThickness" Value="0"/>

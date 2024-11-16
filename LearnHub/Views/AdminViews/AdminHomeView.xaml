@@ -16,7 +16,8 @@
         <!--datagrid để hiển thị list thông báo-->
         <DataGrid Grid.Row="1" x:Name="ThongBaoDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                   CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
-                  IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single">
+                  IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                  PreviewMouseLeftButtonDown="ThongBaoDG_PreviewMouseLeftButtonDown">
             <DataGrid.CellStyle>
                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                     <Setter Property="BorderThickness" Value="0"/>

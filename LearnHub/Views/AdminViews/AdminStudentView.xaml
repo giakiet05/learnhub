@@ -61,6 +61,7 @@
                       ItemsSource="{Binding Students}"
                        SelectedItem="{Binding SelectedStudent, Mode=TwoWay}"
                       IsReadOnly="True" 
+                      PreviewMouseLeftButtonDown="HocSinhDG_PreviewMouseLeftButtonDown"
                       SelectionUnit="FullRow" 
                       SelectionMode="Single">
                 <DataGrid.CellStyle>

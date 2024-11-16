@@ -20,144 +20,143 @@
                 <RowDefinition Height="180"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Background="#87C5FC" Margin="15" CornerRadius="10">
-                <ScrollViewer>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Thông tin cá nhân" Style="{StaticResource font_style}"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Thông tin cá nhân" Style="{StaticResource font_style}"
                             HorizontalAlignment="Left" VerticalAlignment="Center"
                             FontSize="20" Margin="25 10 0 0"/>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0">
-                                <!--Họ và tên-->
-                                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Họ và tên:" Style="{StaticResource font_style}"
+                        <StackPanel Grid.Column="0">
+                            <!--Họ và tên-->
+                            <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Họ và tên:" Style="{StaticResource font_style}"
                        VerticalAlignment="Center" Width="120"/>
-                                    <TextBlock Text="*" Foreground="Red"/>
-                                    <TextBox x:Name="tbName" FontSize="15" Width="180" Height="30"
+                                <TextBlock Text="*" Foreground="Red"/>
+                                <TextBox x:Name="tbName" FontSize="15" Width="180" Height="30"
                                      Text="{Binding FullName}"
                                 Margin="15 0 0 0" Background="#d9d9d9d9"
                      FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
+                            </StackPanel>
 
 
-                                <!--Giới tính-->
-                                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Giới tính:" Style="{StaticResource font_style}"
+                            <!--Giới tính-->
+                            <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Giới tính:" Style="{StaticResource font_style}"
                                     VerticalAlignment="Center" Width="120"/>
-                                    <ComboBox x:Name="cbGender" FontSize="15" Width="150" Height="30" 
-                                        Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Gender}"
+                                <TextBlock Text="*" Foreground="Red"/>
+                                <ComboBox x:Name="cbGender" FontSize="15" Width="150" Height="30" 
+                                        Margin="15 0 0 0" Background="#d9d9d9" Text="{Binding Gender}"
                                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
-                                        <ComboBoxItem Content="Nam"/>
-                                        <ComboBoxItem Content="Nữ"/>
-                                    </ComboBox>
-                                </StackPanel>
+                                    <ComboBoxItem Content="Nam"/>
+                                    <ComboBoxItem Content="Nữ"/>
+                                </ComboBox>
+                            </StackPanel>
 
-                                <!--Ngày sinh-->
-                                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Ngày sinh:" Style="{StaticResource font_style}" 
+                            <!--Ngày sinh-->
+                            <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Ngày sinh:" Style="{StaticResource font_style}" 
                                                 VerticalAlignment="Center" Width="120"/>
-                                    <DatePicker x:Name="tbDOB" FontSize="15" Width="150" Height="30" SelectedDate="{Binding Birthday, StringFormat=dd/MM/yyy}"
+                                <DatePicker x:Name="tbDOB" FontSize="15" Width="150" Height="30" SelectedDate="{Binding Birthday, StringFormat=dd/MM/yyy}"
                                                 Margin="20 0 0 0" Background="#d9d9d9" SelectedDateFormat="Short" Language="en-GB"
                                                 FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
+                            </StackPanel>
 
-                              
 
-                                <!--SDT-->
-                                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Số điện thoại:" Style="{StaticResource font_style}"
+
+                            <!--SDT-->
+                            <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Số điện thoại:" Style="{StaticResource font_style}"
                                                 VerticalAlignment="Center" Width="120"/>
-                                    <TextBox x:Name="tbPhone" FontSize="15" Width="200" Height="30"
+                                <TextBox x:Name="tbPhone" FontSize="15" Width="200" Height="30"
                                              Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding PhoneNumber}"
                                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
+                            </StackPanel>
 
-                                <!--Tôn giáo-->
-                                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Tôn giáo:" Style="{StaticResource font_style}"
+                            <!--Tôn giáo-->
+                            <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Tôn giáo:" Style="{StaticResource font_style}"
                                                 VerticalAlignment="Center" Width="120"/>
-									<ComboBox x:Name="tbReligion" FontSize="15" Width="200" Height="30"
+                                <ComboBox x:Name="tbReligion" FontSize="15" Width="200" Height="30"
                                                 Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Religion}"
                                                 FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
-										<ComboBoxItem Content="Không"/>
-										<ComboBoxItem Content="Phật giáo"/>
-										<ComboBoxItem Content="Công giáo"/>
-										<ComboBoxItem Content="Tin Lành"/>
-										<ComboBoxItem Content="Hồi giáo"/>
-										<ComboBoxItem Content="Cao Đài"/>
-										<ComboBoxItem Content="Hòa Hảo"/>
-										<ComboBoxItem Content="Khác"/>
-									</ComboBox>
-                                </StackPanel>
+                                    <ComboBoxItem Content="Không"/>
+                                    <ComboBoxItem Content="Phật giáo"/>
+                                    <ComboBoxItem Content="Công giáo"/>
+                                    <ComboBoxItem Content="Tin Lành"/>
+                                    <ComboBoxItem Content="Hồi giáo"/>
+                                    <ComboBoxItem Content="Cao Đài"/>
+                                    <ComboBoxItem Content="Hòa Hảo"/>
+                                    <ComboBoxItem Content="Khác"/>
+                                </ComboBox>
+                            </StackPanel>
 
-                                <!--Dân tộc-->
-                                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Dân tộc:" Style="{StaticResource font_style}"
+                            <!--Dân tộc-->
+                            <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Dân tộc:" Style="{StaticResource font_style}"
                                                 VerticalAlignment="Center" Width="120"/>
-                                    <TextBox x:Name="tbEthnic" FontSize="15" Width="200" Height="30"
+                                <TextBox x:Name="tbEthnic" FontSize="15" Width="200" Height="30"
                                              Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Ethnicity}"
                                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
                             </StackPanel>
+                        </StackPanel>
 
-                            <StackPanel Grid.Column="1">
-                                <!--Địa chỉ-->
-                                <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Địa chỉ:" Style="{StaticResource font_style}"
+                        <StackPanel Grid.Column="1">
+                            <!--Địa chỉ-->
+                            <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Địa chỉ:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="130"/>
-                                    <TextBox x:Name="tbAddress" FontSize="15" Width="200" Height="30" Text="{Binding Address}"
+                                <TextBox x:Name="tbAddress" FontSize="15" Width="200" Height="30" Text="{Binding Address}"
                                              Margin="20 0 0 0" Background="#d9d9d9"
                                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
+                            </StackPanel>
 
-                                <!--Họ tên cha-->
-                                <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Họ tên cha:" Style="{StaticResource font_style}"
+                            <!--Họ tên cha-->
+                            <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Họ tên cha:" Style="{StaticResource font_style}"
                                                 VerticalAlignment="Center" Width="130"/>
-                                    <TextBox x:Name="tbFatherName" FontSize="15" Width="200" Height="30"
+                                <TextBox x:Name="tbFatherName" FontSize="15" Width="200" Height="30"
                                              Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding FatherName}"
                                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
+                            </StackPanel>
 
-                                <!--số điện thoại cha-->
-                                <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Số điện thoại cha:" Style="{StaticResource font_style}"
+                            <!--số điện thoại cha-->
+                            <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Số điện thoại cha:" Style="{StaticResource font_style}"
                                                 VerticalAlignment="Center" Width="130"/>
-                                    <TextBox x:Name="tbFatherPhone" FontSize="15" Width="200" Height="30"
+                                <TextBox x:Name="tbFatherPhone" FontSize="15" Width="200" Height="30"
                                          Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding FatherPhone}"
                                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
+                            </StackPanel>
 
-                                <!--Họ tên mẹ-->
-                                <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Họ tên mẹ:" Style="{StaticResource font_style}"
+                            <!--Họ tên mẹ-->
+                            <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Họ tên mẹ:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="130"/>
-                                    <TextBox x:Name="tbMotherName" FontSize="15" Width="200" Height="30"
+                                <TextBox x:Name="tbMotherName" FontSize="15" Width="200" Height="30"
                                              Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding MotherName}"
                                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
+                            </StackPanel>
 
-                                <!--số điện thoại mẹ-->
-                                <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
-                                    <TextBlock Text="Số điện thoại mẹ:" Style="{StaticResource font_style}"
+                            <!--số điện thoại mẹ-->
+                            <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Số điện thoại mẹ:" Style="{StaticResource font_style}"
                                                 VerticalAlignment="Center" Width="130"/>
-                                    <TextBox x:Name="tbMotherPhone" FontSize="15" Width="200" Height="30"
+                                <TextBox x:Name="tbMotherPhone" FontSize="15" Width="200" Height="30"
                                              Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding MotherPhone}"
                                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                                </StackPanel>
-
                             </StackPanel>
-                        </Grid>
+
+                        </StackPanel>
                     </Grid>
-                </ScrollViewer>
+                </Grid>
             </Border>
 
 

@@ -13,16 +13,15 @@
         xmlns:authviews="clr-namespace:LearnHub.Views.AuthenticationViews"
         xmlns:adminviews="clr-namespace:LearnHub.Views.AdminViews" xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
         mc:Ignorable="d"
-        Title="LearnHub" Height="600" Width="1000"
+        Title="LearnHub" Height="700" Width="1250"
         Icon="/Resource/Icons/appIcon.png"
-        AllowsTransparency="True"
         ResizeMode="NoResize"
         WindowStyle="None"
         Background="Transparent"
         WindowStartupLocation="CenterScreen">
 
     <Grid>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -30,27 +29,13 @@
 
         <!--ControlBar-->
         <components:ControlBar/>
+
         <custom:Modal Grid.RowSpan="2" Panel.ZIndex ="100" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModelViewModel}" />
         </custom:Modal>
-        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
-            <ContentControl.Resources>
-                <!--<DataTemplate DataType="{x:Type waitvm:WaitingViewModel}">
-                    <waitingviews:WaitingView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type authvm:LoginViewModel}">
-                    <authviews:LoginView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
-                    <adminviews:AdminView/>
-                </DataTemplate>-->
-            </ContentControl.Resources>
-        </ContentControl>
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
 
     </Grid>
-
-
-
-
 
 </Window>

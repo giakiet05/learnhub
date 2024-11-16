@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000">
+             d:DesignHeight="700" d:DesignWidth="1250">
     <Grid Background="#FFF7F7">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -73,7 +73,7 @@
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Menu items-->
-                <Grid Height="410">
+                <Grid Height="500">
                     <StackPanel>
                         <!--Home button-->
                         <RadioButton  FontSize="30" IsChecked="True"

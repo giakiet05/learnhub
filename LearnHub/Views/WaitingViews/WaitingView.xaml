@@ -8,7 +8,7 @@
              xmlns:waitingviewmodels="clr-namespace:LearnHub.ViewModels.WaitingViewModels"
              xmlns:Menu="clr-namespace:LearnHub.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000">
+             d:DesignHeight="700" d:DesignWidth="1000">
     
 
     <Grid Background="#FFF7F7">
@@ -77,7 +77,7 @@
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Menu items-->
-                <Grid Height="410">
+                <Grid Height="500">
                     <StackPanel>
                         <!--Home button-->
                         <RadioButton FontSize="30" IsChecked="True"

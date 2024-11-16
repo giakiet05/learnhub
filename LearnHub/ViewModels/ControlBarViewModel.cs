@@ -1,8 +1,9 @@
 ﻿using LearnHub.Commands;
-using LearnHub.Commands.ControlBarCommands;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,9 +19,43 @@ namespace LearnHub.ViewModels
         public ICommand MouseMoveCommand { get; }
         public ControlBarViewModel()
         {
-            CloseCommand = new CloseWindowCommand();
-            MinimizeCommand = new MinimizeWindowCommand();
-            MouseMoveCommand = new MouseMoveWindowCommand();
-        }    
+            CloseCommand = new RelayCommand(ExecuteClose);
+            MinimizeCommand = new RelayCommand(ExecuteMinimize);
+            MouseMoveCommand = new RelayCommand(ExecuteMouseMove);
+        }
+
+        private void ExecuteClose(object parameter)
+        {
+            FrameworkElement parent = GetParent(parameter as UserControl);
+            var w = parent as Window;
+            if (w != null)
+                w.Close();
+        }
+
+        private void ExecuteMinimize(object parameter)
+        {
+            FrameworkElement parent = GetParent(parameter as UserControl);
+            var w = parent as Window;
+            if (w != null)
+                w.WindowState = WindowState.Minimized;
+        }
+
+        private void ExecuteMouseMove(object parameter)
+        {
+            FrameworkElement parent = GetParent(parameter as UserControl);
+            var w = parent as Window;
+            if (w != null)
+                w.DragMove();
+        }
+
+        FrameworkElement GetParent(UserControl p)
+        {
+            FrameworkElement parent = p;
+            while (parent.Parent != null)
+            {
+                parent = parent.Parent as FrameworkElement;
+            }
+            return parent;
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (selectedGrade != null)
             {
                 //điền thông tin vào input
-                GradeDetailsFormViewModel.IsReadOnly = true;
+                GradeDetailsFormViewModel.IsEnable = false;
                 GradeDetailsFormViewModel.Id = selectedGrade.Id;
                 GradeDetailsFormViewModel.Name = selectedGrade.Name;
 

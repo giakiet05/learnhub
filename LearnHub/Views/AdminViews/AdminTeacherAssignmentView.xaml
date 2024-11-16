@@ -22,14 +22,33 @@
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnGiaoVien" Content="Giáo viên" 
                         Command="{Binding Teacher}"
-                BorderBrush="#5CB3FF" Background="#ffffff"
-                Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
-                Style="{StaticResource btnStyle}"/>
+                        BorderBrush="#5CB3FF" Background="#ffffff"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
 
                 <Button x:Name="btnPhanCong" Content="Phân công" IsEnabled="False"
-                BorderBrush="#5CB3FF" Background="#5CB3FF"
-                Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
-                Style="{StaticResource btnStyle}"/>
+                        BorderBrush="#5CB3FF" Background="#5CB3FF"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
+            </StackPanel>
+
+            <!--stackpanel các nút chức năng-->
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
+                <!--nút thêm-->
+                <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
+                       Command="{Binding ShowAddModalCommand}"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+                <!--nút xoá -->
+                <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
+                      Command="{Binding ShowDeleteModalCommand}"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+                <!--nút sửa -->
+                <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
+                       Command="{Binding ShowEditModalCommand}"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
             </StackPanel>
         </Grid>
 
@@ -79,8 +98,10 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã môn học"/>
                     <DataGridTextColumn Header="Tên môn học"/>
-                    <DataGridComboBoxColumn x:Name="cbGiaoVien" Header="Giáo viên"/>
+                    <DataGridTextColumn Header="Mã giáo viên"/>
+                    <DataGridTextColumn Header="Tên giáo viên"/>
                 </DataGrid.Columns>
             </DataGrid>
             

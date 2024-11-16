@@ -82,7 +82,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
-                await GenericDataService<Grade>.Instance.DeleteById(selectedGrade.Id);
+                await GenericDataService<Grade>.Instance.DeleteOne(e => e.Id == selectedGrade.Id);
                 _gradeStore.Delete(g => g.Id == selectedGrade.Id); // Xóa khối trong Store
                 ModalNavigationStore.Instance.Close();
             }

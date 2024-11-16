@@ -65,7 +65,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
-                await GenericDataService<Student>.Instance.DeleteById(selectedStudent.Id);
+                await GenericDataService<Student>.Instance.DeleteOne(e => e.Id == selectedStudent.Id);
 
                 _studentStore.Delete(student => student.Id == selectedStudent.Id); // Xóa từ GenericStore
 

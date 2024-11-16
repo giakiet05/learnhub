@@ -56,7 +56,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 "Chưa chọn giáo viên để sửa"
             );
 
-            SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new AdminTeacherAssignmentViewModel());
+            SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new AdminTeachingAssignmentViewModel());
 
             LoadTeachersAsync();
         }
@@ -80,7 +80,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
             try
             {
-                await GenericDataService<Teacher>.Instance.DeleteById(selectedTeacher.Id);
+                await GenericDataService<Teacher>.Instance.DeleteOne(e => e.Id == selectedTeacher.Id);
 
                 _teacherStore.Delete(t => t.Id == selectedTeacher.Id);  // Delete from GenericStore
 

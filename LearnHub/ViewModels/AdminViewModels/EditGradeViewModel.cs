@@ -54,8 +54,8 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
-                await GenericDataService<Grade>.Instance.UpdateById(selectedGrade.Id, selectedGrade);
-                GenericStore<Grade>.Instance.Update(selectedGrade, g => g.Id == selectedGrade.Id); // Update in store
+                await GenericDataService<Grade>.Instance.UpdateOne(selectedGrade, e => e.Id == selectedGrade.Id);
+                GenericStore<Grade>.Instance.Update(selectedGrade, e => e.Id == selectedGrade.Id); // Update in store
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

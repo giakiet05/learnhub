@@ -28,12 +28,14 @@ namespace LearnHub.Components
 
         private void tbSalary_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !Regex.IsMatch(e.Text, "[^0-9]+");
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void tbCoefficient_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !Regex.IsMatch(e.Text, "[^0-9]+");
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

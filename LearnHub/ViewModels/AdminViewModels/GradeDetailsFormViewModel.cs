@@ -37,17 +37,17 @@ namespace LearnHub.ViewModels.AdminViewModels
 			}
 		}
 
-		private bool _isReadOnly = false;
-		public bool IsReadOnly
+		private bool _isEnable = true;
+		public bool IsEnable
 		{
 			get
 			{
-				return _isReadOnly;
+				return _isEnable;
 			}
 			set
 			{
-				_isReadOnly = value;
-				OnPropertyChanged(nameof(IsReadOnly));
+				_isEnable = value;
+				OnPropertyChanged(nameof(IsEnable));
 			}
 		}
 

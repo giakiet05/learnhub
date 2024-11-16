@@ -33,7 +33,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 formViewModel.Salary == null ||
                 formViewModel.Coefficient == null)
             {
-                MessageBox.Show("Vui lòng điền đầy đủ thông tin cơ bản nha");
+                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc nha");
                 return;
             }
 

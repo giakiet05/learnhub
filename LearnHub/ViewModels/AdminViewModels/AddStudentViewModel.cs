@@ -32,7 +32,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 string.IsNullOrWhiteSpace(formViewModel.Password) ||
                 string.IsNullOrWhiteSpace(formViewModel.FullName))
             {
-                MessageBox.Show("Vui lòng điền đầy đủ thông tin cơ bản");
+                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 

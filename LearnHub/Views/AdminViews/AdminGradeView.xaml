@@ -21,7 +21,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnLopHoc" Content="Lớp học" 
-                        Command="{Binding Class}"
+                        Command="{Binding SwitchToClassCommand}"
                         BorderBrush="#5CB3FF" Background="#ffffff"
                         Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                         Style="{StaticResource btnStyle}"/>
@@ -33,21 +33,21 @@
             </StackPanel>
             <!--stackpanel các nút chức năng-->
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
-                <!--nút thêm khối mới-->
+                <!--nút thêm t mới-->
                 <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
-                        Command="{Binding Add}"
-                        Background="#5CB3FF" BorderBrush="Transparent"
-                        Style="{StaticResource btnStyle}"/>
-                <!--nút xoá khối đã chọn-->
+            Command="{Binding ShowAddModalCommand}"
+             Background="#5CB3FF" BorderBrush="Transparent"
+             Style="{StaticResource btnStyle}"/>
+                <!--nút xoá thông báo đã chọn-->
                 <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
-                        Command="{Binding Delete}"
-                        Background="#5CB3FF" BorderBrush="Transparent"
-                        Style="{StaticResource btnStyle}"/>
-                <!--nút sửa khối đã chọn-->
+           Command="{Binding ShowDeleteModalCommand}"
+             Background="#5CB3FF" BorderBrush="Transparent"
+             Style="{StaticResource btnStyle}"/>
+                <!--nút sửa thông báo đã chọn-->
                 <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
-                        Command="{Binding Edit}"
-                        Background="#5CB3FF" BorderBrush="Transparent"
-                        Style="{StaticResource btnStyle}"/>
+            Command="{Binding ShowEditModalCommand}"
+             Background="#5CB3FF" BorderBrush="Transparent"
+             Style="{StaticResource btnStyle}"/>
             </StackPanel>
         </Grid>
 
@@ -57,6 +57,8 @@
             <!--datagrid để hiển thị list khối lớp-->
             <DataGrid x:Name="KhoiLopDG" AutoGenerateColumns="False" CanUserAddRows="True" 
               CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
+                      ItemsSource="{Binding Grades}"
+                      SelectedItem="{Binding SelectedGrade, Mode=TwoWay}"
                       IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -65,8 +67,8 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã khối"/>
-                    <DataGridTextColumn Header="Tên khối"/>
+                    <DataGridTextColumn Header="Mã khối" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Tên khối" Binding="{Binding Name}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

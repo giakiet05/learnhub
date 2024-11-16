@@ -2,6 +2,7 @@
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
+using LearnHub.Stores.AdminStores;
 using LearnHub.ViewModels;
 using System;
 using System.Windows;
@@ -59,8 +60,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 await AuthenticationService.Instance.CreateAccount(newStudent);
 
-                // Update the store with the new student
-                StudentStore.Instance.AddStudent(newStudent);
+                // Directly use the GenericStore without creating a field
+                GenericStore<Student>.Instance.Add(newStudent);
 
                 ModalNavigationStore.Instance.Close();
             }
@@ -69,8 +70,5 @@ namespace LearnHub.ViewModels.AdminViewModels
                 MessageBox.Show("Tạo thất bại");
             }
         }
-
-     
-       
     }
 }

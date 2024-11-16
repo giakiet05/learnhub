@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using LearnHub.Stores.AdminStores;
 
 
 namespace LearnHub.ViewModels.AdminViewModels
@@ -14,9 +15,10 @@ namespace LearnHub.ViewModels.AdminViewModels
     public class EditTeacherViewModel : BaseViewModel
     {
         public TeacherDetailsFormViewModel TeacherDetailsFormViewModel { get; }
-
+        private readonly GenericStore<Teacher> _teacherStore;
         public EditTeacherViewModel()
         {
+            _teacherStore = GenericStore<Teacher>.Instance; 
 
             ICommand submitCommand = new RelayCommand(ExecuteSubmit);
             ICommand cancelCommand = new CancelCommand();
@@ -34,27 +36,15 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             // Validate input fields
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
-               string.IsNullOrWhiteSpace(formViewModel.FullName) ||
-               formViewModel.Salary == null ||
-               formViewModel.Coefficient == null)
+               string.IsNullOrWhiteSpace(formViewModel.FullName) )
+              
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc nha");
+                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
+       
 
-            if (!int.TryParse(formViewModel.Salary.ToString(), out int salary) || salary <= 0)
-            {
-                MessageBox.Show("Lương phải là một số nguyên dương");
-                return;
-            }
-
-            if (!double.TryParse(formViewModel.Coefficient.ToString(), out double coefficient) || coefficient <= 0)
-            {
-                MessageBox.Show("Hệ số phải là một số thập phân lớn hơn 0.");
-                return;
-            }
-
-            var selectedTeacher = TeacherStore.Instance.SelectedTeacher;
+            var selectedTeacher = _teacherStore.SelectedItem;
 
             // Update selected teacher's information based on the form data
             selectedTeacher.Username = formViewModel.Username;
@@ -81,7 +71,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             try
             {
                 await GenericDataService<Teacher>.Instance.UpdateById(selectedTeacher.Id, selectedTeacher);
-                TeacherStore.Instance.UpdateTeacher(selectedTeacher);
+                _teacherStore.Update(selectedTeacher, (t) => t.Id == selectedTeacher.Id);
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
@@ -92,7 +82,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private void LoadSelectedTeacherData()
         {
-            var selectedTeacher = TeacherStore.Instance.SelectedTeacher;
+            var selectedTeacher = _teacherStore.SelectedItem;
             if (selectedTeacher != null)
             {
                 // Populate form fields with selected teacher's data (except password)

@@ -1,5 +1,4 @@
-﻿
-using LearnHub.Commands;
+﻿using LearnHub.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,38 +10,38 @@ using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
 using System.Windows;
-
+using LearnHub.Stores.AdminStores;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminTeacherViewModel : BaseViewModel
     {
-        private readonly ObservableCollection<Teacher> _teachers;
-        public IEnumerable<Teacher> Teachers => _teachers; //dùng binding vào view
+        private readonly GenericStore<Teacher> _teacherStore;
+       
+
+        public IEnumerable<Teacher> Teachers => _teacherStore.Items; // Binding to view
 
         private Teacher _selectedTeacher;
-        public Teacher SelectedTeacher //dùng để binding vào view
+        public Teacher SelectedTeacher // Binding to view
         {
             get => _selectedTeacher;
             set
             {
                 _selectedTeacher = value;
-                TeacherStore.Instance.SelectedTeacher = value; // Sync with TeacherStore
-
+                _teacherStore.SelectedItem = value; // Sync with GenericStore
             }
         }
 
-       
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
         public ICommand Ass { get; }
+
         public AdminTeacherViewModel()
         {
-            //truyền _selectedTeacher của viewmodel chứ ko phải của store
-            //vì khi chuyển view, _selectedTeacher của viewmodel mất nhưng của store vẫn còn
-            //PHẦN NÀY SẼ XỬ LÍ SAU, CHO _SELECTEDSTUDENT CỦA STORE THÀNH NULL SAU KHI ĐỔI VIEW
-
+            _teacherStore = GenericStore<Teacher>.Instance;  // Using GenericStore<Teacher> as a field
+        
+            // Initialize commands
             ShowAddModalCommand = new NavigateModalCommand(() => new AddTeacherViewModel());
 
             ShowDeleteModalCommand = new NavigateModalCommand(
@@ -54,27 +53,25 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowEditModalCommand = new NavigateModalCommand(
                 () => new EditTeacherViewModel(),
                 () => _selectedTeacher != null,
-                "Chưa chọn giáo viên để sửa");
-
+                "Chưa chọn giáo viên để sửa"
+            );
 
             Ass = new NavigateLayoutCommand(() => new AdminTeacherAssignmentViewModel());
 
-            _teachers = TeacherStore.Instance.Teachers; //lấy students từ store để binding cho view
-
-
             LoadTeachersAsync();
-
         }
 
-        //Lấy students từ db rồi gọi hàm loadstudents trong store để hiển thị lên view
+        // Load teachers from DB and update store
         private async void LoadTeachersAsync()
         {
             var teachers = await GenericDataService<Teacher>.Instance.GetAll();
-            TeacherStore.Instance.LoadTeachers(teachers);
+            _teacherStore.Load(teachers);  // Update GenericStore with new data
         }
+
+        // Delete teacher from store and database
         private async void DeleteTeacher()
         {
-            var selectedTeacher = TeacherStore.Instance.SelectedTeacher;
+            var selectedTeacher = _teacherStore.SelectedItem;  // Accessing SelectedItem from GenericStore<Teacher>
 
             if (selectedTeacher == null)
             {
@@ -85,7 +82,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 await GenericDataService<Teacher>.Instance.DeleteById(selectedTeacher.Id);
 
-                TeacherStore.Instance.DeleteTeacher(selectedTeacher.Id);
+                _teacherStore.Delete(t => t.Id == selectedTeacher.Id);  // Delete from GenericStore
 
                 ModalNavigationStore.Instance.Close();
             }

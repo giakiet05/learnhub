@@ -1,38 +1,77 @@
 ﻿using LearnHub.Commands;
-
-using LearnHub.Models;
-using LearnHub.Stores;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
+using LearnHub.Models;
+using LearnHub.Services;
+using LearnHub.Stores;
+using System.Windows;
+using LearnHub.Stores.AdminStores;
+
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminClassViewModel : BaseViewModel
     {
-        public ICommand Add { get; }
-        public ICommand Delete { get; }
-        public ICommand Edit { get; }
-        public ICommand Grade { get; }
+        // Tạo trường cho GenericStore<Classroom>
+        private readonly GenericStore<Classroom> _classroomStore;
+        public IEnumerable<Classroom> Classrooms => _classroomStore.Items; // Binding vào view
 
-        // ObservableCollection để giữ danh sách lớp học
-        public ObservableCollection<Classroom> Classrooms { get; }
+        private Classroom _selectedClassroom;
+        public Classroom SelectedClassroom
+        {
+            get => _selectedClassroom;  
+            set
+            {
+                _selectedClassroom = value;
+                _classroomStore.SelectedItem = value;  // Sync với GenericStore
+            }
+        }
+
+        public ICommand ShowAddModalCommand { get; }
+        public ICommand ShowDeleteModalCommand { get; }
+        public ICommand ShowEditModalCommand { get; }
+        public ICommand Grade { get; }
 
         public AdminClassViewModel()
         {
-           
-            Grade = new NavigateLayoutCommand(() => new AdminGradeViewModel());
+            _classroomStore = GenericStore<Classroom>.Instance; // Tạo trường cho GenericStore
+            // Khởi tạo các command cho Add, Delete, Edit
+            ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteClassroom), () => _selectedClassroom != null, "Chưa chọn lớp học để xóa");
+            ShowAddModalCommand = new NavigateModalCommand(() => new AddClassViewModel());
+            ShowEditModalCommand = new NavigateModalCommand(() => new EditClassViewModel(), () => _selectedClassroom != null, "Chưa chọn lớp học để sửa");
 
-            // Khởi tạo dữ liệu mẫu
-            Classrooms = new ObservableCollection<Classroom>
-            {
-                new Classroom { Name = "Lớp 10A1", Capacity = 30, GradeId = "10", YearId = "2023", TeacherInChargeId = "GV001" },
-                new Classroom { Name = "Lớp 11A2", Capacity = 32, GradeId = "11", YearId = "2023", TeacherInChargeId = "GV002" },
-            };
+            LoadClassroomsAsync();
+        }
+
+            // Tải danh sách students từ DB rồi cập nhật vào GenericStore
+        private async void LoadClassroomsAsync()
+        {
+                var classrooms = await GenericDataService<Classroom>.Instance.GetAll();
+                _classroomStore.Load(classrooms); // Load vào GenericStore
+        }
+
+            // Xóa học sinh đã chọn
+        private async void DeleteClassroom()
+        {
+                var selectedClassroom = _classroomStore.SelectedItem;
+
+                try
+                {
+                    await GenericDataService<Classroom>.Instance.DeleteById(selectedClassroom.Id);
+
+                    _classroomStore.Delete(classroom => classroom.Id == selectedClassroom.Id); // Xóa từ GenericStore
+
+                    ModalNavigationStore.Instance.Close();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Xóa thất bại");
+                }
         }
     }
 }

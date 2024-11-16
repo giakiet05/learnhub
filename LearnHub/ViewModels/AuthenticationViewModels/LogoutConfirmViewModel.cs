@@ -1,4 +1,7 @@
 ﻿
+using LearnHub.Commands;
+using LearnHub.Stores;
+using LearnHub.ViewModels.WaitingViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +13,18 @@ namespace LearnHub.ViewModels
 {
     public class LogoutConfirmViewModel : BaseViewModel
     {
-        public ICommand Logout { get; }
-        public ICommand Cancel { get; }
+        public ICommand LogoutCommand { get; }
+        public ICommand CancelCommand { get; }
         public LogoutConfirmViewModel()
         {
-          
+            LogoutCommand = new RelayCommand(ExecuteLogout);
+            CancelCommand = new CancelCommand();
+        }
+
+        private void ExecuteLogout()
+        {
+            NavigationStore.Instance.NavigateCurrentViewModel(() => new WaitingViewModel());
+            ModalNavigationStore.Instance.Close();
         }
     }
 }

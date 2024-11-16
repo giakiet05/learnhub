@@ -5,6 +5,7 @@ using LearnHub.Stores;
 using System;
 using System.Windows.Input;
 using System.Windows;
+using LearnHub.Stores.AdminStores;
 
 
 namespace LearnHub.ViewModels.AdminViewModels
@@ -29,25 +30,13 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
                 string.IsNullOrWhiteSpace(formViewModel.Password) ||
-                string.IsNullOrWhiteSpace(formViewModel.FullName) ||
-                formViewModel.Salary == null ||
-                formViewModel.Coefficient == null)
+                string.IsNullOrWhiteSpace(formViewModel.FullName))
+
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc nha");
+                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
-            if (!int.TryParse(formViewModel.Salary.ToString(), out int salary) || salary <= 0)
-            {
-                MessageBox.Show("Lương phải là một số nguyên dương");
-                return;
-            }
-
-            if (!double.TryParse(formViewModel.Coefficient.ToString(), out double coefficient) || coefficient <= 0)
-            {
-                MessageBox.Show("Hệ số phải là một số thập phân lớn hơn 0.");
-                return;
-            }
 
             Teacher newTeacher = new Teacher()
             {
@@ -72,7 +61,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             try
             {
                 await AuthenticationService.Instance.CreateAccount(newTeacher);
-                TeacherStore.Instance.AddTeacher(newTeacher);
+                GenericStore<Teacher>.Instance.Add(newTeacher);
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

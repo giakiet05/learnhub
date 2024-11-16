@@ -1,14 +1,10 @@
-﻿
-using LearnHub.Commands;
+﻿using LearnHub.Commands;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
+using LearnHub.Stores.AdminStores;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -24,20 +20,19 @@ namespace LearnHub.ViewModels.AdminViewModels
             ICommand cancelCommand = new CancelCommand();
             GradeDetailsFormViewModel = new GradeDetailsFormViewModel(submitCommand, cancelCommand);
 
-            //Truyền thông tin của selected student vào các input
+            // Truyền thông tin của selected grade vào các input
             LoadSelectedGradeData();
         }
 
         private void LoadSelectedGradeData()
         {
-            var selectedGrade = GradeStore.Instance.SelectedGrade;
+            var selectedGrade = GenericStore<Grade>.Instance.SelectedItem;
             if (selectedGrade != null)
             {
-                //điền thông tin vào input
+                // Điền thông tin vào input
                 GradeDetailsFormViewModel.IsEnable = false;
                 GradeDetailsFormViewModel.Id = selectedGrade.Id;
                 GradeDetailsFormViewModel.Name = selectedGrade.Name;
-
             }
         }
 
@@ -51,18 +46,16 @@ namespace LearnHub.ViewModels.AdminViewModels
                 return;
             }
 
+            var selectedGrade = GenericStore<Grade>.Instance.SelectedItem;
 
-            var selectedGrade = GradeStore.Instance.SelectedGrade;
-
-            //cập nhật thông tin của selected dựa vào thông tin từ form
+            // Cập nhật thông tin của selected dựa vào thông tin từ form
             selectedGrade.Id = formViewModel.Id;
             selectedGrade.Name = formViewModel.Name;
-
 
             try
             {
                 await GenericDataService<Grade>.Instance.UpdateById(selectedGrade.Id, selectedGrade);
-                GradeStore.Instance.UpdateGrade(selectedGrade);
+                GenericStore<Grade>.Instance.Update(selectedGrade, g => g.Id == selectedGrade.Id); // Update in store
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

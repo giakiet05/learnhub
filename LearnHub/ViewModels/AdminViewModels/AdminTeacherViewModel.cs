@@ -28,14 +28,14 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedTeacher = value;
-                _teacherStore.SelectedItem = value; // Sync with GenericStore
+                _teacherStore.SelectedItem = value;
             }
         }
 
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
-        public ICommand Ass { get; }
+        public ICommand SwitchToAssignmentCommand { get; }
 
         public AdminTeacherViewModel()
         {
@@ -56,7 +56,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 "Chưa chọn giáo viên để sửa"
             );
 
-            Ass = new NavigateLayoutCommand(() => new AdminTeacherAssignmentViewModel());
+            SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new AdminTeacherAssignmentViewModel());
 
             LoadTeachersAsync();
         }

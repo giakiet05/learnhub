@@ -58,6 +58,7 @@
             <DataGrid x:Name="GiaoVienDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                       IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
                       ItemsSource="{Binding Teachers}"
+                      PreviewMouseLeftButtonDown="GiaoVienDG_PreviewMouseLeftButtonDown"
                       SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                         CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
                 <DataGrid.CellStyle>

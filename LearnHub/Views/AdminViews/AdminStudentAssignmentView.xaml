@@ -99,7 +99,8 @@
 
                     <DataGrid Grid.Row="2" x:Name="lopcuDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                                 CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
-                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single">
+                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                              PreviewMouseLeftButtonDown="lopcuDG_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0"/>
@@ -159,7 +160,8 @@
 
                     <DataGrid Grid.Row="2" x:Name="lopmoiDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                     CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
-                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single">
+                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                              PreviewMouseLeftButtonDown="lopmoiDG_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0"/>

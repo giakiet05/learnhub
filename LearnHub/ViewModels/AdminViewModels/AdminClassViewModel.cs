@@ -51,19 +51,31 @@ namespace LearnHub.ViewModels.AdminViewModels
             LoadClassroomsAsync();
         }
 
-            // Tải danh sách students từ DB rồi cập nhật vào GenericStore
+            // Tải danh sách classrooms từ DB rồi cập nhật vào GenericStore
         private async void LoadClassroomsAsync()
         {
+            try
+            {
                 var classrooms = await GenericDataService<Classroom>.Instance.GetAll();
                 _classroomStore.Load(classrooms); // Load vào GenericStore
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu")
+            }
         }
 
-            // Xóa học sinh đã chọn
+            // Xóa class đã chọn
         private async void DeleteClassroom()
         {
-                var selectedClassroom = _classroomStore.SelectedItem;
+            var selectedClassroom = _classroomStore.SelectedItem;
+            if (selectedClassroom == null)
+            {
+                MessageBox.Show("Chưa chọn lớp để xóa");
+                return;
+            }
 
-                try
+            try
                 {
                     await GenericDataService<Classroom>.Instance.DeleteById(selectedClassroom.Id);
 

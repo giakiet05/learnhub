@@ -63,12 +63,13 @@ namespace LearnHub.ViewModels.AdminViewModels
             var selectedClassroom = GenericStore<Classroom>.Instance.SelectedItem;
 
             Subjects = await GenericDataService<Subject>.Instance.GetMany(e => e.GradeId == selectedClassroom.GradeId);
-
+            OnPropertyChanged(nameof(Subjects));
         }
 
         private async void LoadTeachers()
         {
             Teachers = await GenericDataService<Teacher>.Instance.GetAll();
+            OnPropertyChanged(nameof(Teachers));
         }
     }
 }

@@ -39,9 +39,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             var formViewModel = TeachingAssignmentDetailsFormViewModel;
 
             // Validation for required fields
-            if (string.IsNullOrEmpty(formViewModel.SelectedTeacher.Id) ||
-                string.IsNullOrEmpty(formViewModel.SelectedSubject.Id)
-                )
+            if(formViewModel.SelectedSubject == null || formViewModel.SelectedTeacher == null)
+                
             {
                 MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
@@ -63,8 +62,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                 var entity = await GenericDataService<TeachingAssignment>.Instance.Create(newTeachingAssignment);
 
                 //phải lấy teacher và subject tương ứng với id để nạp vào entity vì ef không tự động load các navigation prop
-                entity.Teacher = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == formViewModel.SelectedTeacher.Id);
-                entity.Subject = await GenericDataService<Subject>.Instance.GetOne(e => e.Id == formViewModel.SelectedSubject.Id);
+                entity.Teacher = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == entity.TeacherId);
+                entity.Subject = await GenericDataService<Subject>.Instance.GetOne(e => e.Id == entity.SubjectId);
+
                 // Update the generic store with the new grade
 
                 GenericStore<TeachingAssignment>.Instance.Add(entity);

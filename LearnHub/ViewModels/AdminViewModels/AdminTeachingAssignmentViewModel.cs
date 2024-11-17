@@ -1,6 +1,7 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Models;
 using LearnHub.Services;
+using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
 using LearnHub.ViewModels;
 using LearnHub.ViewModels.AdminViewModels;
@@ -29,7 +30,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 _selectedTeachingAssignment = value;
                 _teachingAssignmentStore.SelectedItem = value;
-                OnPropertyChanged(nameof(SelectedTeachingAssignment));
+                //OnPropertyChanged(nameof(SelectedTeachingAssignment));
             }
         }
 
@@ -40,7 +41,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedGrade = value;
-                OnPropertyChanged(nameof(SelectedGrade));
+                //OnPropertyChanged(nameof(SelectedGrade));
                 LoadClassrooms();
             }
         }
@@ -52,7 +53,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedYear = value;
-                OnPropertyChanged(nameof(SelectedYear));
+                //OnPropertyChanged(nameof(SelectedYear));
                 LoadClassrooms();
             }
         }
@@ -65,7 +66,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 _selectedClassroom = value;
                 _classroomStore.SelectedItem = value;
-                OnPropertyChanged(nameof(SelectedClassroom));
+                //OnPropertyChanged(nameof(SelectedClassroom));
                 LoadTeachingAssignments();
                 UpdateModalCommands(); // Cập nhật lệnh khi SelectedClassroom thay đổi
             }
@@ -82,15 +83,43 @@ namespace LearnHub.ViewModels.AdminViewModels
             _classroomStore = GenericStore<Classroom>.Instance;
 
             SwitchToTeacherCommand = new NavigateLayoutCommand(() => new AdminTeacherViewModel());
-
+            _teachingAssignmentStore.Clear();
             LoadGrades();
             LoadYears();
             UpdateModalCommands(); // Khởi tạo lệnh khi tạo ViewModel
         }
 
-        private void DeleteTeachingAssignment()
+        private async void DeleteTeachingAssignment()
         {
-            MessageBox.Show("Đã xóa phân công giảng dạy.");
+            var selectedTeachingAssignment = _teachingAssignmentStore.SelectedItem;
+
+            if (selectedTeachingAssignment == null)
+            {
+                MessageBox.Show("Chưa chọn khối để xóa");
+                return;
+            }
+
+            try
+            {
+                //xóa trong db
+                await GenericDataService<TeachingAssignment>.Instance.DeleteOne(
+                    e => e.ClassroomId == selectedTeachingAssignment.ClassroomId &&
+                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
+                    e.TeacherId == selectedTeachingAssignment.TeacherId
+                );
+
+                //xóa trong giao diện
+                _teachingAssignmentStore.Delete(
+                    e => e.ClassroomId == selectedTeachingAssignment.ClassroomId &&
+                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
+                    e.TeacherId == selectedTeachingAssignment.TeacherId); 
+
+                ModalNavigationStore.Instance.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Xóa thất bại");
+            }
         }
 
         //chỉ mở model nếu đã chọn lớp

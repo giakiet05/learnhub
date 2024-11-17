@@ -31,7 +31,7 @@
     <DataTemplate DataType="{x:Type adminvm:AdminHomeViewModel}">
         <adminviews:AdminHomeView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type adminvm:AdminTeacherAssignmentViewModel}">
+    <DataTemplate DataType="{x:Type adminvm:AdminTeachingAssignmentViewModel}">
         <adminviews:AdminTeacherAssignmentView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AdminStudentAssignmentViewModel}">
@@ -67,7 +67,7 @@
     <DataTemplate DataType="{x:Type adminvm:AddCalendarViewModel}">
         <adminviews:AddCalendarView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type adminvm:AddTeacherAssignmentViewModel}">
+    <DataTemplate DataType="{x:Type adminvm:AddTeachingAssignmentViewModel}">
         <adminviews:AddTeacherAssignmentView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AddGradeViewModel}">
@@ -91,8 +91,8 @@
     <DataTemplate DataType="{x:Type adminvm:EditClassViewModel}">
         <adminviews:EditClassView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type adminvm:EditTeacherAssignmentViewModel}">
-        <adminviews:EditTeacherView/>
+    <DataTemplate DataType="{x:Type adminvm:EditTeachingAssignmentViewModel}">
+        <adminviews:EditTeacherAssignmentView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditSchoolYearViewModel}">
         <adminviews:EditSchoolYearView/>

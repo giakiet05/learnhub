@@ -100,6 +100,7 @@
             <DataGrid Grid.Row="1" x:Name="PhanCongDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                         CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       ItemsSource="{Binding TeachingAssignments}"
+                      SelectedItem="{Binding SelectedTeachingAssignment}"
                       PreviewMouseLeftButtonDown="PhanCongDG_PreviewMouseLeftButtonDown">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -108,9 +109,9 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã môn học" Binding="{Binding Path=Subject.Id}"/>
+                    <DataGridTextColumn Header="Mã môn học" Binding="{Binding Subject.Id}"/>
                     <DataGridTextColumn Header="Tên môn học" Binding="{Binding Subject.Name}"/>
-                    <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding TeacherId}" />
+                    <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Teacher.Id}" />
                     <DataGridTextColumn Header="Tên giáo viên" Binding="{Binding Teacher.FullName}"/>
                 </DataGrid.Columns>
             </DataGrid>

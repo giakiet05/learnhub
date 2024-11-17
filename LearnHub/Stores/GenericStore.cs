@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace LearnHub.Stores.AdminStores
 {
-    public class GenericStore<T> where T : class // Singleton store cho dữ liệu kiểu T
+    public  class GenericStore<T> where T : class // Singleton store cho dữ liệu kiểu T
     {
         private static GenericStore<T> _instance;
 
@@ -44,7 +45,10 @@ namespace LearnHub.Stores.AdminStores
         public void Add(T newItem)
         {
             if (newItem == null) throw new ArgumentNullException(nameof(newItem));
-            Items.Add(newItem);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Items.Add(newItem);
+            });
         }
 
         // Cập nhật một đối tượng dựa trên điều kiện
@@ -62,6 +66,7 @@ namespace LearnHub.Stores.AdminStores
             }
         }
 
+
         // Xóa một đối tượng dựa trên điều kiện
         public void Delete(Func<T, bool> predicate)
         {
@@ -72,6 +77,7 @@ namespace LearnHub.Stores.AdminStores
             {
                 Items.Remove(existingItem);
             }
+           
         }
 
         // Tải danh sách đối tượng kiểu T vào Store
@@ -84,6 +90,12 @@ namespace LearnHub.Stores.AdminStores
             {
                 Items.Add(item);
             }
+        }
+
+        public void Clear()
+        {
+            Items.Clear();
+            SelectedItem = null;
         }
     }
 }

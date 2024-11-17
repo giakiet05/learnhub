@@ -81,14 +81,15 @@ namespace LearnHub.ViewModels.AdminViewModels
 
 
                 // Thực hiện cập nhật cơ sở dữ liệu bất đồng bộ
-                await GenericDataService<TeachingAssignment>.Instance.DeleteOne(e =>
-                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
-                    e.TeacherId == selectedTeachingAssignment.TeacherId &&
-                    e.ClassroomId == selectedTeachingAssignment.ClassroomId);
 
                 var entity = await GenericDataService<TeachingAssignment>.Instance.Create(newTeachingAssignment);
                 entity.Teacher = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == entity.TeacherId);
                 entity.Subject = await GenericDataService<Subject>.Instance.GetOne(e => e.Id == entity.SubjectId);
+
+                await GenericDataService<TeachingAssignment>.Instance.DeleteOne(e =>
+                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
+                    e.TeacherId == selectedTeachingAssignment.TeacherId &&
+                    e.ClassroomId == selectedTeachingAssignment.ClassroomId);
 
                 // Xóa và thêm vào GenericStore
                 _teachingAssignmentStore.Delete(e =>
@@ -102,7 +103,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Cập nhật thất bại: " + ex.Message);
+                MessageBox.Show("Cập nhật thất bại");
             }
         }
 

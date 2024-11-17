@@ -8,99 +8,110 @@
       d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
 
     <Grid>
-        <TabControl>
-            <!-- Tab cho Thời Khóa Biểu -->
-            <TabItem Header="Thời Khóa Biểu">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <!--stackpanel các nút chức năng-->
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
-                        <!--nút thêm lịch học mới-->
-                        <Button x:Name="btnThemTKB" Content="Thêm" Margin="20 0 0 0"
-                                Command="{Binding AddTKB}"
-                                 Background="#5CB3FF" BorderBrush="Transparent"
-                                 Style="{StaticResource btnStyle}"/>
-                        <!--nút xoá lịch học đã chọn-->
-                        <Button x:Name="btnXoaTKB" Content="Xoá" Margin="20 0 0 0"
-                                 Background="#5CB3FF" BorderBrush="Transparent"
-                                Command="{Binding DeleteTKB}"
-                                 Style="{StaticResource btnStyle}"/>
-                        <!--nút sửa lịch học đã chọn-->
-                        <Button x:Name="btnSuaTKB" Content="Sửa" Margin="20 0 20 0"
-                                Command="{Binding EditTKB}"
-                                 Background="#5CB3FF" BorderBrush="Transparent"
-                                 Style="{StaticResource btnStyle}"/>
-                    </StackPanel>
-
-                    <!--dataGrid để hiển thị thời khóa biểu-->
-                    <DataGrid Grid.Row="1" x:Name="TimetableDataGrid" AutoGenerateColumns="False" CanUserAddRows="True"
-                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
-                              CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
-                              PreviewMouseLeftButtonDown="TimetableDataGrid_PreviewMouseLeftButtonDown">
-                        <DataGrid.CellStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                            </Style>
-                        </DataGrid.CellStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Môn Học"/>
-                            <DataGridTextColumn Header="Ngày"/>
-                            <DataGridTextColumn Header="Giờ" />
-                            <DataGridTextColumn Header="Phòng Học" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </TabItem>
-            <!-- Tab cho Lịch Thi -->
-            <TabItem Header="Lịch Thi">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <!--stackpanel các nút chức năng-->
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
-                        <!--nút thêm lịch thi mới-->
-                        <Button x:Name="btnThemLT" Content="Thêm" Margin="20 0 0 0"
+        <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--stackpanel các nút chức năng-->
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
+                <!--nút thêm lịch thi mới-->
+                <Button x:Name="btnThemLT" Content="Thêm" Margin="20 10 0 0"
                                 Command="{Binding AddLT}"
                                  Background="#5CB3FF" BorderBrush="Transparent"
                                  Style="{StaticResource btnStyle}"/>
-                        <!--nút xoá lịch thi đã chọn-->
-                        <Button x:Name="btnXoaLT" Content="Xoá" Margin="20 0 0 0"
+                <!--nút xoá lịch thi đã chọn-->
+                <Button x:Name="btnXoaLT" Content="Xoá" Margin="20 10 0 0"
                                 Command="{Binding DeleteLT}"
                                  Background="#5CB3FF" BorderBrush="Transparent"
                                  Style="{StaticResource btnStyle}"/>
-                        <!--nút sửa lịch thi đã chọn-->
-                        <Button x:Name="btnSuaLT" Content="Sửa" Margin="20 0 20 0"
+                <!--nút sửa lịch thi đã chọn-->
+                <Button x:Name="btnSuaLT" Content="Sửa" Margin="20 10 20 0"
                                 Command="{Binding EditLT}"
                                  Background="#5CB3FF" BorderBrush="Transparent"
                                  Style="{StaticResource btnStyle}"/>
+            </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <!--chọn năm học-->
+                    <StackPanel VerticalAlignment="Top" Margin="10" Orientation="Horizontal">
+                        <TextBlock Text="Năm học: " Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="cbNamHoc" Width="100" Height="30"  FontSize="15"
+                                Margin="10 0 0 0" Background="#d9d9d9d9"/>
                     </StackPanel>
-                    <DataGrid Grid.Row="1" x:Name="ExamScheduleDataGrid" AutoGenerateColumns="False" CanUserAddRows="True"
+
+                    <!--chọn khối lớp-->
+                    <StackPanel VerticalAlignment="Top" Margin="10" Orientation="Horizontal">
+                        <TextBlock Text="Khối lớp: " Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="cbKhoiLop" Width="100" Height="30"  FontSize="15"
+                                Margin="10 0 0 0" Background="#d9d9d9d9"/>
+                    </StackPanel>
+
+                    <!--chọn lớp-->
+                    <StackPanel VerticalAlignment="Top" Margin="10" Orientation="Horizontal">
+                        <TextBlock Text="Lớp: " Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="cbLop" Width="100" Height="30"  FontSize="15"
+                                 Margin="10 0 0 0" Background="#d9d9d9d9"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <!--chọn học kì-->
+                    <StackPanel VerticalAlignment="Top" Margin="10" Orientation="Horizontal">
+                        <TextBlock Text="Học kì: " Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="cbHK" Width="100" Height="30"  FontSize="15"
+                            Margin="10 0 0 0" Background="#d9d9d9d9">
+                            <ComboBoxItem Content="HK1"/>
+                            <ComboBoxItem Content="HK2"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!--chọn loại kì thi-->
+                    <StackPanel VerticalAlignment="Top" Margin="10" Orientation="Horizontal">
+                        <TextBlock Text="Loại: " Style="{StaticResource font_style}"
+                                 VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="cbLoai" Width="100" Height="30"  FontSize="15"
+                                Margin="10 0 0 0" Background="#d9d9d9d9">
+                            <ComboBoxItem Content="Giữa kì"/>
+                            <ComboBoxItem Content="Cuối kì"/>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <DataGrid Grid.Row="1" x:Name="ExamScheduleDataGrid" AutoGenerateColumns="False" CanUserAddRows="True"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
                               CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                               PreviewMouseLeftButtonDown="ExamScheduleDataGrid_PreviewMouseLeftButtonDown">
-                        <DataGrid.CellStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                            </Style>
-                        </DataGrid.CellStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Môn Học" />
-                            <DataGridTextColumn Header="Ngày" />
-                            <DataGridTextColumn Header="Giờ"/>
-                            <DataGridTextColumn Header="Phòng Học" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </TabItem>
-        </TabControl>
+                <DataGrid.CellStyle>
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã môn" />
+                    <DataGridTextColumn Header="Tên môn" />
+                    <DataGridTextColumn Header="Ngày" />
+                    <DataGridTextColumn Header="Giờ"/>
+                    <DataGridTextColumn Header="Phòng thi" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

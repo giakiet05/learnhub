@@ -61,7 +61,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
             catch (Exception)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu")
+                MessageBox.Show("Lỗi khi tải dữ liệu");
             }
         }
 

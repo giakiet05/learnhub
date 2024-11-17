@@ -20,7 +20,7 @@
         <!--Menubar grid-->
         <Grid Grid.Column="0" Background="#7ec4ed">
 
-            <StackPanel Width="55" x:Name="menubar_pnl">
+            <StackPanel Width="140" x:Name="menubar_pnl">
 
                 <!--Menu button-->
                 <Grid Height="50">
@@ -42,6 +42,7 @@
                                   Margin="2 0 0 0"
                                   Height="50"
                                   Width="50"
+                                  IsChecked="True"
                                   BorderThickness="0"
                                   Style="{StaticResource tb_style}">
 
@@ -54,9 +55,9 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
-                                     Storyboard.TargetProperty="Width"
-                                     From="140" To="55"
-                                     Duration="0:0:0.1"/>
+                                                         Storyboard.TargetProperty="Width"
+                                                         From="140" To="55"
+                                                         Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -64,9 +65,9 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
-                                     Storyboard.TargetProperty="Width"
-                                     From="55" To="140"
-                                     Duration="0:0:0.1"/>
+                                                         Storyboard.TargetProperty="Width"
+                                                         From="55" To="140"
+                                                         Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

@@ -24,8 +24,7 @@ namespace LearnHub.Views.AdminViews
         {
             InitializeComponent();
         }
-
-        private void lopcuDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void LopDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var dataGrid = sender as DataGrid;
 
@@ -50,7 +49,7 @@ namespace LearnHub.Views.AdminViews
             }
         }
 
-        private void lopmoiDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void HocSinhDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var dataGrid = sender as DataGrid;
 

@@ -1,8 +1,8 @@
 ﻿using LearnHub.Commands;
-
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
+using LearnHub.Stores.AdminStores;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -16,24 +16,28 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class EditStudentViewModel : BaseViewModel
     {
+        private readonly GenericStore<Student> _studentStore;
+
         public StudentDetailsFormViewModel StudentDetailsFormViewModel { get; }
 
         public EditStudentViewModel()
         {
+            _studentStore = GenericStore<Student>.Instance;  // Using GenericStore<Student> as a field
+
             ICommand submitCommand = new RelayCommand(ExecuteSubmit);
             ICommand cancelCommand = new CancelCommand();
             StudentDetailsFormViewModel = new StudentDetailsFormViewModel(submitCommand, cancelCommand);
 
-         //Truyền thông tin của selected student vào các input
+            // Truyền thông tin của selected student vào các input
             LoadSelectedStudentData();
         }
 
         private void LoadSelectedStudentData()
         {
-            var selectedStudent = StudentStore.Instance.SelectedStudent;
+            var selectedStudent = _studentStore.SelectedItem;  // Accessing SelectedItem from GenericStore<Student>
             if (selectedStudent != null)
             {
-                //Điền vào các input thông tin từ selectecStudent (trừ mật khẩu)
+                // Điền vào các input thông tin từ selectedStudent (trừ mật khẩu)
                 StudentDetailsFormViewModel.Username = selectedStudent.Username;
                 StudentDetailsFormViewModel.FullName = selectedStudent.FullName;
                 StudentDetailsFormViewModel.PhoneNumber = selectedStudent.PhoneNumber;
@@ -46,7 +50,6 @@ namespace LearnHub.ViewModels.AdminViewModels
                 StudentDetailsFormViewModel.MotherName = selectedStudent.MotherName;
                 StudentDetailsFormViewModel.FatherPhone = selectedStudent.FatherPhone;
                 StudentDetailsFormViewModel.MotherPhone = selectedStudent.MotherPhone;
-              
             }
         }
 
@@ -61,10 +64,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                 return;
             }
 
+            var selectedStudent = _studentStore.SelectedItem;  // Accessing SelectedItem from GenericStore<Student>
 
-            var selectedStudent = StudentStore.Instance.SelectedStudent;
-
-            //cập nhật thông tin của selected student dựa vào thông tin từ form
+            // Cập nhật thông tin của selected student dựa vào thông tin từ form
             selectedStudent.Username = formViewModel.Username;
             selectedStudent.FullName = formViewModel.FullName;
             selectedStudent.PhoneNumber = formViewModel.PhoneNumber;
@@ -78,7 +80,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             selectedStudent.FatherPhone = formViewModel.FatherPhone;
             selectedStudent.MotherPhone = formViewModel.MotherPhone;
 
-            //chỉ cập nhật mật mẩu nếu như nó được điền mới
+            // Chỉ cập nhật mật khẩu nếu như nó được điền mới
             if (formViewModel.Password != null)
             {
                 var passwordHasher = new PasswordHasher<Student>();
@@ -87,8 +89,8 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
-                await GenericDataService<Student>.Instance.UpdateById(selectedStudent.Id, selectedStudent);
-                StudentStore.Instance.UpdateStudent(selectedStudent);
+                await GenericDataService<Student>.Instance.UpdateOne(selectedStudent, e => e.Id == selectedStudent.Id);
+                _studentStore.Update(selectedStudent, e => e.Id == selectedStudent.Id);  // Update in GenericStore
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

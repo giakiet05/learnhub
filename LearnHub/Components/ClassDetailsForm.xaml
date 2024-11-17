@@ -20,7 +20,7 @@
            VerticalAlignment="Center" Width="80"/>
                     <TextBlock Text="*" Foreground="Red"/>
                     <TextBox x:Name="tbID" FontSize="15" Width="250" Height="30"
-         Margin="15 0 0 0" Background="#d9d9d9d9"
+         Margin="15 0 0 0" Background="#d9d9d9d9" Text="{Binding Id}"
          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
@@ -31,7 +31,8 @@
 
                     <TextBox x:Name="tbName" FontSize="15" Width="250" Height="30"
                  Margin="20 0 0 0" Background="#d9d9d9d9"
-                 FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                 FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+				Text="{Binding Name}"/>
                 </StackPanel>
 
                 <!--Khối lớp-->
@@ -39,9 +40,14 @@
                     <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
                     VerticalAlignment="Center" Width="80"/>
 
-                    <ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
+					<ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
                   Margin="20 0 0 0" Background="#d9d9d9d9"
-                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text ="{Binding GradeId}">
+						<ComboBoxItem Content="10"/>
+						<ComboBoxItem Content="11"/>
+						<ComboBoxItem Content="12"/>
+					</ComboBox>
+					
                 </StackPanel>
 
                 <!--Sĩ số-->
@@ -50,7 +56,7 @@
            VerticalAlignment="Center" Width="80"/>
 
                     <TextBox x:Name="tbNumber" FontSize="15" Width="70" Height="30"
-          Margin="20 0 0 0" Background="#d9d9d9d9"
+          Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding Capacity}"
           FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
@@ -59,9 +65,13 @@
                     <TextBlock Text="Năm học:" Style="{StaticResource font_style}"
            VerticalAlignment="Center" Width="80"/>
 
-                    <ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
+					<ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
                   Margin="20 0 0 0" Background="#d9d9d9d9"
-                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+						<ComboBoxItem Content="2022-2023"/>
+						<ComboBoxItem Content="2023-2024"/>
+						<ComboBoxItem Content="2024-2025"/>						
+					</ComboBox>
                 </StackPanel>
 
                 <!--Giáo viên chủ nhiệm-->
@@ -70,7 +80,7 @@
                             VerticalAlignment="Center" Width="80"/>
 
                     <ComboBox x:Name="cbTeacher" FontSize="15" Width="200" Height="30"
-                  Margin="20 0 0 0" Background="#d9d9d9d9"
+                  Margin="20 0 0 0" Background="#d9d9d9d9" Text="{Binding TeacherInChargeId}"
                   FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
@@ -81,11 +91,11 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
             <!--button thêm-->
             <Button x:Name="btnSua" Content="Đồng ý" Style="{StaticResource btnStyle}"
-                Command="{Binding Edit}"
+                Command="{Binding SubmitCommand}"
                 Width="118" Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}"
-                Command="{Binding Cancel}"
+                Command="{Binding CancelCommand}"
                 Width="118" Margin="10 0 50 0" Background="#93A7BF" BorderBrush="Transparent"/>
         </StackPanel>
     </Grid>

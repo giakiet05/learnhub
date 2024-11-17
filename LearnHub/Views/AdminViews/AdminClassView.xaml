@@ -27,7 +27,7 @@
                         Style="{StaticResource btnStyle}"/>
 
                 <Button x:Name="btnKhoiLop" Content="Khối lớp"  
-                        Command="{Binding Grade}"
+                        Command="{Binding SwitchToGradeCommand}"
                         BorderBrush="#5CB3FF" Background="White"
                         Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                         Style="{StaticResource btnStyle}"/>
@@ -36,17 +36,17 @@
             <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
                 <!--nút thêm lớp học mới-->
                 <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
-                        Command="{Binding Add}"
+                        Command="{Binding ShowAddModalCommand}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
                 <!--nút xoá lớp học đã chọn-->
                 <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
-                        Command="{Binding Delete}"
+                        Command="{Binding ShowDeleteModalCommand}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
                 <!--nút sửa lớp học đã chọn-->
                 <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
-                        Command="{Binding Edit}"
+                        Command="{Binding ShowEditModalCommand}"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
             </StackPanel>
@@ -60,7 +60,8 @@
                       IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       PreviewMouseLeftButtonDown="LopDG_PreviewMouseLeftButtonDown"
-                      ItemsSource="{Binding Classrooms}">
+                      ItemsSource="{Binding Classrooms}"
+					  SelectedItem="{Binding SelectedClassroom, Mode=TwoWay}">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                         <Setter Property="BorderThickness" Value="0"/>

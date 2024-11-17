@@ -1,13 +1,9 @@
-﻿
-using LearnHub.Commands;
+﻿using LearnHub.Commands;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
+using LearnHub.Stores.AdminStores;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -26,7 +22,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             GradeDetailsFormViewModel = new GradeDetailsFormViewModel(submitCommand, cancelCommand);
         }
 
-        // The logic for adding a student, now in the RelayCommand
+        // The logic for adding a grade, now in the RelayCommand
         private async void ExecuteSubmit()
         {
             var formViewModel = GradeDetailsFormViewModel;
@@ -48,8 +44,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 await GenericDataService<Grade>.Instance.Create(newGrade);
 
-                // Update the store with the new student
-                GradeStore.Instance.AddGrade(newGrade);
+                // Update the generic store with the new grade
+                GenericStore<Grade>.Instance.Add(newGrade);
 
                 ModalNavigationStore.Instance.Close();
             }
@@ -58,8 +54,5 @@ namespace LearnHub.ViewModels.AdminViewModels
                 MessageBox.Show("Tạo thất bại");
             }
         }
-
-
     }
-
 }

@@ -90,6 +90,7 @@
             <!--datagrid để hiển thị list môn học và giáo viên để chọn-->
             <DataGrid Grid.Row="1" x:Name="PhanCongDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                         CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
+                      ItemsSource="{Binding TeachingAssignments}"
                       PreviewMouseLeftButtonDown="PhanCongDG_PreviewMouseLeftButtonDown">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -98,10 +99,10 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã môn học"/>
-                    <DataGridTextColumn Header="Tên môn học"/>
-                    <DataGridTextColumn Header="Mã giáo viên"/>
-                    <DataGridTextColumn Header="Tên giáo viên"/>
+                    <DataGridTextColumn Header="Mã môn học" Binding="{Binding SubjectId}"/>
+                    <DataGridTextColumn Header="Tên môn học" Binding="{Binding SubjectName}"/>
+                    <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding TeacherId}" />
+                    <DataGridTextColumn Header="Tên giáo viên" Binding="{Binding TeacherName}"/>
                 </DataGrid.Columns>
             </DataGrid>
             

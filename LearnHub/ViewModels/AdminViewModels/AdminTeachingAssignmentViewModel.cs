@@ -1,13 +1,10 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Models;
 using LearnHub.Services;
-using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LearnHub.ViewModels;
+using LearnHub.ViewModels.AdminViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.Windows;
 using System.Windows.Input;
 
@@ -15,80 +12,168 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminTeachingAssignmentViewModel : BaseViewModel
     {
-        private readonly GenericStore<TeachingAssignment> _teachingAssignmentStore; // Field lưu trữ Store
+        private readonly GenericStore<TeachingAssignment> _teachingAssignmentStore;
+        private readonly GenericStore<Classroom> _classroomStore;
 
-        public IEnumerable<TeachingAssignment> TeachingAssignments => _teachingAssignmentStore.Items; // Binding vào view
+        public IEnumerable<Grade> Grades { get; private set; }
+        public IEnumerable<AcademicYear> Years { get; private set; }
+        public IEnumerable<Classroom> Classrooms { get; private set; }
+
+        public IEnumerable<TeachingAssignment> TeachingAssignments => _teachingAssignmentStore.Items;
 
         private TeachingAssignment _selectedTeachingAssignment;
-        public TeachingAssignment SelectedTeachingAssignment // Binding vào view
+        public TeachingAssignment SelectedTeachingAssignment
         {
             get => _selectedTeachingAssignment;
             set
             {
                 _selectedTeachingAssignment = value;
-                _teachingAssignmentStore.SelectedItem = value; // Đồng bộ với Store
+                _teachingAssignmentStore.SelectedItem = value;
+                OnPropertyChanged(nameof(SelectedTeachingAssignment));
             }
         }
 
-        public ICommand ShowAddModalCommand { get; }
-        public ICommand ShowEditModalCommand { get; }
-        public ICommand ShowDeleteModalCommand { get; }
+        private Grade _selectedGrade;
+        public Grade SelectedGrade
+        {
+            get => _selectedGrade;
+            set
+            {
+                _selectedGrade = value;
+                OnPropertyChanged(nameof(SelectedGrade));
+                LoadClassrooms();
+            }
+        }
+
+        private AcademicYear _selectedYear;
+        public AcademicYear SelectedYear
+        {
+            get => _selectedYear;
+            set
+            {
+                _selectedYear = value;
+                OnPropertyChanged(nameof(SelectedYear));
+                LoadClassrooms();
+            }
+        }
+
+        private Classroom _selectedClassroom;
+        public Classroom SelectedClassroom
+        {
+            get => _selectedClassroom;
+            set
+            {
+                _selectedClassroom = value;
+                _classroomStore.SelectedItem = value;
+                OnPropertyChanged(nameof(SelectedClassroom));
+                LoadTeachingAssignments();
+                UpdateModalCommands(); // Cập nhật lệnh khi SelectedClassroom thay đổi
+            }
+        }
+
+        public ICommand ShowAddModalCommand { get; private set; }
+        public ICommand ShowEditModalCommand { get; private set; }
+        public ICommand ShowDeleteModalCommand { get; private set; }
         public ICommand SwitchToTeacherCommand { get; }
 
         public AdminTeachingAssignmentViewModel()
         {
-            _teachingAssignmentStore = GenericStore<TeachingAssignment>.Instance; // Khởi tạo Store
+            _teachingAssignmentStore = GenericStore<TeachingAssignment>.Instance;
+            _classroomStore = GenericStore<Classroom>.Instance;
 
-
-            // Các command cho viewmodel
-            //ShowDeleteModalCommand = new NavigateModalCommand(
-            //    () => new DeleteConfirmViewModel(DeleteTeachingAssignment),
-            //    () => _selectedTeachingAssignment != null,
-            //    "Chưa chọn khối để xóa"
-            //);
-            ShowAddModalCommand = new NavigateModalCommand(() => new AddTeachingAssignmentViewModel());
-            ShowEditModalCommand = new NavigateModalCommand(
-                () => new EditTeachingAssignmentViewModel(),
-                () => _selectedTeachingAssignment != null,
-                "Chưa chọn khối để sửa"
-            );
             SwitchToTeacherCommand = new NavigateLayoutCommand(() => new AdminTeacherViewModel());
-            LoadTeachingAssignmentsAsync(); // Nạp dữ liệu ban đầu
+
+            LoadGrades();
+            LoadYears();
+            UpdateModalCommands(); // Khởi tạo lệnh khi tạo ViewModel
         }
 
-        private async void LoadTeachingAssignmentsAsync()
+        private void DeleteTeachingAssignment()
         {
-            try
-            {
-                var teachingAssignments = await GenericDataService<TeachingAssignment>.Instance.GetAll();
-                _teachingAssignmentStore.Load(teachingAssignments); // Load dữ liệu vào Store
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Lỗi khi tải dữ liệu khối");
-            }
+            MessageBox.Show("Đã xóa phân công giảng dạy.");
         }
 
-        //private async void DeleteTeachingAssignment()
-        //{
-        //    var selectedTeachingAssignment = _teachingAssignmentStore.SelectedItem;
+        //chỉ mở model nếu đã chọn lớp
+        private void UpdateModalCommands()
+        {
+            if (SelectedClassroom != null)
+            {
+                ShowAddModalCommand = new NavigateModalCommand(() => new AddTeachingAssignmentViewModel());
+                ShowEditModalCommand = new NavigateModalCommand(
+                    () => new EditTeachingAssignmentViewModel(),
+                    () => SelectedTeachingAssignment != null,
+                    "Chưa chọn phân công để sửa"
+                );
+                ShowDeleteModalCommand = new NavigateModalCommand(
+                    () => new DeleteConfirmViewModel(DeleteTeachingAssignment),
+                    () => SelectedTeachingAssignment != null,
+                    "Chưa chọn phân công để xóa"
+                );
+            }
+            else
+            {
+                ShowAddModalCommand = new RelayCommand(
+                    _ => MessageBox.Show("Chưa chọn lớp.")
+                );
+                ShowEditModalCommand = new RelayCommand(
+                    _ => MessageBox.Show("Chưa chọn lớp.")
+                );
+                ShowDeleteModalCommand = new RelayCommand(
+                    _ => MessageBox.Show("Chưa chọn lớp.")
+                );
+            }
 
-        //    if (selectedTeachingAssignment == null)
-        //    {
-        //        MessageBox.Show("Chưa chọn khối để xóa");
-        //        return;
-        //    }
+            // Gọi OnPropertyChanged để giao diện cập nhật lệnh
+            OnPropertyChanged(nameof(ShowAddModalCommand));
+            OnPropertyChanged(nameof(ShowEditModalCommand));
+            OnPropertyChanged(nameof(ShowDeleteModalCommand));
+        }
 
-        //    try
-        //    {
-        //        await GenericDataService<TeachingAssignment>.Instance.DeleteOne(() => true);
-        //        _teachingAssignmentStore.Delete(g => g.Id == selectedTeachingAssignment.Id); // Xóa khối trong Store
-        //        ModalNavigationStore.Instance.Close();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        MessageBox.Show("Xóa thất bại");
-        //    }
-        //}
+        private async void LoadGrades()
+        {
+            Grades = await GenericDataService<Grade>.Instance.GetAll();
+            OnPropertyChanged(nameof(Grades));
+        }
+
+        private async void LoadYears()
+        {
+            Years = await GenericDataService<AcademicYear>.Instance.GetAll();
+            OnPropertyChanged(nameof(Years));
+        }
+
+        private async void LoadClassrooms()
+        {
+            if (SelectedGrade == null || SelectedYear == null)
+            {
+                Classrooms = Enumerable.Empty<Classroom>();
+            }
+            else
+            {
+                Classrooms = await GenericDataService<Classroom>.Instance.GetMany(
+                    e => e.GradeId == SelectedGrade.Id && e.AcademicYear.Id == SelectedYear.Id
+                );
+            }
+            OnPropertyChanged(nameof(Classrooms));
+        }
+
+        private async void LoadTeachingAssignments()
+        {
+            if (SelectedClassroom == null)
+            {
+                _teachingAssignmentStore.Load(Enumerable.Empty<TeachingAssignment>());
+            }
+            else
+            {
+                //lấy ra các teaching assignment kèm theo teacher và subject vì ef không tự động load những navigation prop này
+                var teachingAssignments = await GenericDataService<TeachingAssignment>.Instance.GetMany(
+                    e => e.Classroom.Id == SelectedClassroom.Id,
+                    include: query => query.Include(t => t.Teacher) // Tải Teacher
+                           .Include(t => t.Subject) // Tải Subject nếu cần
+                );
+                _teachingAssignmentStore.Load(teachingAssignments);
+            }
+            OnPropertyChanged(nameof(TeachingAssignments));
+        }
     }
+
 }

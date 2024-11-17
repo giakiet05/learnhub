@@ -17,6 +17,6 @@
            HorizontalAlignment="Left" VerticalAlignment="Center"
            FontSize="30" Margin="10 0 0 0"/>
 
-        <components:AssignmentTeacherDetailsForm Grid.Row="1"/>
+        <components:AssignmentTeacherDetailsForm Grid.Row="1" DataContext="{Binding TeachingAssignmentDetailsFormViewModel}"/>
     </Grid>
 </UserControl>

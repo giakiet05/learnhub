@@ -18,7 +18,7 @@ namespace LearnHub.Views.AdminViews
     /// <summary>
     /// Interaction logic for AdminSubjectView.xaml
     /// </summary>
-    public partial class AdminSubjectView : Page
+    public partial class AdminSubjectView : UserControl
     {
         public AdminSubjectView()
         {

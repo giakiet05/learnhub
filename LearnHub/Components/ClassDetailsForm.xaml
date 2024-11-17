@@ -43,10 +43,9 @@
 					<ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
                   Margin="20 0 0 0" Background="#d9d9d9d9"
                   FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text ="{Binding GradeId}">
-						<ComboBoxItem Content="10"></ComboBoxItem>
-						<ComboBoxItem Content="11"></ComboBoxItem>
-						<ComboBoxItem Content="12"></ComboBoxItem>
-						
+						<ComboBoxItem Content="10"/>
+						<ComboBoxItem Content="11"/>
+						<ComboBoxItem Content="12"/>
 					</ComboBox>
 					
                 </StackPanel>
@@ -66,9 +65,13 @@
                     <TextBlock Text="Năm học:" Style="{StaticResource font_style}"
            VerticalAlignment="Center" Width="80"/>
 
-                    <ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
+					<ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
                   Margin="20 0 0 0" Background="#d9d9d9d9"
-                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+						<ComboBoxItem Content="2022-2023"/>
+						<ComboBoxItem Content="2023-2024"/>
+						<ComboBoxItem Content="2024-2025"/>						
+					</ComboBox>
                 </StackPanel>
 
                 <!--Giáo viên chủ nhiệm-->

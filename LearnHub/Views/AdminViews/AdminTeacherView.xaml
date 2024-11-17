@@ -60,7 +60,7 @@
                       ItemsSource="{Binding Teachers}"
                       PreviewMouseLeftButtonDown="GiaoVienDG_PreviewMouseLeftButtonDown"
                       SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
-                        CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
+                      CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                         <Setter Property="BorderThickness" Value="0"/>

@@ -57,9 +57,9 @@
         <Grid Grid.Row="1">
             <!--datagrid để hiển thị list học sinh-->
             <DataGrid x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
+                      CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       ItemsSource="{Binding Students}"
-                       SelectedItem="{Binding SelectedStudent, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedStudent, Mode=TwoWay}"
                       IsReadOnly="True" 
                       PreviewMouseLeftButtonDown="HocSinhDG_PreviewMouseLeftButtonDown"
                       SelectionUnit="FullRow" 

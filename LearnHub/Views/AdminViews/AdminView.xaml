@@ -15,7 +15,7 @@
         <!--Menubar grid-->
         <Grid Grid.Column="0" Background="#7ec4ed">
 
-            <StackPanel Width="55" x:Name="menubar_pnl">
+            <StackPanel Width="140" x:Name="menubar_pnl">
 
                 <!--Menu button-->
                 <Grid Height="50">
@@ -37,6 +37,7 @@
                                   Margin="2 0 0 0"
                                   Height="50"
                                   Width="50"
+                                  IsChecked="True"
                                   BorderThickness="0"
                                   Style="{StaticResource tb_style}">
 
@@ -124,7 +125,7 @@
                         <RadioButton FontSize="30"
                                      Command="{Binding CalendarCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Content="Lịch">
+                                     Content="Lịch thi">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/calendar.png" />
                             </RadioButton.Tag>

@@ -33,6 +33,13 @@
         </DataGrid>
         
         <!--stackpanel các nút chức năng-->
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Thông báo" IsEnabled="False"
+                    BorderBrush="#5CB3FF" Background="#5CB3FF"
+                    Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                    Style="{StaticResource btnStyle}"/>
+        </StackPanel>
+
         <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
             <!--nút thêm thông báo mới-->
             <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"

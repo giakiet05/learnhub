@@ -68,9 +68,15 @@
                     </StackPanel>
                     
                     <!--danh sách lớp của khối ở năm học đã chọn-->
-                    <DataGrid Grid.Row="1" x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
-                              Margin="5">
+                    <DataGrid Grid.Row="1" x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
+                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
+                              Margin="5" PreviewMouseLeftButtonDown="LopDG_PreviewMouseLeftButtonDown">
+                        <DataGrid.CellStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            </Style>
+                        </DataGrid.CellStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã lớp"/>
                             <DataGridTextColumn Header="Tên lớp"/>
@@ -109,9 +115,15 @@
                     
                     
                     <!--danh sách học sinh của lớp đã chọn-->
-                    <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
-                              Margin="5">
+                    <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
+                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
+                              Margin="5" PreviewMouseLeftButtonDown="HocSinhDG_PreviewMouseLeftButtonDown">
+                        <DataGrid.CellStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            </Style>
+                        </DataGrid.CellStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã học sinh"/>
                             <DataGridTextColumn Header="Họ tên"/>

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LearnHub.Components"
+             xmlns:local="clr-namespace:LearnHub.Components" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -37,16 +38,17 @@
                 <!--Giờ-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Giờ:" Style="{StaticResource font_style}"
-                   VerticalAlignment="Center" Width="80"/>
+                                VerticalAlignment="Center" Width="80"/>
 
-                    <TextBox x:Name="tbTime" FontSize="15" Width="100" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
-                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                    <materialDesign:TimePicker Is24Hours="True"
+                                               Margin="20 0 0 0"
+                                               x:Name="PresetTimePicker"
+                                               Width="100" />
                 </StackPanel>
 
                 <!--Phòng học-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Phòng học:" Style="{StaticResource font_style}"
+                    <TextBlock Text="Phòng thi:" Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="80"/>
 
                     <ComboBox x:Name="cbRoom" FontSize="15" Width="100" Height="30"

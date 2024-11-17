@@ -12,7 +12,6 @@ using LearnHub.Stores;
 using System.Windows;
 using LearnHub.Stores.AdminStores;
 
-
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminClassViewModel : BaseViewModel

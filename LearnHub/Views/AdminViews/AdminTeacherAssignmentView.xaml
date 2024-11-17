@@ -21,7 +21,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnGiaoVien" Content="Giáo viên" 
-                        Command="{Binding Teacher}"
+                        Command="{Binding SwitchToTeacherCommand}"
                         BorderBrush="#5CB3FF" Background="#ffffff"
                         Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                         Style="{StaticResource btnStyle}"/>
@@ -66,6 +66,9 @@
                     <TextBlock Text="Năm học: " Style="{StaticResource font_style}"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="cbNamHoc" Width="100" Height="30"  FontSize="15"
+                                ItemsSource="{Binding Years}"
+                              SelectedItem="{Binding SelectedYear}"
+                                 DisplayMemberPath="Name"
                               Margin="10 0 0 0" Background="#d9d9d9d9"/>
                 </StackPanel>
                 
@@ -74,6 +77,9 @@
                     <TextBlock Text="Khối lớp: " Style="{StaticResource font_style}"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="cbKhoiLop" Width="100" Height="30"  FontSize="15"
+                              ItemsSource="{Binding Grades}"
+                              SelectedItem="{Binding SelectedGrade}"
+                              DisplayMemberPath="Name"
                               Margin="10 0 0 0" Background="#d9d9d9d9"/>
                 </StackPanel>
                 
@@ -82,6 +88,9 @@
                     <TextBlock Text="Lớp: " Style="{StaticResource font_style}"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="cbLop" Width="100" Height="30"  FontSize="15"
+                                ItemsSource="{Binding Classrooms}"
+                              SelectedItem="{Binding SelectedClassroom}"
+                                DisplayMemberPath="Name"
                               Margin="10 0 0 0" Background="#d9d9d9d9"/>
                 </StackPanel>
 
@@ -91,6 +100,7 @@
             <DataGrid Grid.Row="1" x:Name="PhanCongDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                         CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       ItemsSource="{Binding TeachingAssignments}"
+                      SelectedItem="{Binding SelectedTeachingAssignment}"
                       PreviewMouseLeftButtonDown="PhanCongDG_PreviewMouseLeftButtonDown">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -99,10 +109,10 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã môn học" Binding="{Binding SubjectId}"/>
-                    <DataGridTextColumn Header="Tên môn học" Binding="{Binding SubjectName}"/>
-                    <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding TeacherId}" />
-                    <DataGridTextColumn Header="Tên giáo viên" Binding="{Binding TeacherName}"/>
+                    <DataGridTextColumn Header="Mã môn học" Binding="{Binding Subject.Id}"/>
+                    <DataGridTextColumn Header="Tên môn học" Binding="{Binding Subject.Name}"/>
+                    <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Teacher.Id}" />
+                    <DataGridTextColumn Header="Tên giáo viên" Binding="{Binding Teacher.FullName}"/>
                 </DataGrid.Columns>
             </DataGrid>
             

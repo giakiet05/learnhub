@@ -92,7 +92,10 @@
         <adminviews:EditClassView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditTeachingAssignmentViewModel}">
-        <adminviews:EditTeacherView/>
+
+        <adminviews:EditTeacherAssignmentView/>
+
+
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditSchoolYearViewModel}">
         <adminviews:EditSchoolYearView/>

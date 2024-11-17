@@ -12,7 +12,6 @@ using LearnHub.Stores;
 using System.Windows;
 using LearnHub.Stores.AdminStores;
 
-
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminClassViewModel : BaseViewModel
@@ -77,7 +76,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
                 {
-                    await GenericDataService<Classroom>.Instance.DeleteById(selectedClassroom.Id);
+                    await GenericDataService<Classroom>.Instance.DeleteOne(e => e.Id == selectedClassroom.Id);
 
                     _classroomStore.Delete(classroom => classroom.Id == selectedClassroom.Id); // Xóa từ GenericStore
 

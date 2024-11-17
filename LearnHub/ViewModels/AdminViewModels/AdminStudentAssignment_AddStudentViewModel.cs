@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
-   public class AddTeacherAssignmentViewModel : BaseViewModel
+   public class AdminStudentAssignment_AddStudentViewModel : BaseViewModel
     {
     }
 }

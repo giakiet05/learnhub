@@ -3,22 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:WindowChrome="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:local="clr-namespace:LearnHub" 
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:waitvm="clr-namespace:LearnHub.ViewModels.WaitingViewModels"  
-        xmlns:authvm="clr-namespace:LearnHub.ViewModels.AuthenticationViewModels"  
-        xmlns:adminvm="clr-namespace:LearnHub.ViewModels.AdminViewModels"
         xmlns:components="clr-namespace:LearnHub.Components" 
-        xmlns:waitingviews="clr-namespace:LearnHub.Views.WaitingViews"
-        xmlns:authviews="clr-namespace:LearnHub.Views.AuthenticationViews"
-        xmlns:adminviews="clr-namespace:LearnHub.Views.AdminViews" xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
+        xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
         mc:Ignorable="d"
         Title="LearnHub" Height="700" Width="1250"
         Icon="/Resource/Icons/appIcon.png"
         ResizeMode="NoResize"
         WindowStyle="None"
         Background="Transparent"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
+        MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}">
 
     <Grid>
 

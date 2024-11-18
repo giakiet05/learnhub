@@ -13,13 +13,5 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AddNotificationViewModel : BaseViewModel
     {
-        public NotificationDetailsForm NotificationDetailsForm { get; }
-        public AddNotificationViewModel()
-        {
-            ICommand submitCommand = new RelayCommand(ExecuteSubmit);
-            ICommand cancelCommand = new CancelCommand();
-
-            StudentDetailsFormViewModel = new StudentDetailsFormViewModel(submitCommand, cancelCommand);
-        }
     }
 }

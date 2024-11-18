@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Components" 
              xmlns:viewmodels="clr-namespace:LearnHub.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" d:DesignWidth="800"
              Name="CustomControlbar">
@@ -43,6 +44,11 @@
                 <Button x:Name="btnMinimize" Content="-" FontSize="20"
                         Style="{StaticResource btnControlBarStyle}"
                         Command="{Binding MinimizeCommand}"
+                        CommandParameter="{Binding ElementName=CustomControlbar}"/>
+
+                <Button x:Name="btnMaximize" Content="🗖"
+                        Style="{StaticResource btnControlBarStyle}"
+                        Command="{Binding MaximizeCommand}"
                         CommandParameter="{Binding ElementName=CustomControlbar}"/>
 
                 <Button x:Name="btnClose" Content="X"

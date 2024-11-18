@@ -8,7 +8,7 @@
              xmlns:waitingviewmodels="clr-namespace:LearnHub.ViewModels.WaitingViewModels"
              xmlns:Menu="clr-namespace:LearnHub.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="1000">
+             d:DesignHeight="700" d:DesignWidth="1250">
     
 
     <Grid Background="#FFF7F7">
@@ -18,9 +18,15 @@
         </Grid.ColumnDefinitions>
 
         <!--Menubar grid-->
-        <Grid Grid.Column="0" Background="#7ec4ed">
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#7ec4ed" Offset="0.0" />
+                    <GradientStop Color="#8aebbf" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
 
-            <StackPanel Width="140" x:Name="menubar_pnl">
+            <StackPanel Width="160" x:Name="menubar_pnl">
 
                 <!--Menu button-->
                 <Grid Height="50">
@@ -56,7 +62,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
                                                          Storyboard.TargetProperty="Width"
-                                                         From="140" To="55"
+                                                         From="160" To="55"
                                                          Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -66,7 +72,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
                                                          Storyboard.TargetProperty="Width"
-                                                         From="55" To="140"
+                                                         From="55" To="160"
                                                          Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -94,7 +100,7 @@
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Account Items-->
-                <Grid>
+                <Grid VerticalAlignment="Center">
                     <StackPanel>
                         <!--Login button-->
                         <RadioButton IsChecked="False"

@@ -9,7 +9,6 @@ namespace LearnHub.Models
 {
     public class StudentPlacement
     {
-        [ForeignKey("AcademicYear")]
         public string ClassroomId { get; set; }
         public string StudentId { get; set; }
 

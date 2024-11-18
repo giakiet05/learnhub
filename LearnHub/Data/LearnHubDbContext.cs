@@ -35,7 +35,7 @@ namespace LearnHub.Data
         {
 
             //Composite keys
-            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId });
+            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId, e.ExamType });
             modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.TeacherId });
             modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentId });
             modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId });

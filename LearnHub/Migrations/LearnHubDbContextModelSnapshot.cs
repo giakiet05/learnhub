@@ -336,13 +336,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("TeacherId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("EndTime")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Period")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("StartTime")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Weekday")
@@ -354,10 +348,7 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("TeachingAssignments", t =>
-                        {
-                            t.HasCheckConstraint("CK_TeachingAssignment_Time", "[StartTime] < [EndTime]");
-                        });
+                    b.ToTable("TeachingAssignments");
                 });
 
             modelBuilder.Entity("LearnHub.Models.User", b =>

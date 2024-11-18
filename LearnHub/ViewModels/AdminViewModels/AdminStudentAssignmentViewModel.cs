@@ -11,12 +11,13 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminStudentAssignmentViewModel : BaseViewModel
     {
-        public ICommand Student { get; }
-        public ICommand Add {  get; }
-        public ICommand Delete { get; }
+        public ICommand SwitchToStudentCommand { get; }
+        public ICommand ShowAddModalCommand { get; private set; }
+        public ICommand ShowEditModalCommand { get; private set; }
+        public ICommand ShowDeleteModalCommand { get; private set; }
         public AdminStudentAssignmentViewModel()
         {
-            Student = new NavigateLayoutCommand(()=> new AdminStudentViewModel());
+            SwitchToStudentCommand = new NavigateLayoutCommand(()=> new AdminStudentViewModel());
             
         }
     }

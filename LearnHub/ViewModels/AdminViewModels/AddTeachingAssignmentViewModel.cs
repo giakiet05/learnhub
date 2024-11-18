@@ -52,8 +52,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                 ClassroomId = _classroomStore.SelectedItem.Id,
                 SubjectId = formViewModel.SelectedSubject.Id,
                 TeacherId = formViewModel.SelectedTeacher.Id,
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now
+                Weekday = formViewModel.SelectedWeekday,
+                Period = formViewModel.SelectedPeriod
             };
 
             try

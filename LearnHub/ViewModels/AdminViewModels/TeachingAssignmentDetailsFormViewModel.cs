@@ -43,6 +43,33 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             }
         }
+        private string _selectedWeekday;
+        public string SelectedWeekday
+        {
+            get
+            {
+                return _selectedWeekday;
+            }
+            set
+            {
+                _selectedWeekday = value;
+                OnPropertyChanged(nameof(SelectedWeekday));
+            }
+        }
+
+        private string _selectedPeriod;
+        public string SelectedPeriod
+        {
+            get
+            {
+                return _selectedPeriod;
+            }
+            set
+            {
+                _selectedPeriod = value;
+                OnPropertyChanged(nameof(SelectedPeriod));
+            }
+        }
 
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }

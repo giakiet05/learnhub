@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnHocSinh" Content="Học sinh"
-                        Command="{Binding Student}"
+                        Command="{Binding SwitchToStudentCommand}"
                         BorderBrush="#5CB3FF" Background="#ffffff"
                         Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                         Style="{StaticResource btnStyle}"/>
@@ -58,6 +58,7 @@
                         <TextBlock Text="Năm: " VerticalAlignment="Center"
                                    FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                         <ComboBox x:Name="cbNam" Width="100" Height="30" FontSize="13"
+                                  
                                   Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                         
                         <!--chọn khối-->

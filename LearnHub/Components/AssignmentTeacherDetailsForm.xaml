@@ -42,6 +42,44 @@
                               SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                               FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
+                
+                <!--Thứ-->
+                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                    <TextBlock Text="Thứ: " Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" Width="100"/>
+
+                    <ComboBox FontSize="15" Width="200" Height="30"
+                              Margin="20 0 0 0" Background="#d9d9d9d9"  
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+                        <ComboBoxItem Content="Thứ 2"/>
+                        <ComboBoxItem Content="Thứ 3"/>
+                        <ComboBoxItem Content="Thứ 4"/>
+                        <ComboBoxItem Content="Thứ 5"/>
+                        <ComboBoxItem Content="Thứ 6"/>
+                        <ComboBoxItem Content="Thứ 7"/>
+                    </ComboBox>
+                </StackPanel>
+                
+                <!--Tiết-->
+                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                    <TextBlock Text="Tiết: " Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" Width="100"/>
+
+                    <ComboBox FontSize="15" Width="200" Height="30"
+                              Margin="20 0 0 0" Background="#d9d9d9d9"  
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+                        <ComboBoxItem Content="Tiết 1"/>
+                        <ComboBoxItem Content="Tiết 2"/>
+                        <ComboBoxItem Content="Tiết 3"/>
+                        <ComboBoxItem Content="Tiết 4"/>
+                        <ComboBoxItem Content="Tiết 5"/>
+                        <ComboBoxItem Content="Tiết 6"/>
+                        <ComboBoxItem Content="Tiết 7"/>
+                        <ComboBoxItem Content="Tiết 8"/>
+                        <ComboBoxItem Content="Tiết 9"/>
+                        <ComboBoxItem Content="Tiết 10"/>
+                    </ComboBox>
+                </StackPanel>
             </StackPanel>
         </Border>
 

@@ -16,6 +16,9 @@ namespace LearnHub.Models
         public string TeacherId { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
+
+        public string? WeekDay { get; set; }
+        public string? Period { get; set; }
         //Navigation Properties
         public Classroom Classroom { get; set; }
         public Subject Subject { get; set; }

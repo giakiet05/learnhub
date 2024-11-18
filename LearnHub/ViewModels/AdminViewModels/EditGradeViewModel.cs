@@ -50,7 +50,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             var selectedGrade =_gradeStore.SelectedItem;
 
             // Cập nhật thông tin của selected dựa vào thông tin từ form
-            selectedGrade.Id = formViewModel.Id;
+            //selectedGrade.Id = formViewModel.Id;
             selectedGrade.Name = formViewModel.Name;
 
             try

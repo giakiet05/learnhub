@@ -12,10 +12,8 @@ using System.Windows.Input;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
-    public class TeachingAssignmentDetailsFormViewModel : BaseViewModel
+    public class CalendarDetailsFormViewModel : BaseViewModel
     {
-
-        public IEnumerable<Teacher> Teachers { get; private set; }
         public IEnumerable<Subject> Subjects { get; private set; }
 
         private Subject _selectedSubject;
@@ -31,22 +29,68 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
         }
 
-        private Teacher _selectedTeacher;
-        public Teacher SelectedTeacher
+        private TimeOnly _examTime;
+        public TimeOnly ExamTime
         {
-            get => _selectedTeacher;
+            get
+            {
+                return _examTime;
+            }
             set
             {
-                _selectedTeacher = value;
-                //GenericStore<Teacher>.Instance.SelectedItem = _selectedTeacher;
-                OnPropertyChanged(nameof(SelectedTeacher));
+                _examTime = value;
+                //MessageBox.Show(value.ToString());
+                OnPropertyChanged(nameof(ExamTime));
+            }
+        }
 
+        private DateTime _examDay = new DateTime(2024, 1,1);
+        public DateTime ExamDay
+        {
+            get
+            {
+                return _examDay;
+            }
+            set
+            {
+                _examDay = value;
+               // MessageBox.Show(_examDay.ToString());
+                OnPropertyChanged(nameof(ExamDay));
+            }
+        }
+
+        private string _examRoom;
+        public string ExamRoom
+        {
+            get
+            {
+                return _examRoom;
+            }
+            set
+            {
+                _examRoom = value;
+               
+                OnPropertyChanged(nameof(ExamRoom));
+            }
+        }
+
+        private bool _isEnable = true;
+        public bool IsEnable
+        {
+            get
+            {
+                return _isEnable;
+            }
+            set
+            {
+                _isEnable = value;
+                OnPropertyChanged(nameof(IsEnable));
             }
         }
 
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
-        public TeachingAssignmentDetailsFormViewModel(
+        public CalendarDetailsFormViewModel(
             ICommand submitCommand,
             ICommand cancelCommand)
         {
@@ -54,7 +98,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
             LoadSubjects();
-            LoadTeachers();
+          
 
         }
 
@@ -66,10 +110,6 @@ namespace LearnHub.ViewModels.AdminViewModels
             OnPropertyChanged(nameof(Subjects));
         }
 
-        private async void LoadTeachers()
-        {
-            Teachers = await GenericDataService<Teacher>.Instance.GetAll();
-            OnPropertyChanged(nameof(Teachers));
-        }
+    
     }
 }

@@ -18,7 +18,7 @@ namespace LearnHub.Models
         public string? ClassroomId { get; set; }
 
         public string? Content { get; set; }
-        public DateTime? PublishDate { get; set; }
+        public DateTime? PublishDate { get; set; } = DateTime.Now;
 
         //Navigation Properties
         public Classroom Classroom { get; set; }

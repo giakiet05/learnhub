@@ -18,14 +18,17 @@
               Style="{StaticResource MaterialDesignCardGroupBox}"
               BorderBrush="#007ACC" BorderThickness="1">
             <Grid>
-                <ListView SelectionMode="Multiple" ItemsSource="{Binding UnassignedStudents}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Mã học sinh" DisplayMemberBinding="{Binding Id}"/>
-                            <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding FullName}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <ScrollViewer>
+                    <ListView SelectionMode="Multiple" MaxHeight="300"
+                              ItemsSource="{Binding UnassignedStudents}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã học sinh" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding FullName}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
             </Grid>
         </GroupBox>
 

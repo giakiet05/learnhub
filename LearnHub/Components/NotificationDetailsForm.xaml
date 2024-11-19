@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
         <!--hộp thông tin thông báo-->
         <Border Grid.Row="0" Background="#87C5FC" Margin="15" CornerRadius="10">
@@ -54,12 +54,12 @@
             <!--button thêm-->
             <Button x:Name="btnThem" Content="Đồng ý" Style="{StaticResource btnStyle}"
                     Width="118" Command="{Binding AddCommand}"
-                    Margin="10 0 10 30" Background="#87C5FC" BorderBrush="Transparent"/>
+                    Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
 
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}"
                     Command="{Binding CancelCommand}" Width="118"
-                    Margin="10 0 50 30" Background="#93A7BF" BorderBrush="Transparent"/>
+                    Margin="10 0 30 0" Background="#93A7BF" BorderBrush="Transparent"/>
         </StackPanel>
     </Grid>
 </UserControl>

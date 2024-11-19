@@ -113,8 +113,8 @@
                     <DataGridTextColumn Header="Tên môn học" Binding="{Binding Subject.Name}"/>
                     <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Teacher.Id}" />
                     <DataGridTextColumn Header="Tên giáo viên" Binding="{Binding Teacher.FullName}"/>
-                    <DataGridTextColumn Header="Thứ" />
-                    <DataGridTextColumn Header="Tiết" />
+                    <DataGridTextColumn Header="Thứ" Binding="{Binding Weekday}"/>
+                    <DataGridTextColumn Header="Tiết" Binding="{Binding Period}"/>
                 </DataGrid.Columns>
             </DataGrid>
             

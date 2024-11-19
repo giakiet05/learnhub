@@ -209,6 +209,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             OnPropertyChanged(nameof(Years));
         }
 
+        //load classroom để trong combo box, nên không cần store
         private async void LoadClassrooms()
         {
             if (SelectedGrade == null || SelectedYear == null)
@@ -224,6 +225,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             OnPropertyChanged(nameof(Classrooms));
         }
 
+        //load exam schedule ra danh sách, nên cần dùng store
         private async void LoadExamSchedules()
         {
             if (SelectedClassroom == null || SelectedSemester == null || SelectedExamType == null)

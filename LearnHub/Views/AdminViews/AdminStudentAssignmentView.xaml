@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnHocSinh" Content="Học sinh"
-                        Command="{Binding Student}"
+                        Command="{Binding SwitchToStudentCommand}"
                         BorderBrush="#5CB3FF" Background="#ffffff"
                         Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
                         Style="{StaticResource btnStyle}"/>
@@ -58,18 +58,26 @@
                         <TextBlock Text="Năm: " VerticalAlignment="Center"
                                    FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                         <ComboBox x:Name="cbNam" Width="100" Height="30" FontSize="13"
+                                 ItemsSource="{Binding Years}"
+                                 DisplayMemberPath="Name" 
+                                 SelectedItem="{Binding SelectedYear}"
                                   Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                         
                         <!--chọn khối-->
                         <TextBlock Text="Khối: " VerticalAlignment="Center" Margin="15 0 0 0"
                                     FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                         <ComboBox x:Name="cbKhoi" Width="100" Height="30" FontSize="13"
-                                    Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                  ItemsSource="{Binding Grades}"
+                                  DisplayMemberPath="Name"
+                                  SelectedItem="{Binding SelectedGrade}"
+                                  Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                     </StackPanel>
                     
                     <!--danh sách lớp của khối ở năm học đã chọn-->
                     <DataGrid Grid.Row="1" x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
+                             ItemsSource="{Binding Classrooms}"
+                              SelectedItem="{Binding SelectedClassroom}"
                               Margin="5" PreviewMouseLeftButtonDown="LopDG_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -78,10 +86,10 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã lớp"/>
-                            <DataGridTextColumn Header="Tên lớp"/>
-                            <DataGridTextColumn Header="Sĩ số"/>
-                            <DataGridTextColumn Header="GVCN"/>
+                            <DataGridTextColumn Header="Mã lớp" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Tên lớp" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Sĩ số" Binding="{Binding Capacity}"/>
+                            <DataGridTextColumn Header="GVCN" Binding="{Binding TeacherInCharge.FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -100,16 +108,19 @@
                     
                     <!--các nút chức năng-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Xoá học sinh" BorderBrush="Transparent" Background="#5CB3FF"
+                        <Button Content="Thêm học sinh" BorderBrush="Transparent" Background="#5CB3FF"
                                 Margin="10 0 0 0" FontSize="15" Width="100" Height="40"
+                                Command="{Binding ShowAddModalCommand}"
                                 Style="{StaticResource btnStyle}"/>
                         
-                        <Button Content="Thêm học sinh" BorderBrush="Transparent" Background="#5CB3FF"
+                        <Button Content="Xóa học sinh" BorderBrush="Transparent" Background="#5CB3FF"
                                 Margin="10 0 0 0" FontSize="15" Width="120" Height="40"
+                                Command="{Binding ShowDeleteModalCommand}"
                                 Style="{StaticResource btnStyle}"/>
 
                         <Button Content="Chuyển khối" BorderBrush="Transparent" Background="#5CB3FF"
                                 Margin="10 0 0 0" FontSize="15" Width="100" Height="40"
+                                Command="{Binding ShowChangeClassModalCommand}"
                                 Style="{StaticResource btnStyle}"/>
                     </StackPanel>
                     
@@ -117,6 +128,8 @@
                     <!--danh sách học sinh của lớp đã chọn-->
                     <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
+                             ItemsSource="{Binding StudentPlacements}"
+                              SelectedItem="{Binding SelectedStudentPlacement}"
                               Margin="5" PreviewMouseLeftButtonDown="HocSinhDG_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -125,8 +138,8 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã học sinh"/>
-                            <DataGridTextColumn Header="Họ tên"/>
+                            <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Student.Id}"/>
+                            <DataGridTextColumn Header="Họ tên" Binding="{Binding Student.FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

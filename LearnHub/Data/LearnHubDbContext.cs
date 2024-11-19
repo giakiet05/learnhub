@@ -63,10 +63,7 @@ namespace LearnHub.Data
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Student_Gender", "[Gender] IN ('Nam', 'Nữ')"));
             });
 
-            modelBuilder.Entity<TeachingAssignment>(e =>
-            {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_TeachingAssignment_Time", "[StartTime] < [EndTime]"));
-            });
+           
 
             modelBuilder.Entity<ExamSchedule>(e =>
             {

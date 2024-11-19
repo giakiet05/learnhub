@@ -47,7 +47,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 TeachingAssignmentDetailsFormViewModel.SelectedTeacher = selectedTeachingAssignment.Teacher;
                 TeachingAssignmentDetailsFormViewModel.SelectedSubject = selectedTeachingAssignment.Subject;
-
+                TeachingAssignmentDetailsFormViewModel.SelectedPeriod = selectedTeachingAssignment.Period;
+                TeachingAssignmentDetailsFormViewModel.SelectedWeekday = selectedTeachingAssignment.Weekday;
             }
         }
 
@@ -68,8 +69,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                 ClassroomId = _classroomStore.SelectedItem.Id,
                 SubjectId = formViewModel.SelectedSubject.Id,
                 TeacherId = formViewModel.SelectedTeacher.Id,
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now
+                Weekday = formViewModel.SelectedWeekday,
+                Period = formViewModel.SelectedPeriod
             };
 
             // Đối tượng cũ
@@ -78,18 +79,17 @@ namespace LearnHub.ViewModels.AdminViewModels
             try
             {
 
-
-
-                // Thực hiện cập nhật cơ sở dữ liệu bất đồng bộ
+                // Thực hiện cập nhật cơ sở dữ liệu bất đồng bộ 
+                await GenericDataService<TeachingAssignment>.Instance.DeleteOne(e =>
+                   e.SubjectId == selectedTeachingAssignment.SubjectId &&
+                   e.TeacherId == selectedTeachingAssignment.TeacherId &&
+                   e.ClassroomId == selectedTeachingAssignment.ClassroomId);
 
                 var entity = await GenericDataService<TeachingAssignment>.Instance.Create(newTeachingAssignment);
                 entity.Teacher = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == entity.TeacherId);
                 entity.Subject = await GenericDataService<Subject>.Instance.GetOne(e => e.Id == entity.SubjectId);
 
-                await GenericDataService<TeachingAssignment>.Instance.DeleteOne(e =>
-                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
-                    e.TeacherId == selectedTeachingAssignment.TeacherId &&
-                    e.ClassroomId == selectedTeachingAssignment.ClassroomId);
+               
 
                 // Xóa và thêm vào GenericStore
                 _teachingAssignmentStore.Delete(e =>
@@ -101,7 +101,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 // Đóng modal
                 ModalNavigationStore.Instance.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Cập nhật thất bại");
             }

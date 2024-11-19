@@ -17,7 +17,7 @@
         <!--datagrid để hiển thị list môn học-->
         <DataGrid Grid.Row="1" x:Name="MonHocDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                   IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
-                  CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
+                  CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
                   PreviewMouseLeftButtonDown="MonHocDG_PreviewMouseLeftButtonDown"
 				  ItemsSource="{Binding Subjects}" SelectedItem="{Binding SelectedSubject}">
             <DataGrid.CellStyle>
@@ -36,24 +36,24 @@
         <StackPanel Orientation="Horizontal">
             <Button Content="Môn học" IsEnabled="False"
                     BorderBrush="#5CB3FF" Background="#5CB3FF"
-                    Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                    Margin="10 0 0 0" FontSize="18" Width="125" Height="50"
                     Style="{StaticResource btnStyle}"/>
         </StackPanel>
         <!--stackpanel các nút chức năng-->
         <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
             <!--nút thêm môn học mới-->
-            <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
-                    Command="{Binding ShowAddModalCommand}" Width="80" FontSize="14"
+            <Button x:Name="btnThem" Content="Thêm" Margin="20 0 0 0"
+                    Command="{Binding ShowAddModalCommand}" Width="90" Height="45" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
             <!--nút xoá môn học đã chọn-->
-            <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
-                    Command="{Binding ShowDeleteModalCommand}" Width="80" FontSize="14"
+            <Button x:Name="btnXoa" Content="Xoá" Margin="20 0 0 0"
+                    Command="{Binding ShowDeleteModalCommand}" Width="90" Height="45" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
             <!--nút sửa môn học đã chọn-->
-            <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
-                    Command="{Binding ShowEditModalCommand}" Width="80" FontSize="14"
+            <Button x:Name="btnSua" Content="Sửa" Margin="20 0 20 0"
+                    Command="{Binding ShowEditModalCommand}" Width="90" Height="45" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
         </StackPanel>

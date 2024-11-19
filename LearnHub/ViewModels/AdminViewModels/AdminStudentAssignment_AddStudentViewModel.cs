@@ -51,12 +51,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void ExecuteSubmit()
         {
-            //string data = "";
-            //foreach (Student student in SelectedStudents) {
-            //    data += student.Id + " ";
-            //}
-            //MessageBox.Show(data);
-
+            
             foreach (var student in SelectedStudents)
             {
                 var newStudentPlacement = new StudentPlacement()
@@ -79,10 +74,10 @@ namespace LearnHub.ViewModels.AdminViewModels
 
 
             //lấy tất cả student placements
-            var assignedStudents = await GenericDataService<StudentPlacement>.Instance.GetAll();
+            var studentPlacements = await GenericDataService<StudentPlacement>.Instance.GetAll();
 
             //lấy ra studentid của các studentplacement này (học sinh được phân lớp)
-            IEnumerable<string> assignedStudentIds = assignedStudents.Select(e => e.StudentId);
+            IEnumerable<string> assignedStudentIds = studentPlacements.Select(e => e.StudentId);
 
 
 

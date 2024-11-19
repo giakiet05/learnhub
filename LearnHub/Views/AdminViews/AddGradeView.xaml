@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="230"/>
+            <RowDefinition Height="210"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Thêm khối lớp" Style="{StaticResource font_style}"

@@ -5,6 +5,7 @@ using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,12 +21,19 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         public IEnumerable<Student> UnassignedStudents => _studentStore.Items;
 
+        //danh sách student được chọn
+        public ObservableCollection<Student> SelectedStudents { get; set; }
+
+
         public ICommand SubmitCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
         public AdminStudentAssignment_AddStudentViewModel()
         {
             _studentStore = GenericStore<Student>.Instance;
+
+            SelectedStudents = new ObservableCollection<Student>();
+
             _studentStore.Clear();
             SubmitCommand = new RelayCommand(ExecuteSubmit);
             CancelCommand = new CancelCommand();
@@ -35,6 +43,11 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private void ExecuteSubmit()
         {
+            string data = "";
+            foreach (Student student in SelectedStudents) {
+                data += student.Id + " ";
+            }
+            MessageBox.Show(data);
             ModalNavigationStore.Instance.Close();
         }
 
@@ -55,16 +68,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             var unassignedStudents = await GenericDataService<Student>.Instance.GetMany(
                 student => !assignedStudentIds.Contains(student.Id));
 
-            var studentIds = unassignedStudents.Select(e => e.Id);
-
-            string data = "";
-            foreach (string x in studentIds)
-            {
-                data += x + " ";
-            }
-
-            MessageBox.Show(data);
-
+         
 
             // Update the store
             _studentStore.Load(unassignedStudents);

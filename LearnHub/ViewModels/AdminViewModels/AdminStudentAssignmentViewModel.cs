@@ -132,9 +132,15 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void LoadStudentPlacements()
         {
-            var studentPlacements = await GenericDataService<StudentPlacement>.Instance.GetMany(e => e.ClassroomId == _selectedClassroom.Id, include: query => query.Include(e => e.Student));
-            _studentPlacementStore.Load(studentPlacements);
-            OnPropertyChanged(nameof(StudentPlacements));
+           if(SelectedClassroom == null)
+            {
+                _studentPlacementStore.Load(Enumerable.Empty<StudentPlacement>());
+            } else
+            {
+                var studentPlacements = await GenericDataService<StudentPlacement>.Instance.GetMany(e => e.ClassroomId == _selectedClassroom.Id, include: query => query.Include(e => e.Student));
+                _studentPlacementStore.Load(studentPlacements);
+                OnPropertyChanged(nameof(StudentPlacements));
+            }
         }
 
 

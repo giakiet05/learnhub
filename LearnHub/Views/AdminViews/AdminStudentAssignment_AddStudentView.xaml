@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+             xmlns:helpers="clr-namespace:LearnHub.Helpers"
              mc:Ignorable="d" 
                       d:DesignHeight="360" d:DesignWidth="450" Background="#fff7f7">
 
@@ -20,7 +21,9 @@
             <Grid>
                 <ScrollViewer>
                     <ListView SelectionMode="Multiple" MaxHeight="300"
-                              ItemsSource="{Binding UnassignedStudents}">
+                              ItemsSource="{Binding UnassignedStudents}"
+                               helpers:ListViewExtensions.BindableSelectedItems="{Binding SelectedStudents}"
+                              >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã học sinh" DisplayMemberBinding="{Binding Id}"/>

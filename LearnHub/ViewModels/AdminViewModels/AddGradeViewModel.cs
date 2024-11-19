@@ -44,7 +44,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
-                await GenericDataService<Grade>.Instance.Create(newGrade);
+                await GenericDataService<Grade>.Instance.CreateOne(newGrade);
 
                 // Update the generic store with the new grade
                 GenericStore<Grade>.Instance.Add(newGrade);

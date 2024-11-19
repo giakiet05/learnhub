@@ -82,7 +82,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 // MessageBox.Show(newExamSchedule.ClassroomId + " " + newExamSchedule.SubjectId + " " + newExamSchedule.ExamRoom + " " + newExamSchedule.ExamType + " " + newExamSchedule.Semester);
 
-                var entity = await GenericDataService<ExamSchedule>.Instance.Create(newExamSchedule);
+                var entity = await GenericDataService<ExamSchedule>.Instance.CreateOne(newExamSchedule);
 
                 //phải lấy  subject tương ứng với id để nạp vào entity vì ef không tự động load các navigation prop
 

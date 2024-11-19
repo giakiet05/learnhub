@@ -17,8 +17,9 @@ namespace LearnHub.Services
         Task<IEnumerable<T>> GetMany(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>> include); // lấy tất cả đối tượng thỏa điều kiện
 
         // Creation method
-        Task<T> Create(T entity); // tạo đối tượng
+        Task<T> CreateOne(T entity); // tạo đối tượng
 
+        Task<IEnumerable<T>> CreateMany(IEnumerable<T> entities);
         // Update methods
      
         Task<T> UpdateOne(T entity, Expression<Func<T, bool>> predicate); // tìm bằng điều kiện và sứa 1 đối tượng

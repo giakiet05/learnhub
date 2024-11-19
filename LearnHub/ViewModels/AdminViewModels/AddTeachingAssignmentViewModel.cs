@@ -59,7 +59,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             try
             {
 
-                var entity = await GenericDataService<TeachingAssignment>.Instance.Create(newTeachingAssignment);
+                var entity = await GenericDataService<TeachingAssignment>.Instance.CreateOne(newTeachingAssignment);
 
                 //phải lấy teacher và subject tương ứng với id để nạp vào entity vì ef không tự động load các navigation prop
                 entity.Teacher = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == entity.TeacherId);

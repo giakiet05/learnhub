@@ -1,19 +1,23 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Models;
 using LearnHub.Services;
+using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
-  public  class AdminStudentAssignment_ChangeGradeViewModel : BaseViewModel
+    public class AdminStudentAssignment_ChangeGradeViewModel : BaseViewModel
     {
-        private readonly GenericStore<Classroom> _classroomStore;
+        private readonly GenericStore<Classroom> _classroomStore; //store chứa thông tin lớp cũ
+        private readonly GenericStore<StudentPlacement> _studentPlacementStore; //store chứa danh sách phân lớp
 
         public ICommand SubmitCommand { get; set; }
         public ICommand CancelCommand { get; set; }
@@ -47,6 +51,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
         }
 
+        //lớp mới muốn chuyển qua
         private Classroom _selectedClassroom;
         public Classroom SelectedClassroom
         {
@@ -54,15 +59,16 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedClassroom = value;
-              //  _classroomStore.SelectedItem = value;
+                //  _classroomStore.SelectedItem = value;
                 //OnPropertyChanged(nameof(SelectedClassroom));
-                
+
             }
         }
 
         public AdminStudentAssignment_ChangeGradeViewModel()
         {
             _classroomStore = GenericStore<Classroom>.Instance;
+            _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
 
             SubmitCommand = new RelayCommand(ExecuteSubmit);
             CancelCommand = new CancelCommand();
@@ -105,7 +111,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                 //lấy các lớp có id không thuộc id của các lớp đã phân (nghĩa là lớp chưa được phân)
                 Classrooms = await GenericDataService<Classroom>.Instance.GetMany(
-                    e => e.GradeId == SelectedGrade.Id && 
+                    e => e.GradeId == SelectedGrade.Id &&
                     e.AcademicYear.Id == SelectedYear.Id &&
                     e.Id != _classroomStore.SelectedItem.Id &&
                    !assignedClassroomIds.Contains(e.Id)
@@ -115,9 +121,38 @@ namespace LearnHub.ViewModels.AdminViewModels
         }
 
 
-        private void ExecuteSubmit()
+        private async void ExecuteSubmit()
         {
-           
+            // Get the current list of student placements
+            var studentPlacements = _studentPlacementStore.Items;
+
+            // Validate selected classroom
+            if (_selectedClassroom?.Id == null)
+            {
+                MessageBox.Show("Chưa chọn lớp để chuyển");
+                return;
+            }
+
+            // Create a new collection for new student placements
+            IEnumerable<StudentPlacement> newStudentPlacements = studentPlacements.Select(item => new StudentPlacement
+            {
+                ClassroomId = _selectedClassroom.Id,
+                StudentId = item.StudentId
+            });
+
+            try
+            {
+                // Save new student placements to the database
+                await GenericDataService<StudentPlacement>.Instance.CreateMany(newStudentPlacements);
+
+                // Close the modal
+                ModalNavigationStore.Instance.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chuyển lớp thất bại: {ex.Message}");
+            }
         }
+
     }
 }

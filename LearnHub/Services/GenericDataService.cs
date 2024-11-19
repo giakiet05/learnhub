@@ -89,7 +89,7 @@ namespace LearnHub.Services
         }
 
 
-        public async Task<T> Create(T entity)
+        public async Task<T> CreateOne(T entity)
         {
             if (entity == null)
             {
@@ -115,6 +115,32 @@ namespace LearnHub.Services
             }
         }
 
+
+        public async Task<IEnumerable<T>> CreateMany(IEnumerable<T> entities)
+        {
+            if (entities == null || !entities.Any())
+            {
+                throw new ArgumentException("Entities cannot be null or empty.", nameof(entities));
+            }
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    await context.Set<T>().AddRangeAsync(entities); // Add all entities at once
+                    await context.SaveChangesAsync(); // Save changes to the database
+                    return entities; // Return the input collection as the entities are now tracked
+                }
+                catch (DbUpdateException)
+                {
+                    throw new DbUpdateException("An error occurred while saving the entities.");
+                }
+                catch (Exception)
+                {
+                    throw new Exception("An error occurred while creating the entities.");
+                }
+            }
+        }
 
 
         public async Task<T> UpdateOne(T entity, Expression<Func<T, bool>> predicate)
@@ -231,5 +257,6 @@ namespace LearnHub.Services
                 }
             }
         }
+
     }
 }

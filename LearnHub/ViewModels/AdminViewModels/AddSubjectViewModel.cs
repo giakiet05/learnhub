@@ -41,7 +41,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
-                await GenericDataService<Subject>.Instance.Create(newSubject);
+                await GenericDataService<Subject>.Instance.CreateOne(newSubject);
 
                 GenericStore<Subject>.Instance.Add(newSubject);
                 ModalNavigationStore.Instance.Close();

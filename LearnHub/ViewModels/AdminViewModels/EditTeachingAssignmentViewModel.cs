@@ -85,7 +85,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                    e.TeacherId == selectedTeachingAssignment.TeacherId &&
                    e.ClassroomId == selectedTeachingAssignment.ClassroomId);
 
-                var entity = await GenericDataService<TeachingAssignment>.Instance.Create(newTeachingAssignment);
+                var entity = await GenericDataService<TeachingAssignment>.Instance.CreateOne(newTeachingAssignment);
                 entity.Teacher = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == entity.TeacherId);
                 entity.Subject = await GenericDataService<Subject>.Instance.GetOne(e => e.Id == entity.SubjectId);
 

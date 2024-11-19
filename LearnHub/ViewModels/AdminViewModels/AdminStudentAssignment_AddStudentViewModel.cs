@@ -16,8 +16,14 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminStudentAssignment_AddStudentViewModel : BaseViewModel
     {
+
+        private readonly GenericStore<Classroom> _classroomStore;
+
+        private readonly GenericStore<StudentPlacement> _studentPlacementStore;
+
         //store luu student chua phan lop
         private readonly GenericStore<Student> _studentStore;
+
 
         public IEnumerable<Student> UnassignedStudents => _studentStore.Items;
 
@@ -31,6 +37,8 @@ namespace LearnHub.ViewModels.AdminViewModels
         public AdminStudentAssignment_AddStudentViewModel()
         {
             _studentStore = GenericStore<Student>.Instance;
+            _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
+            _classroomStore = GenericStore<Classroom>.Instance;
 
             SelectedStudents = new ObservableCollection<Student>();
 
@@ -41,19 +49,34 @@ namespace LearnHub.ViewModels.AdminViewModels
             LoadUnassignedStudents();
         }
 
-        private void ExecuteSubmit()
+        private async void ExecuteSubmit()
         {
-            string data = "";
-            foreach (Student student in SelectedStudents) {
-                data += student.Id + " ";
+            //string data = "";
+            //foreach (Student student in SelectedStudents) {
+            //    data += student.Id + " ";
+            //}
+            //MessageBox.Show(data);
+
+            foreach (var student in SelectedStudents)
+            {
+                var newStudentPlacement = new StudentPlacement()
+                {
+                    StudentId = student.Id,
+                    ClassroomId = _classroomStore.SelectedItem.Id,
+                };
+
+                var entity =  await GenericDataService<StudentPlacement>.Instance.Create(newStudentPlacement);
+                entity.Student = await GenericDataService<Student>.Instance.GetOne(e => e.Id == entity.StudentId);
+                
+                _studentPlacementStore.Add(entity);
             }
-            MessageBox.Show(data);
+
             ModalNavigationStore.Instance.Close();
         }
 
         private async void LoadUnassignedStudents()
         {
-            
+
 
             //lấy tất cả student placements
             var assignedStudents = await GenericDataService<StudentPlacement>.Instance.GetAll();
@@ -61,14 +84,14 @@ namespace LearnHub.ViewModels.AdminViewModels
             //lấy ra studentid của các studentplacement này (học sinh được phân lớp)
             IEnumerable<string> assignedStudentIds = assignedStudents.Select(e => e.StudentId);
 
-           
+
 
             // Get Students not in the list of assigned IDs
             //lấy học sinh không có id trong assignedStudentIds (học sinh chưa được phân lớp)
             var unassignedStudents = await GenericDataService<Student>.Instance.GetMany(
                 student => !assignedStudentIds.Contains(student.Id));
 
-         
+
 
             // Update the store
             _studentStore.Load(unassignedStudents);

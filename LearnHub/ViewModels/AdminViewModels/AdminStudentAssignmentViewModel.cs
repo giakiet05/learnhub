@@ -1,6 +1,7 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Models;
 using LearnHub.Services;
+using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -82,7 +83,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(SelectedStudentPlacement));
             }
         }
-      
+
 
         public ICommand SwitchToStudentCommand { get; }
         public ICommand ShowAddModalCommand { get; private set; }
@@ -96,6 +97,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
 
             _classroomStore.Clear();
+            _studentPlacementStore.Clear();
+
             LoadGrades();
             LoadYears();
             UpdateModalCommands();
@@ -132,10 +135,11 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void LoadStudentPlacements()
         {
-           if(SelectedClassroom == null)
+            if (SelectedClassroom == null)
             {
                 _studentPlacementStore.Load(Enumerable.Empty<StudentPlacement>());
-            } else
+            }
+            else
             {
                 var studentPlacements = await GenericDataService<StudentPlacement>.Instance.GetMany(e => e.ClassroomId == _selectedClassroom.Id, include: query => query.Include(e => e.Student));
                 _studentPlacementStore.Load(studentPlacements);
@@ -179,9 +183,27 @@ namespace LearnHub.ViewModels.AdminViewModels
             OnPropertyChanged(nameof(ShowDeleteModalCommand));
         }
 
-        private void DeleteStudentFromClass()
+        private async void DeleteStudentFromClass()
         {
-            throw new NotImplementedException();
+            if (_selectedStudentPlacement == null)
+            {
+                MessageBox.Show("Chưa chọn học sinh để xóa khỏi lớp");
+                return;
+            }
+            try
+            {
+                await GenericDataService<StudentPlacement>.Instance
+                    .DeleteOne(e => e.StudentId == _selectedStudentPlacement.StudentId &&
+                                    e.ClassroomId == _selectedStudentPlacement.ClassroomId);
+                _studentPlacementStore.Delete(e => e.StudentId == _selectedStudentPlacement.StudentId &&
+                                    e.ClassroomId == _selectedStudentPlacement.ClassroomId);
+
+                ModalNavigationStore.Instance.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Xóa thất bại");
+            }
         }
     }
 }

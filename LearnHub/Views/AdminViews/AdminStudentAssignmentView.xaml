@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
+      d:DesignHeight="700" d:DesignWidth="1250" Background="#fff7f7">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -104,8 +104,17 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     
+                    <!--số lượng học sinh của lớp đã chọn-->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10 0 0 0">
+                        <TextBlock Text="Số lượng học sinh: " Style="{StaticResource font_style}"
+                                    VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding StudentPlacements.Count}" Style="{StaticResource font_style}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
                     <!--các nút chức năng-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="Thêm học sinh" BorderBrush="Transparent" Background="#5CB3FF"

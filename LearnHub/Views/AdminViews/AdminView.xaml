@@ -68,7 +68,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
                                                          Storyboard.TargetProperty="Width"
-                                                         From="55" To="230"
+                                                         From="55" To="215"
                                                          Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>

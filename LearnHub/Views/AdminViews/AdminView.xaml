@@ -21,14 +21,14 @@
                 </LinearGradientBrush>
             </Grid.Background>
 
-            <StackPanel Width="160" x:Name="menubar_pnl">
+            <StackPanel Width="215" x:Name="menubar_pnl">
 
                 <!--Menu button-->
                 <Grid Height="50">
                     <TextBlock Text="M e n u" VerticalAlignment="Center" HorizontalAlignment="Left"
                                FontFamily="/Resource/Fonts/Roboto-Bold.ttf#Roboto"
-                               FontSize="24" Background="Transparent"
-                               Margin="56 0 0 0">
+                               FontSize="30" Background="Transparent"
+                               Margin="66 0 0 0">
                         <TextBlock.Effect>
                             <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="1"
@@ -58,7 +58,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
                                                          Storyboard.TargetProperty="Width"
-                                                         From="160" To="55"
+                                                         From="215" To="55"
                                                          Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -68,7 +68,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
                                                          Storyboard.TargetProperty="Width"
-                                                         From="55" To="160"
+                                                         From="55" To="215"
                                                          Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>

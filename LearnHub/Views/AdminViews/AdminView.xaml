@@ -189,7 +189,16 @@
 
             <!--main frame-->
             <ContentControl Grid.Row="2" Content="{Binding CurrentAdminViewModel}"/>
-        </Grid>
 
+            <!--Vùng hiển thị danh sách Toast-->
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding Toasts}" 
+                          VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 20 0 0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </UserControl>

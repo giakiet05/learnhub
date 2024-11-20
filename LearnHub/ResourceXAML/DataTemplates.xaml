@@ -25,6 +25,9 @@
     <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
         <adminviews:AdminView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AdminAccountInformationViewModel}">
+        <adminviews:AdminAccountInformationView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AdminSchoolYearViewModel}">
         <adminviews:AdminSchoolYearView/>
     </DataTemplate>

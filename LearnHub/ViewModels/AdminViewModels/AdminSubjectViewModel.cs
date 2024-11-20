@@ -55,11 +55,12 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                 _subjectStore.Delete(subject => subject.Id == selectedSubject.Id); // Xóa từ GenericStore
 
+                ToastMessageViewModel.ShowSuccessToast("Xóa môn học thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Xóa thất bại");
+                ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
         }
         // Tải danh sách subjects từ DB rồi cập nhật vào GenericStore

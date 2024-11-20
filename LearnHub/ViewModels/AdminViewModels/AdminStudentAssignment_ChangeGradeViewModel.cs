@@ -129,7 +129,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             // Validate selected classroom
             if (_selectedClassroom?.Id == null)
             {
-                MessageBox.Show("Chưa chọn lớp để chuyển");
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp để chuyển");
                 return;
             }
 
@@ -145,12 +145,13 @@ namespace LearnHub.ViewModels.AdminViewModels
                 // Save new student placements to the database
                 await GenericDataService<StudentPlacement>.Instance.CreateMany(newStudentPlacements);
 
+                ToastMessageViewModel.ShowSuccessToast("Chuyển lớp thành công.");
                 // Close the modal
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Chuyển lớp thất bại: {ex.Message}");
+                ToastMessageViewModel.ShowErrorToast($"Chuyển lớp thất bại: {ex.Message}");
             }
         }
 

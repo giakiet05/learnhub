@@ -91,7 +91,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 // Update the generic store
 
                 GenericStore<ExamSchedule>.Instance.Add(entity);
-                ToastMessageViewModel.ShowSuccessToast("Thêm lịch học thành công.");
+                ToastMessageViewModel.ShowSuccessToast("Thêm lịch thi thành công.");
 
                 ModalNavigationStore.Instance.Close();
             }

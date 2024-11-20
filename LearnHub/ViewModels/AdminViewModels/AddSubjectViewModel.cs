@@ -29,7 +29,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 string.IsNullOrWhiteSpace(formViewModel.Name) ||
                 formViewModel.LessonNumber <= 0)
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
+                ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
             var newSubject = new Subject
@@ -44,11 +44,12 @@ namespace LearnHub.ViewModels.AdminViewModels
                 await GenericDataService<Subject>.Instance.CreateOne(newSubject);
 
                 GenericStore<Subject>.Instance.Add(newSubject);
+                ToastMessageViewModel.ShowSuccessToast("Thêm môn học thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Tạo thất bại");
+                ToastMessageViewModel.ShowErrorToast("Tạo thất bại");
             }
         }
     }

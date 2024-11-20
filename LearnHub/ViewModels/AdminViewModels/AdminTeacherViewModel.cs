@@ -75,7 +75,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             if (selectedTeacher == null)
             {
-                MessageBox.Show("Không có giáo viên nào được chọn");
+                ToastMessageViewModel.ShowWarningToast("Không có giáo viên nào được chọn");
                 return;
             }
             try
@@ -83,12 +83,12 @@ namespace LearnHub.ViewModels.AdminViewModels
                 await GenericDataService<Teacher>.Instance.DeleteOne(e => e.Id == selectedTeacher.Id);
 
                 _teacherStore.Delete(t => t.Id == selectedTeacher.Id);  // Delete from GenericStore
-
+                ToastMessageViewModel.ShowSuccessToast("Xóa giáo viên thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Xóa thất bại");
+                ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
         }
     }

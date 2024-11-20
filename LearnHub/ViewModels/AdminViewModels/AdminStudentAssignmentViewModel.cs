@@ -167,13 +167,13 @@ namespace LearnHub.ViewModels.AdminViewModels
             else
             {
                 ShowAddModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    _ => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
                 ShowChangeClassModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    _ => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
                 ShowDeleteModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    _ => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
             }
 
@@ -187,7 +187,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             if (_selectedStudentPlacement == null)
             {
-                MessageBox.Show("Chưa chọn học sinh để xóa khỏi lớp");
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn học sinh để xóa khỏi lớp");
                 return;
             }
             try
@@ -198,11 +198,12 @@ namespace LearnHub.ViewModels.AdminViewModels
                 _studentPlacementStore.Delete(e => e.StudentId == _selectedStudentPlacement.StudentId &&
                                     e.ClassroomId == _selectedStudentPlacement.ClassroomId);
 
+                ToastMessageViewModel.ShowSuccessToast("Xóa học sinh thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Xóa thất bại");
+                ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
         }
     }

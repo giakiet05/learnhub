@@ -241,6 +241,7 @@ namespace LearnHub.Services
             {
                 try
                 {
+
                     var entities = await context.Set<T>().Where(predicate).ToListAsync();
                     if (!entities.Any()) return 0;
 

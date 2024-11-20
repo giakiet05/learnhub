@@ -30,7 +30,9 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
                 string.IsNullOrWhiteSpace(formViewModel.Password) ||
-                string.IsNullOrWhiteSpace(formViewModel.FullName))
+                string.IsNullOrWhiteSpace(formViewModel.FullName) ||
+                string.IsNullOrWhiteSpace(formViewModel.Gender) ||
+                string.IsNullOrWhiteSpace(formViewModel.CitizenID))
 
             {
                 MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");

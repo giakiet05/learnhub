@@ -60,7 +60,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 _selectedClassroom = value;
                 //  _classroomStore.SelectedItem = value;
-                //OnPropertyChanged(nameof(SelectedClassroom));
+                OnPropertyChanged(nameof(SelectedClassroom));
 
             }
         }
@@ -130,6 +130,10 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (_selectedClassroom?.Id == null)
             {
                 MessageBox.Show("Chưa chọn lớp để chuyển");
+                return;
+            }
+            else if (!studentPlacements.Any()) {
+                MessageBox.Show("Lớp không có học sinh để chuyển");
                 return;
             }
 

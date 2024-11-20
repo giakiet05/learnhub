@@ -35,14 +35,17 @@ namespace LearnHub.ViewModels.AdminViewModels
             var formViewModel = TeacherDetailsFormViewModel;
 
             // Validate input fields
+
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
-               string.IsNullOrWhiteSpace(formViewModel.FullName) )
-              
+                string.IsNullOrWhiteSpace(formViewModel.Password) ||
+                string.IsNullOrWhiteSpace(formViewModel.FullName) ||
+                string.IsNullOrWhiteSpace(formViewModel.Gender) ||
+                string.IsNullOrWhiteSpace(formViewModel.CitizenID))
+
             {
                 MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
-       
 
             var selectedTeacher = _teacherStore.SelectedItem;
 

@@ -189,25 +189,27 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
-                // Get the IDs of selected placements
-                var selectedIds = SelectedStudentPlacements
-                    .Select(sp => new { sp.StudentId, sp.ClassroomId })
-                    .ToList();
+                foreach (var item in SelectedStudentPlacements.ToList())
+                {
+                    // Delete from database
+                    bool result = await GenericDataService<StudentPlacement>.Instance
+                        .DeleteOne(e => e.StudentId == item.StudentId && e.ClassroomId == item.ClassroomId);
 
-                // Delete from database
-                await GenericDataService<StudentPlacement>.Instance
-                    .DeleteMany(e => selectedIds.Any(id => id.StudentId == e.StudentId && id.ClassroomId == e.ClassroomId));
-
-                // Remove from store
-                _studentPlacementStore.Delete(e => selectedIds.Any(id => id.StudentId == e.StudentId && id.ClassroomId == e.ClassroomId));
+                    if (result)
+                    {
+                        // Delete from store
+                        _studentPlacementStore.Delete(e => e.StudentId == item.StudentId && e.ClassroomId == item.ClassroomId);
+                    }
+                }
 
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Xóa thất bại");
+                MessageBox.Show($"Xóa thất bại: {ex.Message}");
             }
         }
+
 
     }
 }

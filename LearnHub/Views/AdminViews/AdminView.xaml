@@ -16,8 +16,8 @@
         <Grid Grid.Column="0">
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#7ec4ed" Offset="0.0" />
-                    <GradientStop Color="#8aebbf" Offset="1.0" />
+                    <GradientStop Color="#fddb92" Offset="0.0" />
+                    <GradientStop Color="#d1fdff" Offset="1.0" />
                 </LinearGradientBrush>
             </Grid.Background>
 
@@ -27,14 +27,8 @@
                 <Grid Height="50">
                     <TextBlock Text="M e n u" VerticalAlignment="Center" HorizontalAlignment="Left"
                                FontFamily="/Resource/Fonts/Roboto-Bold.ttf#Roboto"
-                               FontSize="30" Background="Transparent"
+                               FontSize="35" Background="Transparent"
                                Margin="66 0 0 0">
-                        <TextBlock.Effect>
-                            <DropShadowEffect BlurRadius="10"
-                                      ShadowDepth="1"
-                                      Direction="-90"
-                                      Color="Black"/>
-                        </TextBlock.Effect>
                     </TextBlock>
                     <ToggleButton x:Name="Tg_btn"
                                   Grid.Column="0"

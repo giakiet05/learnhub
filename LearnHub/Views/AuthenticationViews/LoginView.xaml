@@ -10,7 +10,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1250" Background="Transparent">
     
-    <Border Background="#FFF7F7">
+    <Border>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#fddb92" Offset="0.0"/>
+                <GradientStop Color="#d1fdff" Offset="1.0"/>
+            </LinearGradientBrush>
+            <!--<ImageBrush ImageSource="/Resource/Images/g.jpg"/>-->
+        </Border.Background>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 100">
             <Grid>
                 <Grid.ColumnDefinitions>

@@ -16,94 +16,9 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AddClassViewModel : BaseViewModel
     {
-        public class ClassDetailsFormViewModel : BaseViewModel
-        {
-            private string _id;
-            public string Id
-            {
-                get
-                {
-                    return _id;
-                }
-                set
-                {
-                    _id = value;
-                    OnPropertyChanged(nameof(Id));
-                }
-            }
-            private string _name;
-            public string Name
-            {
-                get
-                {
-                    return _name;
-                }
-                set
-                {
-                    _name = value;
-                    OnPropertyChanged(nameof(Name));
-                }
-            }
-            private int _capacity;
-            public int Capacity
-            {
-                get
-                {
-                    return _capacity;   
-                }
-                set
-                {
-                    _capacity = value;
-                    OnPropertyChanged(nameof(Capacity));
-                }
-            }
-            private string _gradeId;
-            public string GradeId
-            {
-                get
-                {
-                    return _gradeId;    
-                }
-                set
-                {
-                    _gradeId = value;
-                    OnPropertyChanged(nameof(GradeId));
-                }
-            }
-            private string _teacherInChargeId;
-            public string TacherInChargeId
-            {
-                get { return _teacherInChargeId; }
-                set
-                {
-                    _teacherInChargeId = value;
-                    OnPropertyChanged(nameof(TacherInChargeId));
-                }
-            }
-            private bool _isEnable = true;
-            public bool IsEnable
-            {
-                get
-                {
-                    return _isEnable;
-                }
-                set
-                {
-                    _isEnable = value;
-                    OnPropertyChanged(nameof(IsEnable));
-                }
-            }
+       
 
-            public ICommand SubmitCommand { get; }
-            public ICommand CancelCommand { get; }
-            public ClassDetailsFormViewModel(ICommand submitCommand, ICommand cancelCommand)
-            {
-                SubmitCommand = submitCommand;
-                CancelCommand = cancelCommand;
-            }
-        }
-
-        public ClassDetailsFormViewModel classDetailsFormViewModel { get; }
+        public ClassDetailsFormViewModel ClassDetailsFormViewModel { get; }
 
         public AddClassViewModel()
         {
@@ -111,13 +26,13 @@ namespace LearnHub.ViewModels.AdminViewModels
             ICommand submitCommand = new RelayCommand(ExecuteSubmit);
             ICommand cancelCommand = new CancelCommand();
 
-            classDetailsFormViewModel = new ClassDetailsFormViewModel(submitCommand, cancelCommand);
+            ClassDetailsFormViewModel = new ClassDetailsFormViewModel(submitCommand, cancelCommand);
         }
 
         // The logic for adding a grade, now in the RelayCommand
         private async void ExecuteSubmit()
         {
-            var formViewModel = classDetailsFormViewModel;
+            var formViewModel = ClassDetailsFormViewModel;
 
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Id))
@@ -130,14 +45,15 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 Id = formViewModel.Id,
                 Name = formViewModel.Name,
-                Capacity = formViewModel.Capacity,  
-                GradeId = formViewModel.GradeId,    
-                TeacherInChargeId = formViewModel.TacherInChargeId
+                Capacity = formViewModel.Capacity,
+                //GradeId = formViewModel.GradeId,
+                //YearId = formViewModel.YearId,
+                //TeacherInChargeId = formViewModel.TacherInChargeId
             };
 
             try
             {
-                await GenericDataService<Classroom>.Instance.Create(newClass);
+                await GenericDataService<Classroom>.Instance.CreateOne(newClass);
 
                 // Update the generic store with the new grade
                 GenericStore<Classroom>.Instance.Add(newClass);

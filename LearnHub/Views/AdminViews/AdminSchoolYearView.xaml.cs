@@ -18,7 +18,7 @@ namespace LearnHub.Views.AdminViews
     /// <summary>
     /// Interaction logic for AdminSchoolYearView.xaml
     /// </summary>
-    public partial class AdminSchoolYearView : Page
+    public partial class AdminSchoolYearView : UserControl
     {
         public AdminSchoolYearView()
         {

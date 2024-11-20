@@ -18,14 +18,13 @@ namespace LearnHub.Views.AdminViews
     /// <summary>
     /// Interaction logic for AdminStudentAssignmentView.xaml
     /// </summary>
-    public partial class AdminStudentAssignmentView : Page
+    public partial class AdminStudentAssignmentView : UserControl
     {
         public AdminStudentAssignmentView()
         {
             InitializeComponent();
         }
-
-        private void lopcuDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void LopDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var dataGrid = sender as DataGrid;
 
@@ -50,7 +49,7 @@ namespace LearnHub.Views.AdminViews
             }
         }
 
-        private void lopmoiDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void HocSinhDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var dataGrid = sender as DataGrid;
 

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LearnHub.Components"
+             xmlns:local="clr-namespace:LearnHub.Components" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -17,10 +18,16 @@
                 <!--Môn học-->
                 <StackPanel Margin="25" Orientation="Horizontal">
                     <TextBlock Text="Môn học:" Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" Width="80"/>
+                                VerticalAlignment="Center" Width="100"/>
 
-                    <ComboBox x:Name="cbSubject" FontSize="15" Width="250" Height="30"
+                    <ComboBox x:Name="cbSubject" FontSize="15" Width="150" Height="30"
                              Margin="20 0 0 0" Background="#d9d9d9d9"
+                              IsEnabled="{Binding IsEnable}"
+                                ItemsSource="{Binding Subjects}"
+                              DisplayMemberPath="Name"
+                             SelectedValuePath="Id"
+                              SelectedValue="{Binding SelectedSubject.Id}"
+                              SelectedItem="{Binding SelectedSubject, Mode=TwoWay}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
@@ -29,28 +36,33 @@
                     <TextBlock Text="Ngày:" Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="80"/>
 
-                    <DatePicker x:Name="dpDate" FontSize="15" Width="170" Height="30"
+                    <DatePicker x:Name="dpDate" FontSize="15" Width="150" Height="30"
                                  Margin="20 0 0 0" Background="#d9d9d9d9"
+                                
+                               SelectedDate="{Binding ExamDay, StringFormat='dd/MM/yyyy'}"
                                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
                 <!--Giờ-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Giờ:" Style="{StaticResource font_style}"
-                   VerticalAlignment="Center" Width="80"/>
+                                VerticalAlignment="Center" Width="80"/>
 
-                    <TextBox x:Name="tbTime" FontSize="15" Width="100" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
-                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                    <materialDesign:TimePicker Is24Hours="True"
+                                               Margin="20 0 0 0"
+                                               x:Name="PresetTimePicker"
+                                               Text="{Binding ExamTime}"
+                                               Width="150" />
                 </StackPanel>
 
                 <!--Phòng học-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Phòng học:" Style="{StaticResource font_style}"
+                    <TextBlock Text="Phòng thi:" Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="80"/>
 
-                    <ComboBox x:Name="cbRoom" FontSize="15" Width="100" Height="30"
+                    <TextBox FontSize="15" Width="150" Height="30"
                              Margin="20 0 0 0" Background="#d9d9d9d9"
+                             Text="{Binding ExamRoom}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
             </StackPanel>
@@ -60,11 +72,11 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
             <!--button thêm-->
             <Button x:Name="btnSua" Content="Đồng ý" Style="{StaticResource btnStyle}" Width="118"
-               Command="{Binding Edit}"
+               Command="{Binding SubmitCommand}"
                 Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}" Width="118"
-               Command="{Binding Cancel}"
+               Command="{Binding CancelCommand}"
                 Margin="10 0 50 0" Background="#93A7BF" BorderBrush="Transparent"/>
         </StackPanel>
     </Grid>

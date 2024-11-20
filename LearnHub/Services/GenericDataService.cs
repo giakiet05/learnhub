@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Services
 {
-    public class GenericDataService<T> : IDataService<T> where T : DomainObject
+    public class GenericDataService<T> : IDataService<T> where T : class
     {
         private static readonly Lazy<GenericDataService<T>> _instance = new Lazy<GenericDataService<T>>(() => new GenericDataService<T>());
         private readonly LearnHubDbContextFactory _contextFactory;
@@ -37,18 +37,23 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<T> GetById(string id)
+        public async Task<T> GetOne(
+    Expression<Func<T, bool>> predicate,
+    Func<IQueryable<T>, IQueryable<T>> include = null)
         {
             using (var context = _contextFactory.CreateDbContext())
             {
                 try
                 {
-                    var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-                    if (entity == null)
+                    IQueryable<T> query = context.Set<T>();
+
+                    // Apply include if provided
+                    if (include != null)
                     {
-                        throw new Exception("Entity not found.");
+                        query = include(query);
                     }
-                    return entity;
+
+                    return await query.FirstOrDefaultAsync(predicate);
                 }
                 catch (Exception)
                 {
@@ -57,28 +62,24 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<T> GetOne(Expression<Func<T, bool>> predicate)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                try
-                {
-                    return await context.Set<T>().FirstOrDefaultAsync(predicate);
-                }
-                catch (Exception)
-                {
-                    throw new Exception("An error occurred while retrieving the entity.");
-                }
-            }
-        }
 
-        public async Task<IEnumerable<T>> GetMany(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> GetMany(
+        Expression<Func<T, bool>> predicate,
+        Func<IQueryable<T>, IQueryable<T>> include = null)
         {
             using (var context = _contextFactory.CreateDbContext())
             {
                 try
                 {
-                    return await context.Set<T>().Where(predicate).ToListAsync();
+                    IQueryable<T> query = context.Set<T>();
+
+                    // Apply include if provided
+                    if (include != null)
+                    {
+                        query = include(query);
+                    }
+
+                    return await query.Where(predicate).ToListAsync();
                 }
                 catch (Exception)
                 {
@@ -87,7 +88,8 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<T> Create(T entity)
+
+        public async Task<T> CreateOne(T entity)
         {
             if (entity == null)
             {
@@ -113,39 +115,35 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<T> UpdateById(string id, T entity)
+
+        public async Task<IEnumerable<T>> CreateMany(IEnumerable<T> entities)
         {
-            if (entity == null)
+            if (entities == null || !entities.Any())
             {
-                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
+                throw new ArgumentException("Entities cannot be null or empty.", nameof(entities));
             }
 
             using (var context = _contextFactory.CreateDbContext())
             {
                 try
                 {
-                    var existingEntity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-                    if (existingEntity == null)
-                    {
-                        throw new Exception("Entity not found.");
-                    }
-
-                    context.Entry(existingEntity).CurrentValues.SetValues(entity);
-                    await context.SaveChangesAsync();
-                    return existingEntity;
+                    await context.Set<T>().AddRangeAsync(entities); // Add all entities at once
+                    await context.SaveChangesAsync(); // Save changes to the database
+                    return entities; // Return the input collection as the entities are now tracked
                 }
                 catch (DbUpdateException)
                 {
-                    throw new DbUpdateException("An error occurred while updating the entity.");
+                    throw new DbUpdateException("An error occurred while saving the entities.");
                 }
                 catch (Exception)
                 {
-                    throw new Exception("An error occurred while updating the entity.");
+                    throw new Exception("An error occurred while creating the entities.");
                 }
             }
         }
 
-        public async Task<T> UpdateOne(Expression<Func<T, bool>> predicate, T entity)
+
+        public async Task<T> UpdateOne(T entity, Expression<Func<T, bool>> predicate)
         {
             if (entity == null)
             {
@@ -177,7 +175,7 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<int> UpdateMany(Expression<Func<T, bool>> predicate, T entity)
+        public async Task<int> UpdateMany(T entity, Expression<Func<T, bool>> predicate)
         {
             if (entity == null)
             {
@@ -209,32 +207,6 @@ namespace LearnHub.Services
             }
         }
 
-        public async Task<bool> DeleteById(string id)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                try
-                {
-                    var entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-                    if (entity == null)
-                    {
-                        throw new Exception("Entity not found.");
-                    }
-
-                    context.Set<T>().Remove(entity);
-                    await context.SaveChangesAsync();
-                    return true;
-                }
-                catch (DbUpdateException)
-                {
-                    throw new DbUpdateException("An error occurred while deleting the entity.");
-                }
-                catch (Exception)
-                {
-                    throw new Exception("An error occurred while deleting the entity.");
-                }
-            }
-        }
 
         public async Task<bool> DeleteOne(Expression<Func<T, bool>> predicate)
         {
@@ -285,5 +257,6 @@ namespace LearnHub.Services
                 }
             }
         }
+
     }
 }

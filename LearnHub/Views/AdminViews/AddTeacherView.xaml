@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Views.AdminViews" xmlns:components="clr-namespace:LearnHub.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000" Background="#fff7f7">
+             d:DesignHeight="680" d:DesignWidth="1000" Background="#fff7f7">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>

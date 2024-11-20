@@ -1,4 +1,4 @@
-﻿<Page x:Class="LearnHub.Views.AdminViews.AdminSubjectView"
+﻿<UserControl x:Class="LearnHub.Views.AdminViews.AdminSubjectView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -16,9 +16,10 @@
 
         <!--datagrid để hiển thị list môn học-->
         <DataGrid Grid.Row="1" x:Name="MonHocDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                    IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
-                  CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
-                  PreviewMouseLeftButtonDown="MonHocDG_PreviewMouseLeftButtonDown">
+                  IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                  CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
+                  PreviewMouseLeftButtonDown="MonHocDG_PreviewMouseLeftButtonDown"
+				  ItemsSource="{Binding Subjects}" SelectedItem="{Binding SelectedSubject}">
             <DataGrid.CellStyle>
                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -26,29 +27,35 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã môn học"/>
-                <DataGridTextColumn Header="Tên môn học" />
-                <DataGridTextColumn Header="Số tiết"/>
+                <DataGridTextColumn Header="Mã môn học" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Tên môn học" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Số tiết" Binding="{Binding LessonNumber}"/>
             </DataGrid.Columns>
         </DataGrid>
 
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Môn học" IsEnabled="False"
+                    BorderBrush="#5CB3FF" Background="#5CB3FF"
+                    Margin="10 0 0 0" FontSize="18" Width="125" Height="50"
+                    Style="{StaticResource btnStyle}"/>
+        </StackPanel>
         <!--stackpanel các nút chức năng-->
         <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
             <!--nút thêm môn học mới-->
-            <Button x:Name="btnThem" Content="Thêm" Margin="20 10 0 0"
-                    Command="{Binding Add}"
+            <Button x:Name="btnThem" Content="Thêm" Margin="20 0 0 0"
+                    Command="{Binding ShowAddModalCommand}" Width="90" Height="45" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
             <!--nút xoá môn học đã chọn-->
-            <Button x:Name="btnXoa" Content="Xoá" Margin="20 10 0 0"
-                    Command="{Binding Delete}"
+            <Button x:Name="btnXoa" Content="Xoá" Margin="20 0 0 0"
+                    Command="{Binding ShowDeleteModalCommand}" Width="90" Height="45" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
             <!--nút sửa môn học đã chọn-->
-            <Button x:Name="btnSua" Content="Sửa" Margin="20 10 20 0"
-                    Command="{Binding Edit}"
+            <Button x:Name="btnSua" Content="Sửa" Margin="20 0 20 0"
+                    Command="{Binding ShowEditModalCommand}" Width="90" Height="45" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>
         </StackPanel>
     </Grid>
-</Page>
+</UserControl>

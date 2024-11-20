@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="290"/>
+            <RowDefinition Height="265"/>
  
         </Grid.RowDefinitions>
 
@@ -17,6 +17,6 @@
    HorizontalAlignment="Left" VerticalAlignment="Center"
    FontSize="30" Margin="10 0 0 0"/>
 
-        <components:SubjectDetailsForm Grid.Row="1"/>
+        <components:SubjectDetailsForm Grid.Row="1" DataContext="{Binding SubjectDetailsFormViewModel}"/>
     </Grid>
 </UserControl>

@@ -13,9 +13,10 @@ namespace LearnHub.ViewModels.AdminViewModels
     public class EditGradeViewModel : BaseViewModel
     {
         public GradeDetailsFormViewModel GradeDetailsFormViewModel { get; }
-
+        private readonly GenericStore<Grade> _gradeStore;
         public EditGradeViewModel()
         {
+            _gradeStore = GenericStore<Grade>.Instance;
             ICommand submitCommand = new RelayCommand(ExecuteSubmit);
             ICommand cancelCommand = new CancelCommand();
             GradeDetailsFormViewModel = new GradeDetailsFormViewModel(submitCommand, cancelCommand);
@@ -26,7 +27,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private void LoadSelectedGradeData()
         {
-            var selectedGrade = GenericStore<Grade>.Instance.SelectedItem;
+            var selectedGrade = _gradeStore.SelectedItem;
             if (selectedGrade != null)
             {
                 // Điền thông tin vào input
@@ -46,16 +47,16 @@ namespace LearnHub.ViewModels.AdminViewModels
                 return;
             }
 
-            var selectedGrade = GenericStore<Grade>.Instance.SelectedItem;
+            var selectedGrade =_gradeStore.SelectedItem;
 
             // Cập nhật thông tin của selected dựa vào thông tin từ form
-            selectedGrade.Id = formViewModel.Id;
+            //selectedGrade.Id = formViewModel.Id;
             selectedGrade.Name = formViewModel.Name;
 
             try
             {
-                await GenericDataService<Grade>.Instance.UpdateById(selectedGrade.Id, selectedGrade);
-                GenericStore<Grade>.Instance.Update(selectedGrade, g => g.Id == selectedGrade.Id); // Update in store
+                await GenericDataService<Grade>.Instance.UpdateOne(selectedGrade, e => e.Id == selectedGrade.Id);
+                GenericStore<Grade>.Instance.Update(selectedGrade, e => e.Id == selectedGrade.Id); // Update in store
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

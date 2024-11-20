@@ -12,7 +12,6 @@ using LearnHub.Stores;
 using System.Windows;
 using LearnHub.Stores.AdminStores;
 
-
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminClassViewModel : BaseViewModel
@@ -35,7 +34,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
-        public ICommand Grade { get; }
+        public ICommand SwitchToGradeCommand { get; }
 
         public AdminClassViewModel()
         {
@@ -45,24 +44,39 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowAddModalCommand = new NavigateModalCommand(() => new AddClassViewModel());
             ShowEditModalCommand = new NavigateModalCommand(() => new EditClassViewModel(), () => _selectedClassroom != null, "Chưa chọn lớp học để sửa");
 
+            SwitchToGradeCommand = new NavigateLayoutCommand(() => new AdminGradeViewModel());
+
+
             LoadClassroomsAsync();
         }
 
-            // Tải danh sách students từ DB rồi cập nhật vào GenericStore
+            // Tải danh sách classrooms từ DB rồi cập nhật vào GenericStore
         private async void LoadClassroomsAsync()
         {
+            try
+            {
                 var classrooms = await GenericDataService<Classroom>.Instance.GetAll();
                 _classroomStore.Load(classrooms); // Load vào GenericStore
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu");
+            }
         }
 
-            // Xóa học sinh đã chọn
+            // Xóa class đã chọn
         private async void DeleteClassroom()
         {
-                var selectedClassroom = _classroomStore.SelectedItem;
+            var selectedClassroom = _classroomStore.SelectedItem;
+            if (selectedClassroom == null)
+            {
+                MessageBox.Show("Chưa chọn lớp để xóa");
+                return;
+            }
 
-                try
+            try
                 {
-                    await GenericDataService<Classroom>.Instance.DeleteById(selectedClassroom.Id);
+                    await GenericDataService<Classroom>.Instance.DeleteOne(e => e.Id == selectedClassroom.Id);
 
                     _classroomStore.Delete(classroom => classroom.Id == selectedClassroom.Id); // Xóa từ GenericStore
 

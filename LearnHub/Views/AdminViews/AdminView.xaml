@@ -13,16 +13,22 @@
         </Grid.ColumnDefinitions>
 
         <!--Menubar grid-->
-        <Grid Grid.Column="0" Background="#7ec4ed">
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#7ec4ed" Offset="0.0" />
+                    <GradientStop Color="#8aebbf" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
 
-            <StackPanel Width="55" x:Name="menubar_pnl">
+            <StackPanel Width="215" x:Name="menubar_pnl">
 
                 <!--Menu button-->
                 <Grid Height="50">
                     <TextBlock Text="M e n u" VerticalAlignment="Center" HorizontalAlignment="Left"
                                FontFamily="/Resource/Fonts/Roboto-Bold.ttf#Roboto"
-                               FontSize="24" Background="Transparent"
-                               Margin="56 0 0 0">
+                               FontSize="30" Background="Transparent"
+                               Margin="66 0 0 0">
                         <TextBlock.Effect>
                             <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="1"
@@ -37,6 +43,7 @@
                                   Margin="2 0 0 0"
                                   Height="50"
                                   Width="50"
+                                  IsChecked="True"
                                   BorderThickness="0"
                                   Style="{StaticResource tb_style}">
 
@@ -51,7 +58,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
                                                          Storyboard.TargetProperty="Width"
-                                                         From="140" To="55"
+                                                         From="215" To="55"
                                                          Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -61,7 +68,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="menubar_pnl"
                                                          Storyboard.TargetProperty="Width"
-                                                         From="55" To="140"
+                                                         From="55" To="215"
                                                          Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -124,7 +131,7 @@
                         <RadioButton FontSize="30"
                                      Command="{Binding CalendarCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Content="Lịch">
+                                     Content="Lịch thi">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/calendar.png" />
                             </RadioButton.Tag>
@@ -144,7 +151,7 @@
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Account Items-->
-                <Grid>
+                <Grid VerticalAlignment="Center">
                     <StackPanel>
                         <!--Account button-->
                         <RadioButton FontSize="30"
@@ -187,7 +194,7 @@
             <Separator Grid.Row="1" Background="Black" VerticalAlignment="Stretch"/>
 
             <!--main frame-->
-            <Frame Grid.Row="2" Content="{Binding CurrentAdminViewModel}" NavigationUIVisibility="Hidden"/>
+            <ContentControl Grid.Row="2" Content="{Binding CurrentAdminViewModel}"/>
         </Grid>
 
     </Grid>

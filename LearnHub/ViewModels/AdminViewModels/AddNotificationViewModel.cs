@@ -1,20 +1,17 @@
-﻿
+﻿using LearnHub.Commands;
+using LearnHub.Models;
+using LearnHub.Services;
+using LearnHub.Stores;
+using LearnHub.Stores.AdminStores;
+using LearnHub.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AddNotificationViewModel : BaseViewModel
     {
-        public ICommand AddCommand { get; }
-        public ICommand CancelCommand { get; }
-        public AddNotificationViewModel()
-        {
-          
-        }
     }
 }

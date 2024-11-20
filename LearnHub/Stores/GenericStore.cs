@@ -1,8 +1,10 @@
+
 ﻿using LearnHub.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace LearnHub.Stores.AdminStores
 {
@@ -45,6 +47,7 @@ namespace LearnHub.Stores.AdminStores
         {
             if (newItem == null) throw new ArgumentNullException(nameof(newItem));
             Items.Add(newItem);
+
         }
 
         // Cập nhật một đối tượng dựa trên điều kiện
@@ -62,6 +65,7 @@ namespace LearnHub.Stores.AdminStores
             }
         }
 
+
         // Xóa một đối tượng dựa trên điều kiện
         public void Delete(Func<T, bool> predicate)
         {
@@ -72,6 +76,7 @@ namespace LearnHub.Stores.AdminStores
             {
                 Items.Remove(existingItem);
             }
+
         }
 
         // Tải danh sách đối tượng kiểu T vào Store
@@ -85,5 +90,12 @@ namespace LearnHub.Stores.AdminStores
                 Items.Add(item);
             }
         }
+
+        public void Clear()
+        {
+            Items.Clear();
+            SelectedItem = null;
+        }
     }
+
 }

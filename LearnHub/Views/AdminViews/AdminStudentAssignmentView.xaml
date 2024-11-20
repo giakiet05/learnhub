@@ -1,11 +1,12 @@
-﻿<Page x:Class="LearnHub.Views.AdminViews.AdminStudentAssignmentView"
+﻿<UserControl x:Class="LearnHub.Views.AdminViews.AdminStudentAssignmentView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
+      d:DesignHeight="700" d:DesignWidth="1250" Background="#fff7f7">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -21,15 +22,15 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnHocSinh" Content="Học sinh"
-                        Command="{Binding Student}"
-                BorderBrush="#5CB3FF" Background="#ffffff"
-                Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
-                Style="{StaticResource btnStyle}"/>
+                        Command="{Binding SwitchToStudentCommand}"
+                        BorderBrush="#5CB3FF" Background="#ffffff"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
 
                 <Button x:Name="btnPhanLop" Content="Phân lớp" IsEnabled="False"
-                BorderBrush="#5CB3FF" Background="#5CB3FF"
-                Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
-                Style="{StaticResource btnStyle}"/>
+                        BorderBrush="#5CB3FF" Background="#5CB3FF"
+                        Margin="10 10 0 0" FontSize="15" Width="119" Height="41"
+                        Style="{StaticResource btnStyle}"/>
             </StackPanel>
         </Grid>
 
@@ -38,69 +39,46 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="70"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <!--button chức năng-->
-            <StackPanel VerticalAlignment="Center" Margin="0 0 0 100" Grid.Column="1">
-                <Button x:Name="btnThem" Content="Thêm"
-                        Command="{Binding Add}"
-                        Background="#5CB3FF" BorderBrush="Transparent"
-                        Style="{StaticResource btnStyle}"/>
-                <Button x:Name="btnXoa" Content="Xoá" Margin="0 20 0 0"
-                        Command="{Binding Delete}"
-                        Background="#5CB3FF" BorderBrush="Transparent"
-                        Style="{StaticResource btnStyle}"/>
-            </StackPanel>
-            
-            <!--grid thông tin lớp cũ-->
-            <Border Grid.Column="0" BorderBrush="#5CB3FF" BorderThickness="1"
-                    Margin="5">
+            <!--GroupBox Danh sách lớp-->
+            <GroupBox Header="Danh sách lớp" Margin="10" FontSize="14"
+                      FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"
+                      Style="{StaticResource MaterialDesignCardGroupBox}"
+                      BorderBrush="#007ACC" BorderThickness="1">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Thông tin lớp cũ" Style="{StaticResource font_style}"
-                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black"/>
-                    <!--grid chọn năm khối lớp-->
-                    <Grid Grid.Row="1">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <!--chọn năm học-->
-                                <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Text="Năm học: " Style="{StaticResource font_style}"
-                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <ComboBox x:Name="cbNamHocCu" Width="100" Height="30" 
-                                              FontSize="15" Background="#d9d9d9d9"/>
-                                </StackPanel>
-                                <!--chọn khối lớp-->
-                                <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Text="Khối lớp: " Style="{StaticResource font_style}"
-                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <ComboBox x:Name="cbKhoiLopCu" Width="80" Height="30" 
-                                         FontSize="15" Margin="10 0 0 0" Background="#d9d9d9d9"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <!--chọn lớp-->
-                            <StackPanel Margin="5" Orientation="Horizontal">
-                                <TextBlock Text="Lớp: " Style="{StaticResource font_style}"
-                                        VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <ComboBox x:Name="cbLopCu" Width="100" Height="30"
-                                          FontSize="15" Background="#d9d9d9d9"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-
-
-                    <DataGrid Grid.Row="2" x:Name="lopcuDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                                CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
-                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
-                              PreviewMouseLeftButtonDown="lopcuDG_PreviewMouseLeftButtonDown">
+                    <StackPanel Orientation="Horizontal">
+                        <!--chọn năm học-->
+                        <TextBlock Text="Năm: " VerticalAlignment="Center"
+                                   FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
+                        <ComboBox x:Name="cbNam" Width="100" Height="30" FontSize="13"
+                                 ItemsSource="{Binding Years}"
+                                 DisplayMemberPath="Name" 
+                                 SelectedItem="{Binding SelectedYear}"
+                                  Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                        
+                        <!--chọn khối-->
+                        <TextBlock Text="Khối: " VerticalAlignment="Center" Margin="15 0 0 0"
+                                    FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
+                        <ComboBox x:Name="cbKhoi" Width="100" Height="30" FontSize="13"
+                                  ItemsSource="{Binding Grades}"
+                                  DisplayMemberPath="Name"
+                                  SelectedItem="{Binding SelectedGrade}"
+                                  Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                    </StackPanel>
+                    
+                    <!--danh sách lớp của khối ở năm học đã chọn-->
+                    <DataGrid Grid.Row="1" x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
+                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
+                             ItemsSource="{Binding Classrooms}"
+                              SelectedItem="{Binding SelectedClassroom}"
+                              Margin="5" PreviewMouseLeftButtonDown="LopDG_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0"/>
@@ -108,60 +86,60 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã học sinh"/>
-                            <DataGridTextColumn Header="Họ tên"/>
+                            <DataGridTextColumn Header="Mã lớp" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Tên lớp" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Sĩ số" Binding="{Binding Capacity}"/>
+                            <DataGridTextColumn Header="GVCN" Binding="{Binding TeacherInCharge.FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-            </Border>
+            </GroupBox>
             
-            <!--grid thông tin lớp mới-->
-            <Border Grid.Column="2" BorderBrush="#5CB3FF" BorderThickness="1"
-                    Margin="5">
+            <!--GroupBox Danh sách học sinh-->
+            <GroupBox Grid.Column="1" Header="Danh sách học sinh" Margin="10" FontSize="14"
+                      FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"
+                      Style="{StaticResource MaterialDesignCardGroupBox}"
+                      BorderBrush="#007ACC" BorderThickness="1">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
+                    
+                    <!--số lượng học sinh của lớp đã chọn-->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10 0 0 0">
+                        <TextBlock Text="Số lượng học sinh: " Style="{StaticResource font_style}"
+                                    VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding StudentPlacements.Count}" Style="{StaticResource font_style}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
 
-                    <TextBlock Grid.Row="0" Text="Thông tin lớp mới" Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black"/>
-                    <!--grid chọn năm khối lớp-->
-                    <Grid Grid.Row="1">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <!--chọn năm học-->
-                                <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Text="Năm học: " Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <ComboBox x:Name="cbNamHocMoi" Width="100" Height="30"
-                                               FontSize="15" Background="#d9d9d9d9"/>
-                                </StackPanel>
-                                <!--chọn khối lớp-->
-                                <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Text="Khối lớp: " Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <ComboBox x:Name="cbKhoiLopMoi" Width="80" Height="30" 
-                             Margin="10 0 0 0" Background="#d9d9d9d9" FontSize="15"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <!--chọn lớp-->
-                            <StackPanel Margin="5" Orientation="Horizontal">
-                                <TextBlock Text="Lớp: " Style="{StaticResource font_style}"
-                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <ComboBox x:Name="cbLopMoi" Width="100" Height="30" 
-                                           FontSize="15" Background="#d9d9d9d9"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
+                    <!--các nút chức năng-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Thêm học sinh" BorderBrush="Transparent" Background="#5CB3FF"
+                                Margin="10 0 0 0" FontSize="15" Width="120" Height="40"
+                                Command="{Binding ShowAddModalCommand}"
+                                Style="{StaticResource btnStyle}"/>
+                        
+                        <Button Content="Xóa học sinh" BorderBrush="Transparent" Background="#5CB3FF"
+                                Margin="10 0 0 0" FontSize="15" Width="120" Height="40"
+                                Command="{Binding ShowDeleteModalCommand}"
+                                Style="{StaticResource btnStyle}"/>
 
-
-                    <DataGrid Grid.Row="2" x:Name="lopmoiDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                    CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
-                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
-                              PreviewMouseLeftButtonDown="lopmoiDG_PreviewMouseLeftButtonDown">
+                        <Button Content="Chuyển khối" BorderBrush="Transparent" Background="#5CB3FF"
+                                Margin="10 0 0 0" FontSize="15" Width="120" Height="40"
+                                Command="{Binding ShowChangeClassModalCommand}"
+                                Style="{StaticResource btnStyle}"/>
+                    </StackPanel>
+                    
+                    
+                    <!--danh sách học sinh của lớp đã chọn-->
+                    <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
+                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
+                             ItemsSource="{Binding StudentPlacements}"
+                              SelectedItem="{Binding SelectedStudentPlacement}"
+                              Margin="5" PreviewMouseLeftButtonDown="HocSinhDG_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0"/>
@@ -169,12 +147,14 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã học sinh"/>
-                            <DataGridTextColumn Header="Họ tên"/>
+                            <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Student.Id}"/>
+                            <DataGridTextColumn Header="Họ tên" Binding="{Binding Student.FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-            </Border>
+            </GroupBox>
+
+
         </Grid>
     </Grid>
-</Page>
+</UserControl>

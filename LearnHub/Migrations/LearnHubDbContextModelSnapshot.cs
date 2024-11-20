@@ -106,16 +106,16 @@ namespace LearnHub.Migrations
                     b.Property<string>("ClassroomId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ExamType")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("ExamDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExamRoom")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ExamType")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SubjectId", "Semester", "ClassroomId");
+                    b.HasKey("SubjectId", "Semester", "ClassroomId", "ExamType");
 
                     b.HasIndex("ClassroomId");
 
@@ -260,6 +260,9 @@ namespace LearnHub.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("GradeId")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("LessonNumber")
                         .HasColumnType("INTEGER");
 
@@ -267,6 +270,8 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GradeId");
 
                     b.ToTable("Subjects");
                 });
@@ -331,10 +336,10 @@ namespace LearnHub.Migrations
                     b.Property<string>("TeacherId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("EndTime")
+                    b.Property<string>("Period")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("StartTime")
+                    b.Property<string>("Weekday")
                         .HasColumnType("TEXT");
 
                     b.HasKey("SubjectId", "ClassroomId", "TeacherId");
@@ -343,10 +348,7 @@ namespace LearnHub.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("TeachingAssignments", t =>
-                        {
-                            t.HasCheckConstraint("CK_TeachingAssignment_Time", "[StartTime] < [EndTime]");
-                        });
+                    b.ToTable("TeachingAssignments");
                 });
 
             modelBuilder.Entity("LearnHub.Models.User", b =>
@@ -643,6 +645,15 @@ namespace LearnHub.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("LearnHub.Models.Subject", b =>
+                {
+                    b.HasOne("LearnHub.Models.Grade", "Grade")
+                        .WithMany("Subjects")
+                        .HasForeignKey("GradeId");
+
+                    b.Navigation("Grade");
+                });
+
             modelBuilder.Entity("LearnHub.Models.SubjectResult", b =>
                 {
                     b.HasOne("LearnHub.Models.Student", "Student")
@@ -761,6 +772,8 @@ namespace LearnHub.Migrations
             modelBuilder.Entity("LearnHub.Models.Grade", b =>
                 {
                     b.Navigation("Classrooms");
+
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Subject", b =>

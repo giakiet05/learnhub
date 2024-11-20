@@ -15,7 +15,10 @@ namespace LearnHub.Models
 
         public int? LessonNumber { get; set; }
 
+        public string? GradeId { get; set; }
+
         //Navigation Properties
+        public Grade Grade { get; set; }
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }
         public ICollection<Document> Documents { get; set; }
         public ICollection<Exercise> Exercises { get; set; }

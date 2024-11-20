@@ -50,12 +50,20 @@
             
             <!--mật khẩu-->
             <PasswordBox x:Name="pbPassword" Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
-             materialDesign:HintAssist.Hint="Mật Khẩu" FontSize="20"
-             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-             HorizontalAlignment="Center" Width="298" Height="48"
-             Margin="0 10 0 0"
-             localHelpers:PasswordBoxHelper.BindPassword="True"
-             localHelpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         materialDesign:HintAssist.Hint="Mật Khẩu" FontSize="20"
+                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                         HorizontalAlignment="Center" Width="298" Height="48"
+                         Margin="0 10 0 0"
+                         localHelpers:PasswordBoxHelper.BindPassword="True"
+                         localHelpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <!--chọn vai trò-->
+            <StackPanel Margin="40 10 0 0" Orientation="Horizontal">
+                <Button Content="Admin" Height="50" Width="100" Margin="5"/>
+                <Button Content="Student" Height="50" Width="100" Margin="5"/>
+                <Button Content="Teacher" Height="50" Width="100" Margin="5"/>
+            </StackPanel>
+
 
             <!--nút quên mật khẩu-->
             <TextBlock x:Name="tbForgot" Text="Quên mật khẩu?" FontSize="16"

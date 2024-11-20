@@ -35,7 +35,7 @@ namespace LearnHub.Data
         {
 
             //Composite keys
-            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId });
+            modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId, e.ExamType });
             modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.TeacherId });
             modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentId });
             modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId });
@@ -63,10 +63,7 @@ namespace LearnHub.Data
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Student_Gender", "[Gender] IN ('Nam', 'Nữ')"));
             });
 
-            modelBuilder.Entity<TeachingAssignment>(e =>
-            {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_TeachingAssignment_Time", "[StartTime] < [EndTime]"));
-            });
+           
 
             modelBuilder.Entity<ExamSchedule>(e =>
             {

@@ -16,12 +16,22 @@ namespace LearnHub.ViewModels
     {
         public ICommand CloseCommand { get; }
         public ICommand MinimizeCommand { get; }
+        public ICommand MaximizeCommand { get; }
         public ICommand MouseMoveCommand { get; }
         public ControlBarViewModel()
         {
             CloseCommand = new RelayCommand(ExecuteClose);
             MinimizeCommand = new RelayCommand(ExecuteMinimize);
+            MaximizeCommand = new RelayCommand(ExecuteMaximize);
             MouseMoveCommand = new RelayCommand(ExecuteMouseMove);
+        }
+
+        private void ExecuteMaximize(object parameter)
+        {
+            FrameworkElement parent = GetParent(parameter as UserControl);
+            var w = parent as Window;
+            if (w != null)
+                w.WindowState = w.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
 
         private void ExecuteClose(object parameter)

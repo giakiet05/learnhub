@@ -35,7 +35,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
-        public ICommand Ass { get; }
+        public ICommand SwitchToAssignmentCommand { get; }
 
         public AdminStudentViewModel()
         {
@@ -46,7 +46,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowAddModalCommand = new NavigateModalCommand(() => new AddStudentViewModel());
             ShowEditModalCommand = new NavigateModalCommand(() => new EditStudentViewModel(), () => _selectedStudent != null, "Chưa chọn học sinh để sửa");
 
-            Ass = new NavigateLayoutCommand(() => new AdminStudentAssignmentViewModel());
+            SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new AdminStudentAssignmentViewModel());
 
             LoadStudentsAsync();
         }
@@ -65,7 +65,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
-                await GenericDataService<Student>.Instance.DeleteById(selectedStudent.Id);
+                await GenericDataService<Student>.Instance.DeleteOne(e => e.Id == selectedStudent.Id);
 
                 _studentStore.Delete(student => student.Id == selectedStudent.Id); // Xóa từ GenericStore
 

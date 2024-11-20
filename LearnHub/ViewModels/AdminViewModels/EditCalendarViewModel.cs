@@ -78,7 +78,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (formViewModel.SelectedSubject == null)
 
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
+               ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
@@ -106,12 +106,12 @@ namespace LearnHub.ViewModels.AdminViewModels
                         e.Semester == selectedExamSchedule.Semester &&
                         e.ExamType == selectedExamSchedule.ExamType);
 
-
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Cập nhật thất bại");
+                ToastMessageViewModel.ShowErrorToast("Cập nhật thất bại");
             }
         }
     }

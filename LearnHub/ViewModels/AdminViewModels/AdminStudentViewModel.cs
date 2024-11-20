@@ -69,11 +69,12 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                 _studentStore.Delete(student => student.Id == selectedStudent.Id); // Xóa từ GenericStore
 
+                ToastMessageViewModel.ShowSuccessToast("Xóa học sinh thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Xóa thất bại");
+                ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
         }
     }

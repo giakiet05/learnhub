@@ -6,12 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LearnHub.Views;
+using System.Collections.ObjectModel;
 
 namespace LearnHub.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
         public BaseViewModel CurrentViewModel => NavigationStore.Instance.CurrentViewModel;
+        public ObservableCollection<ToastMessageView> Toasts => ToastMessageViewModel.Toasts;
         public BaseViewModel CurrentModelViewModel => ModalNavigationStore.Instance.CurrentModalViewModel;
         public bool IsOpen => ModalNavigationStore.Instance.IsOpen;
         public MainViewModel()

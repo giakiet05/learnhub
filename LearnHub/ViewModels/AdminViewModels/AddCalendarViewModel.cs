@@ -63,7 +63,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (formViewModel.SelectedSubject == null)
 
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
+                ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
@@ -91,13 +91,13 @@ namespace LearnHub.ViewModels.AdminViewModels
                 // Update the generic store
 
                 GenericStore<ExamSchedule>.Instance.Add(entity);
-
+                ToastMessageViewModel.ShowSuccessToast("Thêm lịch thi thành công.");
 
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Tạo thất bại");
+                ToastMessageViewModel.ShowErrorToast("Tạo thất bại");
             }
         }
     }

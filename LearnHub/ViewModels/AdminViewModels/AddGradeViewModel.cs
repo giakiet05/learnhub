@@ -32,7 +32,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Id))
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
+                ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
@@ -48,12 +48,12 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                 // Update the generic store with the new grade
                 GenericStore<Grade>.Instance.Add(newGrade);
-
+                ToastMessageViewModel.ShowSuccessToast("Thêm khối thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Tạo thất bại");
+                ToastMessageViewModel.ShowErrorToast("Tạo thất bại");
             }
         }
     }

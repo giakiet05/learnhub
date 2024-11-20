@@ -33,7 +33,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 string.IsNullOrWhiteSpace(formViewModel.FullName))
 
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
+                ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
@@ -62,11 +62,12 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 await AuthenticationService.Instance.CreateAccount(newTeacher);
                 GenericStore<Teacher>.Instance.Add(newTeacher);
+                ToastMessageViewModel.ShowSuccessToast("Thêm giáo viên thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Tạo thất bại");
+                ToastMessageViewModel.ShowErrorToast("Tạo thất bại");
             }
         }
     }

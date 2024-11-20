@@ -14,25 +14,27 @@ namespace LearnHub.ViewModels
 {
     public class ToastMessageViewModel
     {
-        public ObservableCollection<ToastMessageView> Toasts { get; set; }
-        public ICommand AddToastCommand { get; set; }
+        private static ObservableCollection<ToastMessageView> _toast;
+        public static ObservableCollection<ToastMessageView> Toasts
+        {
+            get
+            {
+                if (null == _toast) _toast = new ObservableCollection<ToastMessageView>();
+                return _toast;
+            }
+            set
+            {
+
+            }
+        }
 
         public ToastMessageViewModel()
         {
             // Khởi tạo danh sách Toast
             Toasts = new ObservableCollection<ToastMessageView>();
-
-            // Command để thêm một Toast mới
-            AddToastCommand = new RelayCommand(Doing);
         }
 
-        private void Doing()
-        {
-            AddToast("Success", "This is a test toast message!", "✔", "#5CB3FF");
-            AddToast("Success", "This is a test toast message!", "✔", "LightGreen");
-        }
-
-        public void AddToast(string title, string message, string icon, string backgroundColor)
+        public static void AddToast(string title, string message, string icon, string backgroundColor)
         {
             var toast = new ToastMessageView
             {
@@ -79,6 +81,22 @@ namespace LearnHub.ViewModels
             });
         }
 
+        public static void ShowSuccessToast(string message = "Success")
+        {
+            AddToast("Success", message, "✔", "#b7f7c4");
+        }
+        public static void ShowInfoToast(string message = "Info")
+        {
+            AddToast("Info", message, "i", "#b3e6f5");
+        }
+        public static void ShowWarningToast(string message = "Warning")
+        {
+            AddToast("Warning", message, "!", "#fbe7c6");
+        }
+        public static void ShowErrorToast(string message = "Error")
+        {
+            AddToast("Error", message, "X", "#ffb7b6");
+        }
 
         public partial class ToastMessageModel
         {

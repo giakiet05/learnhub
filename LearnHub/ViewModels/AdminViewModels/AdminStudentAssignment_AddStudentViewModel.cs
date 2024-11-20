@@ -51,22 +51,38 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void ExecuteSubmit()
         {
-            
-            foreach (var student in SelectedStudents)
+            if (!SelectedStudents.Any())
             {
-                var newStudentPlacement = new StudentPlacement()
-                {
-                    StudentId = student.Id,
-                    ClassroomId = _classroomStore.SelectedItem.Id,
-                };
-
-                var entity =  await GenericDataService<StudentPlacement>.Instance.CreateOne(newStudentPlacement);
-                entity.Student = await GenericDataService<Student>.Instance.GetOne(e => e.Id == entity.StudentId);
-                
-                _studentPlacementStore.Add(entity);
+                MessageBox.Show("Chưa chọn học sinh để thêm vào lớp");
+                return;
             }
+            else if (SelectedStudents.Count() + _studentPlacementStore.Items.Count() > _classroomStore.SelectedItem.Capacity)
+            {
+                MessageBox.Show("Số lượng học sinh thêm vào không được vượt quá sỉ số lớp. Vui lòng giảm số lượng thêm");
+                return;
+            }
+            try
+            {
+                foreach (var student in SelectedStudents)
+                {
+                    var newStudentPlacement = new StudentPlacement()
+                    {
+                        StudentId = student.Id,
+                        ClassroomId = _classroomStore.SelectedItem.Id,
+                    };
 
-            ModalNavigationStore.Instance.Close();
+                    var entity = await GenericDataService<StudentPlacement>.Instance.CreateOne(newStudentPlacement);
+                    entity.Student = await GenericDataService<Student>.Instance.GetOne(e => e.Id == entity.StudentId);
+
+                    _studentPlacementStore.Add(entity);
+                }
+
+                ModalNavigationStore.Instance.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Thêm vào lớp thất bại");
+            }
         }
 
         private async void LoadUnassignedStudents()

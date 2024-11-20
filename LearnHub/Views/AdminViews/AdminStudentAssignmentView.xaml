@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      mc:Ignorable="d" 
+      xmlns:helpers="clr-namespace:LearnHub.Helpers"
+             mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1250" Background="#fff7f7">
 
     <Grid>
@@ -136,10 +137,10 @@
                     
                     <!--danh sách học sinh của lớp đã chọn-->
                     <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
-                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
-                             ItemsSource="{Binding StudentPlacements}"
-                              SelectedItem="{Binding SelectedStudentPlacement}"
-                              Margin="5" PreviewMouseLeftButtonDown="HocSinhDG_PreviewMouseLeftButtonDown">
+          IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended" CanUserDeleteRows="True"
+          ItemsSource="{Binding StudentPlacements}"
+         helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedStudentPlacements}"
+          Margin="5">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0"/>
@@ -151,6 +152,7 @@
                             <DataGridTextColumn Header="Họ tên" Binding="{Binding Student.FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>
+
                 </Grid>
             </GroupBox>
 

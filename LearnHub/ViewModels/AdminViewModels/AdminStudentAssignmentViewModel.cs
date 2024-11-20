@@ -6,6 +6,7 @@ using LearnHub.Stores.AdminStores;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,21 +70,16 @@ namespace LearnHub.ViewModels.AdminViewModels
 
 
 
-        private StudentPlacement _selectedStudentPlacement;
-        public StudentPlacement SelectedStudentPlacement
+        private ObservableCollection<StudentPlacement> _selectedStudentPlacements = new();
+        public ObservableCollection<StudentPlacement> SelectedStudentPlacements
         {
-            get
-            {
-                return _selectedStudentPlacement;
-            }
+            get => _selectedStudentPlacements;
             set
             {
-                _selectedStudentPlacement = value;
-                _studentPlacementStore.SelectedItem = value;
-                OnPropertyChanged(nameof(SelectedStudentPlacement));
+                _selectedStudentPlacements = value;
+                OnPropertyChanged(nameof(SelectedStudentPlacements));
             }
         }
-
 
         public ICommand SwitchToStudentCommand { get; }
         public ICommand ShowAddModalCommand { get; private set; }
@@ -185,18 +181,25 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void DeleteStudentFromClass()
         {
-            if (_selectedStudentPlacement == null)
+            if (SelectedStudentPlacements == null || !SelectedStudentPlacements.Any())
             {
                 MessageBox.Show("Chưa chọn học sinh để xóa khỏi lớp");
                 return;
             }
+
             try
             {
+                // Get the IDs of selected placements
+                var selectedIds = SelectedStudentPlacements
+                    .Select(sp => new { sp.StudentId, sp.ClassroomId })
+                    .ToList();
+
+                // Delete from database
                 await GenericDataService<StudentPlacement>.Instance
-                    .DeleteOne(e => e.StudentId == _selectedStudentPlacement.StudentId &&
-                                    e.ClassroomId == _selectedStudentPlacement.ClassroomId);
-                _studentPlacementStore.Delete(e => e.StudentId == _selectedStudentPlacement.StudentId &&
-                                    e.ClassroomId == _selectedStudentPlacement.ClassroomId);
+                    .DeleteMany(e => selectedIds.Any(id => id.StudentId == e.StudentId && id.ClassroomId == e.ClassroomId));
+
+                // Remove from store
+                _studentPlacementStore.Delete(e => selectedIds.Any(id => id.StudentId == e.StudentId && id.ClassroomId == e.ClassroomId));
 
                 ModalNavigationStore.Instance.Close();
             }
@@ -205,5 +208,6 @@ namespace LearnHub.ViewModels.AdminViewModels
                 MessageBox.Show("Xóa thất bại");
             }
         }
+
     }
 }

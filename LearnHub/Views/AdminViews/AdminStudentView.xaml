@@ -17,7 +17,7 @@
         <!--grid nút chuyển view học sinh và phân lớp-->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
@@ -50,6 +50,17 @@
                         Command="{Binding ShowEditModalCommand}" Width="90" Height="45" FontSize="16"
                         Background="#5CB3FF" BorderBrush="Transparent"
                         Style="{StaticResource btnStyle}"/>
+                <!--nút import excel-->
+                <Button x:Name="btImport" Content="Import" Margin="0 0 20 0"
+          Command="{Binding ImportFromExcelCommand}" Width="90" Height="45" FontSize="16"
+          Background="#5CB3FF" BorderBrush="Transparent"
+          Style="{StaticResource btnStyle}"/>
+          
+            <!--nút export excel-->
+            <Button x:Name="btnExport" Content="Export" Margin="0 0 20 0"
+Command="{Binding ExportToExcelCommand}" Width="90" Height="45" FontSize="16"
+Background="#5CB3FF" BorderBrush="Transparent"
+Style="{StaticResource btnStyle}"/>
             </StackPanel>
         </Grid>
 

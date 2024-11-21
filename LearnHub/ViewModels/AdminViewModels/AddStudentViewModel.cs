@@ -31,7 +31,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
                 string.IsNullOrWhiteSpace(formViewModel.Password) ||
-                string.IsNullOrWhiteSpace(formViewModel.FullName))
+                string.IsNullOrWhiteSpace(formViewModel.FullName) ||
+                string.IsNullOrWhiteSpace(formViewModel.Gender))
             {
              ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
@@ -53,7 +54,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 FatherName = formViewModel.FatherName,
                 MotherName = formViewModel.MotherName,
                 FatherPhone = formViewModel.FatherPhone,
-                MotherPhone = formViewModel.FatherPhone,
+                MotherPhone = formViewModel.FatherPhone
             };
 
             try

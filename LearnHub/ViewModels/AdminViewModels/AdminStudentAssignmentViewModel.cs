@@ -6,6 +6,7 @@ using LearnHub.Stores.AdminStores;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,21 +70,16 @@ namespace LearnHub.ViewModels.AdminViewModels
 
 
 
-        private StudentPlacement _selectedStudentPlacement;
-        public StudentPlacement SelectedStudentPlacement
+        private ObservableCollection<StudentPlacement> _selectedStudentPlacements = new();
+        public ObservableCollection<StudentPlacement> SelectedStudentPlacements
         {
-            get
-            {
-                return _selectedStudentPlacement;
-            }
+            get => _selectedStudentPlacements;
             set
             {
-                _selectedStudentPlacement = value;
-                _studentPlacementStore.SelectedItem = value;
-                OnPropertyChanged(nameof(SelectedStudentPlacement));
+                _selectedStudentPlacements = value;
+                OnPropertyChanged(nameof(SelectedStudentPlacements));
             }
         }
-
 
         public ICommand SwitchToStudentCommand { get; }
         public ICommand ShowAddModalCommand { get; private set; }
@@ -185,26 +181,37 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void DeleteStudentFromClass()
         {
-            if (_selectedStudentPlacement == null)
+            if (SelectedStudentPlacements == null || !SelectedStudentPlacements.Any())
             {
                 ToastMessageViewModel.ShowWarningToast("Chưa chọn học sinh để xóa khỏi lớp");
                 return;
             }
+
             try
             {
-                await GenericDataService<StudentPlacement>.Instance
-                    .DeleteOne(e => e.StudentId == _selectedStudentPlacement.StudentId &&
-                                    e.ClassroomId == _selectedStudentPlacement.ClassroomId);
-                _studentPlacementStore.Delete(e => e.StudentId == _selectedStudentPlacement.StudentId &&
-                                    e.ClassroomId == _selectedStudentPlacement.ClassroomId);
+                foreach (var item in SelectedStudentPlacements.ToList())
+                {
+                    // Delete from database
+                    bool result = await GenericDataService<StudentPlacement>.Instance
+                        .DeleteOne(e => e.StudentId == item.StudentId && e.ClassroomId == item.ClassroomId);
+
+                    if (result)
+                    {
+                        // Delete from store
+                        _studentPlacementStore.Delete(e => e.StudentId == item.StudentId && e.ClassroomId == item.ClassroomId);
+                    }
+                }
 
                 ToastMessageViewModel.ShowSuccessToast("Xóa học sinh thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)
             {
+
                 ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
         }
+
+
     }
 }

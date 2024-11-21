@@ -82,10 +82,12 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
+               
                 await GenericDataService<Grade>.Instance.DeleteOne(e => e.Id == selectedGrade.Id);
+               
                 _gradeStore.Delete(g => g.Id == selectedGrade.Id); // Xóa khối trong Store
-
                 ToastMessageViewModel.ShowSuccessToast("Xóa khối thành công.");
+
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

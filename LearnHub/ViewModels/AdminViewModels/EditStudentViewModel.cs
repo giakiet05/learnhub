@@ -58,7 +58,9 @@ namespace LearnHub.ViewModels.AdminViewModels
             StudentDetailsFormViewModel formViewModel = StudentDetailsFormViewModel;
 
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
-                string.IsNullOrWhiteSpace(formViewModel.FullName))
+             string.IsNullOrWhiteSpace(formViewModel.Password) ||
+             string.IsNullOrWhiteSpace(formViewModel.FullName) ||
+             string.IsNullOrWhiteSpace(formViewModel.Gender))
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;

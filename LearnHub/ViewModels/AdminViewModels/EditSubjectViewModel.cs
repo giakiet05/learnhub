@@ -40,7 +40,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 SubjectDetailsFormViewModel.IsEnable = false;
                 SubjectDetailsFormViewModel.Id = selectedSubject.Id;
                 SubjectDetailsFormViewModel.Name = selectedSubject.Name;
-                SubjectDetailsFormViewModel.LessonNumber = selectedSubject.LessonNumber ?? 0;           
+                SubjectDetailsFormViewModel.LessonNumber = selectedSubject.LessonNumber;           
                 
             }
         }

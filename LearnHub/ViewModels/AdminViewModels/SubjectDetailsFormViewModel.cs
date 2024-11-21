@@ -36,8 +36,8 @@ namespace LearnHub.ViewModels.AdminViewModels
 				OnPropertyChanged(nameof(Name));
 			}
 		}
-		private int _lessonNumber;
-		public int LessonNumber
+		private int? _lessonNumber;
+		public int? LessonNumber
 		{
 			get
 			{

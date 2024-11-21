@@ -188,7 +188,7 @@
                                 <!--chọn bộ môn-->
                                 <TextBlock Text="Năm: " VerticalAlignment="Center"
                                             FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
-                                <ComboBox Width="150" Height="30" FontSize="13"
+                                <ComboBox Width="100" Height="30" FontSize="13"
                                          ItemsSource="{Binding Years}"
                                          DisplayMemberPath="Name" 
                                          SelectedItem="{Binding SelectedYear}"

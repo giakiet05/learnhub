@@ -100,6 +100,9 @@
     <DataTemplate DataType="{x:Type adminvm:AddSubjectViewModel}">
         <adminviews:AddSubjectView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AddAssignmentByTeacherViewModel}">
+        <adminviews:AddAssignmentByTeacherView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AddTeacherViewModel}">
         <adminviews:AddTeacherView/>
     </DataTemplate>
@@ -117,6 +120,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditCalendarViewModel}">
         <adminviews:EditCalendarView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:EditAssignmentByTeacherViewModel}">
+        <adminviews:EditAssignmentByTeacherView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditGradeViewModel}">
         <adminviews:EditGradeView/>

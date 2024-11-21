@@ -20,7 +20,7 @@
                     <!-- Hiệu ứng trượt từ phải sang trái -->
                     <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
                                  From="300" To="0"
-                                 Duration="0:0:0.5" />
+                                 Duration="0:0:0.2" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>

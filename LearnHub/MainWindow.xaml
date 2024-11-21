@@ -33,6 +33,15 @@
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
 
+        <ItemsControl ItemsSource="{Binding Toasts}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 20 0 0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </Grid>
+
+   
 
 </Window>

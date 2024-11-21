@@ -131,7 +131,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             if (selectedExamSchedule == null)
             {
-                MessageBox.Show("Chưa chọn lịch thi để xóa");
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn lịch thi để xóa");
                 return;
             }
 
@@ -153,11 +153,13 @@ namespace LearnHub.ViewModels.AdminViewModels
                         e.Semester == SelectedSemester &&
                         e.ExamType == SelectedExamType
                     );
+
+                ToastMessageViewModel.ShowSuccessToast("Xóa lịch thi thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Xóa thất bại");
+                ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
         }
 
@@ -181,13 +183,13 @@ namespace LearnHub.ViewModels.AdminViewModels
             else
             {
                 ShowAddModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    _ => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
                 ShowEditModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    _ => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
                 ShowDeleteModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    _ => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
             }
 

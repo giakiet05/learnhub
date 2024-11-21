@@ -31,7 +31,7 @@ namespace LearnHub.Commands
             }
             else
             {
-                MessageBox.Show(_message);
+                ToastMessageViewModel.ShowWarningToast(_message);
             }
         }
     }

@@ -60,7 +60,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
             catch (Exception)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu");
+                ToastMessageViewModel.ShowErrorToast("Lỗi khi tải dữ liệu");
             }
         }
 
@@ -70,7 +70,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             var selectedClassroom = _classroomStore.SelectedItem;
             if (selectedClassroom == null)
             {
-                MessageBox.Show("Chưa chọn lớp để xóa");
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp để xóa");
                 return;
             }
 
@@ -80,11 +80,12 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                     _classroomStore.Delete(classroom => classroom.Id == selectedClassroom.Id); // Xóa từ GenericStore
 
+                    ToastMessageViewModel.ShowSuccessToast("Xóa lớp thành công");
                     ModalNavigationStore.Instance.Close();
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Xóa thất bại");
+                    ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
                 }
         }
     }

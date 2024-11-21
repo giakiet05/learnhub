@@ -59,7 +59,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             selectedTeacher.Ethnicity = formViewModel.Ethnicity;
             selectedTeacher.Religion = formViewModel.Religion;
             selectedTeacher.Coefficient = formViewModel.Coefficient;
-            //selectedTeacher.Specialization = formViewModel.Specialization;
+            selectedTeacher.MajorId = formViewModel.SelectedMajor.Id;
+           selectedTeacher.Major = formViewModel.SelectedMajor;
             selectedTeacher.Salary = formViewModel.Salary;
             selectedTeacher.CitizenID = formViewModel.CitizenID;
             selectedTeacher.DateOfJoining = formViewModel.DateOfJoining;
@@ -76,7 +77,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 await GenericDataService<Teacher>.Instance.UpdateOne(selectedTeacher, e => e.Id == selectedTeacher.Id);
                 _teacherStore.Update(selectedTeacher,e => e.Id == selectedTeacher.Id);
 
-                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công.");
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật giáo viên thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
@@ -103,7 +104,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 TeacherDetailsFormViewModel.Salary = selectedTeacher.Salary;
                 TeacherDetailsFormViewModel.DateOfJoining = selectedTeacher.DateOfJoining;
                 TeacherDetailsFormViewModel.CitizenID = selectedTeacher.CitizenID;
-               // TeacherDetailsFormViewModel.Specialization = selectedTeacher.Specialization;
+               TeacherDetailsFormViewModel.SelectedMajor = selectedTeacher.Major;
             }
         }
     }

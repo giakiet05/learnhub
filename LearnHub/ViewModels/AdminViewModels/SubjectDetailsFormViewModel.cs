@@ -1,4 +1,6 @@
 ﻿
+using LearnHub.Models;
+using LearnHub.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,34 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class SubjectDetailsFormViewModel : BaseViewModel
     {
-		private string _id;
+        public IEnumerable<Grade> Grades { get; private set; }
+        public IEnumerable<Major> Majors { get; private set; }
+
+        private Grade _selectedGrade;
+        public Grade SelectedGrade
+        {
+            get => _selectedGrade;
+            set
+            {
+                _selectedGrade = value;
+                OnPropertyChanged(nameof(SelectedGrade));
+
+            }
+        }
+
+        private Major _selectedMajor;
+        public Major SelectedMajor
+        {
+            get => _selectedMajor;
+            set
+            {
+                _selectedMajor = value;
+                OnPropertyChanged(nameof(SelectedMajor));
+
+            }
+        }
+
+        private string _id;
 		public string Id
 		{
 			get
@@ -63,11 +92,22 @@ namespace LearnHub.ViewModels.AdminViewModels
 				OnPropertyChanged(nameof(IsEnable));
 			}
 		}
-
-		public ICommand SubmitCommand { get; }
+        private async void LoadGrades()
+        {
+            Grades = await GenericDataService<Grade>.Instance.GetAll();
+            OnPropertyChanged(nameof(Grades));
+        }
+        private async void LoadMajors()
+        {
+            Majors = await GenericDataService<Major>.Instance.GetAll();
+            OnPropertyChanged(nameof(Majors));
+        }
+        public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
         public SubjectDetailsFormViewModel(ICommand submitCommand, ICommand cancelCommand)
         {
+            LoadMajors();
+            LoadGrades();
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
         }

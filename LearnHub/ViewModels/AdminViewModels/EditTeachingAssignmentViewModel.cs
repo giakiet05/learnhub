@@ -100,7 +100,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                 _teachingAssignmentStore.Add(newTeachingAssignment);
                 // Đóng modal
-                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công.");
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật phân công thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

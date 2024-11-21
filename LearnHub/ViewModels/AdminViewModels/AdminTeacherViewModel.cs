@@ -11,6 +11,7 @@ using LearnHub.Services;
 using LearnHub.Stores;
 using System.Windows;
 using LearnHub.Stores.AdminStores;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -64,7 +65,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         // Load teachers from DB and update store
         private async void LoadTeachersAsync()
         {
-            var teachers = await GenericDataService<Teacher>.Instance.GetAll();
+            var teachers = await GenericDataService<Teacher>.Instance.GetAll(include: query => query.Include(e => e.Major));
             _teacherStore.Load(teachers);  // Update GenericStore with new data
         }
 

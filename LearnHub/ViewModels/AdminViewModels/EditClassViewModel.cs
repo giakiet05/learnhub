@@ -65,17 +65,21 @@ namespace LearnHub.ViewModels.AdminViewModels
             selectedClassroom.Id =formViewModel.Id;
             selectedClassroom.Name =formViewModel.Name;
             selectedClassroom.Capacity =formViewModel.Capacity;
+            //thuộc tính khóa ngoại sẽ lưu vào db
             selectedClassroom.GradeId =formViewModel.SelectedGrade.Id;
             selectedClassroom.YearId =formViewModel.SelectedYear.Id;
             selectedClassroom.TeacherInChargeId =formViewModel.SelectedTeacher.Id;
-
+            //navigation prop để hiển thị ra giao diện 
+            selectedClassroom.AcademicYear = formViewModel.SelectedYear;
+            selectedClassroom.Grade = formViewModel.SelectedGrade;
+            selectedClassroom.TeacherInCharge = formViewModel.SelectedTeacher;
 
             try
             {
                 await GenericDataService<Classroom>.Instance.UpdateOne(selectedClassroom, e => e.Id == selectedClassroom.Id);
                 _classroomStore.Update(selectedClassroom, e => e.Id == selectedClassroom.Id);  // Update in GenericStore
 
-                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công.");
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật lớp thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

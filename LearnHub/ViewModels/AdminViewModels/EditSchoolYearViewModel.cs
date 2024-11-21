@@ -61,7 +61,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 await GenericDataService<AcademicYear>.Instance.UpdateOne(selectedSchoolYear, e => e.Id == selectedSchoolYear.Id);
                 _schoolYearStore.Update(selectedSchoolYear, e => e.Id == selectedSchoolYear.Id);  // Update in GenericStore
 
-                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công");
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật năm học thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)

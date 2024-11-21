@@ -53,12 +53,12 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             if (!SelectedStudents.Any())
             {
-                MessageBox.Show("Chưa chọn học sinh để thêm vào lớp");
+               ToastMessageViewModel.ShowWarningToast("Chưa chọn học sinh để thêm vào lớp");
                 return;
             }
             else if (SelectedStudents.Count() + _studentPlacementStore.Items.Count() > _classroomStore.SelectedItem.Capacity)
             {
-                MessageBox.Show("Số lượng học sinh thêm vào không được vượt quá sỉ số lớp. Vui lòng giảm số lượng thêm");
+               ToastMessageViewModel.ShowWarningToast("Số lượng học sinh thêm vào không được vượt quá sỉ số lớp. Vui lòng giảm số lượng thêm");
                 return;
             }
             try
@@ -76,12 +76,12 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                     _studentPlacementStore.Add(entity);
                 }
-
+                ToastMessageViewModel.ShowSuccessToast("Thêm vào lớp thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Thêm vào lớp thất bại");
+               ToastMessageViewModel.ShowErrorToast("Thêm vào lớp thất bại");
             }
         }
 

@@ -40,7 +40,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                 SubjectDetailsFormViewModel.IsEnable = false;
                 SubjectDetailsFormViewModel.Id = selectedSubject.Id;
                 SubjectDetailsFormViewModel.Name = selectedSubject.Name;
-                SubjectDetailsFormViewModel.LessonNumber = selectedSubject.LessonNumber ?? 0;           
+                SubjectDetailsFormViewModel.LessonNumber = selectedSubject.LessonNumber;  
+                SubjectDetailsFormViewModel.SelectedGrade = selectedSubject.Grade;
+                SubjectDetailsFormViewModel.SelectedMajor = selectedSubject.Major;
                 
             }
         }
@@ -60,12 +62,16 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             // Cập nhật thông tin của selected subject dựa vào thông tin từ form
             selectedSubject.Name = formViewModel.Name;
-            selectedSubject.LessonNumber = formViewModel.LessonNumber;            
-
+            selectedSubject.LessonNumber = formViewModel.LessonNumber;
+            selectedSubject.MajorId = formViewModel.SelectedMajor.Id;
+            selectedSubject.GradeId = formViewModel.SelectedGrade.Id;
+            selectedSubject.Major = formViewModel.SelectedMajor;
+            selectedSubject.Grade = formViewModel.SelectedGrade;
             try
             {
                 await GenericDataService<Subject>.Instance.UpdateOne(selectedSubject, e => e.Id == selectedSubject.Id);
                 _subjectStore.Update(selectedSubject, e => e.Id == selectedSubject.Id);  // Update in GenericStore
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật môn học thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

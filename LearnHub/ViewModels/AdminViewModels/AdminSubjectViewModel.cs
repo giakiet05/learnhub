@@ -11,6 +11,7 @@ using LearnHub.Services;
 using LearnHub.Stores;
 using System.Windows;
 using LearnHub.Stores.AdminStores;
+using Microsoft.EntityFrameworkCore;
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminSubjectViewModel : BaseViewModel
@@ -32,7 +33,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
-        public ICommand SwitchToAssignmentCommand { get; }
+        public ICommand SwitchToMajorCommand { get; }
         public AdminSubjectViewModel()
         {
             _subjectStore = GenericStore<Subject>.Instance; // Tạo trường cho GenericStore
@@ -41,7 +42,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteSubject), () => _selectedSubject != null, "Chưa chọn môn học để xóa");
             ShowAddModalCommand = new NavigateModalCommand(() => new AddSubjectViewModel());
             ShowEditModalCommand = new NavigateModalCommand(() => new EditSubjectViewModel(), () => _selectedSubject != null, "Chưa chọn môn học để sửa");
-            LoadSubjectsAsync();
+            SwitchToMajorCommand = new NavigateLayoutCommand(() => new AdminMajorViewModel());
+            LoadSubjects();
         }
 
         //Phuong thuc xoa mon hoc
@@ -64,9 +66,9 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
         }
         // Tải danh sách subjects từ DB rồi cập nhật vào GenericStore
-        private async void LoadSubjectsAsync()
+        private async void LoadSubjects()
         {
-            var subjects = await GenericDataService<Subject>.Instance.GetAll();
+            var subjects = await GenericDataService<Subject>.Instance.GetAll(include: query => query.Include(e => e.Grade).Include(e => e.Major));
             _subjectStore.Load(subjects); 
         }
 

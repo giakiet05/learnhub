@@ -12,14 +12,16 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AddSubjectViewModel : BaseViewModel
     {
+      
         public SubjectDetailsFormViewModel SubjectDetailsFormViewModel { get; }
         public AddSubjectViewModel()
         {
             ICommand submitCommand = new RelayCommand(ExcuteSubmit);
             ICommand cancelCommand = new CancelCommand();
             SubjectDetailsFormViewModel = new SubjectDetailsFormViewModel(submitCommand, cancelCommand);
+           
         }
-
+      
         private async void ExcuteSubmit()
         {
             var formViewModel = SubjectDetailsFormViewModel;
@@ -36,14 +38,17 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 Id = formViewModel.Id,
                 Name = formViewModel.Name,
-                LessonNumber = formViewModel.LessonNumber
+                LessonNumber = formViewModel.LessonNumber,
+                GradeId = formViewModel.SelectedGrade.Id,
+                MajorId = formViewModel.SelectedMajor.Id  
             };
 
             try
             {
-                await GenericDataService<Subject>.Instance.CreateOne(newSubject);
-
-                GenericStore<Subject>.Instance.Add(newSubject);
+               var entity = await GenericDataService<Subject>.Instance.CreateOne(newSubject);
+                entity.Grade = await GenericDataService<Grade>.Instance.GetOne(e => e.Id == entity.GradeId);
+                entity.Major = await GenericDataService<Major>.Instance.GetOne(e => e.Id == entity.MajorId);
+                GenericStore<Subject>.Instance.Add(entity);
                 ToastMessageViewModel.ShowSuccessToast("Thêm môn học thành công.");
                 ModalNavigationStore.Instance.Close();
             }

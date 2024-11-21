@@ -202,14 +202,11 @@ namespace LearnHub.ViewModels.AdminViewModels
                     }
                 }
 
-                ToastMessageViewModel.ShowSuccessToast("Xóa học sinh thành công");
+                ToastMessageViewModel.ShowSuccessToast("Xóa học sinh khỏi lớp thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)
             {
-
-            
-
                 ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
 
             }

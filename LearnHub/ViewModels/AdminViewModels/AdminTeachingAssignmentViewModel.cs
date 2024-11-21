@@ -30,7 +30,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 _selectedTeachingAssignment = value;
                 _teachingAssignmentStore.SelectedItem = value;
-                //OnPropertyChanged(nameof(SelectedTeachingAssignment));
+                OnPropertyChanged(nameof(SelectedTeachingAssignment));
             }
         }
 
@@ -41,7 +41,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedGrade = value;
-                //OnPropertyChanged(nameof(SelectedGrade));
+                OnPropertyChanged(nameof(SelectedGrade));
                 LoadClassrooms();
             }
         }
@@ -53,7 +53,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedYear = value;
-                //OnPropertyChanged(nameof(SelectedYear));
+                OnPropertyChanged(nameof(SelectedYear));
                 LoadClassrooms();
             }
         }
@@ -66,7 +66,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 _selectedClassroom = value;
                 _classroomStore.SelectedItem = value;
-                //OnPropertyChanged(nameof(SelectedClassroom));
+                OnPropertyChanged(nameof(SelectedClassroom));
                 LoadTeachingAssignments();
                 UpdateModalCommands(); // Cập nhật lệnh khi SelectedClassroom thay đổi
             }

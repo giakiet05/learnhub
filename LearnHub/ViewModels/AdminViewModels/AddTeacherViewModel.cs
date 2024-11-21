@@ -56,14 +56,15 @@ namespace LearnHub.ViewModels.AdminViewModels
                 Coefficient = formViewModel.Coefficient,
                 CitizenID = formViewModel.CitizenID,
                 Salary = formViewModel.Salary,
-                //Specialization = formViewModel.Specialization,
+                 MajorId = formViewModel.SelectedMajor?.Id,
                 DateOfJoining = formViewModel.DateOfJoining,
             };
 
             try
             {
-                await AuthenticationService.Instance.CreateAccount(newTeacher);
-                GenericStore<Teacher>.Instance.Add(newTeacher);
+               var entity =  await GenericDataService<Teacher>.Instance.CreateOne(newTeacher);
+                entity.Major = await GenericDataService<Major>.Instance.GetOne(e => e.Id == entity.MajorId);
+                GenericStore<Teacher>.Instance.Add(entity);
                 ToastMessageViewModel.ShowSuccessToast("Thêm giáo viên thành công.");
                 ModalNavigationStore.Instance.Close();
             }

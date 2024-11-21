@@ -93,7 +93,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 await GenericDataService<Student>.Instance.UpdateOne(selectedStudent, e => e.Id == selectedStudent.Id);
                 _studentStore.Update(selectedStudent, e => e.Id == selectedStudent.Id);  // Update in GenericStore
-                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công.");
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật học sinh thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

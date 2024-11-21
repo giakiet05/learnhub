@@ -13,6 +13,9 @@ using System.Windows;
 using LearnHub.Stores.AdminStores;
 using OfficeOpenXml; // EPPlus namespace
 using System.IO;
+using System.ComponentModel;
+using System.Windows.Data;
+using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -20,7 +23,9 @@ namespace LearnHub.ViewModels.AdminViewModels
     {
         // Tạo trường cho GenericStore<Student>
         private readonly GenericStore<Student> _studentStore;
-        public IEnumerable<Student> Students => _studentStore.Items; // Binding vào view
+
+        public IEnumerable<Student> Students => _studentStore.Items; //dùng cho import export
+        public ICollectionView FilteredStudents { get; } //binding vào view
 
         private Student _selectedStudent;
         public Student SelectedStudent // Binding vào view
@@ -30,6 +35,19 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 _selectedStudent = value;
                 _studentStore.SelectedItem = value; // Sync với GenericStore
+            }
+        }
+
+        //search bar text
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterStudents(); // Call the filter logic whenever SearchText changes
             }
         }
 
@@ -44,6 +62,10 @@ namespace LearnHub.ViewModels.AdminViewModels
         public AdminStudentViewModel()
         {
             _studentStore = GenericStore<Student>.Instance; // Tạo trường cho GenericStore
+
+            //Set up filter
+            FilteredStudents = CollectionViewSource.GetDefaultView(_studentStore.Items);
+            FilteredStudents.Filter = FilterStudentsBySearchText;
 
             // Khởi tạo các command cho Add, Delete, Edit, Export to Excel
             ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteStudent), () => _selectedStudent != null, "Chưa chọn học sinh để xóa");
@@ -80,6 +102,23 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
+        }
+
+        private void FilterStudents()
+        {
+            FilteredStudents.Refresh(); // Refresh the filtered view
+        }
+
+        private bool FilterStudentsBySearchText(object item)
+        {
+            if (item is Student student)
+            {
+                if (string.IsNullOrWhiteSpace(SearchText)) return true; // No filter if SearchText is empty
+
+                return student.Username.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                       student.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
         }
 
         // Xuất danh sách học sinh ra file Excel

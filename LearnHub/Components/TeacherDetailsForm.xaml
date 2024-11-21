@@ -150,7 +150,12 @@
                                 <TextBlock Text="Bộ môn:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
                                 <ComboBox x:Name="tbSpecialize" FontSize="15" Width="200" Height="30"
-                                         Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Specialization}"
+                                         Margin="20 0 0 0" Background="#d9d9d9" 
+                                          SelectedItem="{Binding SelectedMajor}"
+                                          DisplayMemberPath="Name"
+                                          ItemsSource="{Binding Majors}"
+                                          SelectedValue="{Binding SelectedMajor.Id}"
+                                          SelectedValuePath="Id"
                                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                             </StackPanel>
                         </StackPanel>

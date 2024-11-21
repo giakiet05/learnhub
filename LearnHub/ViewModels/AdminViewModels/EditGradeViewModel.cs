@@ -60,7 +60,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 await GenericDataService<Grade>.Instance.UpdateOne(selectedGrade, e => e.Id == selectedGrade.Id);
                 GenericStore<Grade>.Instance.Update(selectedGrade, e => e.Id == selectedGrade.Id); // Update in store
-                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công.");
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật khối thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

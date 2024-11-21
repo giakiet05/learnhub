@@ -11,15 +11,18 @@ using LearnHub.Services;
 using LearnHub.Stores;
 using System.Windows;
 using LearnHub.Stores.AdminStores;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AdminTeacherViewModel : BaseViewModel
     {
         private readonly GenericStore<Teacher> _teacherStore;
-       
 
-        public IEnumerable<Teacher> Teachers => _teacherStore.Items; // Binding to view
+        public IEnumerable<Teacher> Teachers => _teacherStore.Items; //dùng cho import export
+        public ICollectionView FilteredTeachers { get; } //ICollectionView giống ObservableCollection nhưng hỗ trợ thêm nhiều tính năng như filter
 
         private Teacher _selectedTeacher;
         public Teacher SelectedTeacher // Binding to view
@@ -31,7 +34,18 @@ namespace LearnHub.ViewModels.AdminViewModels
                 _teacherStore.SelectedItem = value;
             }
         }
-
+        //text của search bar
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterTeachers(); // Call the filter logic whenever SearchText changes
+            }
+        }
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
@@ -40,7 +54,12 @@ namespace LearnHub.ViewModels.AdminViewModels
         public AdminTeacherViewModel()
         {
             _teacherStore = GenericStore<Teacher>.Instance;  // Using GenericStore<Teacher> as a field
-        
+
+            //Set up filter
+            FilteredTeachers = CollectionViewSource.GetDefaultView(_teacherStore.Items);
+            FilteredTeachers.Filter = FilterTeachersBySearchText;
+
+
             // Initialize commands
             ShowAddModalCommand = new NavigateModalCommand(() => new AddTeacherViewModel());
 
@@ -58,13 +77,13 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new AdminTeachingAssignmentViewModel());
 
-            LoadTeachersAsync();
+            LoadTeachers();
         }
 
         // Load teachers from DB and update store
-        private async void LoadTeachersAsync()
+        private async void LoadTeachers()
         {
-            var teachers = await GenericDataService<Teacher>.Instance.GetAll();
+            var teachers = await GenericDataService<Teacher>.Instance.GetAll(include: query => query.Include(e => e.Major));
             _teacherStore.Load(teachers);  // Update GenericStore with new data
         }
 
@@ -90,6 +109,22 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
+        }
+        private void FilterTeachers()
+        {
+            FilteredTeachers.Refresh(); // Refresh the filtered view
+        }
+
+        private bool FilterTeachersBySearchText(object item)
+        {
+            if (item is Teacher teacher)
+            {
+                if (string.IsNullOrWhiteSpace(SearchText)) return true; // No filter if SearchText is empty
+
+                return teacher.Username.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                       teacher.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
         }
     }
 }

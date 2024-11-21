@@ -106,7 +106,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         e.Semester == selectedExamSchedule.Semester &&
                         e.ExamType == selectedExamSchedule.ExamType);
 
-                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công");
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật lịch thi thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

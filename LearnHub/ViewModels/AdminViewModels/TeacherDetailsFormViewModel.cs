@@ -1,4 +1,6 @@
 ﻿
+using LearnHub.Models;
+using LearnHub.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,13 +165,33 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(Specialization));
             }
         }
-      
+
+        public IEnumerable<Major> Majors { get; private set; }
+
+        private Major _selectedMajor;
+        public Major SelectedMajor
+        {
+            get => _selectedMajor;
+            set
+            {
+                _selectedMajor = value;
+                OnPropertyChanged(nameof(SelectedMajor));
+              
+            }
+        }
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
         public TeacherDetailsFormViewModel(ICommand submitCommand, ICommand cancelCommand)
         {
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
+            LoadMajors();
+        }
+
+        private async void LoadMajors()
+        {
+            Majors = await GenericDataService<Major>.Instance.GetAll();
+            OnPropertyChanged(nameof(Majors));
         }
     }
 }

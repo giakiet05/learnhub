@@ -22,20 +22,29 @@ namespace LearnHub.Services
             _contextFactory = LearnHubDbContextFactory.Instance;
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAll(Func<IQueryable<T>, IQueryable<T>> include = null)
         {
             using (var context = _contextFactory.CreateDbContext())
             {
                 try
                 {
-                    return await context.Set<T>().ToListAsync();
+                    IQueryable<T> query = context.Set<T>();
+
+                    // Apply include if provided
+                    if (include != null)
+                    {
+                        query = include(query);
+                    }
+
+                    return await query.ToListAsync(); // Sử dụng query đã được thay đổi bởi include
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while retrieving all entities.");
+                    throw new Exception("An error occurred while retrieving all entities.", ex);
                 }
             }
         }
+
 
         public async Task<T> GetOne(
     Expression<Func<T, bool>> predicate,

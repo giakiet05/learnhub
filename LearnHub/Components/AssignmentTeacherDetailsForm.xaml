@@ -25,6 +25,7 @@
                              SelectedValuePath="Id"
                               SelectedValue="{Binding SelectedSubject.Id}"
                               SelectedItem="{Binding SelectedSubject, Mode=TwoWay}"
+                              IsEnabled="{Binding IsEnable}"
                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
@@ -40,6 +41,7 @@
                             SelectedValuePath="Id"
                             SelectedValue="{Binding SelectedTeacher.Id}"
                               SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
+                               IsEnabled="{Binding IsEnable}"
                               FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
                 

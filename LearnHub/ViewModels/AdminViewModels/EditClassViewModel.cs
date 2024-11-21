@@ -34,23 +34,24 @@ namespace LearnHub.ViewModels.AdminViewModels
         }
         private void LoadSelectedClassroomData()
         {
+            var formViewModel = ClassDetailsFormViewModel;
             var selectedClassroom = _classroomStore.SelectedItem;  // Accessing SelectedItem from GenericStore<Classroom>
             if (selectedClassroom != null)
             {
                 // Điền vào các input thông tin từ selectedClass
-                ClassDetailsFormViewModel.Id = selectedClassroom.Id;
-                ClassDetailsFormViewModel.Name = selectedClassroom.Name;
-                ClassDetailsFormViewModel.Capacity = selectedClassroom.Capacity ?? 0;
-                //ClassDetailsFormViewModel.GradeId = selectedClassroom.GradeId;
-                //ClassDetailsFormViewModel.YearId = selectedClassroom.YearId;
-                //ClassDetailsFormViewModel.TacherInChargeId = selectedClassroom.TeacherInChargeId;
+                formViewModel.IsEnable = false;
+              formViewModel.Id = selectedClassroom.Id;
+              formViewModel.Name = selectedClassroom.Name;
+              formViewModel.Capacity = selectedClassroom.Capacity;
+              formViewModel.SelectedGrade = selectedClassroom.Grade;
+              formViewModel.SelectedYear = selectedClassroom.AcademicYear;
+              formViewModel.SelectedTeacher = selectedClassroom.TeacherInCharge;
 
             }
         }
         private async void ExecuteSubmit()
         {
-            ClassDetailsFormViewModel formViewModel = ClassDetailsFormViewModel;
-
+            var formViewModel = ClassDetailsFormViewModel;
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
                 string.IsNullOrWhiteSpace(formViewModel.Name))
             {
@@ -61,13 +62,13 @@ namespace LearnHub.ViewModels.AdminViewModels
             var selectedClassroom = _classroomStore.SelectedItem;  // Accessing SelectedItem from GenericStore<Classroom>
 
             // Cập nhật thông tin của selected classroom dựa vào thông tin từ form
-            selectedClassroom.Id = formViewModel.Id;
-            selectedClassroom.Name = formViewModel.Name;
-            selectedClassroom.Capacity = formViewModel.Capacity;    
-            //selectedClassroom.GradeId = formViewModel.GradeId;  
-            //selectedClassroom.YearId = formViewModel.YearId;    
-            //selectedClassroom.TeacherInChargeId = formViewModel.TacherInChargeId;
-          
+            selectedClassroom.Id =formViewModel.Id;
+            selectedClassroom.Name =formViewModel.Name;
+            selectedClassroom.Capacity =formViewModel.Capacity;
+            selectedClassroom.GradeId =formViewModel.SelectedGrade.Id;
+            selectedClassroom.YearId =formViewModel.SelectedYear.Id;
+            selectedClassroom.TeacherInChargeId =formViewModel.SelectedTeacher.Id;
+
 
             try
             {

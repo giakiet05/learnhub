@@ -45,6 +45,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             var selectedTeachingAssignment = _teachingAssignmentStore.SelectedItem;
             if (selectedTeachingAssignment != null)
             {
+                TeachingAssignmentDetailsFormViewModel.IsEnable = false;
                 TeachingAssignmentDetailsFormViewModel.SelectedTeacher = selectedTeachingAssignment.Teacher;
                 TeachingAssignmentDetailsFormViewModel.SelectedSubject = selectedTeachingAssignment.Subject;
                 TeachingAssignmentDetailsFormViewModel.SelectedPeriod = selectedTeachingAssignment.Period;

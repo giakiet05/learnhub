@@ -70,7 +70,19 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(SelectedPeriod));
             }
         }
-
+        private bool _isEnable = true;
+        public bool IsEnable
+        {
+            get
+            {
+                return _isEnable;
+            }
+            set
+            {
+                _isEnable = value;
+                OnPropertyChanged(nameof(IsEnable));
+            }
+        }
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
         public TeachingAssignmentDetailsFormViewModel(

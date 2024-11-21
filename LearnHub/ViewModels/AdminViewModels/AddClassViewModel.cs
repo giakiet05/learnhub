@@ -16,7 +16,9 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AddClassViewModel : BaseViewModel
     {
+
        
+      
 
         public ClassDetailsFormViewModel ClassDetailsFormViewModel { get; }
 
@@ -35,9 +37,11 @@ namespace LearnHub.ViewModels.AdminViewModels
             var formViewModel = ClassDetailsFormViewModel;
 
             // Validation for required fields
-            if (string.IsNullOrWhiteSpace(formViewModel.Id))
+            if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
+                   string.IsNullOrWhiteSpace(formViewModel.Name)
+                  )
             {
-               ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
+                ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
@@ -46,17 +50,20 @@ namespace LearnHub.ViewModels.AdminViewModels
                 Id = formViewModel.Id,
                 Name = formViewModel.Name,
                 Capacity = formViewModel.Capacity,
-                //GradeId = formViewModel.GradeId,
-                //YearId = formViewModel.YearId,
-                //TeacherInChargeId = formViewModel.TacherInChargeId
+                GradeId = formViewModel.SelectedGrade.Id,
+                YearId = formViewModel.SelectedYear.Id,
+                TeacherInChargeId = formViewModel.SelectedTeacher.Id
             };
 
             try
             {
-                await GenericDataService<Classroom>.Instance.CreateOne(newClass);
+                var entity = await GenericDataService<Classroom>.Instance.CreateOne(newClass);
+                entity.Grade = await GenericDataService<Grade>.Instance.GetOne(e => e.Id == entity.GradeId);
+                entity.AcademicYear = await GenericDataService<AcademicYear>.Instance.GetOne(e => e.Id == entity.YearId);
+                entity.TeacherInCharge = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == entity.TeacherInChargeId);
 
                 // Update the generic store with the new grade
-                GenericStore<Classroom>.Instance.Add(newClass);
+                GenericStore<Classroom>.Instance.Add(entity);
                 ToastMessageViewModel.ShowSuccessToast("Thêm lớp thành công.");
                 ModalNavigationStore.Instance.Close();
             }

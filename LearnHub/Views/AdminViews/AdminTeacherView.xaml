@@ -94,7 +94,7 @@
                     <DataGridTextColumn Header="Mức lương" Binding="{Binding Salary}"/>
                     <DataGridTextColumn Header="Ngày vào làm" Binding="{Binding DateOfJoining, StringFormat='dd/MM/yyyy'}"/>
                     <DataGridTextColumn Header="Hệ số" Binding="{Binding Coefficient}"/>
-                    <DataGridTextColumn Header="Chuyên môn" Binding="{Binding Specialization}"/>
+                    <DataGridTextColumn Header="Bộ môn" Binding="{Binding Specialization}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

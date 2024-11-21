@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Components"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -146,11 +145,11 @@
                                          PreviewTextInput="tbCoefficient_PreviewTextInput"/>
                             </StackPanel>
 
-                            <!--Chuyên môn-->
+                            <!--Bộ môn-->
                             <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
-                                <TextBlock Text="Chuyên môn:" Style="{StaticResource font_style}"
+                                <TextBlock Text="Bộ môn:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
-                                <TextBox x:Name="tbSpecialize" FontSize="15" Width="200" Height="30"
+                                <ComboBox x:Name="tbSpecialize" FontSize="15" Width="200" Height="30"
                                          Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Specialization}"
                                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                             </StackPanel>

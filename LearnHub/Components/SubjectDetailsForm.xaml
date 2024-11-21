@@ -17,31 +17,48 @@
                 <!--Mã môn học-->
                 <StackPanel Margin="25" Orientation="Horizontal">
                     <TextBlock Text="Mã môn:" Style="{StaticResource font_style}"
-            VerticalAlignment="Center" Width="80"/>
+                                VerticalAlignment="Center" Width="80"/>
                     <TextBlock Text="*" Foreground="Red"/>
-                    <TextBox x:Name="tbID" FontSize="15" Width="150" Height="30" IsEnabled="{Binding IsEnable}"
-         Margin="15 0 0 0" Background="#d9d9d9d9"
-         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding Id}"/>
+                    <TextBox x:Name="tbID" FontSize="15" Width="150" Height="30"
+                             Margin="15 0 0 0" Background="#d9d9d9d9"
+                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding Id}"/>
                 </StackPanel>
 
                 <!--Tên môn học-->
                 <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
                     <TextBlock Text="Tên môn:" Style="{StaticResource font_style}"
-            VerticalAlignment="Center" Width="80"/>
+                                VerticalAlignment="Center" Width="80"/>
 
                     <TextBox x:Name="tbName" FontSize="15" Width="150" Height="30"
-         Margin="20 0 0 0" Background="#d9d9d9d9"
-         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding Name}"/>
+                             Margin="20 0 0 0" Background="#d9d9d9d9"
+                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding Name}"/>
+                </StackPanel>
+
+                <!--Bộ môn-->
+                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
+                    <TextBlock Text="Bộ môn:" Style="{StaticResource font_style}"
+                            VerticalAlignment="Center" Width="80"/>
+                    <ComboBox x:Name="tbSpecialize" FontSize="15" Width="150" Height="30"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Specialization}"
+                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                </StackPanel>
+                
+                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
+                    <TextBlock Text="Khối:" Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" Width="80"/>
+                    <ComboBox FontSize="15" Width="150" Height="30"
+                             Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Specialization}"
+                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
                 <!--Số tiết-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Số tiết:" Style="{StaticResource font_style}"
-            VerticalAlignment="Center" Width="80"/>
+                                 VerticalAlignment="Center" Width="80"/>
 
                     <TextBox x:Name="tbNumber" FontSize="15" Width="100" Height="30"
-         Margin="20 0 0 0" Background="#d9d9d9d9"
-         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding LessonNumber}"/>
+                             Margin="20 0 0 0" Background="#d9d9d9d9"
+                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding LessonNumber}"/>
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -50,12 +67,12 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
             <!--button thêm-->
             <Button x:Name="btnSua" Content="Đồng ý" Style="{StaticResource btnStyle}" Width="118"
-                Command="{Binding SubmitCommand}"
-Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
+                    Command="{Binding SubmitCommand}"
+                    Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ bỏ" Style="{StaticResource btnStyle}" Width="118"
-                Command="{Binding CancelCommand}"
-Margin="10 0 0 0" Background="#93A7BF" BorderBrush="Transparent"/>
+                     Command="{Binding CancelCommand}"
+                    Margin="10 0 0 0" Background="#93A7BF" BorderBrush="Transparent"/>
         </StackPanel>
     </Grid>
 </UserControl>

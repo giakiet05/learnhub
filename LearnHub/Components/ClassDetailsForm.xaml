@@ -36,20 +36,17 @@
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
 				            Text="{Binding Name}"/>
                 </StackPanel>
-
+                
                 <!--Sĩ số-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Sĩ số:" Style="{StaticResource font_style}"
-                  VerticalAlignment="Center" Width="80"/>
+                                VerticalAlignment="Center" Width="80"/>
 
                     <TextBox x:Name="tbNumber" FontSize="15" Width="70" Height="30"
-                Margin="20 0 0 0" Background="#d9d9d9d9"
-                Text="{Binding Capacity}"
-                FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                              Margin="20 0 0 0" Background="#d9d9d9d9"
+                              Text="{Binding Capacity}"
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
-
-
-
 
                 <!--Năm học-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">

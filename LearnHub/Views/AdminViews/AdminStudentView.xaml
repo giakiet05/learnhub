@@ -86,13 +86,9 @@ Style="{StaticResource btnStyle}"/>
                       IsReadOnly="True" 
                       PreviewMouseLeftButtonDown="HocSinhDG_PreviewMouseLeftButtonDown"
                       SelectionUnit="FullRow" 
-                      SelectionMode="Single">
-                <DataGrid.CellStyle>
-                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    </Style>
-                </DataGrid.CellStyle>
+                      SelectionMode="Single"
+                      RowStyle="{StaticResource DataGridRowStyle}"
+                      CellStyle="{StaticResource DataGridCellStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Username}"/>
                     <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}"/>

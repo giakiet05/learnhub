@@ -74,13 +74,9 @@
                       ItemsSource="{Binding Teachers}" FontSize="16"
                       PreviewMouseLeftButtonDown="GiaoVienDG_PreviewMouseLeftButtonDown"
                       SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
-                      CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10">
-                <DataGrid.CellStyle>
-                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    </Style>
-                </DataGrid.CellStyle>
+                      CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
+                      RowStyle="{StaticResource DataGridRowStyle}"
+                      CellStyle="{StaticResource DataGridCellStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Username}"/>
                     <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}"/>
@@ -94,7 +90,7 @@
                     <DataGridTextColumn Header="Mức lương" Binding="{Binding Salary}"/>
                     <DataGridTextColumn Header="Ngày vào làm" Binding="{Binding DateOfJoining, StringFormat='dd/MM/yyyy'}"/>
                     <DataGridTextColumn Header="Hệ số" Binding="{Binding Coefficient}"/>
-                    <DataGridTextColumn Header="Chuyên môn" Binding="{Binding Specialization}"/>
+                    <DataGridTextColumn Header="Bộ môn" Binding="{Binding Specialization}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

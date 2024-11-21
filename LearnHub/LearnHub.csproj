@@ -14,6 +14,8 @@
     <None Remove="Resource\Icons\appIcon.png" />
     <None Remove="Resource\Icons\calendar.png" />
     <None Remove="Resource\Icons\class.png" />
+    <None Remove="Resource\Icons\delete.png" />
+    <None Remove="Resource\Icons\edit.png" />
     <None Remove="Resource\Icons\home.png" />
     <None Remove="Resource\Icons\icons8-school-26.png" />
     <None Remove="Resource\Icons\login.png" />
@@ -25,6 +27,7 @@
     <None Remove="Resource\Icons\subject.png" />
     <None Remove="Resource\Icons\teacher.png" />
     <None Remove="Resource\Icons\user.png" />
+    <None Remove="Resource\Icons\view.png" />
     <None Remove="Resource\Icons\warning.png" />
     <None Remove="Resource\Images\march7.jpg" />
   </ItemGroup>
@@ -49,6 +52,8 @@
     <Resource Include="Resource\Icons\appIcon.png" />
     <Resource Include="Resource\Icons\calendar.png" />
     <Resource Include="Resource\Icons\class.png" />
+    <Resource Include="Resource\Icons\delete.png" />
+    <Resource Include="Resource\Icons\edit.png" />
     <Resource Include="Resource\Icons\home.png" />
     <Resource Include="Resource\Icons\icons8-school-26.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
@@ -62,6 +67,7 @@
     <Resource Include="Resource\Icons\subject.png" />
     <Resource Include="Resource\Icons\teacher.png" />
     <Resource Include="Resource\Icons\user.png" />
+    <Resource Include="Resource\Icons\view.png" />
     <Resource Include="Resource\Icons\warning.png" />
     <Resource Include="Resource\Images\march7.jpg" />
   </ItemGroup>

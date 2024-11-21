@@ -11,6 +11,7 @@ using LearnHub.Services;
 using LearnHub.Stores;
 using System.Windows;
 using LearnHub.Stores.AdminStores;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -46,16 +47,19 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             SwitchToGradeCommand = new NavigateLayoutCommand(() => new AdminGradeViewModel());
 
-
-            LoadClassroomsAsync();
+            LoadClassrooms();
         }
 
             // Tải danh sách classrooms từ DB rồi cập nhật vào GenericStore
-        private async void LoadClassroomsAsync()
+        private async void LoadClassrooms()
         {
             try
             {
-                var classrooms = await GenericDataService<Classroom>.Instance.GetAll();
+                var classrooms = await GenericDataService<Classroom>.Instance
+                    .GetAll(include: query => query
+                    .Include(e => e.TeacherInCharge)
+                    .Include(e => e.Grade)
+                    .Include(e => e.AcademicYear));
                 _classroomStore.Load(classrooms); // Load vào GenericStore
             }
             catch (Exception)
@@ -76,8 +80,8 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
                 {
-                    await GenericDataService<Classroom>.Instance.DeleteOne(e => e.Id == selectedClassroom.Id);
-
+                     await GenericDataService<Classroom>.Instance.DeleteOne(e => e.Id == selectedClassroom.Id);
+             
                     _classroomStore.Delete(classroom => classroom.Id == selectedClassroom.Id); // Xóa từ GenericStore
 
                     ToastMessageViewModel.ShowSuccessToast("Xóa lớp thành công");

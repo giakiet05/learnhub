@@ -22,6 +22,7 @@
                     <TextBox x:Name="tbID" FontSize="15" Width="150" Height="30"
                              Margin="15 0 0 0" Background="#d9d9d9d9"
                              Text="{Binding Id}"
+                              IsEnabled="{Binding IsEnable}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
@@ -47,36 +48,47 @@
                               FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
-                <!--Khối lớp-->
-                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" Width="80"/>
-
-                    <ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
-                              Margin="20 0 0 0" Background="#d9d9d9d9"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" 
-                              Text ="{Binding GradeId}"/>
-
-                </StackPanel>
-
                 <!--Năm học-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Năm học:" Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="80"/>
 
                     <ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
+                              ItemsSource="{Binding Years}"
+SelectedItem="{Binding SelectedYear}"
+   DisplayMemberPath="Name"
                               Margin="20 0 0 0" Background="#d9d9d9d9"
                               FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
+                <!--Khối lớp-->
+                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
+                    <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
+                  VerticalAlignment="Center" Width="80"/>
+
+                    <ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
+                Margin="20 0 0 0" Background="#d9d9d9d9"
+                  ItemsSource="{Binding Grades}"
+   SelectedItem="{Binding SelectedGrade}"
+   DisplayMemberPath="Name"
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" 
+                Text ="{Binding GradeId}"/>
+
+                </StackPanel>
+
                 <!--Giáo viên chủ nhiệm-->
                 <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Giáo viên:" Style="{StaticResource font_style}"
+                    <TextBlock Text="GVCN:" Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="80"/>
 
                     <ComboBox x:Name="cbTeacher" FontSize="15" Width="150" Height="30"
                               Margin="20 0 0 0" Background="#d9d9d9d9" 
-                              Text="{Binding TeacherInChargeId}"
+                              
+                             ItemsSource="{Binding Teachers}"
+  DisplayMemberPath="FullName"
+SelectedValuePath="Id"
+SelectedValue="{Binding SelectedTeacher.Id}"
+  SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                               FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 

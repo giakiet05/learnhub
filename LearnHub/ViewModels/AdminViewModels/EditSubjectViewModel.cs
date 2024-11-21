@@ -37,6 +37,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (selectedSubject != null)
             {
                 //Điền vào các input thông tin từ selectedSubject
+                SubjectDetailsFormViewModel.IsEnable = false;
                 SubjectDetailsFormViewModel.Id = selectedSubject.Id;
                 SubjectDetailsFormViewModel.Name = selectedSubject.Name;
                 SubjectDetailsFormViewModel.LessonNumber = selectedSubject.LessonNumber ?? 0;           
@@ -47,7 +48,9 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             SubjectDetailsFormViewModel formViewModel = SubjectDetailsFormViewModel;
 
-            if (string.IsNullOrWhiteSpace(formViewModel.Name))
+               if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
+                string.IsNullOrWhiteSpace(formViewModel.Name)
+               )
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;

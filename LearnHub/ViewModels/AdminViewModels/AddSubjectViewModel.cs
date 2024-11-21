@@ -26,8 +26,8 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
-                string.IsNullOrWhiteSpace(formViewModel.Name) ||
-                formViewModel.LessonNumber <= 0)
+                string.IsNullOrWhiteSpace(formViewModel.Name)
+               )
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;

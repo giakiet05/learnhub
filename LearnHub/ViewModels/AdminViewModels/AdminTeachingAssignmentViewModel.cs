@@ -72,6 +72,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
         }
 
+       
         public ICommand ShowAddModalCommand { get; private set; }
         public ICommand ShowEditModalCommand { get; private set; }
         public ICommand ShowDeleteModalCommand { get; private set; }

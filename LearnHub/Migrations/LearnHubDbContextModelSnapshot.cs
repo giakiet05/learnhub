@@ -178,6 +178,19 @@ namespace LearnHub.Migrations
                     b.ToTable("Grades");
                 });
 
+            modelBuilder.Entity("LearnHub.Models.Major", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Major");
+                });
+
             modelBuilder.Entity("LearnHub.Models.Notification", b =>
                 {
                     b.Property<string>("Id")
@@ -266,12 +279,17 @@ namespace LearnHub.Migrations
                     b.Property<int?>("LessonNumber")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("MajorId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GradeId");
+
+                    b.HasIndex("MajorId");
 
                     b.ToTable("Subjects");
                 });
@@ -500,6 +518,9 @@ namespace LearnHub.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("MajorId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 
@@ -509,8 +530,7 @@ namespace LearnHub.Migrations
                     b.Property<int?>("Salary")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Specialization")
-                        .HasColumnType("TEXT");
+                    b.HasIndex("MajorId");
 
                     b.ToTable("Teachers", t =>
                         {
@@ -651,7 +671,13 @@ namespace LearnHub.Migrations
                         .WithMany("Subjects")
                         .HasForeignKey("GradeId");
 
+                    b.HasOne("LearnHub.Models.Major", "Major")
+                        .WithMany("Subjects")
+                        .HasForeignKey("MajorId");
+
                     b.Navigation("Grade");
+
+                    b.Navigation("Major");
                 });
 
             modelBuilder.Entity("LearnHub.Models.SubjectResult", b =>
@@ -743,6 +769,12 @@ namespace LearnHub.Migrations
                         .HasForeignKey("LearnHub.Models.Teacher", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("LearnHub.Models.Major", "Major")
+                        .WithMany("Teachers")
+                        .HasForeignKey("MajorId");
+
+                    b.Navigation("Major");
                 });
 
             modelBuilder.Entity("LearnHub.Models.AcademicYear", b =>
@@ -774,6 +806,13 @@ namespace LearnHub.Migrations
                     b.Navigation("Classrooms");
 
                     b.Navigation("Subjects");
+                });
+
+            modelBuilder.Entity("LearnHub.Models.Major", b =>
+                {
+                    b.Navigation("Subjects");
+
+                    b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Subject", b =>

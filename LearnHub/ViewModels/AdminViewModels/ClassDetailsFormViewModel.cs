@@ -12,6 +12,12 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class ClassDetailsFormViewModel : BaseViewModel
     {
+        // Danh sách binding với ComboBox
+        public IEnumerable<Grade> Grades { get; private set; }
+        public IEnumerable<AcademicYear> Years { get; private set; }
+        public IEnumerable<Teacher> Teachers { get; private set; }
+
+        // Thuộc tính binding với ComboBox
         private string _id;
         public string Id
         {
@@ -38,8 +44,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(Name));
             }
         }
-        private int _capacity;
-        public int Capacity
+        private int? _capacity;
+        public int? Capacity
         {
             get
             {
@@ -51,44 +57,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(Capacity));
             }
         }
-        private string _gradeId;
-        public string GradeId
-        {
-            get
-            {
-                return _gradeId;
-            }
-            set
-            {
-                _gradeId = value;
-                OnPropertyChanged(nameof(GradeId));
-            }
-        }
-        private string _teacherInChargeId;
-        public string TacherInChargeId
-        {
-            get { return _teacherInChargeId; }
-            set
-            {
-                _teacherInChargeId = value;
-                OnPropertyChanged(nameof(TacherInChargeId));
-            }
-        }
-
-
-        private string _yearId;
-        public string YearId
-        {
-            get
-            {
-                return _yearId;
-            }
-            set
-            {
-                _yearId = value;
-                OnPropertyChanged(nameof(YearId));
-            }
-        }
+       
 
         private bool _isEnable = true;
         public bool IsEnable
@@ -103,31 +72,40 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(IsEnable));
             }
         }
-        // Danh sách binding với ComboBox
-        public ObservableCollection<Grade> Grades { get; } = new ObservableCollection<Grade>();
-        public ObservableCollection<AcademicYear> Years { get; } = new ObservableCollection<AcademicYear>();
-        public ObservableCollection<Teacher> Teachers { get; } = new ObservableCollection<Teacher>();
+       
 
-        // Thuộc tính binding với ComboBox
         private Grade _selectedGrade;
         public Grade SelectedGrade
         {
             get => _selectedGrade;
-            set { _selectedGrade = value; OnPropertyChanged(nameof(SelectedGrade)); }
+            set
+            {
+                _selectedGrade = value;
+                OnPropertyChanged(nameof(SelectedGrade));
+            }
         }
 
         private AcademicYear _selectedYear;
         public AcademicYear SelectedYear
         {
             get => _selectedYear;
-            set { _selectedYear = value; OnPropertyChanged(nameof(SelectedYear)); }
+            set
+            {
+                _selectedYear = value;
+                OnPropertyChanged(nameof(SelectedYear));
+
+            }
         }
 
         private Teacher _selectedTeacher;
         public Teacher SelectedTeacher
         {
             get => _selectedTeacher;
-            set { _selectedTeacher = value; OnPropertyChanged(nameof(SelectedTeacher)); }
+            set
+            {
+                _selectedTeacher = value;
+                OnPropertyChanged(nameof(SelectedTeacher));
+            }
         }
 
         // Command
@@ -138,26 +116,29 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
-            _ = LoadDataAsync(); // Tải dữ liệu từ DB khi khởi tạo
+            LoadYears();
+            LoadGrades();
+            LoadTeachers();
+          
         }
 
         // Hàm tải dữ liệu từ DB
-        private async Task LoadDataAsync()
+        private async void LoadGrades()
         {
-            // Tải danh sách khối lớp
-            var grades = await GenericDataService<Grade>.Instance.GetAll();
-            foreach (var grade in grades)
-                Grades.Add(grade);
+            Grades = await GenericDataService<Grade>.Instance.GetAll();
+            OnPropertyChanged(nameof(Grades));
+        }
 
-            // Tải danh sách năm học
-            var years = await GenericDataService<AcademicYear>.Instance.GetAll();
-            foreach (var year in years)
-                Years.Add(year);
+        private async void LoadYears()
+        {
+            Years = await GenericDataService<AcademicYear>.Instance.GetAll();
+            OnPropertyChanged(nameof(Years));
+        }
 
-            // Tải danh sách giáo viên
-            var teachers = await GenericDataService<Teacher>.Instance.GetAll();
-            foreach (var teacher in teachers)
-                Teachers.Add(teacher);
+        private async void LoadTeachers()
+        {
+            Teachers = await GenericDataService<Teacher>.Instance.GetAll();
+            OnPropertyChanged(nameof(Teachers));
         }
     }
 }

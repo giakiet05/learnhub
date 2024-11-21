@@ -17,8 +17,11 @@ namespace LearnHub.Models
 
         public string? GradeId { get; set; }
 
+        public string? MajorId { get; set; }
+
         //Navigation Properties
         public Grade Grade { get; set; }
+        public Major Major { get; set; }
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }
         public ICollection<Document> Documents { get; set; }
         public ICollection<Exercise> Exercises { get; set; }

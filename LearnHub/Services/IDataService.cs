@@ -11,7 +11,7 @@ namespace LearnHub.Services
     //param predicate là một biểu thức lambda
     {
         // Retrieval methods
-        Task<IEnumerable<T>> GetAll(); // lấy toàn bộ bảng
+        Task<IEnumerable<T>> GetAll(Func<IQueryable<T>, IQueryable<T>> include); // lấy toàn bộ bảng
        
         Task<T> GetOne(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>> include); //lấy 1 đối tượng thỏa điều kiện
         Task<IEnumerable<T>> GetMany(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>> include); // lấy tất cả đối tượng thỏa điều kiện

@@ -56,7 +56,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 Coefficient = formViewModel.Coefficient,
                 CitizenID = formViewModel.CitizenID,
                 Salary = formViewModel.Salary,
-                Specialization = formViewModel.Specialization,
+                //Specialization = formViewModel.Specialization,
                 DateOfJoining = formViewModel.DateOfJoining,
             };
 

@@ -41,11 +41,14 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             GradeDetailsFormViewModel formViewModel = GradeDetailsFormViewModel;
 
-            if (string.IsNullOrWhiteSpace(formViewModel.Id))
+            if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
+                  string.IsNullOrWhiteSpace(formViewModel.Name)
+                 )
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
+
 
             var selectedGrade =_gradeStore.SelectedItem;
 

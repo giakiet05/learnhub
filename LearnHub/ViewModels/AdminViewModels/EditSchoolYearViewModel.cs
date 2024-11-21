@@ -35,6 +35,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             var selectedSchoolYear = _schoolYearStore.SelectedItem;  // Accessing SelectedItem from GenericStore<AcademicYear>
             if (selectedSchoolYear != null)
             {
+                SchoolYearDetailsFormViewModel.IsEnable = false;
                 SchoolYearDetailsFormViewModel.Id= selectedSchoolYear.Id;
                 SchoolYearDetailsFormViewModel.Name= selectedSchoolYear.Name;
             }

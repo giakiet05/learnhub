@@ -46,7 +46,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
                 string.IsNullOrWhiteSpace(formViewModel.Name))
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
+                ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
@@ -59,11 +59,13 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 await GenericDataService<AcademicYear>.Instance.UpdateOne(selectedSchoolYear, e => e.Id == selectedSchoolYear.Id);
                 _schoolYearStore.Update(selectedSchoolYear, e => e.Id == selectedSchoolYear.Id);  // Update in GenericStore
+
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Cập nhật thất bại: {ex}" );
+                ToastMessageViewModel.ShowErrorToast($"Cập nhật thất bại: {ex}" );
             }
         }
     }

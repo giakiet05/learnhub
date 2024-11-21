@@ -95,7 +95,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             if (selectedTeachingAssignment == null)
             {
-                MessageBox.Show("Chưa chọn khối để xóa");
+               ToastMessageViewModel.ShowWarningToast("Chưa chọn phân công để xóa");
                 return;
             }
 
@@ -112,13 +112,14 @@ namespace LearnHub.ViewModels.AdminViewModels
                 _teachingAssignmentStore.Delete(
                     e => e.ClassroomId == selectedTeachingAssignment.ClassroomId &&
                     e.SubjectId == selectedTeachingAssignment.SubjectId &&
-                    e.TeacherId == selectedTeachingAssignment.TeacherId); 
+                    e.TeacherId == selectedTeachingAssignment.TeacherId);
 
+                ToastMessageViewModel.ShowSuccessToast("Xóa thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Xóa thất bại");
+                ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
         }
 

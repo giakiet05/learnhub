@@ -66,7 +66,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
             catch (Exception)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu khối");
+                ToastMessageViewModel.ShowErrorToast("Lỗi khi tải dữ liệu khối");
             }
         }
 
@@ -76,7 +76,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             if (selectedGrade == null)
             {
-                MessageBox.Show("Chưa chọn khối để xóa");
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn khối để xóa");
                 return;
             }
 
@@ -86,12 +86,14 @@ namespace LearnHub.ViewModels.AdminViewModels
                 await GenericDataService<Grade>.Instance.DeleteOne(e => e.Id == selectedGrade.Id);
                
                 _gradeStore.Delete(g => g.Id == selectedGrade.Id); // Xóa khối trong Store
-                
+
+
+                ToastMessageViewModel.ShowSuccessToast("Xóa khối thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Xóa thất bại");
+                ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
         }
     }

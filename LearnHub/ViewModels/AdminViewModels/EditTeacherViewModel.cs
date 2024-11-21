@@ -43,7 +43,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 string.IsNullOrWhiteSpace(formViewModel.CitizenID))
 
             {
-                MessageBox.Show("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
+                ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
@@ -75,11 +75,13 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 await GenericDataService<Teacher>.Instance.UpdateOne(selectedTeacher, e => e.Id == selectedTeacher.Id);
                 _teacherStore.Update(selectedTeacher,e => e.Id == selectedTeacher.Id);
+
+                ToastMessageViewModel.ShowSuccessToast("Cập nhật thành công.");
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Cập nhật thất bại");
+                ToastMessageViewModel.ShowErrorToast("Cập nhật thất bại");
             }
         }
 

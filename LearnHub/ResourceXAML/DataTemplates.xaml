@@ -14,6 +14,7 @@
         <views:ToastMessageView/>
     </DataTemplate>
     <!--#endregion-->
+    
     <!--#region Waiting, Login, Logout -->
     <DataTemplate DataType="{x:Type waitvm:WaitingViewModel}">
         <waitingviews:WaitingView/>
@@ -44,6 +45,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AdminStudentAssignmentViewModel}">
         <adminviews:AdminStudentAssignmentView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AdminMajorViewModel}">
+        <adminviews:AdminMajorView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AdminSubjectViewModel}">
         <adminviews:AdminSubjectView/>
@@ -81,6 +85,9 @@
     <DataTemplate DataType="{x:Type adminvm:AddGradeViewModel}">
         <adminviews:AddGradeView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AddMajorViewModel}">
+        <adminviews:AddMajorView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AddSchoolYearViewModel}">
         <adminviews:AddSchoolYearView/>
     </DataTemplate>
@@ -100,10 +107,10 @@
         <adminviews:EditClassView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditTeachingAssignmentViewModel}">
-
         <adminviews:EditTeacherAssignmentView/>
-
-
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:EditMajorViewModel}">
+        <adminviews:EditMajorView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:EditSchoolYearViewModel}">
         <adminviews:EditSchoolYearView/>

@@ -16,6 +16,8 @@
                 <ResourceDictionary Source="/ResourceXAML/MenuButtonStyle.xaml"/>
                 <ResourceDictionary Source="/ResourceXAML/ToggleButtonStyle.xaml"/>
                 <ResourceDictionary Source="/ResourceXAML/DataTemplates.xaml"/>
+                <ResourceDictionary Source="/ResourceXAML/DataGridRowStyle.xaml"/>
+                <ResourceDictionary Source="/ResourceXAML/DataGridCellStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

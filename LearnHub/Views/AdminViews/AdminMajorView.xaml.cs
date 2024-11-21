@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -17,38 +16,23 @@ using System.Windows.Shapes;
 namespace LearnHub.Views.AdminViews
 {
     /// <summary>
-    /// Interaction logic for AdminTeacherView.xaml
+    /// Interaction logic for AdminMajorView.xaml
     /// </summary>
-    public partial class AdminTeacherView : UserControl
+    public partial class AdminMajorView : UserControl
     {
-        public AdminTeacherView()
+        public AdminMajorView()
         {
             InitializeComponent();
         }
-
-        private void GiaoVienDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void BoMonDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var dataGrid = sender as DataGrid;
 
-            // Kiểm tra nếu nhấn vào thanh cuộn hoặc khu vực không phải nội dung
+            // Lấy đối tượng nơi nhấn chuột
             var hit = VisualTreeHelper.HitTest(dataGrid, e.GetPosition(dataGrid));
 
             if (hit != null)
             {
-                var visualHit = hit.VisualHit;
-
-                // Kiểm tra xem nơi nhấn chuột có phải là thanh cuộn hay không
-                while (visualHit != null)
-                {
-                    if (visualHit is ScrollBar)
-                    {
-                        // Nếu là thanh cuộn, không chặn sự kiện
-                        return;
-                    }
-
-                    visualHit = VisualTreeHelper.GetParent(visualHit);
-                }
-
                 // Xác định dòng được nhấn (nếu có)
                 var row = ItemsControl.ContainerFromElement(dataGrid, hit.VisualHit) as DataGridRow;
 
@@ -60,7 +44,7 @@ namespace LearnHub.Views.AdminViews
                 else
                 {
                     // Nếu nhấn vào khoảng trống, không thay đổi lựa chọn
-                    return;
+                    e.Handled = true;
                 }
             }
         }

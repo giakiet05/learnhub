@@ -59,7 +59,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             selectedTeacher.Ethnicity = formViewModel.Ethnicity;
             selectedTeacher.Religion = formViewModel.Religion;
             selectedTeacher.Coefficient = formViewModel.Coefficient;
-            selectedTeacher.Specialization = formViewModel.Specialization;
+            //selectedTeacher.Specialization = formViewModel.Specialization;
             selectedTeacher.Salary = formViewModel.Salary;
             selectedTeacher.CitizenID = formViewModel.CitizenID;
             selectedTeacher.DateOfJoining = formViewModel.DateOfJoining;
@@ -103,7 +103,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 TeacherDetailsFormViewModel.Salary = selectedTeacher.Salary;
                 TeacherDetailsFormViewModel.DateOfJoining = selectedTeacher.DateOfJoining;
                 TeacherDetailsFormViewModel.CitizenID = selectedTeacher.CitizenID;
-                TeacherDetailsFormViewModel.Specialization = selectedTeacher.Specialization;
+               // TeacherDetailsFormViewModel.Specialization = selectedTeacher.Specialization;
             }
         }
     }

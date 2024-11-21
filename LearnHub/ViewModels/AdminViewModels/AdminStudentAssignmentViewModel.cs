@@ -208,7 +208,10 @@ namespace LearnHub.ViewModels.AdminViewModels
             catch (Exception ex)
             {
 
+            
+
                 ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
+
             }
         }
 

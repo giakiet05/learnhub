@@ -24,9 +24,10 @@ namespace LearnHub.Models
         public string? Ethnicity { get; set; }
         public string? Religion { get; set; }
         public double? Coefficient { get; set; } // hệ số lương
-        public string? Specialization { get; set; }
+        public string? MajorId { get; set; }
 
         //Navigation Properties 
+        public Major Major { get; set; }
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }
         public ICollection<Document> Documents { get; set; }
         public ICollection<Exercise> Exercises { get; set; }

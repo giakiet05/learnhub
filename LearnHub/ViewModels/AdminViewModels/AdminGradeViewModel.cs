@@ -86,6 +86,11 @@ namespace LearnHub.ViewModels.AdminViewModels
                 await GenericDataService<Grade>.Instance.DeleteOne(e => e.Id == selectedGrade.Id);
                
                 _gradeStore.Delete(g => g.Id == selectedGrade.Id); // Xóa khối trong Store
+
+
+
+         
+
                 ToastMessageViewModel.ShowSuccessToast("Xóa khối thành công.");
 
                 ModalNavigationStore.Instance.Close();

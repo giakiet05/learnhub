@@ -78,12 +78,15 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowDeleteModalCommand { get; private set; }
         public ICommand SwitchToTeacherCommand { get; }
 
+        public ICommand SwitchToAssignmentByTeacherCommand { get; }
+
         public AdminTeachingAssignmentViewModel()
         {
             _teachingAssignmentStore = GenericStore<TeachingAssignment>.Instance;
             _classroomStore = GenericStore<Classroom>.Instance;
 
             SwitchToTeacherCommand = new NavigateLayoutCommand(() => new AdminTeacherViewModel());
+            SwitchToAssignmentByTeacherCommand = new NavigateLayoutCommand(() => new AdminAssignmentByTeacherViewModel());
             _teachingAssignmentStore.Clear();
             LoadGrades();
             LoadYears();

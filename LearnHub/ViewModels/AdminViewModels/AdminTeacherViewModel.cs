@@ -50,6 +50,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
         public ICommand SwitchToAssignmentCommand { get; }
+        public ICommand SwitchToAssignmentByTeacherCommand { get; }
 
         public AdminTeacherViewModel()
         {
@@ -62,7 +63,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             // Initialize commands
             ShowAddModalCommand = new NavigateModalCommand(() => new AddTeacherViewModel());
-
+            
             ShowDeleteModalCommand = new NavigateModalCommand(
                 () => new DeleteConfirmViewModel(DeleteTeacher),
                 () => _selectedTeacher != null,
@@ -76,7 +77,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             );
 
             SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new AdminTeachingAssignmentViewModel());
-
+            SwitchToAssignmentByTeacherCommand = new NavigateLayoutCommand(() => new AdminAssignmentByTeacherViewModel());
             LoadTeachers();
         }
 

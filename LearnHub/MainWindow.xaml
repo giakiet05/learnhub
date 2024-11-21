@@ -27,13 +27,15 @@
         <!--ControlBar-->
         <components:ControlBar/>
 
-        <custom:Modal Grid.RowSpan="2" Panel.ZIndex ="100" IsOpen="{Binding IsOpen}">
+        <custom:Modal Grid.RowSpan="2" Panel.ZIndex ="1" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModelViewModel}" />
         </custom:Modal>
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
 
-        <ItemsControl ItemsSource="{Binding Toasts}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 20 0 0">
+        <ItemsControl Grid.Row="1" Panel.ZIndex="1" ItemsSource="{Binding Toasts}" 
+                      VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                      Margin="0 0 0 10">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel />

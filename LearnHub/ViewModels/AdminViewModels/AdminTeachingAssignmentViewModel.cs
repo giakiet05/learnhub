@@ -199,6 +199,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                     include: query => query.Include(t => t.Teacher) // Tải Teacher
                            .Include(t => t.Subject) // Tải Subject nếu cần
                 );
+               
                 _teachingAssignmentStore.Load(teachingAssignments);
             }
             OnPropertyChanged(nameof(TeachingAssignments));

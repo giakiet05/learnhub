@@ -30,6 +30,7 @@
                 <DataGridTextColumn Header="Mã môn học" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Tên môn học" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Bộ môn" Binding="{Binding Major}"/>
+                <DataGridTextColumn Header="Khối" Binding="{Binding Grade}"/>
                 <DataGridTextColumn Header="Số tiết" Binding="{Binding LessonNumber}"/>
             </DataGrid.Columns>
         </DataGrid>

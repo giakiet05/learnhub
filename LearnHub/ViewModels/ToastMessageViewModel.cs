@@ -49,7 +49,7 @@ namespace LearnHub.ViewModels
 
             Toasts.Add(toast);
 
-            // Xóa tự động sau 5 giây
+            // Xóa tự động sau 1.5 giây
             Task.Delay(1500).ContinueWith(_ =>
             {
                 App.Current.Dispatcher.Invoke(() =>
@@ -87,15 +87,15 @@ namespace LearnHub.ViewModels
         }
         public static void ShowInfoToast(string message = "Info")
         {
-            AddToast("Info", message, "i", "#b3e6f5");
+            AddToast("Info", message, "❗", "#b3e6f5");
         }
         public static void ShowWarningToast(string message = "Warning")
         {
-            AddToast("Warning", message, "!", "#fbe7c6");
+            AddToast("Warning", message, "⚠️", "#fbe7c6");
         }
         public static void ShowErrorToast(string message = "Error")
         {
-            AddToast("Error", message, "X", "#ffb7b6");
+            AddToast("Error", message, "❌", "#ffb7b6");
         }
 
         public partial class ToastMessageModel

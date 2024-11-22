@@ -88,7 +88,7 @@ namespace LearnHub.ViewModels.AdminViewModels
          //   _classroomStore = GenericStore<Classroom>.Instance;
 
             SwitchToTeacherCommand = new NavigateLayoutCommand(() => new AdminTeacherViewModel());
-            SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new AddTeachingAssignmentViewModel());
+            SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new AdminTeachingAssignmentViewModel());
             _teachingAssignmentStore.Clear();
             LoadMajors();
             UpdateModalCommands(); // Khởi tạo lệnh khi tạo ViewModel

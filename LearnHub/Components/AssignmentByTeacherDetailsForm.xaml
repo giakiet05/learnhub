@@ -29,9 +29,9 @@
                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
-                <!--năm-->
+                <!--khối lớp-->
                 <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Năm:" Style="{StaticResource font_style}"
+                    <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
                         VerticalAlignment="Center" Width="100"/>
 
                     <ComboBox x:Name="cbGV" FontSize="15" Width="200" Height="30"
@@ -39,9 +39,9 @@
                           FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
-                <!--khối-->
+                <!--lớp-->
                 <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
+                    <TextBlock Text="Lớp:" Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="100"/>
 
                     <ComboBox FontSize="15" Width="200" Height="30"

@@ -8,6 +8,6 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class AddAssignmentByTeacherViewModel : BaseViewModel
     {
-
+        public AssignmentByTeacherDetailsFormViewModel Detail { get; }
     }
 }

@@ -21,12 +21,12 @@ namespace LearnHub.Data
       
         public DbSet<ExamSchedule> ExamSchedules { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-       
-        public DbSet<SubjectResult> SubjectResults { get; set; }
+
         public DbSet<YearResult> YearResults { get; set; }
         public DbSet<TeachingAssignment> TeachingAssignments { get; set; }
        
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Score> Scores { get; set; }
 
         public LearnHubDbContext(DbContextOptions options) : base(options) { }
 
@@ -36,9 +36,9 @@ namespace LearnHub.Data
 
             //Composite keys
             modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId, e.ExamType });
-            modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.SubjectId, e.ClassroomId, e.TeacherId });
+            modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.ClassroomId, e.Weekday, e.Period });
             modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentId });
-            modelBuilder.Entity<SubjectResult>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId });
+            modelBuilder.Entity<Score>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId, e.Type });
             modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentId });
 
             //Unique constraints
@@ -55,7 +55,7 @@ namespace LearnHub.Data
             modelBuilder.Entity<Teacher>(e =>
             {
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_Gender", "[Gender] IN ('Nam', 'Nữ')"));
-                //e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Teacher_CitizenID", "length([CitizenID]) = 12"));
             });
 
             modelBuilder.Entity<Student>(e =>
@@ -69,28 +69,26 @@ namespace LearnHub.Data
             {
                 //e.ToTable(tb => tb.HasCheckConstraint("CK_ExamType", "[ExamType] IN ('GK', 'CK')"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_ExamSchedule_Semester", "[Semester] IN ('HK1', 'HK2')"));
-
+                e.ToTable(tb => tb.HasCheckConstraint("CK_ExamSchedule_ExamType", "[ExamType] IN ('GK', 'CK')"));
             });
 
 
-            modelBuilder.Entity<SubjectResult>(e =>
+            modelBuilder.Entity<Score>(e =>
             {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_OralScore", "[OralScore] BETWEEN 0 AND 10"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_FifteenMinScore", "[FifteenMinScore] BETWEEN 0 AND 10"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_MidTermScore", "[MidTermScore] BETWEEN 0 AND 10"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_FinalTermScore", "[FinalTermScore] BETWEEN 0 AND 10"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_SubjectResult_Semester", "[Semester] IN ('HK1', 'HK2')"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Score_Value", "[Value] BETWEEN 0 AND 10"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Score_Semester", "[Semester] IN ('HK1', 'HK2')"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_Score_Type", "[Type] IN ('GK', 'CK', 'TX', 'TB')"));
 
             });
 
             modelBuilder.Entity<YearResult>(e =>
             {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_YearAvgScore", "[YearAvgScore] BETWEEN 0 AND 10"));
+               // e.ToTable(tb => tb.HasCheckConstraint("CK_YearAvgScore", "[YearAvgScore] BETWEEN 0 AND 10"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_FirstSemAvgScore", "[FirstSemAvgScore] BETWEEN 0 AND 10"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_SecondSemAvgScore", "[SecondSemAvgScore] BETWEEN 0 AND 10"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_Result", "[Result] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
+                //e.ToTable(tb => tb.HasCheckConstraint("CK_Result", "[Result] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
             });
 
             base.OnModelCreating(modelBuilder);

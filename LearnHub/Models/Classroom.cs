@@ -24,7 +24,6 @@ namespace LearnHub.Models
         public AcademicYear AcademicYear { get; set; }
         public ICollection<StudentPlacement> StudentPlacements { get; set; }
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }
-        public ICollection<Document> Documents { get; set; }
         public ICollection<Notification> Notifications { get; set; }
         public ICollection<ExamSchedule> ExamSchedules { get; set; }
      

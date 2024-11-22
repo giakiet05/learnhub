@@ -25,7 +25,7 @@ namespace LearnHub.Models
         public string? MotherPhone { get; set; }
         //Navigation Properties
         public ICollection<StudentPlacement> StudentPlacements { get; set; }
-        public ICollection<SubjectResult> SubjectResults { get; set; }
+        public ICollection<Score> SubjectResults { get; set; }
         public ICollection<YearResult> YearResults { get; set; }
     }
 }

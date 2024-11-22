@@ -1,16 +1,28 @@
-﻿using LearnHub.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Score
+namespace LearnHub.Models
 {
-    // Foreign keys to link to SubjectResult
-    public string YearId { get; set; }
-    public string SubjectId { get; set; }
-    public string StudentId { get; set; }
-    public string Semester { get; set; } // Part of composite key in SubjectResult
+    public class Score
+    {
+        //-----Composite Key------
+        [ForeignKey("AcademicYear")]
+        public string YearId { get; set; }
+        public string SubjectId { get; set; }
+        public string StudentId { get; set; }
+        public string Semester { get; set; }
+        public string Type { get; set; } // loại, TX, GK, CK,...
+        //-----Composite Key------
 
-    public string Type { get; set; } // "Regular", "Midterm", "FinalTerm", etc.
-    public double Value { get; set; }
+        public double? Value { get; set; } //điểm
 
-    // Navigation property
-    public SubjectResult SubjectResult { get; set; }
+        //Navigation Properties
+        public Subject Subject { get; set; }
+        public Student Student { get; set; }
+        public AcademicYear AcademicYear { get; set; }
+    }
 }

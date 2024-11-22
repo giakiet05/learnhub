@@ -23,9 +23,8 @@ namespace LearnHub.Models
         public Grade Grade { get; set; }
         public Major Major { get; set; }
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }
-        public ICollection<Document> Documents { get; set; }
        
         public ICollection<ExamSchedule> ExamSchedules { get; set; }
-        public ICollection<SubjectResult> SubjectResults { get; set; }
+        public ICollection<Score> SubjectResults { get; set; }
     }
 }

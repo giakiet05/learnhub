@@ -100,7 +100,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         private async void LoadSubjects()
         {
             var selectedClassroom = GenericStore<Classroom>.Instance.SelectedItem;
-
+            if(selectedClassroom != null) 
             Subjects = await GenericDataService<Subject>.Instance.GetMany(e => e.GradeId == selectedClassroom.GradeId);
             OnPropertyChanged(nameof(Subjects));
         }

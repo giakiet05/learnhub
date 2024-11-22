@@ -139,6 +139,16 @@
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/semester.png" />
                             </RadioButton.Tag>
                         </RadioButton>
+
+                        <!--Result button-->
+                        <RadioButton FontSize="30"
+                                     Command="{Binding ResultCommand}"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Kết quả">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/result.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
                     </StackPanel>
                 </Grid>
 

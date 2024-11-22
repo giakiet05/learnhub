@@ -12,10 +12,10 @@
             <RowDefinition Height="360"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Thêm phân công" Style="{StaticResource font_style}"
+        <TextBlock Grid.Row="0" Text="Sửa phân công" Style="{StaticResource font_style}"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                FontSize="30" Margin="10 0 0 0"/>
 
-        <components:AssignmentByTeacherDetailsForm Grid.Row="1" DataContext="{Binding }"/>
+        <components:AssignmentByTeacherDetailsForm Grid.Row="1" DataContext="{Binding AssignmentByTeacherDetailsFormViewModel}"/>
     </Grid>
 </UserControl>

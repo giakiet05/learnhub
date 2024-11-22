@@ -64,7 +64,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 //phải lấy teacher và subject tương ứng với id để nạp vào entity vì ef không tự động load các navigation prop
                 entity.Teacher = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == entity.TeacherId);
                 entity.Subject = await GenericDataService<Subject>.Instance.GetOne(e => e.Id == entity.SubjectId);
-
+                entity.Classroom = await GenericDataService<Classroom>.Instance.GetOne(e => e.Id == entity.ClassroomId);
                 // Update the generic store with the new grade
 
                 GenericStore<TeachingAssignment>.Instance.Add(entity);

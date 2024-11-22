@@ -60,17 +60,17 @@
                         <TextBlock Text="Bộ môn: " VerticalAlignment="Center"
                             FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                         <ComboBox Width="150" Height="30" FontSize="13"
-                                 ItemsSource="{Binding Years}"
+                                 ItemsSource="{Binding Majors}"
                                  DisplayMemberPath="Name" 
-                                 SelectedItem="{Binding SelectedYear}"
+                                 SelectedItem="{Binding SelectedMajor}"
                                   Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                     </StackPanel>
 
                     <!--danh sách gv theo bộ môn đã chọn-->
                     <DataGrid Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
-                             ItemsSource="{Binding Classrooms}"
-                              SelectedItem="{Binding SelectedClassroom}"
+                             ItemsSource="{Binding Teachers}"
+                              SelectedItem="{Binding SelectedTeacher}"
                               Margin="5" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -80,7 +80,7 @@
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Id}"/>
-                            <DataGridTextColumn Header="Tên giáo viên" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Tên giáo viên" Binding="{Binding FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -122,7 +122,7 @@
 
                         <Button Content="Sửa" BorderBrush="Transparent" Background="#5CB3FF"
                                 Margin="10 0 5 0" FontSize="15" Width="90" Height="40"
-                                Command="{Binding ShowChangeClassModalCommand}"
+                                Command="{Binding ShowEditModalCommand}"
                                 Style="{StaticResource btnStyle}"/>
                     </StackPanel>
 
@@ -130,7 +130,8 @@
                     <!--danh sách học sinh của lớp đã chọn-->
                     <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended" CanUserDeleteRows="True"
-                              ItemsSource="{Binding StudentPlacements}"
+                              ItemsSource="{Binding TeachingAssignments}"
+                              SelectedItem="{Binding SelectedTeachingAssignment}"
                               Margin="5" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -139,10 +140,10 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Môn học" Binding="{Binding Student.Id}"/>
-                            <DataGridTextColumn Header="Lớp" Binding="{Binding Student.FullName}"/>
-                            <DataGridTextColumn Header="Tiết" Binding="{Binding Student.FullName}"/>
-                            <DataGridTextColumn Header="Thứ" Binding="{Binding Student.FullName}"/>
+                            <DataGridTextColumn Header="Môn học" Binding="{Binding Subject.Name}"/>
+                            <DataGridTextColumn Header="Lớp" Binding="{Binding Classroom.Name}"/>
+                            <DataGridTextColumn Header="Tiết" Binding="{Binding Period}"/>
+                            <DataGridTextColumn Header="Thứ" Binding="{Binding Weekday}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

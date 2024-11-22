@@ -7,24 +7,20 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class SubjectResult
+    public class Score
     {
-        
+        //-----Composite Key------
         [ForeignKey("AcademicYear")]
         public string YearId { get; set; }
-     
         public string SubjectId { get; set; }
         public string StudentId { get; set; }
-
         public string Semester { get; set; }
+        public string Type { get; set; } // loại, TX, GK, CK,...
+        //-----Composite Key------
 
-        public double? OralScore { get; set; }
-        public double? FifteenMinScore { get; set; }
-        public double? MidTermScore { get; set; }
-        public double? FinalTermScore { get; set; }
-        public double? AvgScore { get; set; }
+        public double? Value { get; set; } //điểm
+
         //Navigation Properties
-      
         public Subject Subject { get; set; }
         public Student Student { get; set; }
         public AcademicYear AcademicYear { get; set; }

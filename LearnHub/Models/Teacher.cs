@@ -29,7 +29,7 @@ namespace LearnHub.Models
         //Navigation Properties 
         public Major Major { get; set; }
         public ICollection<TeachingAssignment> TeachingAssignments { get; set; }
-        public ICollection<Document> Documents { get; set; }
-        public ICollection<Exercise> Exercises { get; set; }
+      
+     
     }
 }

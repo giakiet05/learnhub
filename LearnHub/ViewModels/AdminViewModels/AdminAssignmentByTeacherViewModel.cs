@@ -16,7 +16,9 @@ namespace LearnHub.ViewModels.AdminViewModels
     public class AdminAssignmentByTeacherViewModel : BaseViewModel
     {
         private readonly GenericStore<TeachingAssignment> _teachingAssignmentStore;
-        //private readonly GenericStore<Classroom> _classroomStore;
+        private readonly GenericStore<Teacher> _teacherStore;
+        private readonly GenericStore<AcademicYear> _academicYearStore;
+        
 
         public IEnumerable<Major> Majors { get; private set; }
         public IEnumerable<Teacher> Teachers { get; private set; }
@@ -30,6 +32,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             get => _selectedTeachingAssignment;
             set
             {
+               
                 _selectedTeachingAssignment = value;
                 _teachingAssignmentStore.SelectedItem = value;
                 OnPropertyChanged(nameof(SelectedTeachingAssignment));
@@ -42,6 +45,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             get => _selectedMajor;
             set
             {
+                if(value == _selectedMajor) return;
                 _selectedMajor = value;
                 OnPropertyChanged(nameof(SelectedMajor));
                 LoadTeachers();
@@ -54,9 +58,14 @@ namespace LearnHub.ViewModels.AdminViewModels
             get => _selectedTeacher;
             set
             {
-                _selectedTeacher = value;
-                OnPropertyChanged(nameof(SelectedTeacher));
-                LoadYears();
+                if (value == _selectedTeacher) return;
+                
+                    _selectedTeacher = value;
+                    _teacherStore.SelectedItem = value;
+                    OnPropertyChanged(nameof(SelectedTeacher));
+                    LoadYears();
+                
+              
             }
         }
 
@@ -66,11 +75,12 @@ namespace LearnHub.ViewModels.AdminViewModels
             get => _selectedYear;
             set
             {
+
                 _selectedYear = value;
-               // _classroomStore.SelectedItem = value;
+               _academicYearStore.SelectedItem = value;
                 OnPropertyChanged(nameof(SelectedYear));
                 LoadTeachingAssignments();
-                UpdateModalCommands(); // Cập nhật lệnh khi SelectedClassroom thay đổi
+                UpdateModalCommands(); 
             }
         }
 
@@ -85,6 +95,9 @@ namespace LearnHub.ViewModels.AdminViewModels
         public AdminAssignmentByTeacherViewModel()
         {
             _teachingAssignmentStore = GenericStore<TeachingAssignment>.Instance;
+            _teacherStore = GenericStore<Teacher>.Instance;
+            _academicYearStore = GenericStore<AcademicYear>.Instance;
+
          //   _classroomStore = GenericStore<Classroom>.Instance;
 
             SwitchToTeacherCommand = new NavigateLayoutCommand(() => new AdminTeacherViewModel());
@@ -167,6 +180,7 @@ namespace LearnHub.ViewModels.AdminViewModels
        
         private async void LoadYears()
         {
+            
             Years = await GenericDataService<AcademicYear>.Instance.GetAll();
             OnPropertyChanged(nameof(Years));
         }
@@ -179,7 +193,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             if(SelectedMajor == null)
             {
-                Teachers = Enumerable.Empty<Teacher>();
+                Teachers = await GenericDataService<Teacher>.Instance.GetMany(e => e.Major.Id != null);
             }
             else
             {
@@ -200,8 +214,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                 var teachingAssignments = await GenericDataService<TeachingAssignment>.Instance.GetMany(
                     e => e.Teacher.Id == SelectedTeacher.Id
                     && e.Classroom.AcademicYear.Id == SelectedYear.Id,
-                    include: query => query.Include(t => t.Teacher) // Tải Teacher
+                    include: query => query.Include(t => t.Classroom) 
                            .Include(t => t.Subject) // Tải Subject nếu cần
+                           
                 );
 
                 _teachingAssignmentStore.Load(teachingAssignments);

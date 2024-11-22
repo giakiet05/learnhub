@@ -85,6 +85,7 @@
     <DataTemplate DataType="{x:Type adminvm:AddTeachingAssignmentViewModel}">
         <adminviews:AddTeacherAssignmentView/>
     </DataTemplate>
+    
     <DataTemplate DataType="{x:Type adminvm:AddGradeViewModel}">
         <adminviews:AddGradeView/>
     </DataTemplate>

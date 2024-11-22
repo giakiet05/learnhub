@@ -9,22 +9,21 @@ namespace LearnHub.Models
 {
     public class SubjectResult
     {
-        
+        //-----Composite Key------
         [ForeignKey("AcademicYear")]
         public string YearId { get; set; }
-     
         public string SubjectId { get; set; }
         public string StudentId { get; set; }
-
         public string Semester { get; set; }
+        //-----Composite Key------
 
-        public double? OralScore { get; set; }
-        public double? FifteenMinScore { get; set; }
-        public double? MidTermScore { get; set; }
-        public double? FinalTermScore { get; set; }
-        public double? AvgScore { get; set; }
+        //public Score MidTermScore { get; set; }
+        //public Score FinalTermScore { get; set; }
+        //public Score AvgScore { get; set; }
+
+        public ICollection<Score> Scores { get; set; } // Unified collection for all scores
+
         //Navigation Properties
-      
         public Subject Subject { get; set; }
         public Student Student { get; set; }
         public AcademicYear AcademicYear { get; set; }

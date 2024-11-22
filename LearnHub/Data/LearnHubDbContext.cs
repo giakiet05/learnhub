@@ -18,14 +18,14 @@ namespace LearnHub.Data
         public DbSet<AcademicYear> AcademicYears { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Grade> Grades { get; set; }
-        public DbSet<Document> Documents { get; set; }
+      
         public DbSet<ExamSchedule> ExamSchedules { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<Question> Questions { get; set; }
+       
         public DbSet<SubjectResult> SubjectResults { get; set; }
         public DbSet<YearResult> YearResults { get; set; }
         public DbSet<TeachingAssignment> TeachingAssignments { get; set; }
-        public DbSet<Exercise> Exercises { get; set; }
+       
         public DbSet<Subject> Subjects { get; set; }
 
         public LearnHubDbContext(DbContextOptions options) : base(options) { }

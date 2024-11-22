@@ -27,7 +27,7 @@ namespace LearnHub.Models
         public ICollection<Document> Documents { get; set; }
         public ICollection<Notification> Notifications { get; set; }
         public ICollection<ExamSchedule> ExamSchedules { get; set; }
-        public ICollection<Exercise> Exercises { get; set; }
+     
 
     }
 }

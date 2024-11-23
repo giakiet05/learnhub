@@ -81,7 +81,7 @@
                             <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
                                 <TextBlock Text="Học kì: " Style="{StaticResource font_style}"
                                              VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <ComboBox Width="100" Height="30"  FontSize="15"                                   
+                                <ComboBox Width="100" Height="30"  FontSize="15"  Text="{Binding SelectedSemester}"                                 
                                           Margin="10 0 0 0" Background="#d9d9d9d9">
                                     <ComboBoxItem Content="HK1"/>
                                     <ComboBoxItem Content="HK2"/>
@@ -93,8 +93,8 @@
                     <!--danh sách hs của lớp đã chọn-->
                     <DataGrid Grid.Row="1" x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
-                              ItemsSource="{Binding Classrooms}"
-                              SelectedItem="{Binding SelectedClassroom}"
+                              ItemsSource="{Binding Students}"
+                              SelectedItem="{Binding SelectedStudent}"
                               Margin="5" PreviewMouseLeftButtonDown="LopDG_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -103,8 +103,8 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã học sinh"/>
-                            <DataGridTextColumn Header="Tên học sinh"/>
+                            <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Tên học sinh" Binding="{Binding FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -138,7 +138,7 @@
                         <!--bảng điểm của hs đã chọn-->
                         <DataGrid x:Name="BangDiem" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                               IsReadOnly="{Binding IsReadOnly}" CanUserDeleteRows="True"
-                              ItemsSource="{Binding Scores}">
+                              ItemsSource="{Binding ScoreViewModels}">
                             <DataGrid.CellStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                     <Setter Property="BorderThickness" Value="0"/>
@@ -146,11 +146,11 @@
                                 </Style>
                             </DataGrid.CellStyle>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Môn học" Binding="{Binding Subject}"/>
-                                <DataGridTextColumn Header="Thường xuyên" Binding="{Binding Frequency}"/>
-                                <DataGridTextColumn Header="Giữa kì" Binding="{Binding MidTerm}"/>
-                                <DataGridTextColumn Header="Cuối kì" Binding="{Binding FinalTerm}"/>
-                                <DataGridTextColumn Header="Trung bình" Binding="{Binding Average}"/>
+                                <DataGridTextColumn Header="Môn học" Binding="{Binding Subject.Name}"/>
+                                <DataGridTextColumn Header="Thường xuyên" Binding="{Binding TXSCore}"/>
+                                <DataGridTextColumn Header="Giữa kì" Binding="{Binding GKSCore}"/>
+                                <DataGridTextColumn Header="Cuối kì" Binding="{Binding CKSCore}"/>
+                                <DataGridTextColumn Header="Trung bình" Binding="{Binding AverageScore}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 

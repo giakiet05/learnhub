@@ -12,11 +12,13 @@ namespace LearnHub.ViewModels.AdminViewModels
     {
         private readonly Score _score;
         public string StudentId => _score.StudentId;
-        public string? StudentName => _score.Student?.FullName;
         public double? GKScore => _score.GKScore;
         public double? CKScore => _score.CKScore;
         public string? TXScore => _score.TXScore;
         public double AverageScore => CalculateAverageScore();
+        public Subject Subject { get; set; }
+        public Student Student { get; set; }
+        public AcademicYear AcademicYear { get; set; }
 
         ScoreViewModel(Score score)
         {
@@ -25,7 +27,9 @@ namespace LearnHub.ViewModels.AdminViewModels
         }
         async void Include()
         {
-           _score.Student =  await GenericDataService<Student>.Instance.GetOne(e => e.Id == StudentId);
+            Student =  await GenericDataService<Student>.Instance.GetOne(e => e.Id == _score.StudentId);
+            Subject = await GenericDataService<Subject>.Instance.GetOne(e=>e.Id == _score.SubjectId);
+            AcademicYear = await GenericDataService<AcademicYear>.Instance.GetOne(e=>e.Id == _score.YearId);
         }
         public double  CalculateAverageScore()
         {

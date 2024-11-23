@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Data;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -121,7 +122,41 @@ namespace LearnHub.ViewModels.AdminViewModels
                     e.TeacherId == selectedTeachingAssignment.TeacherId);
 
                 ToastMessageViewModel.ShowSuccessToast("Xóa thành công.");
-                ModalNavigationStore.Instance.Close();
+
+                //Xóa điểm tất cả các học sinh trong lớp
+                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                {
+                    var studentIds = context.StudentPlacements
+                            .Where(sp => sp.ClassroomId == selectedTeachingAssignment.ClassroomId)
+                            .Select(sp => sp.StudentId)
+                            .ToList();
+                    foreach (var student in studentIds)
+                    {
+                        Score score = new Score()
+                        {
+                            YearId = SelectedYear.Id,
+                            SubjectId = selectedTeachingAssignment.SubjectId,
+                            StudentId = student,
+                            Semester = "HK1",
+                            GKScore = 0,
+                            CKScore = 0,
+                            TXScore = ""
+                        };
+                        // xóa điểm
+                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                       e.SubjectId == score.SubjectId &&
+                       e.StudentId == score.StudentId &&
+                       e.Semester == score.Semester);
+
+                        score.Semester = "HK2";
+
+                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                        e.SubjectId == score.SubjectId &&
+                        e.StudentId == score.StudentId &&
+                        e.Semester == score.Semester);
+                    }
+                }
+                    ModalNavigationStore.Instance.Close();
             }
             catch (Exception)
             {

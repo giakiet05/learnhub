@@ -12,6 +12,7 @@ using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
+using LearnHub.Data;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -134,6 +135,39 @@ namespace LearnHub.ViewModels.AdminViewModels
                     e.SubjectId == selectedTeachingAssignment.SubjectId &&
                     e.TeacherId == selectedTeachingAssignment.TeacherId);
 
+                //Xóa điểm tất cả các học sinh trong lớp
+                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                {
+                    var studentIds = context.StudentPlacements
+                            .Where(sp => sp.ClassroomId == selectedTeachingAssignment.ClassroomId)
+                            .Select(sp => sp.StudentId)
+                            .ToList();
+                    foreach (var student in studentIds)
+                    {
+                        Score score = new Score()
+                        {
+                            YearId = SelectedYear.Id,
+                            SubjectId = selectedTeachingAssignment.SubjectId,
+                            StudentId = student,
+                            Semester = "HK1",
+                            GKScore = 0,
+                            CKScore = 0,
+                            TXScore = ""
+                        };
+                        // xóa điểm
+                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                       e.SubjectId == score.SubjectId &&
+                       e.StudentId == score.StudentId &&
+                       e.Semester == score.Semester);
+
+                        score.Semester = "HK2";
+
+                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                        e.SubjectId == score.SubjectId &&
+                        e.StudentId == score.StudentId &&
+                        e.Semester == score.Semester);
+                    }
+                }
                 ToastMessageViewModel.ShowSuccessToast("Xóa thành công.");
                 ModalNavigationStore.Instance.Close();
             }

@@ -24,7 +24,7 @@ namespace LearnHub.Views.AdminViews
         public AdminClassView()
         {
             InitializeComponent();
-            DataContext = new AdminClassViewModel();
+            DataContext = new ClassViewModel();
         }
 
         private void LopDG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -162,13 +162,16 @@ namespace LearnHub.Migrations
                     b.Property<string>("StudentId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double?>("Value")
+                    b.Property<double?>("CKScore")
                         .HasColumnType("REAL");
 
-                    b.HasKey("SubjectId", "Semester", "YearId", "StudentId", "Type");
+                    b.Property<double?>("GKScore")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("TXScore")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SubjectId", "Semester", "YearId", "StudentId");
 
                     b.HasIndex("StudentId");
 
@@ -176,11 +179,11 @@ namespace LearnHub.Migrations
 
                     b.ToTable("Scores", t =>
                         {
+                            t.HasCheckConstraint("CK_CKScore_Value", "[CKScore] BETWEEN 0 AND 10");
+
+                            t.HasCheckConstraint("CK_GKScore_Value", "[GKSCore] BETWEEN 0 AND 10");
+
                             t.HasCheckConstraint("CK_Score_Semester", "[Semester] IN ('HK1', 'HK2')");
-
-                            t.HasCheckConstraint("CK_Score_Type", "[Type] IN ('GK', 'CK', 'TX', 'TB')");
-
-                            t.HasCheckConstraint("CK_Score_Value", "[Value] BETWEEN 0 AND 10");
                         });
                 });
 

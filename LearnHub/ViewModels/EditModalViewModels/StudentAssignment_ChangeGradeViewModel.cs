@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Data;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -151,8 +152,50 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 await GenericDataService<StudentPlacement>.Instance.CreateMany(newStudentPlacements);
 
                 ToastMessageViewModel.ShowSuccessToast("Chuyển lớp thành công.");
-                // Close the modal
-                ModalNavigationStore.Instance.Close();
+                // thêm điểm cho các học sinh mới
+                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                {
+                    // lấy danh sách tất cả môn học
+                    var subjectIds = context.TeachingAssignments
+                    .Where(ta => ta.ClassroomId == _selectedClassroom.Id)
+                    .Select(ta => ta.SubjectId)
+                    .Distinct() // Nếu không muốn trùng lặp
+                    .ToList();
+                    var _yearStore = GenericStore<AcademicYear>.Instance.SelectedItem;
+                    foreach (var student in newStudentPlacements)
+                    {
+
+                        foreach (var subjectId in subjectIds)
+                        {
+                            Score score = new Score()
+                            {
+                                YearId = SelectedYear.Id,
+                                SubjectId = subjectId,
+                                StudentId = student.StudentId,
+                                Semester = "HK1",
+                                GKScore = 0,
+                                CKScore = 0,
+                                TXScore = ""
+                            };
+                            // check trùng
+                            if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                            e.SubjectId == score.SubjectId &&
+                            e.StudentId == score.StudentId &&
+                            e.Semester == score.Semester) == null)
+                                await GenericDataService<Score>.Instance.CreateOne(score);
+                            score.Semester = "HK2";
+                            //check trùng
+                            if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                            e.SubjectId == score.SubjectId &&
+                            e.StudentId == score.StudentId &&
+                            e.Semester == score.Semester) == null)
+                                await GenericDataService<Score>.Instance.CreateOne(score);
+                        }
+
+                    }
+                }
+                    // Close the modal
+                    ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)
             {

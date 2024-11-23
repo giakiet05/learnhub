@@ -4,7 +4,7 @@ using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
-using LearnHub.ViewModels.AdminViewModels;
+using LearnHub.ViewModels.FormViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,10 +85,18 @@ namespace LearnHub.ViewModels.AddModalViewModels
                             TXScore = ""
                         };
                         // check trùng
+                        if(await GenericDataService<Score>.Instance.GetOne(e=>e.YearId==score.YearId &&
+                        e.SubjectId==score.SubjectId &&
+                        e.StudentId==score.StudentId &&
+                        e.Semester == score.Semester) ==null )
                         await GenericDataService<Score>.Instance.CreateOne(score);
                         score.Semester = "HK2";
                         //check trùng
-                        await GenericDataService<Score>.Instance.CreateOne(score);
+                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                        e.SubjectId == score.SubjectId &&
+                        e.StudentId == score.StudentId &&
+                        e.Semester == score.Semester) == null)
+                            await GenericDataService<Score>.Instance.CreateOne(score);
                     }
                 }
                 ModalNavigationStore.Instance.Close();

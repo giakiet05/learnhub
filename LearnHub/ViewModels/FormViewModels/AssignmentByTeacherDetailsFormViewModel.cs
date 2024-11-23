@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace LearnHub.ViewModels.AdminViewModels
+namespace LearnHub.ViewModels.FormViewModels
 {
     public class AssignmentByTeacherDetailsFormViewModel : BaseViewModel
     {
@@ -118,14 +118,14 @@ namespace LearnHub.ViewModels.AdminViewModels
         }
         private async void LoadClassrooms()
         {
-            if ( SelectedGrade== null)
+            if (SelectedGrade == null)
                 Classrooms = Enumerable.Empty<Classroom>();
             else
             {
-                var selectedYear  = GenericStore<AcademicYear>.Instance.SelectedItem;
-                Classrooms = await GenericDataService<Classroom>.Instance.GetMany(e => e.Grade.Id == SelectedGrade.Id && e.AcademicYear.Id ==selectedYear.Id    );
+                var selectedYear = GenericStore<AcademicYear>.Instance.SelectedItem;
+                Classrooms = await GenericDataService<Classroom>.Instance.GetMany(e => e.Grade.Id == SelectedGrade.Id && e.AcademicYear.Id == selectedYear.Id);
             }
-               
+
             OnPropertyChanged(nameof(Classrooms));
         }
         private async void LoadGrades()

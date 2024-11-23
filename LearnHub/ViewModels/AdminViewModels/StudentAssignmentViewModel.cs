@@ -3,6 +3,8 @@ using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
+using LearnHub.ViewModels.AddModalViewModels;
+using LearnHub.ViewModels.EditModalViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,7 +26,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         //store dung de thao tac voi danh sach
         private readonly GenericStore<Classroom> _classroomStore;
         private readonly GenericStore<StudentPlacement> _studentPlacementStore;
-
+        private readonly GenericStore<AcademicYear> _yearStore;
         //Danh sach de binding ra view
         public IEnumerable<Classroom> Classrooms => _classroomStore.Items;
         public IEnumerable<StudentPlacement> StudentPlacements => _studentPlacementStore.Items;
@@ -49,6 +51,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedYear = value;
+                _yearStore.SelectedItem = value;
                 OnPropertyChanged(nameof(SelectedYear));
                 LoadClassrooms();
             }
@@ -91,10 +94,10 @@ namespace LearnHub.ViewModels.AdminViewModels
             SwitchToStudentCommand = new NavigateLayoutCommand(() => new StudentViewModel());
             _classroomStore = GenericStore<Classroom>.Instance;
             _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
-
+            _yearStore = GenericStore<AcademicYear>.Instance;
             _classroomStore.Clear();
             _studentPlacementStore.Clear();
-
+            _yearStore.Clear();
             LoadGrades();
             LoadYears();
             UpdateModalCommands();

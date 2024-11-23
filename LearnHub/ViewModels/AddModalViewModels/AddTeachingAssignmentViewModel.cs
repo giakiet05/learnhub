@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Data;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -71,6 +72,40 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 GenericStore<TeachingAssignment>.Instance.Add(entity);
 
                 ToastMessageViewModel.ShowSuccessToast("Phân công thành công.");
+                // thêm điểm môn học mới cho tất cả các học sinh thuộc lớp
+                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                {
+                    var studentIds = context.StudentPlacements
+                            .Where(sp => sp.ClassroomId == _classroomStore.SelectedItem.Id)
+                            .Select(sp => sp.StudentId)
+                            .ToList();
+                    foreach (var student in studentIds)
+                    {
+                        Score score = new Score()
+                        {
+                            YearId = _classroomStore.SelectedItem.YearId,
+                            SubjectId = formViewModel.SelectedSubject.Id,
+                            StudentId = student,
+                            Semester = "HK1",
+                            GKScore = 0,
+                            CKScore = 0,
+                            TXScore = ""
+                        };
+                        // check trùng
+                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                        e.SubjectId == score.SubjectId &&
+                        e.StudentId == score.StudentId &&
+                        e.Semester == score.Semester) == null)
+                            await GenericDataService<Score>.Instance.CreateOne(score);
+                        score.Semester = "HK2";
+                        //check trùng
+                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                        e.SubjectId == score.SubjectId &&
+                        e.StudentId == score.StudentId &&
+                        e.Semester == score.Semester) == null)
+                            await GenericDataService<Score>.Instance.CreateOne(score);
+                    }
+                }
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

@@ -81,7 +81,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             try
             {
 
-                // Thực hiện cập nhật cơ sở dữ liệu bất đồng bộ 
+                // Thực hiện cập nhật cơ sở dữ liệu bất đồng bộ  
                 await GenericDataService<TeachingAssignment>.Instance.DeleteOne(e =>
                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
                    e.TeacherId == selectedTeachingAssignment.TeacherId &&

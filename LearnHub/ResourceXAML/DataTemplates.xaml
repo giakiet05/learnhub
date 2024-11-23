@@ -7,6 +7,8 @@
                     xmlns:waitingviews="clr-namespace:LearnHub.Views.WaitingViews"
                     xmlns:authviews="clr-namespace:LearnHub.Views.AuthenticationViews"
                     xmlns:adminviews="clr-namespace:LearnHub.Views.AdminViews"
+                    xmlns:addviews="clr-namespace:LearnHub.Views.AddViews"
+                    xmlns:editviews="clr-namespace:LearnHub.Views.EditViews"
                     xmlns:addvm="clr-namespace:LearnHub.ViewModels.AddModalViewModels"
                     xmlns:editvm="clr-namespace:LearnHub.ViewModels.EditModalViewModels"
                     xmlns:views="clr-namespace:LearnHub.Views"
@@ -64,10 +66,10 @@
         <adminviews:AdminSubjectView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:StudentAssignment_AddStudentViewModel}">
-        <adminviews:AdminStudentAssignment_AddStudentView/>
+        <addviews:AdminStudentAssignment_AddStudentView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:StudentAssignment_ChangeGradeViewModel}">
-        <adminviews:AdminStudentAssignment_ChangeGradeView/>
+        <editviews:AdminStudentAssignment_ChangeGradeView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:CalendarViewModel}">
         <adminviews:AdminCalendarView/>
@@ -85,74 +87,74 @@
         <adminviews:AdminGradeView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddClassViewModel}">
-        <adminviews:AddClassView/>
+        <addviews:AddClassView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddCalendarViewModel}">
-        <adminviews:AddCalendarView/>
+        <addviews:AddCalendarView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddTeachingAssignmentViewModel}">
-        <adminviews:AddTeacherAssignmentView/>
+        <addviews:AddTeacherAssignmentView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type addvm:AddGradeViewModel}">
-        <adminviews:AddGradeView/>
+        <addviews:AddGradeView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddMajorViewModel}">
-        <adminviews:AddMajorView/>
+        <addviews:AddMajorView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddSchoolYearViewModel}">
-        <adminviews:AddSchoolYearView/>
+        <addviews:AddSchoolYearView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddNotificationViewModel}">
-        <adminviews:AddNotificationView/>
+        <addviews:AddNotificationView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddStudentViewModel}">
-        <adminviews:AddStudentView/>
+        <addviews:AddStudentView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddSubjectViewModel}">
-        <adminviews:AddSubjectView/>
+        <addviews:AddSubjectView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddAssignmentByTeacherViewModel}">
-        <adminviews:AddAssignmentByTeacherView/>
+        <addviews:AddAssignmentByTeacherView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddTeacherViewModel}">
-        <adminviews:AddTeacherView/>
+        <addviews:AddTeacherView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditClassViewModel}">
-        <adminviews:EditClassView/>
+        <editviews:EditClassView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditTeachingAssignmentViewModel}">
-        <adminviews:EditTeacherAssignmentView/>
+        <editviews:EditTeacherAssignmentView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditMajorViewModel}">
-        <adminviews:EditMajorView/>
+        <editviews:EditMajorView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditSchoolYearViewModel}">
-        <adminviews:EditSchoolYearView/>
+        <editviews:EditSchoolYearView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditCalendarViewModel}">
-        <adminviews:EditCalendarView/>
+        <editviews:EditCalendarView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditAssignmentByTeacherViewModel}">
-        <adminviews:EditAssignmentByTeacherView/>
+        <editviews:EditAssignmentByTeacherView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditGradeViewModel}">
-        <adminviews:EditGradeView/>
+        <editviews:EditGradeView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditNotificationViewModel}">
-        <adminviews:EditNotificationView/>
+        <editviews:EditNotificationView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditStudentViewModel}">
-        <adminviews:EditStudentView/>
+        <editviews:EditStudentView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditSubjectViewModel}">
-        <adminviews:EditSubjectView/>
+        <editviews:EditSubjectView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditTeacherViewModel}">
-        <adminviews:EditTeacherView/>
+        <editviews:EditTeacherView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:DeleteConfirmViewModel}">
-        <adminviews:DeleteConfirmView/>
+        <views:DeleteConfirmView/>
     </DataTemplate>
     <!--#endregion-->
 </ResourceDictionary>

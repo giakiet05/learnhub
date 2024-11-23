@@ -25,17 +25,17 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand LogoutCommand {  get; }
         public AdminViewModel()
         {
-            HomeCommand = new NavigateLayoutCommand(() => new AdminHomeViewModel());
-            ClassCommand = new NavigateLayoutCommand(() => new AdminClassViewModel());
-            SubjectCommand = new NavigateLayoutCommand(() => new AdminSubjectViewModel());
-            TeacherCommand = new NavigateLayoutCommand(() => new AdminTeacherViewModel());
-            StudentCommand = new NavigateLayoutCommand(() => new AdminStudentViewModel());
-            CalendarCommand = new NavigateLayoutCommand(() => new AdminCalendarViewModel());
+            HomeCommand = new NavigateLayoutCommand(() => new HomeViewModel());
+            ClassCommand = new NavigateLayoutCommand(() => new ClassViewModel());
+            SubjectCommand = new NavigateLayoutCommand(() => new SubjectViewModel());
+            TeacherCommand = new NavigateLayoutCommand(() => new TeacherViewModel());
+            StudentCommand = new NavigateLayoutCommand(() => new StudentViewModel());
+            CalendarCommand = new NavigateLayoutCommand(() => new CalendarViewModel());
             LogoutCommand = new NavigateModalCommand(() =>new LogoutConfirmViewModel());
-            SchoolYearCommand = new NavigateLayoutCommand(()=> new AdminSchoolYearViewModel());
-            ResultCommand = new NavigateLayoutCommand(()=>new AdminResultViewModel());
+            SchoolYearCommand = new NavigateLayoutCommand(()=> new SchoolYearViewModel());
+            ResultCommand = new NavigateLayoutCommand(()=>new ResultViewModel());
             NavigationStore.Instance.CurrentLayoutModelChanged += OnCurrentLayoutModelChanged;
-            NavigationStore.Instance.CurrentLayoutModel = new AdminHomeViewModel();
+            NavigationStore.Instance.CurrentLayoutModel = new HomeViewModel();
         }
         
         private void OnCurrentLayoutModelChanged()

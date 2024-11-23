@@ -139,7 +139,7 @@
                         <!--bảng điểm của hs đã chọn-->
                         <DataGrid x:Name="BangDiem" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                              CanUserDeleteRows="True"  SelectionMode="Single" 
-                              ItemsSource="{Binding ScoreViewModels}" IsReadOnly="{Binding IsReadOnly}" Grid.ColumnSpan="2">
+                              ItemsSource="{Binding Path= ScoreViewModels}" IsReadOnly="{Binding IsReadOnly}" Grid.ColumnSpan="2">
                             <DataGrid.CellStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                     <Setter Property="BorderThickness" Value="0"/>

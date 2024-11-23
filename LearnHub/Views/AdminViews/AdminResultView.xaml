@@ -83,18 +83,21 @@
                 <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
                     <TextBlock Text="Học kì: " Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    <ComboBox Width="100" Height="30"  FontSize="15"
+                    <ComboBox Width="100" Height="30"  FontSize="15" Text="{Binding SelectedSemester}"
                               Margin="10 0 0 0" Background="#d9d9d9d9">
                         <ComboBoxItem Content="HK1"/>
                         <ComboBoxItem Content="HK2"/>
                     </ComboBox>
                 </StackPanel>
 
-                <!--chọn học kì-->
+                <!--chọn môn học-->
                 <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
                     <TextBlock Text="Môn học: " Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <ComboBox Width="100" Height="30"  FontSize="15"
+                               ItemsSource="{Binding Subjects}"
+                                SelectedItem="{Binding SelectedSubject}"
+                              DisplayMemberPath="Name"
                                  Margin="10 0 0 0" Background="#d9d9d9d9"/>
                 </StackPanel>
 
@@ -103,6 +106,7 @@
             <!--datagrid để hiển thị dsách điểm của hs trong lớp-->
             <DataGrid Grid.Row="1" x:Name="BoMonDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                       IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                      ItemsSource="{Binding ScoreViewModels}"
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
                       PreviewMouseLeftButtonDown="BoMonDG_PreviewMouseLeftButtonDown">
                 <DataGrid.CellStyle>
@@ -112,12 +116,12 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã HS"/>
-                    <DataGridTextColumn Header="Tên HS"/>
-                    <DataGridTextColumn Header="Thường xuyên"/>
-                    <DataGridTextColumn Header="Giữa kì"/>
-                    <DataGridTextColumn Header="Cuối kì"/>
-                    <DataGridTextColumn Header="Trung bình"/>
+                    <DataGridTextColumn Header="Mã HS" Binding="{Binding StudentId}"/>
+                    <DataGridTextColumn Header="Tên HS" Binding="{Binding StudentName}"/>
+                    <DataGridTextColumn Header="Thường xuyên" Binding="{Binding TXScore}"/>
+                    <DataGridTextColumn Header="Giữa kì" Binding="{Binding GKScore}"/>
+                    <DataGridTextColumn Header="Cuối kì" Binding="{Binding CKScore}"/>
+                    <DataGridTextColumn Header="Trung bình" Binding="{Binding AverageScore}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

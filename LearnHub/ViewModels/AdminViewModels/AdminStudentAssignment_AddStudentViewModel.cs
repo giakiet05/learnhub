@@ -70,7 +70,6 @@ namespace LearnHub.ViewModels.AdminViewModels
                         StudentId = student.Id,
                         ClassroomId = _classroomStore.SelectedItem.Id,
                     };
-
                     var entity = await GenericDataService<StudentPlacement>.Instance.CreateOne(newStudentPlacement);
                     entity.Student = await GenericDataService<Student>.Instance.GetOne(e => e.Id == entity.StudentId);
 

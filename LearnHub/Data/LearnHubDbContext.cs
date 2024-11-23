@@ -38,7 +38,7 @@ namespace LearnHub.Data
             modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId, e.ExamType });
             modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.ClassroomId, e.Weekday, e.Period });
             modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentId });
-            modelBuilder.Entity<Score>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId, e.Type });
+            modelBuilder.Entity<Score>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId});
             modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentId });
 
             //Unique constraints
@@ -75,9 +75,9 @@ namespace LearnHub.Data
 
             modelBuilder.Entity<Score>(e =>
             {
-                e.ToTable(tb => tb.HasCheckConstraint("CK_Score_Value", "[Value] BETWEEN 0 AND 10"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_GKScore_Value", "[GKSCore] BETWEEN 0 AND 10"));
+                e.ToTable(tb => tb.HasCheckConstraint("CK_CKScore_Value", "[CKScore] BETWEEN 0 AND 10"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Score_Semester", "[Semester] IN ('HK1', 'HK2')"));
-                e.ToTable(tb => tb.HasCheckConstraint("CK_Score_Type", "[Type] IN ('GK', 'CK', 'TX', 'TB')"));
 
             });
 

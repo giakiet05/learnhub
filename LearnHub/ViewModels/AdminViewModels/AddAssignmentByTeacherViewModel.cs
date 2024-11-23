@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Data;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -63,6 +64,32 @@ namespace LearnHub.ViewModels.AdminViewModels
                 GenericStore<TeachingAssignment>.Instance.Add(entity);
 
                 ToastMessageViewModel.ShowSuccessToast("Phân công thành công.");
+                // thêm điểm môn học mới cho tất cả các học sinh thuộc lớp
+                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                {
+                    var studentIds = context.StudentPlacements
+                            .Where(sp => sp.ClassroomId == formViewModel.SelectedClassroom.Id)
+                            .Select(sp => sp.StudentId)
+                            .ToList();
+                    foreach (var student in studentIds)
+                    {
+                        Score score = new Score()
+                        {
+                            YearId = formViewModel.SelectedClassroom.YearId,
+                            SubjectId = formViewModel.SelectedSubject.Id,
+                            StudentId = student,
+                            Semester = "HK1",
+                            GKScore =0,
+                            CKScore =0,
+                            TXScore =""
+                        };
+                      // check trùng
+                        await GenericDataService<Score>.Instance.CreateOne(score);
+                        score.Semester = "HK2";
+                        //check trùng
+                        await GenericDataService<Score>.Instance.CreateOne(score);
+                    }
+                }
                 ModalNavigationStore.Instance.Close();
             }
             catch (Exception)

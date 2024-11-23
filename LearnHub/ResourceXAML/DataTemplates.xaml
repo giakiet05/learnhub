@@ -28,6 +28,12 @@
     <!--#endregion-->
 
     <!--#region admin-->
+    <DataTemplate DataType="{x:Type adminvm:AdminScoreInputViewModel}">
+        <adminviews:AdminScoreInputView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type adminvm:AdminResultViewModel}">
+        <adminviews:AdminResultView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
         <adminviews:AdminView/>
     </DataTemplate>

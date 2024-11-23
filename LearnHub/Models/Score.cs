@@ -15,10 +15,13 @@ namespace LearnHub.Models
         public string SubjectId { get; set; }
         public string StudentId { get; set; }
         public string Semester { get; set; }
-        public string Type { get; set; } // loại, TX, GK, CK,...
+   //     public string Type { get; set; } // loại, TX, GK, CK,...
         //-----Composite Key------
 
-        public double? Value { get; set; } //điểm
+        public double? GKScore { get; set; } //điểm GK
+        public double? CKScore { get; set; } // điểm CK
+        public string? TXScore { get; set; } // điểm TX
+       
 
         //Navigation Properties
         public Subject Subject { get; set; }

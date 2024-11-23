@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Data;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -202,6 +203,43 @@ namespace LearnHub.ViewModels.AdminViewModels
                     {
                         // Delete from store
                         _studentPlacementStore.Delete(e => e.StudentId == item.StudentId && e.ClassroomId == item.ClassroomId);
+
+                        // Xóa điểm tất cả các môn
+                        using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                        {
+                            // lấy danh sách tất cả môn học
+                            var subjectIds = context.TeachingAssignments
+                            .Where(ta => ta.ClassroomId == item.ClassroomId)
+                            .Select(ta => ta.SubjectId)
+                            .Distinct() // Nếu không muốn trùng lặp
+                            .ToList();
+                          
+                            
+                                foreach (var subjectId in subjectIds)
+                                {
+                                    Score score = new Score()
+                                    {
+                                        YearId = SelectedYear.Id,
+                                        SubjectId = subjectId,
+                                        StudentId = item.StudentId,
+                                        Semester = "HK1",
+                                    };
+                                // xóa điểm
+                                await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                               e.SubjectId == score.SubjectId &&
+                               e.StudentId == score.StudentId &&
+                               e.Semester == score.Semester);
+
+                                score.Semester = "HK2";
+
+                                await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                                e.SubjectId == score.SubjectId &&
+                                e.StudentId == score.StudentId &&
+                                e.Semester == score.Semester);
+                            }
+
+                            
+                        }
                     }
                 }
 

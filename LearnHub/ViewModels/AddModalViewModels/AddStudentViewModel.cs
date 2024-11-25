@@ -4,6 +4,7 @@ using LearnHub.Services;
 using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
 using LearnHub.ViewModels.AdminViewModels;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -13,13 +14,13 @@ namespace LearnHub.ViewModels.AddModalViewModels
     public class AddStudentViewModel : BaseViewModel
     {
         public StudentDetailsFormViewModel StudentDetailsFormViewModel { get; }
-
+       
         public AddStudentViewModel()
         {
             // Initialize the RelayCommand for Submit
             ICommand submitCommand = new RelayCommand(ExecuteSubmit);
             ICommand cancelCommand = new CancelCommand();
-
+         
             StudentDetailsFormViewModel = new StudentDetailsFormViewModel(submitCommand, cancelCommand);
         }
 
@@ -56,10 +57,12 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 FatherPhone = formViewModel.FatherPhone,
                 MotherPhone = formViewModel.FatherPhone
             };
+            var passwordHasher = new PasswordHasher<Student>();
+            newStudent.Password = passwordHasher.HashPassword(newStudent, newStudent.Password);
 
             try
             {
-                await AuthenticationService.Instance.CreateAccount(newStudent);
+                await GenericDataService<Student>.Instance.CreateOne(newStudent);
 
                 // Directly use the GenericStore without creating a field
                 GenericStore<Student>.Instance.Add(newStudent);

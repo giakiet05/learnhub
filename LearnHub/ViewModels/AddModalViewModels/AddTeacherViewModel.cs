@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows;
 using LearnHub.Stores.AdminStores;
 using LearnHub.ViewModels.AdminViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace LearnHub.ViewModels.AddModalViewModels
 {
@@ -59,6 +60,9 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 MajorId = formViewModel.SelectedMajor?.Id,
                 DateOfJoining = formViewModel.DateOfJoining,
             };
+
+            var passwordHasher = new PasswordHasher<Teacher>();
+            newTeacher.Password = passwordHasher.HashPassword(newTeacher, newTeacher.Password);
 
             try
             {

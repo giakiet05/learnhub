@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Services
 {
-    public class GenericDataService<T> : IDataService<T> where T : class
+    public class GenericDataService<T> where T : class
     {
         private static readonly Lazy<GenericDataService<T>> _instance = new Lazy<GenericDataService<T>>(() => new GenericDataService<T>());
         private readonly LearnHubDbContextFactory _contextFactory;

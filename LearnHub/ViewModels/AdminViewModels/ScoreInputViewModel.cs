@@ -43,6 +43,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 IsReadOnly = true;
                 State = "Sửa";
+                UpdateScores();
             }
         }
 
@@ -181,6 +182,68 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             }
             OnPropertyChanged(nameof(ScoreViewModels));
+        }
+        private async void UpdateScores()
+        {
+            int total = ScoreViewModels.Count;
+            int failed = 0;
+            int successed = 0;
+            foreach (var score in ScoreViewModels)
+            {
+               
+                if (!Check(score))
+                {
+                    failed++;
+                    continue;
+                }
+                // lấy điểm cũ ra để so sánh
+                var oldScore = await GenericDataService<Score>.Instance.GetOne(e =>
+               e.YearId == score._score.YearId &&
+               e.SubjectId == score._score.SubjectId &&
+               e.StudentId == score._score.StudentId &&
+               e.Semester == score._score.Semester);
+                //so sánh với điểm mới
+                if(oldScore.MidTermScore != score.MidTermScore ||
+                    oldScore.FinalTermScore!= score.FinalTermScore ||
+                    oldScore.RegularScores!= score.RegularScores)
+                {
+                    // cập nhật điểm mới
+                    await GenericDataService<Score>.Instance.UpdateOne(score._score, e =>
+               e.YearId == score._score.YearId &&
+               e.SubjectId == score._score.SubjectId &&
+               e.StudentId == score._score.StudentId &&
+               e.Semester == score._score.Semester);
+
+                    successed++;
+                }
+               
+            }
+            ToastMessageViewModel.ShowSuccessToast("Sửa thành công "+ successed.ToString()+" điểm môn học.");
+            if(failed > 0) ToastMessageViewModel.ShowErrorToast(failed.ToString()+" điểm môn học không hợp lệ.");
+            LoadScoreViewModels();
+        }
+        private bool Check(ScoreViewModel score)
+        {
+
+            int count = 0;
+
+            // Tính trung bình điểm, bao gồm TXScore, GKScore, CKScore
+            if (!string.IsNullOrWhiteSpace(score.RegularScores))
+            {
+                double[] txScores = score.RegularScores.Split(' ')
+                                            .Select(s => double.Parse(s.Trim()))
+                                            .ToArray();
+                count++;
+                foreach (var txScore in txScores)
+                {
+                   if(txScore>10.0 || txScore<0) return false;
+                }
+            }
+            else return true;
+            if (score.MidTermScore.HasValue && (score.MidTermScore>10 || score.MidTermScore <0)) return false;
+            if (score.FinalTermScore.HasValue && (score.FinalTermScore > 10 || score.FinalTermScore < 0)) return false;
+            return true;
+
         }
     }
 }

@@ -118,9 +118,9 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Mã HS" Binding="{Binding StudentId}"/>
                     <DataGridTextColumn Header="Tên HS" Binding="{Binding Student.FullName}"/>
-                    <DataGridTextColumn Header="Thường xuyên" Binding="{Binding TXScore}"/>
-                    <DataGridTextColumn Header="Giữa kì" Binding="{Binding GKScore}"/>
-                    <DataGridTextColumn Header="Cuối kì" Binding="{Binding CKScore}"/>
+                    <DataGridTextColumn Header="Thường xuyên" Binding="{Binding RegularScores}"/>
+                    <DataGridTextColumn Header="Giữa kì" Binding="{Binding MidTermScore}"/>
+                    <DataGridTextColumn Header="Cuối kì" Binding="{Binding FinalTermScore}"/>
                     <DataGridTextColumn Header="Trung bình" Binding="{Binding AverageScore}"/>
                 </DataGrid.Columns>
             </DataGrid>

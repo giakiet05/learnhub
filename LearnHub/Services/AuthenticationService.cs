@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LearnHub.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationService 
     {
         // Singleton instance
         private static readonly Lazy<AuthenticationService> _instance = new Lazy<AuthenticationService>(() => new AuthenticationService());
 
         // Singleton property to access the instance
         public static AuthenticationService Instance => _instance.Value;
-
-        private readonly IUserService _userService; 
+        private readonly UserService _userService;
+   
         private readonly PasswordHasher<User> _passwordHasher;
 
       
@@ -24,19 +24,6 @@ namespace LearnHub.Services
           
             _userService = UserService.Instance;
             _passwordHasher = new PasswordHasher<User>(); 
-        }
-
-        public async Task<User> CreateAccount(User user)
-        {
-            User existingUser = await _userService.GetByUsername(user.Username);
-            if (existingUser != null)
-                throw new UsernameAlreadyExistsException(existingUser.Username);
-
-          
-            user.Password = _passwordHasher.HashPassword(user, user.Password);
-
-       
-            return await _userService.CreateUser(user);
         }
 
         public async Task<User> Login(string username, string password)

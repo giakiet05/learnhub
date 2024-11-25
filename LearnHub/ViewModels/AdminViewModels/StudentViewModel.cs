@@ -18,6 +18,7 @@ using System.Windows.Data;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -25,7 +26,7 @@ namespace LearnHub.ViewModels.AdminViewModels
     {
         // Tạo trường cho GenericStore<Student>
         private readonly GenericStore<Student> _studentStore;
-
+        private readonly PasswordHasher<Student> _passwordHasher;
         public IEnumerable<Student> Students => _studentStore.Items; //dùng cho import export
         public ICollectionView FilteredStudents { get; } //binding vào view
 
@@ -64,7 +65,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public StudentViewModel()
         {
             _studentStore = GenericStore<Student>.Instance; // Tạo trường cho GenericStore
-
+            _passwordHasher = new PasswordHasher<Student>();
             //Set up filter
             FilteredStudents = CollectionViewSource.GetDefaultView(_studentStore.Items);
             FilteredStudents.Filter = FilterStudentsBySearchText;
@@ -249,7 +250,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 MotherPhone = worksheet.Cells[row, 14].Text
                             };
 
-                         
+                            student.Password = _passwordHasher.HashPassword(student, student.Password);
                             // Check for duplicates (by Username or another unique field)
                             if (!_studentStore.Items.Any(s => s.Username == student.Username))
                             {
@@ -261,8 +262,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                         // Add only non-duplicate students to the store
                         foreach (var student in importedStudents)
                         {
+                            await GenericDataService<Student>.Instance.CreateOne(student);
                             _studentStore.Add(student); // Append to existing data
-                            await AuthenticationService.Instance.CreateAccount(student);
                         }
 
                         MessageBox.Show($"Import thành công! Đã thêm {importedStudents.Count} học sinh mới.", "Import từ Excel", MessageBoxButton.OK, MessageBoxImage.Information);

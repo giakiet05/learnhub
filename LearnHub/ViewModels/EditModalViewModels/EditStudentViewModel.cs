@@ -18,13 +18,13 @@ namespace LearnHub.ViewModels.EditModalViewModels
     public class EditStudentViewModel : BaseViewModel
     {
         private readonly GenericStore<Student> _studentStore;
-
+        private readonly PasswordHasher<Student> _passwordHasher;
         public StudentDetailsFormViewModel StudentDetailsFormViewModel { get; }
 
         public EditStudentViewModel()
         {
             _studentStore = GenericStore<Student>.Instance;  // Using GenericStore<Student> as a field
-
+            _passwordHasher = new PasswordHasher<Student>();
             ICommand submitCommand = new RelayCommand(ExecuteSubmit);
             ICommand cancelCommand = new CancelCommand();
             StudentDetailsFormViewModel = new StudentDetailsFormViewModel(submitCommand, cancelCommand);

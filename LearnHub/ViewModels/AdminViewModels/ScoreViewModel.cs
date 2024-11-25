@@ -12,7 +12,7 @@ namespace LearnHub.ViewModels.AdminViewModels
     public class ScoreViewModel : BaseViewModel
     {
         
-      private  Score _score;
+      public  Score _score;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,6 +24,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
           
                 _regularScores = value;
+                _score.RegularScores = value;
                 OnPropertyChanged(nameof(RegularScores));  // Thông báo thay đổi của TXScore
                OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi TXScore thay đổi
             
@@ -37,6 +38,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         set
         {
                 _midTermScore = value;
+                _score.MidTermScore = value;
                 OnPropertyChanged(nameof(MidTermScore));
                 OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi GKScore thay đổi
             
@@ -50,6 +52,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         set
         {
               _finalTermScore = value;
+                _score.FinalTermScore = value;
                 OnPropertyChanged(nameof(FinalTermScore));
                 OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi CKScore thay đổi
             
@@ -113,6 +116,7 @@ namespace LearnHub.ViewModels.AdminViewModels
     {
         return scores.Select(score => new ScoreViewModel(score));
     }
+       
 }
 
 }

@@ -213,9 +213,11 @@ namespace LearnHub.ViewModels.AdminViewModels
                             .Select(ta => ta.SubjectId)
                             .Distinct() // Nếu không muốn trùng lặp
                             .ToList();
-                          
-                            
-                                foreach (var subjectId in subjectIds)
+                           // var subjectIds = await GenericDataService<StudentPlacement>.Instance.Query(sp => sp.Where(sp => sp.ClassroomId == item.ClassroomId)
+                           //.Select(sp => sp.SubjectId));
+                           
+
+                            foreach (var subjectId in subjectIds)
                                 {
                                     Score score = new Score()
                                     {
@@ -236,9 +238,23 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 e.SubjectId == score.SubjectId &&
                                 e.StudentId == score.StudentId &&
                                 e.Semester == score.Semester);
-                            }
-
-                            
+                               }
+                            // xóa kết quả học kì
+                            SemesterResult semesterResult = new SemesterResult()
+                            {
+                                YearId = SelectedYear.Id,
+                                StudentId = item.StudentId,
+                                Semester = "HK1",
+                                AuthorizedLeaveDays = 0,
+                                UnauthorizedLeaveDays = 0
+                            };
+                            await GenericDataService<SemesterResult>.Instance.DeleteOne(e => e.YearId == semesterResult.YearId &&
+                               e.StudentId == semesterResult.StudentId &&
+                               e.Semester == semesterResult.Semester);
+                            semesterResult.Semester = "HK2";
+                            await GenericDataService<SemesterResult>.Instance.DeleteOne(e => e.YearId == semesterResult.YearId &&
+                               e.StudentId == semesterResult.StudentId &&
+                               e.Semester == semesterResult.Semester);
                         }
                     }
                 }

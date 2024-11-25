@@ -21,7 +21,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public IEnumerable<Classroom> Classrooms { get; private set; }
 
         public IEnumerable<Student> Students { get; private set; }
-
+        public SemesterResult semesterResult { get; private set; }
        public ObservableCollection<ScoreViewModel> ScoreViewModels { get; private set; }
         
 
@@ -32,18 +32,124 @@ namespace LearnHub.ViewModels.AdminViewModels
             LoadGrades();
             LoadYears();                  
         }
+
        private void ChangeState()
         {
             if (IsReadOnly)
             {
                 IsReadOnly = false;
+                IsEnabled = true;
                 State = "Lưu";
             }
             else
             {
                 IsReadOnly = true;
+                IsEnabled = false;
                 State = "Sửa";
                 UpdateScores();
+            }
+        }
+        // số ngày nghỉ có phép
+        private int _authorizedLeaveDays=0;
+
+        public int AuthorizedLeaveDays
+        {
+            get 
+            { 
+                return _authorizedLeaveDays; 
+            }
+            set 
+            { 
+                _authorizedLeaveDays = value;
+                OnPropertyChanged(nameof(AuthorizedLeaveDays));
+            }
+        }
+        // số ngày nghỉ không phép
+        private int _unauthorizedLeaveDays=0;
+
+        public int UnauthorizedLeaveDays
+        {
+            get 
+            { 
+                return _unauthorizedLeaveDays; 
+            }
+            set 
+            { 
+                _unauthorizedLeaveDays = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+
+
+        // danh hiệu
+        private string _title="";
+
+        public string Title
+        {
+            get 
+            { 
+                return _title;
+            }
+            set 
+            { 
+                _title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+        // hạnh kiểm
+        private string _conduct="";
+
+        public string Conduct
+        {
+            get 
+            { 
+                return _conduct; 
+            }
+            set 
+            { 
+                _conduct = value;
+                OnPropertyChanged(nameof(Conduct));
+            }
+        }
+        // điểm trung bình học kì
+        private double _averageScore = 0;
+        public double AverageScore
+        {
+            get 
+            { 
+                return _averageScore; 
+            }
+            set 
+            { 
+                _averageScore = value;
+                OnPropertyChanged(nameof(AverageScore));
+            }
+        }
+
+        // học lực
+        private string _academicPerformance = "";
+        public string AcademicPerformance
+        {
+            get 
+            { 
+                return _academicPerformance; 
+            }
+            set 
+            { 
+                _academicPerformance = value;
+                OnPropertyChanged(nameof(AcademicPerformance));
+            }
+        }
+
+        private bool _isEnabled=false;
+
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set 
+            {
+                _isEnabled = value;
+                OnPropertyChanged(nameof(IsEnabled));
             }
         }
 
@@ -175,7 +281,44 @@ namespace LearnHub.ViewModels.AdminViewModels
                 var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
                 ScoreViewModels =new ObservableCollection<ScoreViewModel> (ScoreViewModel.ConvertToScoreViewModels(scores));
                 
+                semesterResult = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
+                
+                if (semesterResult == null) {
+                    SemesterResult newSR = new SemesterResult()
+                    {
+                        StudentId = SelectedStudent.Id,
+                        YearId = SelectedYear.Id,
+                        Semester = SelectedSemester,
+                        AuthorizedLeaveDays = 0,
+                        UnauthorizedLeaveDays = 0,
+                    };
 
+                    semesterResult = await GenericDataService<SemesterResult>.Instance.CreateOne(newSR);
+                }
+                AuthorizedLeaveDays = (int)semesterResult.AuthorizedLeaveDays;
+                UnauthorizedLeaveDays = (int)semesterResult.UnauthorizedLeaveDays;
+                Conduct = semesterResult.Conduct;
+                double total = 0, min = 11;
+                foreach (var score in ScoreViewModels) { total += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
+                AverageScore = total / ScoreViewModels.Count;
+                AcademicPerformance = semesterResult.AcademicPerformance;
+                if (String.IsNullOrEmpty(semesterResult.AcademicPerformance))
+                {
+                    Title = "";
+                }
+                else
+                {
+                    if (AverageScore >= 8 && min >= 6.5) AcademicPerformance = "Giỏi";
+                    else if (AverageScore >= 6.5 && min >= 5) AcademicPerformance = "Khá";
+                    else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
+                    else if (AverageScore >= 3.5 && min >= 2) AcademicPerformance = "Yếu";
+                    else AcademicPerformance = "Kém";
+
+                    if (AverageScore >= 8 && min >= 6.5 && Conduct == "Tốt") Title = "Học Sinh Giỏi";
+                    else if (AverageScore > 6.5 && (Conduct == "Tốt" || Conduct == "Khá") && min >= 5) Title = "Học Sinh Tiên Tiến";
+                    else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct == "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
+                    else Title = "Học Sinh Yếu";                   
+                }
             }
             OnPropertyChanged(nameof(ScoreViewModels));
         }
@@ -214,7 +357,29 @@ namespace LearnHub.ViewModels.AdminViewModels
                 }
                
             }
-            ToastMessageViewModel.ShowSuccessToast("Sửa thành công "+ successed.ToString()+" điểm môn học.");
+            if(semesterResult.Conduct!= Conduct || semesterResult.AuthorizedLeaveDays != AuthorizedLeaveDays ||
+                semesterResult.UnauthorizedLeaveDays != UnauthorizedLeaveDays )
+            {
+                List<string> conducts = new List<string>() { "Tốt", "Khá", "Trung bình", "Yếu", "Kém" };
+                if(conducts.Contains(Conduct) && AuthorizedLeaveDays>=0 &&UnauthorizedLeaveDays>=0)
+                {
+                    double sum = 0, min = 11;
+                    foreach (var score in ScoreViewModels) { sum += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
+                    AverageScore = sum / ScoreViewModels.Count;
+                    if (AverageScore >= 8 && min >= 6.5) semesterResult.AcademicPerformance = "Giỏi";
+                    else if (AverageScore >= 6.5 && min >= 5) semesterResult.AcademicPerformance = "Khá";
+                    else if (AverageScore >= 5 && min >= 3.5) semesterResult.AcademicPerformance = "Trung bình";
+                    else if (AverageScore >= 3.5 && min >= 2) semesterResult.AcademicPerformance = "Yếu";
+                    else AcademicPerformance = "Kém";
+                    await GenericDataService<SemesterResult>.Instance.UpdateOne(semesterResult,e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
+                    ToastMessageViewModel.ShowSuccessToast("Sửa kết quả học kì thành công");
+                }
+                else
+                {
+                    ToastMessageViewModel.ShowErrorToast("Nhập kết quả học kì không hợp lệ");
+                }
+            }
+           if(successed>0) ToastMessageViewModel.ShowSuccessToast("Sửa thành công "+ successed.ToString()+" điểm môn học.");
             if(failed > 0) ToastMessageViewModel.ShowErrorToast(failed.ToString()+" điểm môn học không hợp lệ.");
             LoadScoreViewModels();
         }

@@ -148,9 +148,9 @@
                             </DataGrid.CellStyle>
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Môn học" Binding="{Binding Subject.Name}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Thường xuyên" Binding="{Binding TXSCore}" />
-                                <DataGridTextColumn Header="Giữa kì" Binding="{Binding GKSCore}" />
-                                <DataGridTextColumn Header="Cuối kì" Binding="{Binding CKSCore}" />
+                                <DataGridTextColumn Header="Thường xuyên" Binding="{Binding RegularScores}" />
+                                <DataGridTextColumn Header="Giữa kì" Binding="{Binding MidTermScore}" />
+                                <DataGridTextColumn Header="Cuối kì" Binding="{Binding FinalTermScore}" />
                                 <DataGridTextColumn Header="Trung bình" Binding="{Binding AverageScore}" IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>

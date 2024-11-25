@@ -87,9 +87,9 @@ namespace LearnHub.ViewModels.AddModalViewModels
                             SubjectId = formViewModel.SelectedSubject.Id,
                             StudentId = student,
                             Semester = "HK1",
-                            GKScore = 0,
-                            CKScore = 0,
-                            TXScore = ""
+                            MidTermScore = 0,
+                            FinalTermScore = 0,
+                            RegularScores = ""
                         };
                         // check trùng
                         if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&

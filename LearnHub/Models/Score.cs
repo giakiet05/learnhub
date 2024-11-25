@@ -18,9 +18,9 @@ namespace LearnHub.Models
    //     public string Type { get; set; } // loại, TX, GK, CK,...
         //-----Composite Key------
 
-        public double? GKScore { get; set; } //điểm GK
-        public double? CKScore { get; set; } // điểm CK
-        public string? TXScore { get; set; } // điểm TX
+        public double? MidTermScore { get; set; } //điểm GK
+        public double? FinalTermScore { get; set; } // điểm CK
+        public string? RegularScores { get; set; } // điểm TX
        
 
         //Navigation Properties

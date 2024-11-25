@@ -9,91 +9,50 @@ using System.Threading.Tasks;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
-    public class ScoreViewModel : BaseViewModel, INotifyPropertyChanged
+    public class ScoreViewModel : BaseViewModel
     {
-        //    private readonly Score _score;
-        //    public string StudentId => _score.StudentId;
-        //    public double? GKScore => _score.GKScore;
-        //    public double? CKScore => _score.CKScore;
-        //    public string? TXScore => _score.TXScore;
-        //    public double AverageScore => CalculateAverageScore();
-        //    public Subject Subject { get; set; }
-        //    public Student Student { get; set; }
-        //    public AcademicYear AcademicYear { get; set; }
-
-        //    ScoreViewModel(Score score)
-        //    {
-        //        _score = score;
-        //        Include();
-        //    }
-        //    async void Include()
-        //    {
-        //        Student = await GenericDataService<Student>.Instance.GetOne(e => e.Id == _score.StudentId);
-        //        Subject = await GenericDataService<Subject>.Instance.GetOne(e => e.Id == _score.SubjectId);
-        //        AcademicYear = await GenericDataService<AcademicYear>.Instance.GetOne(e => e.Id == _score.YearId);
-        //    }
-        //    public double CalculateAverageScore()
-        //    {
-        //        if (string.IsNullOrWhiteSpace(TXScore)) return 0;
-
-        //        // Tách chuỗi bằng dấu cách và chuyển đổi thành mảng double
-        //        double[] numbers = TXScore.Split(' ')
-        //                                .Select(s => double.Parse(s.Trim()))
-        //                                .ToArray();
-
-        //        // Tính trung bình
-        //        return numbers.Average();
-        //    }
-        //    public static IEnumerable<ScoreViewModel> ConvertToScoreViewModels(IEnumerable<Score> scores)
-        //    {
-        //        return scores.Select(score => new ScoreViewModel(score));
-        //    }
-        private  Score _score;
+        
+      private  Score _score;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private string _txScore;
-    public string TXScore
+    private string _regularScores;
+    public string RegularScores
     {
-        get => _txScore;
+        get => _regularScores;
         set
         {
-            if (_txScore != value)
-            {
-                _txScore = value;
-                OnPropertyChanged(nameof(TXScore));  // Thông báo thay đổi của TXScore
-                OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi TXScore thay đổi
-            }
+          
+                _regularScores = value;
+                OnPropertyChanged(nameof(RegularScores));  // Thông báo thay đổi của TXScore
+               OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi TXScore thay đổi
+            
         }
     }
 
-    private double? _gkScore;
-    public double? GKScore
+    private double? _midTermScore;
+    public double? MidTermScore
     {
-        get => _gkScore;
+        get => _midTermScore;
         set
         {
-            if (_gkScore != value)
-            {
-                _gkScore = value;
-                OnPropertyChanged(nameof(GKScore));
+                _midTermScore = value;
+                OnPropertyChanged(nameof(MidTermScore));
                 OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi GKScore thay đổi
-            }
+            
         }
     }
 
-    private double? _ckScore;
-    public double? CKScore
+    private double? _finalTermScore;
+    public double? FinalTermScore
     {
-        get => _ckScore;
+        get => _finalTermScore;
         set
         {
-            if (_ckScore != value)
-            {
-                _ckScore = value;
-                OnPropertyChanged(nameof(CKScore));
+              _finalTermScore = value;
+                OnPropertyChanged(nameof(FinalTermScore));
                 OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi CKScore thay đổi
-            }
+            
         }
     }
 
@@ -106,13 +65,13 @@ namespace LearnHub.ViewModels.AdminViewModels
     public ScoreViewModel(Score score)
     {
         _score = score;
-        _txScore = score.TXScore;  // Khởi tạo giá trị TXScore từ đối tượng Score ban đầu
-        _gkScore = score.GKScore;  // Khởi tạo giá trị GKScore từ đối tượng Score ban đầu
-        _ckScore = score.CKScore;  // Khởi tạo giá trị CKScore từ đối tượng Score ban đầu
+        _regularScores = score.RegularScores;  // Khởi tạo giá trị TXScore từ đối tượng Score ban đầu
+        _midTermScore = score.MidTermScore;  // Khởi tạo giá trị GKScore từ đối tượng Score ban đầu
+        _finalTermScore = score.FinalTermScore;  // Khởi tạo giá trị CKScore từ đối tượng Score ban đầu
         Include();
     }
 
-    async void Include()
+  private async void Include()
     {
         Student = await GenericDataService<Student>.Instance.GetOne(e => e.Id == _score.StudentId);
         Subject = await GenericDataService<Subject>.Instance.GetOne(e => e.Id == _score.SubjectId);
@@ -125,35 +84,31 @@ namespace LearnHub.ViewModels.AdminViewModels
         int count = 0;
 
         // Tính trung bình điểm, bao gồm TXScore, GKScore, CKScore
-        if (!string.IsNullOrWhiteSpace(TXScore))
+        if (!string.IsNullOrWhiteSpace(RegularScores))
         {
-            double[] txScores = TXScore.Split(' ')
+            double[] txScores = RegularScores.Split(' ')
                                         .Select(s => double.Parse(s.Trim()))
                                         .ToArray();
             sum += txScores.Average();
             count++;
         }
 
-        if (GKScore.HasValue)
+        if (MidTermScore.HasValue)
         {
-            sum += GKScore.Value;
+            sum += MidTermScore.Value;
             count++;
         }
 
-        if (CKScore.HasValue)
+        if (FinalTermScore.HasValue)
         {
-            sum += CKScore.Value;
+            sum += FinalTermScore.Value;
             count++;
         }
 
         return count > 0 ? sum / count : 0;
     }
 
-    private void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
+  
     public static IEnumerable<ScoreViewModel> ConvertToScoreViewModels(IEnumerable<Score> scores)
     {
         return scores.Select(score => new ScoreViewModel(score));

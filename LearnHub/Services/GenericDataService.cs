@@ -1,5 +1,8 @@
 ﻿using LearnHub.Data;
+using LearnHub.Exceptions;
 using LearnHub.Models;
+using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,6 +25,25 @@ namespace LearnHub.Services
             _contextFactory = LearnHubDbContextFactory.Instance;
         }
 
+
+        public async Task<IEnumerable<TResult>> Query<TResult>(
+    Func<DbSet<T>, IQueryable<TResult>> query)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                try
+                {
+                    // Thực hiện truy vấn tùy chỉnh
+                    return await query(context.Set<T>()).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Có lỗi xảy ra", ex);
+                }
+            }
+        }
+
+
         public async Task<IEnumerable<T>> GetAll(Func<IQueryable<T>, IQueryable<T>> include = null)
         {
             using (var context = _contextFactory.CreateDbContext())
@@ -40,7 +62,7 @@ namespace LearnHub.Services
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while retrieving all entities.", ex);
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
@@ -64,9 +86,9 @@ namespace LearnHub.Services
 
                     return await query.FirstOrDefaultAsync(predicate);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while retrieving the entity.");
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
@@ -90,9 +112,9 @@ namespace LearnHub.Services
 
                     return await query.Where(predicate).ToListAsync();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while retrieving multiple entities.");
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
@@ -102,7 +124,7 @@ namespace LearnHub.Services
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
+                throw new ArgumentNullException(nameof(entity), "Đối tượng không tồn tại");
             }
 
             using (var context = _contextFactory.CreateDbContext())
@@ -113,23 +135,43 @@ namespace LearnHub.Services
                     await context.SaveChangesAsync();
                     return createdResult.Entity;
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException dbEx)
                 {
-                    throw new DbUpdateException("An error occurred while saving the entity.");
+                    if (dbEx.InnerException is SqliteException sqliteEx)
+                    {
+                        switch (sqliteEx.SqliteErrorCode)
+                        {
+                            case 19: // Constraint violation
+                                if (sqliteEx.Message.Contains("UNIQUE"))
+                                {
+                                    throw new UniqueConstraintException("Trùng khóa chính hoặc thuộc tính unique", dbEx);
+                                }
+                                if (sqliteEx.Message.Contains("CHECK"))
+                                {
+                                    throw new CheckConstraintException("Vi phạm check constraint", dbEx);
+                                }
+                                break;
+                        }
+                    }
+
+                    throw new Exception("Có lỗi khi thao tác với database", dbEx);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while creating the entity.");
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
+
+
+
 
 
         public async Task<IEnumerable<T>> CreateMany(IEnumerable<T> entities)
         {
             if (entities == null || !entities.Any())
             {
-                throw new ArgumentException("Entities cannot be null or empty.", nameof(entities));
+                throw new ArgumentException("Mảng rỗng hoặc không tồn tại", nameof(entities));
             }
 
             using (var context = _contextFactory.CreateDbContext())
@@ -140,13 +182,30 @@ namespace LearnHub.Services
                     await context.SaveChangesAsync(); // Save changes to the database
                     return entities; // Return the input collection as the entities are now tracked
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException dbEx)
                 {
-                    throw new DbUpdateException("An error occurred while saving the entities.");
+                    if (dbEx.InnerException is SqliteException sqliteEx)
+                    {
+                        switch (sqliteEx.SqliteErrorCode)
+                        {
+                            case 19: // Constraint violation
+                                if (sqliteEx.Message.Contains("UNIQUE"))
+                                {
+                                    throw new UniqueConstraintException("Trùng khóa chính hoặc thuộc tính unique", dbEx);
+                                }
+                                if (sqliteEx.Message.Contains("CHECK"))
+                                {
+                                    throw new CheckConstraintException("Vi phạm check constraint", dbEx);
+                                }
+                                break;
+                        }
+                    }
+
+                    throw new Exception("Có lỗi khi thao tác với database", dbEx);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while creating the entities.");
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
@@ -156,7 +215,7 @@ namespace LearnHub.Services
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
+                throw new ArgumentNullException(nameof(entity), "Đối tượng không tồn tại");
             }
 
             using (var context = _contextFactory.CreateDbContext())
@@ -166,20 +225,37 @@ namespace LearnHub.Services
                     var existingEntity = await context.Set<T>().FirstOrDefaultAsync(predicate);
                     if (existingEntity == null)
                     {
-                        throw new Exception("Entity not found.");
+                        throw new Exception("Đối tượng không tồn tại");
                     }
 
                     context.Entry(existingEntity).CurrentValues.SetValues(entity);
                     await context.SaveChangesAsync();
                     return existingEntity;
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException dbEx)
                 {
-                    throw new DbUpdateException("An error occurred while updating the entity.");
+                    if (dbEx.InnerException is SqliteException sqliteEx)
+                    {
+                        switch (sqliteEx.SqliteErrorCode)
+                        {
+                            case 19: // Constraint violation
+                                if (sqliteEx.Message.Contains("UNIQUE"))
+                                {
+                                    throw new UniqueConstraintException("Trùng khóa chính hoặc thuộc tính unique", dbEx);
+                                }
+                                if (sqliteEx.Message.Contains("CHECK"))
+                                {
+                                    throw new CheckConstraintException("Vi phạm check constraint", dbEx);
+                                }
+                                break;
+                        }
+                    }
+
+                    throw new Exception("Có lỗi khi thao tác với database", dbEx);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while updating the entity.");
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
@@ -188,7 +264,7 @@ namespace LearnHub.Services
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
+                throw new ArgumentNullException(nameof(entity), "Đối tượng không tồn tại");
             }
 
             using (var context = _contextFactory.CreateDbContext())
@@ -205,13 +281,30 @@ namespace LearnHub.Services
 
                     return await context.SaveChangesAsync();
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException dbEx)
                 {
-                    throw new DbUpdateException("An error occurred while updating multiple entities.");
+                    if (dbEx.InnerException is SqliteException sqliteEx)
+                    {
+                        switch (sqliteEx.SqliteErrorCode)
+                        {
+                            case 19: // Constraint violation
+                                if (sqliteEx.Message.Contains("UNIQUE"))
+                                {
+                                    throw new UniqueConstraintException("Trùng khóa chính hoặc thuộc tính unique", dbEx);
+                                }
+                                if (sqliteEx.Message.Contains("CHECK"))
+                                {
+                                    throw new CheckConstraintException("Vi phạm check constraint", dbEx);
+                                }
+                                break;
+                        }
+                    }
+
+                    throw new Exception("Có lỗi khi thao tác với database", dbEx);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while updating multiple entities.");
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
@@ -226,20 +319,23 @@ namespace LearnHub.Services
                     var entity = await context.Set<T>().FirstOrDefaultAsync(predicate);
                     if (entity == null)
                     {
-                        throw new Exception("Entity not found.");
+                        throw new EntityNotFoundException("Không tìm thấy đối tượng");
                     }
 
                     context.Set<T>().Remove(entity);
                     await context.SaveChangesAsync();
                     return true;
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException dbEx) when (dbEx.InnerException is SqliteException sqliteEx)
                 {
-                    throw new DbUpdateException("An error occurred while deleting the entity.");
+                    if (sqliteEx.SqliteErrorCode == 19 && sqliteEx.Message.Contains("FOREIGN KEY"))
+                        throw new ForeignKeyConstraintException("Không thể xóa do có dữ liệu liên quan.", dbEx);
+
+                    throw new Exception("Có lỗi xảy ra khi thao tác với database", dbEx);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while deleting the entity.");
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
@@ -252,21 +348,25 @@ namespace LearnHub.Services
                 {
 
                     var entities = await context.Set<T>().Where(predicate).ToListAsync();
-                    if (!entities.Any()) return 0;
+                    if (!entities.Any()) throw new EntityNotFoundException("Không tìm thấy đối tượng");
 
                     context.Set<T>().RemoveRange(entities);
                     return await context.SaveChangesAsync();
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException dbEx) when (dbEx.InnerException is SqliteException sqliteEx)
                 {
-                    throw new DbUpdateException("An error occurred while deleting multiple entities.");
+                    if (sqliteEx.SqliteErrorCode == 19 && sqliteEx.Message.Contains("FOREIGN KEY"))
+                        throw new ForeignKeyConstraintException("Không thể xóa do có dữ liệu liên quan.", dbEx);
+
+                    throw new Exception("Có lỗi xảy ra khi thao tác với database", dbEx);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new Exception("An error occurred while deleting multiple entities.");
+                    throw new Exception("Có lỗi xảy ra", ex);
                 }
             }
         }
+
 
     }
 }

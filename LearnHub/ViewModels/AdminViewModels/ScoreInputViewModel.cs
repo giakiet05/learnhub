@@ -19,37 +19,40 @@ namespace LearnHub.ViewModels.AdminViewModels
         public IEnumerable<AcademicYear> Years { get; private set; }
         public IEnumerable<Grade> Grades { get; private set; }
         public IEnumerable<Classroom> Classrooms { get; private set; }
-        public ObservableCollection<ScoreViewModel> ScoreViewModels { get; set; }
 
         public IEnumerable<Student> Students { get; private set; }
+
+       public ObservableCollection<ScoreViewModel> ScoreViewModels { get; private set; }
+        
 
         public ScoreInputViewModel()
         {
             SwitchToResultCommand = new NavigateLayoutCommand(() => new ResultViewModel());
             ChangeStateCommand = new RelayCommand(ChangeState);
             LoadGrades();
-            LoadYears();
-            State = "Sửa";
-            IsReadOnly = "true";
+            LoadYears();                  
         }
-        void ChangeState()
+       private void ChangeState()
         {
-            if (IsReadOnly=="true")
+            if (IsReadOnly)
             {
-                IsReadOnly = "false";
-                State = "Xem";
+                IsReadOnly = false;
+                State = "Lưu";
             }
             else
             {
-                IsReadOnly = "true";
+                IsReadOnly = true;
                 State = "Sửa";
             }
         }
-        private string _isReadOnly;
-        public string IsReadOnly
-        {
-            get => _isReadOnly;
 
+        private bool _isReadOnly = true;
+        public bool IsReadOnly
+        {
+            get
+            {
+                return _isReadOnly;
+            }
             set
             {
                 _isReadOnly = value;
@@ -57,7 +60,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
         }
 
-        private string _state;
+        private string _state = "Sửa";
         public string State
         {
             get => _state;
@@ -154,6 +157,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                               .Select(sp => sp.Student) // Navigation property
                               .ToList();
                 }
+
+                //  var studentPlacements = await GenericDataService<StudentPlacement>.Instance.GetMany(e => e.ClassroomId == SelectedClassroom.Id);
+
             }
             OnPropertyChanged(nameof(Students));
         }
@@ -165,7 +171,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
             else
             {
-                var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == SelectedStudent.Id&& e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
+                var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
                 ScoreViewModels =new ObservableCollection<ScoreViewModel> (ScoreViewModel.ConvertToScoreViewModels(scores));
                 
 

@@ -26,6 +26,6 @@ namespace LearnHub.Models
         //Navigation Properties
         public ICollection<StudentPlacement> StudentPlacements { get; set; }
         public ICollection<Score> SubjectResults { get; set; }
-        public ICollection<YearResult> YearResults { get; set; }
+        public ICollection<SemesterResult> YearResults { get; set; }
     }
 }

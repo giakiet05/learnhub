@@ -150,9 +150,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                             SubjectId = selectedTeachingAssignment.SubjectId,
                             StudentId = student,
                             Semester = "HK1",
-                            GKScore = 0,
-                            CKScore = 0,
-                            TXScore = ""
+                            MidTermScore = 0,
+                            FinalTermScore = 0,
+                            RegularScores = ""
                         };
                         // xóa điểm
                         await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&

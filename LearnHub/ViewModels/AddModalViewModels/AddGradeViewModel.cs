@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Exceptions;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -53,6 +54,14 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 GenericStore<Grade>.Instance.Add(newGrade);
                 ToastMessageViewModel.ShowSuccessToast("Thêm khối thành công.");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowErrorToast("Mã này đã tồn tại");
+            }
+            catch(CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowErrorToast("Sai miền giá trị");
             }
             catch (Exception)
             {

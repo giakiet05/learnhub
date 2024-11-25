@@ -22,17 +22,17 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         public IEnumerable<Student> Students { get; private set; }
 
-       public ObservableCollection<ScoreViewModel> ScoreViewModels { get; private set; }
-        
+        public ObservableCollection<ScoreViewModel> ScoreViewModels { get; private set; }
+
 
         public ScoreInputViewModel()
         {
             SwitchToResultCommand = new NavigateLayoutCommand(() => new ResultViewModel());
             ChangeStateCommand = new RelayCommand(ChangeState);
             LoadGrades();
-            LoadYears();                  
+            LoadYears();
         }
-       private void ChangeState()
+        private void ChangeState()
         {
             if (IsReadOnly)
             {
@@ -149,16 +149,20 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (SelectedClassroom == null) Students = Enumerable.Empty<Student>();
             else
             {
-                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
-                {
+                //using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                //{
 
-                    Students = context.StudentPlacements
-                              .Where(sp => sp.ClassroomId == SelectedClassroom.Id)
-                              .Select(sp => sp.Student) // Navigation property
-                              .ToList();
-                }
+                //    Students = context.StudentPlacements
+                //              .Where(sp => sp.ClassroomId == SelectedClassroom.Id)
+                //              .Select(sp => sp.Student) // Navigation property
+                //              .ToList();
+                //}
 
-                //  var studentPlacements = await GenericDataService<StudentPlacement>.Instance.GetMany(e => e.ClassroomId == SelectedClassroom.Id);
+                Students = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
+                     sp.Where(sp => sp.ClassroomId == SelectedClassroom.Id)
+                     .Select(sp => sp.Student)
+    );
+
 
             }
             OnPropertyChanged(nameof(Students));
@@ -172,8 +176,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             else
             {
                 var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
-                ScoreViewModels =new ObservableCollection<ScoreViewModel> (ScoreViewModel.ConvertToScoreViewModels(scores));
-                
+                ScoreViewModels = new ObservableCollection<ScoreViewModel>(ScoreViewModel.ConvertToScoreViewModels(scores));
+
 
             }
             OnPropertyChanged(nameof(ScoreViewModels));

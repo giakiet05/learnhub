@@ -6,7 +6,7 @@ using LearnHub.Data;
 
 namespace LearnHub.Services
 {
-    public class UserService : IUserService
+    public class UserService 
     {
         // Singleton instance
         private static readonly Lazy<UserService> _instance = new Lazy<UserService>(() => new UserService());

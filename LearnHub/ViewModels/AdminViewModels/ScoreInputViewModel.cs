@@ -76,7 +76,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             set 
             { 
                 _unauthorizedLeaveDays = value;
-                OnPropertyChanged(nameof(Title));
+                OnPropertyChanged(nameof(UnauthorizedLeaveDays));
             }
         }
 
@@ -367,6 +367,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                 List<string> conducts = new List<string>() { "Tốt", "Khá", "Trung bình", "Yếu", "Kém" };
                 if(conducts.Contains(Conduct) && AuthorizedLeaveDays>=0 &&UnauthorizedLeaveDays>=0)
                 {
+                    semesterResult.Conduct = Conduct;
+                    semesterResult.AuthorizedLeaveDays = AuthorizedLeaveDays;
+                    semesterResult.UnauthorizedLeaveDays = UnauthorizedLeaveDays;
                     double sum = 0, min = 11;
                     foreach (var score in ScoreViewModels) { sum += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
                     AverageScore = sum / ScoreViewModels.Count;
@@ -375,7 +378,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                     else if (AverageScore >= 5 && min >= 3.5) semesterResult.AcademicPerformance = "Trung bình";
                     else if (AverageScore >= 3.5 && min >= 2) semesterResult.AcademicPerformance = "Yếu";
                     else AcademicPerformance = "Kém";
-                    await GenericDataService<SemesterResult>.Instance.UpdateOne(semesterResult,e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
+                    var test= await GenericDataService<SemesterResult>.Instance.UpdateOne(semesterResult,e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
                     ToastMessageViewModel.ShowSuccessToast("Sửa kết quả học kì thành công");
                 }
                 else

@@ -121,7 +121,7 @@
                     <DataGridTextColumn Header="Thường xuyên" Binding="{Binding RegularScores}"/>
                     <DataGridTextColumn Header="Giữa kì" Binding="{Binding MidTermScore}"/>
                     <DataGridTextColumn Header="Cuối kì" Binding="{Binding FinalTermScore}"/>
-                    <DataGridTextColumn Header="Trung bình" Binding="{Binding AverageScore}"/>
+                    <DataGridTextColumn Header="Trung bình" Binding="{Binding AverageScore, StringFormat=F2}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

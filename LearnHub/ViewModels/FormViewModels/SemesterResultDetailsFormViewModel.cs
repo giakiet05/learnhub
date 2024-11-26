@@ -40,6 +40,11 @@ namespace LearnHub.ViewModels.FormViewModels
         {
             if (IsReadOnly)
             {
+                if (SelectedStudent == null)
+                {
+                    ToastMessageViewModel.ShowWarningToast("Chưa chọn học sinh.");
+                    return;
+                }
                 IsReadOnly = false;
                 IsEnabled = true;
                 State = "Lưu";
@@ -250,6 +255,7 @@ namespace LearnHub.ViewModels.FormViewModels
         }
         private async void UpdateScores()
         {
+          
             if (ScoreViewModels!=null&& ScoreViewModels.Count != 0)
             {
                 int total = ScoreViewModels.Count;

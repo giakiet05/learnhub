@@ -139,7 +139,7 @@
                         <!--bảng điểm cả năm của hs đã chọn-->
                         <DataGrid x:Name="BangDiem" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                          CanUserDeleteRows="True"  SelectionMode="Single" 
-                          ItemsSource="{Binding Path= ScoreViewModels}" IsReadOnly="{Binding IsReadOnly}">
+                          ItemsSource="{Binding Path= YearScoreViewModels}" IsReadOnly="True">
                             <DataGrid.CellStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                     <Setter Property="BorderThickness" Value="0"/>
@@ -147,10 +147,10 @@
                                 </Style>
                             </DataGrid.CellStyle>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Môn học" Binding="{Binding Subject.Name}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Học kì 1" Binding="{Binding RegularScores}" />
-                                <DataGridTextColumn Header="Học kì 2" Binding="{Binding MidTermScore}" />
-                                <DataGridTextColumn Header="Cả năm" Binding="{Binding FinalTermScore}" />
+                                <DataGridTextColumn Header="Môn học" Binding="{Binding Subject}"/>
+                                <DataGridTextColumn Header="Học kì 1" Binding="{Binding Semester1, StringFormat=F2}" />
+                                <DataGridTextColumn Header="Học kì 2" Binding="{Binding Semester2, StringFormat=F2}" />
+                                <DataGridTextColumn Header="Cả năm" Binding="{Binding AverageScore, StringFormat=F2}" />
                             </DataGrid.Columns>
                         </DataGrid>
 
@@ -168,14 +168,14 @@
                                                 <TextBlock Text="Nghỉ có phép:"
                                                    Style="{StaticResource font_style}"/>
                                                 <TextBox Width="30" Height="20" Style="{x:Null}" Text="{Binding AuthorizedLeaveDays}"
-                                                     IsReadOnly="{Binding IsReadOnly}"/>
+                                                     IsReadOnly="True"/>
                                             </StackPanel>
                                             <StackPanel Margin="0 10 0 5" Orientation="Horizontal">
                                                 <TextBlock Text="Nghỉ không phép:"
                                                         Style="{StaticResource font_style}"/>
                                                 <TextBox Width="30" Height="20" Style="{x:Null}" 
                                                      Text="{Binding UnauthorizedLeaveDays}"
-                                                     IsReadOnly="{Binding IsReadOnly}"/>
+                                                     IsReadOnly="True"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
@@ -192,7 +192,7 @@
                                     <Border Margin="0 10 0 0" BorderBrush="Gray" BorderThickness="0 0 0 1">
                                         <StackPanel>
                                             <TextBlock Text="Điểm trung bình" Style="{StaticResource font_style}" Foreground="Blue"/>
-                                            <TextBlock Text="{Binding AverageScore}" Style="{StaticResource font_style}"/>
+                                            <TextBlock Text="{Binding AverageScore, StringFormat=F2}" Style="{StaticResource font_style}"/>
                                         </StackPanel>
                                     </Border>
 
@@ -201,7 +201,7 @@
                                         <StackPanel>
                                             <TextBlock Text="Hạnh kiểm" Style="{StaticResource font_style}" Foreground="Blue"/>
                                             <ComboBox Background="#d9d9d9d9"  Width="100" HorizontalAlignment="Left" Margin="3 0 0 5"
-                                                  IsEnabled="{Binding IsEnabled}"
+                                                  IsEnabled="False"
                                                 Text="{Binding Conduct}">
                                                 <ComboBoxItem Content="Tốt"/>
                                                 <ComboBoxItem Content="Khá"/>

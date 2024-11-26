@@ -181,7 +181,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                             worksheet.Cells[i + 4, 3].Value = student.Password;
                             worksheet.Cells[i + 4, 4].Value = student.FullName;
                             worksheet.Cells[i + 4, 5].Value = student.PhoneNumber;
-                            worksheet.Cells[i + 4, 6].Value = student.Birthday?.ToString("yyyy-MM-dd");
+                            worksheet.Cells[i + 4, 6].Value = student.Birthday?.ToString("dd-MM-yyyy");
                             worksheet.Cells[i + 4, 7].Value = student.Gender;
                             worksheet.Cells[i + 4, 8].Value = student.Religion;
                             worksheet.Cells[i + 4, 9].Value = student.Ethnicity;

@@ -23,17 +23,17 @@ namespace LearnHub.ViewModels.AdminViewModels
 				OnPropertyChanged(nameof(Id));
 			}
 		}
-		private string _name;
-		public string Name
+		private int _number;
+		public int Number
 		{
 			get
 			{
-				return _name;
+				return _number;
 			}
 			set
 			{
-				_name = value;
-				OnPropertyChanged(nameof(Name));
+				_number = value;
+				OnPropertyChanged(nameof(Number));
 			}
 		}
 

@@ -54,7 +54,10 @@ namespace LearnHub.ViewModels.EditModalViewModels
         {
             var formViewModel = ClassDetailsFormViewModel;
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
-                string.IsNullOrWhiteSpace(formViewModel.Name))
+                   string.IsNullOrWhiteSpace(formViewModel.Name) ||
+                   string.IsNullOrWhiteSpace(formViewModel.SelectedGrade.Id) ||
+                    string.IsNullOrWhiteSpace(formViewModel.SelectedYear.Id) ||
+                    formViewModel.Capacity <=0)
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
@@ -69,7 +72,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             //thuộc tính khóa ngoại sẽ lưu vào db
             selectedClassroom.GradeId = formViewModel.SelectedGrade.Id;
             selectedClassroom.YearId = formViewModel.SelectedYear.Id;
-            selectedClassroom.TeacherInChargeId = formViewModel.SelectedTeacher.Id;
+            if(formViewModel.SelectedTeacher!=null) selectedClassroom.TeacherInChargeId = formViewModel.SelectedTeacher.Id;
             //navigation prop để hiển thị ra giao diện 
             selectedClassroom.AcademicYear = formViewModel.SelectedYear;
             selectedClassroom.Grade = formViewModel.SelectedGrade;

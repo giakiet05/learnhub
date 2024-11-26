@@ -19,26 +19,19 @@ namespace LearnHub.ViewModels.EditModalViewModels
     {
         private readonly GenericStore<Classroom> _classroomStore; //store chứa thông tin lớp cũ
         private readonly GenericStore<StudentPlacement> _studentPlacementStore; //store chứa danh sách phân lớp
+        private readonly GenericStore<AcademicYear> _yearStore;
+        private readonly GenericStore<Grade> _gradeStore;
 
+        private bool check = true;
         public ICommand SubmitCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
-        public IEnumerable<Grade> Grades { get; private set; }
         public IEnumerable<AcademicYear> Years { get; private set; }
         public IEnumerable<Classroom> Classrooms { get; private set; }
 
 
-        private Grade _selectedGrade;
-        public Grade SelectedGrade
-        {
-            get => _selectedGrade;
-            set
-            {
-                _selectedGrade = value;
-                //OnPropertyChanged(nameof(SelectedGrade));
-                LoadClassrooms();
-            }
-        }
+        public int GradeNumber => _gradeStore.SelectedItem.Number+1;
+       
 
         private AcademicYear _selectedYear;
         public AcademicYear SelectedYear
@@ -47,8 +40,10 @@ namespace LearnHub.ViewModels.EditModalViewModels
             set
             {
                 _selectedYear = value;
-                //OnPropertyChanged(nameof(SelectedYear));
                 LoadClassrooms();
+               
+                //OnPropertyChanged(nameof(SelectedYear));
+               
             }
         }
 
@@ -70,34 +65,28 @@ namespace LearnHub.ViewModels.EditModalViewModels
         {
             _classroomStore = GenericStore<Classroom>.Instance;
             _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
-
+            _yearStore = GenericStore<AcademicYear>.Instance;
+            _gradeStore = GenericStore<Grade>.Instance; 
             SubmitCommand = new RelayCommand(ExecuteSubmit);
             CancelCommand = new CancelCommand();
 
-            LoadGrades();
-            LoadYears();
-
-        }
-
-        private async void LoadGrades()
-        {
-            Grades = await GenericDataService<Grade>.Instance.GetAll();
-            OnPropertyChanged(nameof(Grades));
-        }
-
-        private async void LoadYears()
-        {
-            Years = await GenericDataService<AcademicYear>.Instance.GetAll();
+            Years = _yearStore.Items;
             OnPropertyChanged(nameof(Years));
         }
+
+
+
 
         //Chỉ lấy ra những lớp trống và không phải lớp hiện tại
         // làm sao biết lớp hiện tại là gì ? => store
         private async void LoadClassrooms()
         {
-            if (SelectedGrade == null || SelectedYear == null)
+            if ( SelectedYear == null)
             {
                 Classrooms = Enumerable.Empty<Classroom>();
+                ToastMessageViewModel.ShowWarningToast("Không có lớp trống để chuyển.");
+                check= false;
+                return;
             }
             else
             {
@@ -109,16 +98,27 @@ namespace LearnHub.ViewModels.EditModalViewModels
 
                 //lấy id của các lớp đã phân
                 var assignedClassroomIds = studentPlacements.Select(e => e.ClassroomId);
-
+                //lấy ra các khối hợp lệ
+                var Grades = await GenericDataService<Grade>.Instance.Query(e=>
+                e.Where(e=>e.Number==GradeNumber)
+                .Select(e=>e.Id)
+                );
                 //lấy các lớp có id không thuộc id của các lớp đã phân (nghĩa là lớp chưa được phân)
                 Classrooms = await GenericDataService<Classroom>.Instance.GetMany(
-                    e => e.GradeId == SelectedGrade.Id &&
+                    e => Grades.Contains(e.GradeId) &&
                     e.AcademicYear.Id == SelectedYear.Id &&
                     e.Id != _classroomStore.SelectedItem.Id &&
                    !assignedClassroomIds.Contains(e.Id)
                 );
+                if (Classrooms.Count() ==0 )
+                {
+                    ToastMessageViewModel.ShowWarningToast("Không có lớp trống để chuyển.");
+                    check = false;
+                    return ;
+                }
             }
             OnPropertyChanged(nameof(Classrooms));
+            check= true;
         }
 
 

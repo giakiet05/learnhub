@@ -58,6 +58,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 ToastMessageViewModel.ShowWarningToast("Chưa chọn học sinh để thêm vào lớp");
                 return;
             }
+           
             else if (SelectedStudents.Count() + _studentPlacementStore.Items.Count() > _classroomStore.SelectedItem.Capacity)
             {
                 ToastMessageViewModel.ShowWarningToast("Số lượng học sinh thêm vào không được vượt quá sỉ số lớp. Vui lòng giảm số lượng thêm");
@@ -163,7 +164,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
             //lấy học sinh không có id trong assignedStudentIds (học sinh chưa được phân lớp)
             var unassignedStudents = await GenericDataService<Student>.Instance.GetMany(
                 student => !assignedStudentIds.Contains(student.Id));
-
+           
 
 
             // Update the store

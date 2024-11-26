@@ -33,7 +33,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
-                string.IsNullOrWhiteSpace(formViewModel.Name))
+                formViewModel.StartYear<0)
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
@@ -42,7 +42,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
             var newSchoolYear = new AcademicYear
             {
                 Id = formViewModel.Id,
-                Name = formViewModel.Name,
+                StartYear = formViewModel.StartYear,
+                Name = formViewModel.StartYear+"-"+ (formViewModel.StartYear+1).ToString()
             };
 
             try

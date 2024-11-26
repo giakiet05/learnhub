@@ -28,6 +28,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         private readonly GenericStore<Classroom> _classroomStore;
         private readonly GenericStore<StudentPlacement> _studentPlacementStore;
         private readonly GenericStore<AcademicYear> _yearStore;
+        private readonly GenericStore<Grade> _gradeStore;
         //Danh sach de binding ra view
         public IEnumerable<Classroom> Classrooms => _classroomStore.Items;
         public IEnumerable<StudentPlacement> StudentPlacements => _studentPlacementStore.Items;
@@ -40,6 +41,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedGrade = value;
+                _gradeStore.SelectedItem = value;
                 OnPropertyChanged(nameof(SelectedGrade));
                 LoadClassrooms();
             }
@@ -95,6 +97,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             SwitchToStudentCommand = new NavigateLayoutCommand(() => new StudentViewModel());
             _classroomStore = GenericStore<Classroom>.Instance;
             _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
+            _gradeStore = GenericStore<Grade>.Instance;
             _yearStore = GenericStore<AcademicYear>.Instance;
             _classroomStore.Clear();
             _studentPlacementStore.Clear();
@@ -153,11 +156,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (SelectedClassroom != null)
             {
                 ShowAddModalCommand = new NavigateModalCommand(() => new StudentAssignment_AddStudentViewModel());
-                ShowChangeClassModalCommand = new NavigateModalCommand(
-                    () => new StudentAssignment_ChangeGradeViewModel(),
-                    () => SelectedClassroom != null,
-                    "Chưa chọn lớp để chuyển"
-                );
+                ShowChangeClassModalCommand = new RelayCommand(ChangeGrade);
                 ShowDeleteModalCommand = new NavigateModalCommand(
                     () => new DeleteConfirmViewModel(DeleteStudentFromClass),
                     () => SelectedClassroom != null,
@@ -182,7 +181,16 @@ namespace LearnHub.ViewModels.AdminViewModels
             OnPropertyChanged(nameof(ShowChangeClassModalCommand));
             OnPropertyChanged(nameof(ShowDeleteModalCommand));
         }
-
+        private async void ChangeGrade()
+        {
+            
+            if (SelectedClassroom == null) { ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp."); return; }
+            // load year
+            var years = await GenericDataService<AcademicYear>.Instance.GetMany(e => e.StartYear > SelectedYear.StartYear);
+            if(years.Count()==0) { ToastMessageViewModel.ShowWarningToast("Không có năm học hợp lệ để chuyển lớp"); return; }
+            _yearStore.Load(years);
+            ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new StudentAssignment_ChangeGradeViewModel());
+        }
         private async void DeleteStudentFromClass()
         {
             if (SelectedStudentPlacements == null || !SelectedStudentPlacements.Any())

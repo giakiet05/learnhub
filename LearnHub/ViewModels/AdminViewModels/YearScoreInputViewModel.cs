@@ -25,13 +25,13 @@ namespace LearnHub.ViewModels.AdminViewModels
         public YearScoreInputViewModel(AcademicYear year = null, Grade grade = null, Classroom classroom= null, Student student = null)
         {
             SwitchToResultCommand = new NavigateLayoutCommand(() => new ResultViewModel());
-
+            SelectedSemester = "Cả năm";
             LoadGrades();
             LoadYears();
             if (year != null) SelectedYear = year;
             if (grade != null) SelectedGrade = grade;
-            if (student != null) SelectedStudent = student;
             if (classroom != null) SelectedClassroom = classroom;
+            if (student != null) SelectedStudent = student;
             OnPropertyChanged(nameof(SelectedYear));
             OnPropertyChanged(nameof(SelectedGrade));
             OnPropertyChanged(nameof(SelectedStudent));

@@ -41,6 +41,11 @@
     <DataTemplate DataType="{x:Type adminvm:AdminViewModel}">
         <adminviews:AdminView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type adminvm:YearScoreInputViewModel}">
+        <adminviews:AdminYearScoreInputView/>
+    </DataTemplate>
+    
     <DataTemplate DataType="{x:Type adminvm:AdminAccountInformationViewModel}">
         <adminviews:AdminAccountInformationView/>
     </DataTemplate>

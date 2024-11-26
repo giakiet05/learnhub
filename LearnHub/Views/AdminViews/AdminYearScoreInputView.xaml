@@ -92,11 +92,11 @@
 
                     </StackPanel>
                     <!--danh sách hs của lớp đã chọn-->
-                    <DataGrid Grid.Row="1" x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                           IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" CanUserDeleteRows="True"
                           ItemsSource="{Binding Students}"
                           SelectedItem="{Binding SelectedStudent}"
-                          Margin="5" PreviewMouseLeftButtonDown="LopDG_PreviewMouseLeftButtonDown">
+                          Margin="5" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0"/>

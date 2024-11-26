@@ -208,51 +208,45 @@ namespace LearnHub.ViewModels.FormViewModels
         }
         private async void LoadScoreViewModels()
         {
-            
-                var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
-                ScoreViewModels = new ObservableCollection<ScoreViewModel>(ScoreViewModel.ConvertToScoreViewModels(scores));
+
+            var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
+            ScoreViewModels = new ObservableCollection<ScoreViewModel>(ScoreViewModel.ConvertToScoreViewModels(scores));
             OnPropertyChanged(nameof(ScoreViewModels));
             semesterResult = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
 
-                if (semesterResult == null)
+            if (semesterResult == null)
+            {
+                SemesterResult newSR = new SemesterResult()
                 {
-                    SemesterResult newSR = new SemesterResult()
-                    {
-                        StudentId = SelectedStudent.Id,
-                        YearId = SelectedYear.Id,
-                        Semester = SelectedSemester,
-                        AuthorizedLeaveDays = 0,
-                        UnauthorizedLeaveDays = 0,
-                    };
+                    StudentId = SelectedStudent.Id,
+                    YearId = SelectedYear.Id,
+                    Semester = SelectedSemester,
+                    AuthorizedLeaveDays = 0,
+                    UnauthorizedLeaveDays = 0,
+                };
 
-                    semesterResult = await GenericDataService<SemesterResult>.Instance.CreateOne(newSR);
-                }
-                AuthorizedLeaveDays = (int)semesterResult.AuthorizedLeaveDays;
-                UnauthorizedLeaveDays = (int)semesterResult.UnauthorizedLeaveDays;
-                Conduct = semesterResult.Conduct;
-                double total = 0, min = 11;
-                foreach (var score in ScoreViewModels) { total += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
-                AverageScore = total / ScoreViewModels.Count;
-                AcademicPerformance = semesterResult.AcademicPerformance;
-                if (String.IsNullOrEmpty(semesterResult.AcademicPerformance))
-                {
-                    Title = "";
-                }
-                else
-                {
-                    if (AverageScore >= 8 && min >= 6.5) AcademicPerformance = "Giỏi";
-                    else if (AverageScore >= 6.5 && min >= 5) AcademicPerformance = "Khá";
-                    else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
-                    else if (AverageScore >= 3.5 && min >= 2) AcademicPerformance = "Yếu";
-                    else AcademicPerformance = "Kém";
+                semesterResult = await GenericDataService<SemesterResult>.Instance.CreateOne(newSR);
+            }
+            AuthorizedLeaveDays = (int)semesterResult.AuthorizedLeaveDays;
+            UnauthorizedLeaveDays = (int)semesterResult.UnauthorizedLeaveDays;
+            Conduct = semesterResult.Conduct;
+            double total = 0, min = 11;
+            foreach (var score in ScoreViewModels) { total += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
+            AverageScore = total / ScoreViewModels.Count;
 
-                    if (AverageScore >= 8 && min >= 6.5 && Conduct == "Tốt") Title = "Học Sinh Giỏi";
-                    else if (AverageScore > 6.5 && (Conduct == "Tốt" || Conduct == "Khá") && min >= 5) Title = "Học Sinh Tiên Tiến";
-                    else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct == "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
-                    else Title = "Học Sinh Yếu";
-                }
-            
-           
+            if (AverageScore >= 8 && min >= 6.5) AcademicPerformance = "Giỏi";
+            else if (AverageScore >= 6.5 && min >= 5) AcademicPerformance = "Khá";
+            else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
+            else if (AverageScore >= 3.5 && min >= 2) AcademicPerformance = "Yếu";
+            else AcademicPerformance = "Kém";
+
+            if (AverageScore >= 8 && min >= 6.5 && Conduct == "Tốt") Title = "Học Sinh Giỏi";
+            else if (AverageScore > 6.5 && (Conduct == "Tốt" || Conduct == "Khá") && min >= 5) Title = "Học Sinh Tiên Tiến";
+            else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct == "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
+            else Title = "Học Sinh Yếu";
+
+
+
         }
         private async void UpdateScores()
         {

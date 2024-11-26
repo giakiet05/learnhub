@@ -139,11 +139,15 @@ namespace LearnHub.ViewModels.AdminViewModels
         }
         private async void LoadScoreViewModels()
         {
-            if(SelectedStudent!=null && SelectedYear!=null)
+            if (SelectedStudent != null && SelectedYear != null)
             {
                 if (SelectedSemester == "HK1" || SelectedSemester == "HK2") CurrentResultView = new SemesterResultDetailsFormViewModel(SelectedStudent, SelectedYear, SelectedSemester);
-                else if (SelectedSemester == "Cả năm") ;
+                else if (SelectedSemester == "Cả năm") CurrentResultView = new YearResultDetailsFormViewModel(SelectedStudent, SelectedYear);
+
             }
+            else if (SelectedSemester == "Cả năm") CurrentResultView = new YearResultDetailsFormViewModel();
+            else CurrentResultView = new SemesterResultDetailsFormViewModel();
+            OnPropertyChanged(nameof(CurrentResultView));
         }
         
     }

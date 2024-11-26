@@ -85,6 +85,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                         entity.Student = await GenericDataService<Student>.Instance.GetOne(e => e.Id == entity.StudentId);
 
                         _studentPlacementStore.Add(entity);
+
                         foreach(var subjectId in subjectIds)
                         {
                             Score score = new Score()
@@ -110,12 +111,33 @@ namespace LearnHub.ViewModels.AddModalViewModels
                             e.StudentId == score.StudentId &&
                             e.Semester == score.Semester) == null)
                                 await GenericDataService<Score>.Instance.CreateOne(score);
+                        
                         }
-
+                        // thêm kết quả học kì
+                        SemesterResult semesterResult = new SemesterResult()
+                        {
+                            YearId = _yearStore.Id,
+                            StudentId = student.Id,
+                            Semester ="HK1",
+                            AuthorizedLeaveDays =0,
+                            UnauthorizedLeaveDays=0
+                        };
+                        // check trùng
+                        if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
+                           e.StudentId == semesterResult.StudentId &&
+                           e.Semester == semesterResult.Semester) == null)
+                            await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
+                        semesterResult.Semester = "HK2";
+                        //check trùng
+                        if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
+                          e.StudentId == semesterResult.StudentId &&
+                          e.Semester == semesterResult.Semester) == null)
+                            await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
                     }
                 }
-                   
-               
+                
+
+
                 ToastMessageViewModel.ShowSuccessToast("Thêm vào lớp thành công");
                 ModalNavigationStore.Instance.Close();
             }

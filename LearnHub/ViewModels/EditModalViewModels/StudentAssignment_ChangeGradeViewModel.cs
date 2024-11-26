@@ -191,6 +191,26 @@ namespace LearnHub.ViewModels.EditModalViewModels
                             e.Semester == score.Semester) == null)
                                 await GenericDataService<Score>.Instance.CreateOne(score);
                         }
+                        // thêm kết quả học kì
+                        SemesterResult semesterResult = new SemesterResult()
+                        {
+                            YearId = SelectedYear.Id,
+                            StudentId = student.StudentId,
+                            Semester = "HK1",
+                            AuthorizedLeaveDays = 0,
+                            UnauthorizedLeaveDays = 0
+                        };
+                        // check trùng
+                        if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
+                           e.StudentId == semesterResult.StudentId &&
+                           e.Semester == semesterResult.Semester) == null)
+                            await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
+                        semesterResult.Semester = "HK2";
+                        //check trùng
+                        if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
+                          e.StudentId == semesterResult.StudentId &&
+                          e.Semester == semesterResult.Semester) == null)
+                            await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
 
                     }
                 }

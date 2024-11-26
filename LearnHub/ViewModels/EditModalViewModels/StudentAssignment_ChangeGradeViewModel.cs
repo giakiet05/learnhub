@@ -21,17 +21,23 @@ namespace LearnHub.ViewModels.EditModalViewModels
         private readonly GenericStore<StudentPlacement> _studentPlacementStore; //store chứa danh sách phân lớp
         private readonly GenericStore<AcademicYear> _yearStore;
         private readonly GenericStore<Grade> _gradeStore;
-
-        private bool check = true;
         public ICommand SubmitCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
         public IEnumerable<AcademicYear> Years { get; private set; }
         public IEnumerable<Classroom> Classrooms { get; private set; }
 
-
+        public List<int> Grades { get; private set; }
         public int GradeNumber => _gradeStore.SelectedItem.Number+1;
-       
+
+        private int _selectedGrade;
+
+        public int SelectedGrade
+        {
+            get { return _selectedGrade; }
+            set { _selectedGrade = value; }
+        }
+
 
         private AcademicYear _selectedYear;
         public AcademicYear SelectedYear
@@ -69,7 +75,9 @@ namespace LearnHub.ViewModels.EditModalViewModels
             _gradeStore = GenericStore<Grade>.Instance; 
             SubmitCommand = new RelayCommand(ExecuteSubmit);
             CancelCommand = new CancelCommand();
-
+            Grades = new List<int>();
+            Grades.Add(GradeNumber );
+            SelectedGrade = GradeNumber;    
             Years = _yearStore.Items;
             OnPropertyChanged(nameof(Years));
         }
@@ -85,7 +93,6 @@ namespace LearnHub.ViewModels.EditModalViewModels
             {
                 Classrooms = Enumerable.Empty<Classroom>();
                 ToastMessageViewModel.ShowWarningToast("Không có lớp trống để chuyển.");
-                check= false;
                 return;
             }
             else
@@ -113,12 +120,10 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 if (Classrooms.Count() ==0 )
                 {
                     ToastMessageViewModel.ShowWarningToast("Không có lớp trống để chuyển.");
-                    check = false;
                     return ;
                 }
             }
             OnPropertyChanged(nameof(Classrooms));
-            check= true;
         }
 
 

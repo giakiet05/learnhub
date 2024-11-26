@@ -143,7 +143,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 }
                 else
                 {
-                   NavigationStore.Instance.CurrentLayoutModel= new ScoreInputViewModel(SelectedYear,SelectedGrade,SelectedClassroom,SelectedStudent);
+                   NavigationStore.Instance.CurrentLayoutModel= new ScoreInputViewModel();
                 }    
             }
         }

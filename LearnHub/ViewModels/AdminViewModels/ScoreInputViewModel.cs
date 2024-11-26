@@ -2,6 +2,7 @@
 using LearnHub.Data;
 using LearnHub.Models;
 using LearnHub.Services;
+using LearnHub.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,12 +26,17 @@ namespace LearnHub.ViewModels.AdminViewModels
        public ObservableCollection<ScoreViewModel> ScoreViewModels { get; private set; }
         
 
-        public ScoreInputViewModel()
+        public ScoreInputViewModel(AcademicYear year=null, Grade grade =null, Classroom classroom=null, Student student=null)
         {
             SwitchToResultCommand = new NavigateLayoutCommand(() => new ResultViewModel());
             ChangeStateCommand = new RelayCommand(ChangeState);
+           
             LoadGrades();
-            LoadYears();                  
+            LoadYears();
+            if (year != null) SelectedYear = year;
+            if (grade != null) SelectedGrade = grade;
+            if (student != null) SelectedStudent = student;
+            if (classroom != null) SelectedClassroom = classroom;
         }
 
        private void ChangeState()
@@ -185,9 +191,17 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             set
             {
-                _selectedSemester = value;
-                OnPropertyChanged(nameof(SelectedSemester));
-                LoadScoreViewModels();
+                if(value == "Cả năm")
+                {
+                    NavigationStore.Instance.CurrentLayoutModel = new YearScoreInputViewModel(SelectedYear, SelectedGrade, SelectedClassroom, SelectedStudent);
+                }
+                else
+                {
+                    _selectedSemester = value;
+                    OnPropertyChanged(nameof(SelectedSemester));
+                    LoadScoreViewModels();
+                }
+               
             }
         }
         private AcademicYear _selectedYear;

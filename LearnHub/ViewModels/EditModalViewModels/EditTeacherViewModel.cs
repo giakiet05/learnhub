@@ -37,7 +37,6 @@ namespace LearnHub.ViewModels.EditModalViewModels
             // Validate input fields
 
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
-                string.IsNullOrWhiteSpace(formViewModel.Password) ||
                 string.IsNullOrWhiteSpace(formViewModel.FullName) ||
                 string.IsNullOrWhiteSpace(formViewModel.Gender) ||
                 string.IsNullOrWhiteSpace(formViewModel.CitizenID))

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnHub.Migrations
 {
     [DbContext(typeof(LearnHubDbContext))]
-    [Migration("20241125073841_Initial")]
+    [Migration("20241126142507_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,6 +27,9 @@ namespace LearnHub.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("StartYear")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -101,8 +104,8 @@ namespace LearnHub.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("Number")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -510,13 +513,13 @@ namespace LearnHub.Migrations
             modelBuilder.Entity("LearnHub.Models.SemesterResult", b =>
                 {
                     b.HasOne("LearnHub.Models.Student", "Student")
-                        .WithMany("YearResults")
+                        .WithMany("SemesterResults")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LearnHub.Models.AcademicYear", "AcademicYear")
-                        .WithMany("YearResults")
+                        .WithMany("SemesterResults")
                         .HasForeignKey("YearId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -615,9 +618,9 @@ namespace LearnHub.Migrations
                 {
                     b.Navigation("Classrooms");
 
-                    b.Navigation("SubjectResults");
+                    b.Navigation("SemesterResults");
 
-                    b.Navigation("YearResults");
+                    b.Navigation("SubjectResults");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Classroom", b =>
@@ -661,11 +664,11 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Student", b =>
                 {
+                    b.Navigation("SemesterResults");
+
                     b.Navigation("StudentPlacements");
 
                     b.Navigation("SubjectResults");
-
-                    b.Navigation("YearResults");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Teacher", b =>

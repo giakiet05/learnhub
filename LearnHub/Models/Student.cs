@@ -12,8 +12,8 @@ namespace LearnHub.Models
     public class Student : User
     {
         
-        public string? FullName { get; set; }
-        public string? Gender { get; set; }
+        public string FullName { get; set; }
+        public string Gender { get; set; }
         public string? Address { get; set; }
         public DateTime? Birthday { get; set; }
         public string? PhoneNumber { get; set; }
@@ -26,6 +26,6 @@ namespace LearnHub.Models
         //Navigation Properties
         public ICollection<StudentPlacement> StudentPlacements { get; set; }
         public ICollection<Score> SubjectResults { get; set; }
-        public ICollection<SemesterResult> YearResults { get; set; }
+        public ICollection<SemesterResult> SemesterResults { get; set; }
     }
 }

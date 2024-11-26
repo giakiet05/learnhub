@@ -8,7 +8,7 @@ namespace LearnHub.Models
 {
   public  class Major : DomainObject
     {
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         //Navigation props
         public ICollection<Subject> Subjects {  get; set; }

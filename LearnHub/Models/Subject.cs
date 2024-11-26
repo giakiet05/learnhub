@@ -11,7 +11,7 @@ namespace LearnHub.Models
     public class Subject : DomainObject
     {
         
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         public int? LessonNumber { get; set; }
 

@@ -16,14 +16,14 @@ namespace LearnHub.Services
         public static AuthenticationService Instance => _instance.Value;
         private readonly UserService _userService;
    
-        private readonly PasswordHasher<User> _passwordHasher;
+     
 
       
         private AuthenticationService()
         {
           
             _userService = UserService.Instance;
-            _passwordHasher = new PasswordHasher<User>(); 
+         
         }
 
         public async Task<User> Login(string username, string password)
@@ -33,8 +33,8 @@ namespace LearnHub.Services
             if (existingUser == null)
                 throw new UserNotFoundException(username);
 
-          
-            var result = _passwordHasher.VerifyHashedPassword(existingUser, existingUser.Password, password);
+            var passwordHasher = new PasswordHasher<User>();
+            var result = passwordHasher.VerifyHashedPassword(existingUser, existingUser.Password, password);
             if (result != PasswordVerificationResult.Success)
                 throw new InvalidPasswordException(username, password);
 

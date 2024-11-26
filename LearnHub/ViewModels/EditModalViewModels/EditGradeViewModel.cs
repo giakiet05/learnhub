@@ -34,7 +34,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 // Điền thông tin vào input
                 GradeDetailsFormViewModel.IsEnable = false;
                 GradeDetailsFormViewModel.Id = selectedGrade.Id;
-                GradeDetailsFormViewModel.Name = selectedGrade.Name;
+                GradeDetailsFormViewModel.Number = (int)selectedGrade.Number;
             }
         }
 
@@ -43,7 +43,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             GradeDetailsFormViewModel formViewModel = GradeDetailsFormViewModel;
 
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
-                  string.IsNullOrWhiteSpace(formViewModel.Name)
+              formViewModel.Number <= 0
                  )
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
@@ -55,7 +55,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
 
             // Cập nhật thông tin của selected dựa vào thông tin từ form
             //selectedGrade.Id = formViewModel.Id;
-            selectedGrade.Name = formViewModel.Name;
+            selectedGrade.Number = formViewModel.Number;
 
             try
             {

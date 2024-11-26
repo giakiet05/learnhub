@@ -50,7 +50,7 @@ namespace LearnHub.ViewModels
             Toasts.Add(toast);
 
             // Xóa tự động sau 1.5 giây
-            Task.Delay(1500).ContinueWith(_ =>
+            Task.Delay(3000).ContinueWith(_ =>
             {
                 App.Current.Dispatcher.Invoke(() =>
                 {
@@ -81,21 +81,21 @@ namespace LearnHub.ViewModels
             });
         }
 
-        public static void ShowSuccessToast(string message = "Success")
+        public static void ShowSuccessToast(string message = "Thao tác thành công")
         {
-            AddToast("Success", message, "✔", "#b7f7c4");
+            AddToast("Thành công", message, "✔", "#b7f7c4");
         }
-        public static void ShowInfoToast(string message = "Info")
+        public static void ShowInfoToast(string message = "Thông báo")
         {
-            AddToast("Info", message, "❗", "#b3e6f5");
+            AddToast("Thông tin", message, "❗", "#b3e6f5");
         }
-        public static void ShowWarningToast(string message = "Warning")
+        public static void ShowWarningToast(string message = "Lưu ý")
         {
-            AddToast("Warning", message, "⚠️", "#fbe7c6");
+            AddToast("Lưu ý", message, "⚠️", "#fbe7c6");
         }
-        public static void ShowErrorToast(string message = "Error")
+        public static void ShowErrorToast(string message = "Có lỗi xảy ra")
         {
-            AddToast("Error", message, "❌", "#ffb7b6");
+            AddToast("Thất bại", message, "❌", "#ffb7b6");
         }
 
         public partial class ToastMessageModel

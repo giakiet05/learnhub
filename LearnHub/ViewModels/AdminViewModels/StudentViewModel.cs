@@ -19,6 +19,7 @@ using LicenseContext = OfficeOpenXml.LicenseContext;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Win32;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -132,7 +133,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             try
             {
                 // Tạo SaveFileDialog để người dùng chọn nơi lưu file
-                var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+                var saveFileDialog = new SaveFileDialog
                 {
                     Title = "Chọn nơi lưu file Excel",
                     Filter = "Excel Files (*.xlsx)|*.xlsx",
@@ -147,67 +148,84 @@ namespace LearnHub.ViewModels.AdminViewModels
                     {
                         var worksheet = package.Workbook.Worksheets.Add("Students");
 
+                        // Thêm tiêu đề chính
+                        worksheet.Cells["A1:N2"].Merge = true; // Merge từ A1 đến N2
+                        worksheet.Cells["A1"].Value = "Danh sách học sinh";
+                        worksheet.Cells["A1"].Style.Font.Size = 16; // Tăng cỡ chữ
+                        worksheet.Cells["A1"].Style.Font.Bold = true; // In đậm
+                        worksheet.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+
                         // Thêm tiêu đề các cột
-                        worksheet.Cells[1, 1].Value = "Mã học sinh";
-                        worksheet.Cells[1, 2].Value = "Tên tài khoản";
-                        worksheet.Cells[1, 3].Value = "Mật khẩu";
-                        worksheet.Cells[1, 4].Value = "Họ tên";
-                        worksheet.Cells[1, 5].Value = "Số điện thoại";
-                        worksheet.Cells[1, 6].Value = "Ngày sinh";
-                        worksheet.Cells[1, 7].Value = "Giới tính";
-                        worksheet.Cells[1, 8].Value = "Tôn giáo";
-                        worksheet.Cells[1, 9].Value = "Dân tộc";
-                        worksheet.Cells[1, 10].Value = "Địa chỉ";
-                        worksheet.Cells[1, 11].Value = "Họ tên cha";
-                        worksheet.Cells[1, 12].Value = "SĐT cha";
-                        worksheet.Cells[1, 13].Value = "Họ tên mẹ";
-                        worksheet.Cells[1, 14].Value = "SĐT mẹ";
+                        string[] headers = new string[]
+                        {
+                    "Mã học sinh", "Tên tài khoản", "Mật khẩu", "Họ tên", "Số điện thoại", "Ngày sinh", "Giới tính",
+                    "Tôn giáo", "Dân tộc", "Địa chỉ", "Họ tên cha", "SĐT cha", "Họ tên mẹ", "SĐT mẹ"
+                        };
+
+                        for (int i = 0; i < headers.Length; i++)
+                        {
+                            worksheet.Cells[3, i + 1].Value = headers[i];
+                            worksheet.Cells[3, i + 1].Style.Font.Bold = true; // In đậm tiêu đề
+                            worksheet.Cells[3, i + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheet.Cells[3, i + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        }
 
                         // Thêm dữ liệu học sinh
                         var students = Students.ToList();
                         for (int i = 0; i < students.Count; i++)
                         {
                             var student = students[i];
-                            worksheet.Cells[i + 2, 1].Value = student.Id;
-                            worksheet.Cells[i + 2, 2].Value = student.Username;
-                            worksheet.Cells[i + 2, 3].Value = student.Password;
-                            worksheet.Cells[i + 2, 4].Value = student.FullName;
-                            worksheet.Cells[i + 2, 5].Value = student.PhoneNumber;
-                            worksheet.Cells[i + 2, 6].Value = student.Birthday.ToString();
-                            worksheet.Cells[i + 2, 7].Value = student.Gender;
-                            worksheet.Cells[i + 2, 8].Value = student.Religion;
-                            worksheet.Cells[i + 2, 9].Value = student.Ethnicity;
-                            worksheet.Cells[i + 2, 10].Value = student.Address;
-                            worksheet.Cells[i + 2, 11].Value = student.FatherName;
-                            worksheet.Cells[i + 2, 12].Value = student.FatherPhone;
-                            worksheet.Cells[i + 2, 13].Value = student.MotherName;
-                            worksheet.Cells[i + 2, 14].Value = student.MotherPhone;
+                            worksheet.Cells[i + 4, 1].Value = student.Id;
+                            worksheet.Cells[i + 4, 2].Value = student.Username;
+                            worksheet.Cells[i + 4, 3].Value = student.Password;
+                            worksheet.Cells[i + 4, 4].Value = student.FullName;
+                            worksheet.Cells[i + 4, 5].Value = student.PhoneNumber;
+                            worksheet.Cells[i + 4, 6].Value = student.Birthday?.ToString("dd-MM-yyyy");
+                            worksheet.Cells[i + 4, 7].Value = student.Gender;
+                            worksheet.Cells[i + 4, 8].Value = student.Religion;
+                            worksheet.Cells[i + 4, 9].Value = student.Ethnicity;
+                            worksheet.Cells[i + 4, 10].Value = student.Address;
+                            worksheet.Cells[i + 4, 11].Value = student.FatherName;
+                            worksheet.Cells[i + 4, 12].Value = student.FatherPhone;
+                            worksheet.Cells[i + 4, 13].Value = student.MotherName;
+                            worksheet.Cells[i + 4, 14].Value = student.MotherPhone;
                         }
+
+                        // Vẽ border cho tất cả các ô chứa dữ liệu
+                        var totalRows = students.Count + 3; // Bao gồm header và dữ liệu
+                        var totalColumns = headers.Length;
+                        var dataRange = worksheet.Cells[3, 1, totalRows, totalColumns];
+                        dataRange.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
 
                         // Lưu file Excel
                         File.WriteAllBytes(filePath, package.GetAsByteArray());
                     }
 
                     // Thông báo thành công
-                    MessageBox.Show($"Xuất dữ liệu thành công vào file: {filePath}", "Export to Excel", MessageBoxButton.OK, MessageBoxImage.Information);
+                    ToastMessageViewModel.ShowSuccessToast($"Xuất dữ liệu thành công vào file: {filePath}");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Xuất dữ liệu thất bại: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ToastMessageViewModel.ShowErrorToast($"Xuất dữ liệu thất bại: {ex.Message}");
             }
         }
+
 
         //import danh sách từ excel
         private async void ImportFromExcel()
         {
-            Console.WriteLine("Hello");
+          
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             try
             {
                 // Open file dialog for user to select an Excel file
-                var openFileDialog = new Microsoft.Win32.OpenFileDialog
+                var openFileDialog = new OpenFileDialog
                 {
                     Title = "Chọn file Excel để import",
                     Filter = "Excel Files (*.xlsx)|*.xlsx"
@@ -222,13 +240,13 @@ namespace LearnHub.ViewModels.AdminViewModels
                         var worksheet = package.Workbook.Worksheets.FirstOrDefault();
                         if (worksheet == null)
                         {
-                            MessageBox.Show("Không tìm thấy sheet nào trong file Excel.", "Import từ Excel", MessageBoxButton.OK, MessageBoxImage.Warning);
+                          ToastMessageViewModel.ShowErrorToast("Không tìm thấy sheet nào trong file Excel");
                             return;
                         }
 
                         // Read data from the worksheet
                         var importedStudents = new List<Student>();
-                        int row = 2; // Assuming row 1 contains headers
+                        int row = 4; // Assuming row 1 contains headers
                         while (worksheet.Cells[row, 1].Value != null)
                         {
                             var student = new Student
@@ -239,7 +257,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 Password = worksheet.Cells[row,3].Text,
                                 FullName = worksheet.Cells[row, 4].Text,
                                 PhoneNumber = worksheet.Cells[row, 5].Text,
-                                Birthday = DateTime.TryParse(worksheet.Cells[row, 6].Text, out DateTime birthday) ? birthday : (DateTime?)null,
+                                Birthday = DateTime.TryParse(worksheet.Cells[row, 6].Text, out DateTime birthday) ? birthday : null,
                                 Gender = worksheet.Cells[row, 7].Text,
                                 Religion = worksheet.Cells[row, 8].Text,
                                 Ethnicity = worksheet.Cells[row, 9].Text,
@@ -266,13 +284,13 @@ namespace LearnHub.ViewModels.AdminViewModels
                             _studentStore.Add(student); // Append to existing data
                         }
 
-                        MessageBox.Show($"Import thành công! Đã thêm {importedStudents.Count} học sinh mới.", "Import từ Excel", MessageBoxButton.OK, MessageBoxImage.Information);
+                       ToastMessageViewModel.ShowSuccessToast($"Import thành công! Đã thêm {importedStudents.Count} học sinh mới");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Import dữ liệu thất bại: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                ToastMessageViewModel.ShowErrorToast($"Import dữ liệu thất bại: {ex.Message}");
             }
         }
 

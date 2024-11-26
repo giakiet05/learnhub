@@ -59,7 +59,6 @@ namespace LearnHub.ViewModels.EditModalViewModels
             StudentDetailsFormViewModel formViewModel = StudentDetailsFormViewModel;
 
             if (string.IsNullOrWhiteSpace(formViewModel.Username) ||
-             string.IsNullOrWhiteSpace(formViewModel.Password) ||
              string.IsNullOrWhiteSpace(formViewModel.FullName) ||
              string.IsNullOrWhiteSpace(formViewModel.Gender))
             {

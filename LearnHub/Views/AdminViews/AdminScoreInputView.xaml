@@ -60,7 +60,7 @@
                                     FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                             <ComboBox x:Name="cbKhoi" Width="100" Height="30" FontSize="13"
                                   ItemsSource="{Binding Grades}"
-                                  DisplayMemberPath="Name"
+                                  DisplayMemberPath="Number"
                                   SelectedItem="{Binding SelectedGrade}"
                                   Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                         </StackPanel>
@@ -116,25 +116,33 @@
                       FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"
                       Style="{StaticResource MaterialDesignCardGroupBox}"
                       BorderBrush="#007ACC" BorderThickness="1">
+                <ContentControl Content="{Binding CurrentResultView}"/>
+            </GroupBox>
+
+
+            <!--<GroupBox Grid.Column="1" Header="Bảng điểm học sinh" Margin="10,10,10,10" FontSize="14"
+                      FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"
+                      Style="{StaticResource MaterialDesignCardGroupBox}"
+                      BorderBrush="#007ACC" BorderThickness="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="526*"/>
                         <ColumnDefinition Width="241*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <!--grid bảng điểm chính-->
+                    --><!--grid bảng điểm chính--><!--
                     <Grid>
                         <ContentControl Content="{Binding CurrentResultView}"/>
                     </Grid>
 
-                    <!--border tổng kết-->
+                    --><!--border tổng kết--><!--
                     <Border Margin="10,50,0,0" Grid.Column="1" Background="AliceBlue">
                         <StackPanel>
                             <TextBlock Text="Tổng kết" HorizontalAlignment="Center"
                                         Style="{StaticResource font_style}" FontSize="25"/>
                             <StackPanel Margin="0 20 0 0">
 
-                                <!--thông tin chuyên cần-->
+                                --><!--thông tin chuyên cần--><!--
                                 <Border BorderBrush="Gray" BorderThickness="0 0 0 1">
                                     <StackPanel>
                                         <TextBlock Text="Chuyên cần" Style="{StaticResource font_style}" Foreground="Blue"/>
@@ -155,7 +163,7 @@
                                     </StackPanel>
                                 </Border>
 
-                                <!--thông tin học lực-->
+                                --><!--thông tin học lực--><!--
                                 <Border Margin="0 10 0 0" BorderBrush="Gray" BorderThickness="0 0 0 1">
                                     <StackPanel>
                                         <TextBlock Text="Học lực" Style="{StaticResource font_style}" Foreground="Blue"/>
@@ -163,7 +171,7 @@
                                     </StackPanel>
                                 </Border>
 
-                                <!--thông tin đtb-->
+                                --><!--thông tin đtb--><!--
                                 <Border Margin="0 10 0 0" BorderBrush="Gray" BorderThickness="0 0 0 1">
                                     <StackPanel>
                                         <TextBlock Text="Điểm trung bình" Style="{StaticResource font_style}" Foreground="Blue"/>
@@ -171,7 +179,7 @@
                                     </StackPanel>
                                 </Border>
 
-                                <!--thông tin hạnh kiểm-->
+                                --><!--thông tin hạnh kiểm--><!--
                                 <Border Margin="0 10 0 0" BorderBrush="Gray" BorderThickness="0 0 0 1">
                                     <StackPanel>
                                         <TextBlock Text="Hạnh kiểm" Style="{StaticResource font_style}" Foreground="Blue"/>
@@ -187,7 +195,7 @@
                                     </StackPanel>
                                 </Border>
 
-                                <!--danh hiệu-->
+                                --><!--danh hiệu--><!--
                                 <Border Margin="0 10 0 0" BorderBrush="Gray" BorderThickness="0 0 0 1">
                                     <StackPanel>
                                         <TextBlock Text="Danh hiệu" Style="{StaticResource font_style}" Foreground="Blue"/>
@@ -198,7 +206,7 @@
                         </StackPanel>
                     </Border>
                 </Grid>
-            </GroupBox>
+            </GroupBox>-->
         </Grid>
     </Grid>
 </UserControl>

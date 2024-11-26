@@ -8,9 +8,9 @@ namespace LearnHub.ViewModels.AdminViewModels
 {
     public class YearScoreViewModel : BaseViewModel
     {
-        public string Subject;
-        public double Semester1;
-        public double Semester2;
+        public string Subject { get; set; }
+        public double Semester1 { get; set; }
+        public double Semester2 { get; set; }
         public double AverageScore => (Semester1 + Semester2 * 2) / 3;
 
     }

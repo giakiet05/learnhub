@@ -10,6 +10,7 @@
                     xmlns:addviews="clr-namespace:LearnHub.Views.AddViews"
                     xmlns:editviews="clr-namespace:LearnHub.Views.EditViews"
                     xmlns:addvm="clr-namespace:LearnHub.ViewModels.AddModalViewModels"
+                    xmlns:formvm="clr-namespace:LearnHub.ViewModels.FormViewModels"
                     xmlns:editvm="clr-namespace:LearnHub.ViewModels.EditModalViewModels"
                     xmlns:views="clr-namespace:LearnHub.Views"
                     xmlns:vm="clr-namespace:LearnHub.ViewModels">
@@ -30,7 +31,14 @@
         <views:LogoutConfirmView/>
     </DataTemplate>
     <!--#endregion-->
-
+    <!--#region form-->
+    <DataTemplate DataType="{x:Type formvm:YearResultDetailsFormViewModel}">
+        <components:YearResultDetailsForm/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type formvm:SemesterResultDetailsFormViewModel}">
+        <components:SemesterResultDetailsForm/>
+    </DataTemplate>
+    <!--#endregion-->
     <!--#region admin-->
     <DataTemplate DataType="{x:Type adminvm:ScoreInputViewModel}">
         <adminviews:AdminScoreInputView/>

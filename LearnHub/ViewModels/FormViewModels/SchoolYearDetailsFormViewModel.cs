@@ -11,7 +11,7 @@ namespace LearnHub.ViewModels.AdminViewModels
     public class SchoolYearDetailsFormViewModel : BaseViewModel
     {
         private string _id;
-        private string _name;
+        private int _startYear;
         private string _yearResults;
 
         public string Id
@@ -23,13 +23,13 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(Id));  
             }
         }
-        public string Name
+        public int StartYear
         {
-            get => _name;
+            get => _startYear;
             set
             {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
+                _startYear = value;
+                OnPropertyChanged(nameof(StartYear));
             }
         }
 

@@ -74,7 +74,7 @@ SelectedItem="{Binding SelectedYear}"
    SelectedItem="{Binding SelectedGrade}"
                               SelectedValue="{Binding SelectedGrade.Id}"
                               SelectedValuePath="Id"
-   DisplayMemberPath="Name"
+   DisplayMemberPath="Number"
                               FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" 
                 />
 

@@ -38,7 +38,10 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
-                   string.IsNullOrWhiteSpace(formViewModel.Name)
+                   string.IsNullOrWhiteSpace(formViewModel.Name) ||
+                   string.IsNullOrWhiteSpace(formViewModel.SelectedGrade.Id) ||
+                    string.IsNullOrWhiteSpace(formViewModel.SelectedYear.Id) ||
+                    formViewModel.Capacity <=0
                   )
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
@@ -51,10 +54,10 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 Name = formViewModel.Name,
                 Capacity = formViewModel.Capacity,
                 GradeId = formViewModel.SelectedGrade.Id,
-                YearId = formViewModel.SelectedYear.Id,
-                TeacherInChargeId = formViewModel.SelectedTeacher.Id
+                YearId = formViewModel.SelectedYear.Id
+               
             };
-
+            if (formViewModel.SelectedTeacher != null) newClass.TeacherInChargeId = formViewModel.SelectedTeacher.Id;
             try
             {
                 var entity = await GenericDataService<Classroom>.Instance.CreateOne(newClass);

@@ -55,7 +55,7 @@
                ItemsSource="{Binding Grades}"
             SelectedItem="{Binding SelectedGrade}"
                              
-                DisplayMemberPath="Name"
+                DisplayMemberPath="Number"
                               SelectedValue="{Binding SelectedGrade.Id}"
                               SelectedValuePath="Id"
                            FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" 

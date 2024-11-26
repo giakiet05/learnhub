@@ -73,7 +73,7 @@
 					<DataGridTextColumn Header="Tên lớp" Binding="{Binding Name}" />
 					<DataGridTextColumn Header="Sĩ số" Binding="{Binding Capacity}" />
                     <DataGridTextColumn Header="Năm học" Binding="{Binding AcademicYear.Name}" />
-                    <DataGridTextColumn Header="Khối" Binding="{Binding Grade.Name}" />
+                    <DataGridTextColumn Header="Khối" Binding="{Binding Grade.Number}" />
                     <DataGridTextColumn Header="GVCN" Binding="{Binding TeacherInCharge.FullName}" />
 				</DataGrid.Columns>
 			</DataGrid>

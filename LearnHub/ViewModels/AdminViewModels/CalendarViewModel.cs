@@ -168,7 +168,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         for (int k = 0; k < classrooms.Count; k++)
                         {
                             var classroom = classrooms[k];
-                            var worksheet = package.Workbook.Worksheets.Add($"Lớp {classroom.Name}");
+                            var worksheet = package.Workbook.Worksheets.Add(classroom.Name);
                             // Định dạng tiêu đề chính
                             worksheet.Cells["A1:D1"].Merge = true;
 

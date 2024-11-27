@@ -48,8 +48,8 @@
             <Border Margin="10,0,0,0" Grid.Column="1" Background="AliceBlue">
                 <StackPanel>
                     <TextBlock Text="Tổng kết" HorizontalAlignment="Center"
-                                           Style="{StaticResource font_style}" FontSize="25"/>
-                    <StackPanel Margin="0 20 0 0">
+                              Style="{StaticResource font_style}" FontSize="25"/>
+                    <StackPanel Margin="10 20 0 0">
                         <!--thông tin chuyên cần-->
                         <Border BorderBrush="Gray" BorderThickness="0 0 0 1">
                             <StackPanel>

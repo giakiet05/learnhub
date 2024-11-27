@@ -13,6 +13,8 @@
                     xmlns:formvm="clr-namespace:LearnHub.ViewModels.FormViewModels"
                     xmlns:editvm="clr-namespace:LearnHub.ViewModels.EditModalViewModels"
                     xmlns:views="clr-namespace:LearnHub.Views"
+                    xmlns:exportvm="clr-namespace:LearnHub.ViewModels.ExportModalViewModels"
+                    xmlns:exportviews="clr-namespace:LearnHub.Views.ExportViews"
                     xmlns:vm="clr-namespace:LearnHub.ViewModels">
     <!--#region ToastMessage -->
     <DataTemplate DataType="{x:Type vm:ToastMessageViewModel}">
@@ -31,6 +33,17 @@
         <views:LogoutConfirmView/>
     </DataTemplate>
     <!--#endregion-->
+    
+    <!--#region export -->
+    <DataTemplate DataType="{x:Type exportvm:ExportExamScheduleViewModel}">
+        <exportviews:ExportExamScheduleView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type exportvm:ExportTimeTableViewModel}">
+        <exportviews:ExportTimeTableView/>
+    </DataTemplate>
+    <!--#endregion-->
+    
     <!--#region form-->
     <DataTemplate DataType="{x:Type formvm:YearResultDetailsFormViewModel}">
         <components:YearResultDetailsForm/>

@@ -10,18 +10,26 @@ namespace LearnHub.ViewModels.AdminViewModels
     public class ResultViewModel : BaseViewModel
     {
         public ICommand SwitchToScoreInputCommand { get; }
+        public ICommand ExportToExcelCommand { get; }
         public IEnumerable<AcademicYear> Years { get; private set; }
         public IEnumerable<Grade> Grades { get; private set; }
         public IEnumerable<Classroom> Classrooms { get; private set; }
         public IEnumerable<ScoreViewModel> ScoreViewModels { get; private set; }
-
+      
         public IEnumerable<Subject> Subjects { get; private set; }
         public ResultViewModel()
         {
             SwitchToScoreInputCommand = new NavigateLayoutCommand(() => new ScoreInputViewModel());
+            ExportToExcelCommand = new RelayCommand(ExportToExcel);
             LoadGrades();
             LoadYears();
         }
+
+        private void ExportToExcel()
+        {
+            throw new NotImplementedException();
+        }
+
         private string _selectedSemester;
         public string SelectedSemester
         {

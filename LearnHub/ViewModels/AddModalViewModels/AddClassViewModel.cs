@@ -50,9 +50,9 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 Id = formViewModel.Id,
                 Name = formViewModel.Name,
                 Capacity = formViewModel.Capacity,
-                GradeId = formViewModel.SelectedGrade.Id,
-                YearId = formViewModel.SelectedYear.Id,
-                TeacherInChargeId = formViewModel.SelectedTeacher.Id
+                GradeId = formViewModel.SelectedGrade?.Id,
+                YearId = formViewModel.SelectedYear?.Id,
+                TeacherInChargeId = formViewModel.SelectedTeacher?.Id
             };
 
             try

@@ -356,7 +356,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                             }
                         }
 
-                        // Định dạng bảng
+                        // Định dạng bảng (bảng cố định)
                         worksheet.Cells[1, 1, 12, 8].Style.Border.Top.Style = ExcelBorderStyle.Thin;
                         worksheet.Cells[1, 1, 12, 8].Style.Border.Left.Style = ExcelBorderStyle.Thin;
                         worksheet.Cells[1, 1, 12, 8].Style.Border.Right.Style = ExcelBorderStyle.Thin;

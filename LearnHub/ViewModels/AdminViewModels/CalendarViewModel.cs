@@ -15,6 +15,10 @@ using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
+using OfficeOpenXml;
+using Microsoft.Win32;
+using OfficeOpenXml.Style;
+using System.IO;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -113,18 +117,132 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; private set; }
         public ICommand ShowEditModalCommand { get; private set; }
         public ICommand ShowDeleteModalCommand { get; private set; }
-        
+        public ICommand ExportToExcelCommand { get; }
 
         public CalendarViewModel()
         {
             _examScheduleStore = GenericStore<ExamSchedule>.Instance;
             _classroomStore = GenericStore<Classroom>.Instance;
+            ExportToExcelCommand = new RelayCommand(ExportToExcel);
 
-      
             _examScheduleStore.Clear();
             LoadGrades();
             LoadYears();
             UpdateModalCommands(); // Khởi tạo lệnh khi tạo ViewModel
+        }
+
+        private async void ExportToExcel()
+        {
+            if (SelectedYear == null || SelectedSemester == null || SelectedExamType == null)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn đủ");
+                return;
+            }
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            try
+            {
+                // Tạo SaveFileDialog để người dùng chọn nơi lưu file
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Title = "Chọn nơi lưu file Excel",
+                    Filter = "Excel Files (*.xlsx)|*.xlsx",
+                    FileName = $"LichThi_{_selectedYear.Name}_{_selectedSemester}_{_selectedExamType}.xlsx"
+                };
+
+                if (saveFileDialog.ShowDialog() == true) // Nếu người dùng nhấn "Save"
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    //lấy tất cả lớp của năm được chọn, xếp theo khối => tên
+
+                    var classrooms = (await GenericDataService<Classroom>.Instance
+                         .GetMany(e => e.YearId == _selectedYear.Id, include: query => query.Include(e => e.Grade)))
+                         .OrderBy(e => e.Grade.Number)
+                         .OrderBy(e => e.Name)
+                         .ToList();
+
+                    using (var package = new ExcelPackage())
+                    {
+                        for (int k = 0; k < classrooms.Count; k++)
+                        {
+                            var classroom = classrooms[k];
+                            var worksheet = package.Workbook.Worksheets.Add($"Lớp {classroom.Name}");
+                            // Định dạng tiêu đề chính
+                            worksheet.Cells["A1:D1"].Merge = true;
+
+                            //Nội dung ô title
+                            var richText = worksheet.Cells["A1"].RichText;
+                            var title = richText.Add("Lịch thi\n");
+                            title.Bold = true;
+                            title.Size = 20;
+
+                            var content = richText.Add($"Năm học: {_selectedYear.Name}\nHọc kì: {_selectedSemester} - Loại: {_selectedExamType}\nLớp: {classroom.Name}");
+                            content.Size = 14;
+
+
+
+                            // Định dạng chung cho ô
+                            worksheet.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            worksheet.Cells["A1"].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                            worksheet.Cells["A1"].Style.WrapText = true;
+
+                            worksheet.Row(1).Height = 100; // Tùy chỉnh chiều cao phù hợp
+
+                            // Thêm tiêu đề các cột
+                            string[] headers = { "Môn học", "Ngày", "Giờ", "Phòng thi" };
+
+                            for (int i = 0; i < headers.Length; i++)
+                            {
+                                worksheet.Cells[2, i + 1].Value = headers[i];
+                                worksheet.Cells[2, i + 1].Style.Font.Bold = true; // In đậm tiêu đề
+                                worksheet.Cells[2, i + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                worksheet.Cells[2, i + 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                            }
+
+                            // Thêm dữ liệu học sinh
+                            var examSchedules = (await GenericDataService<ExamSchedule>.Instance
+                                .GetMany(
+                                e => e.ClassroomId == classroom.Id &&
+                                e.ExamType == SelectedExamType &&
+                                e.Semester == SelectedSemester,
+                                include: query => query.Include(e => e.Subject)))
+                                .ToList();
+
+                            for (int i = 0; i < examSchedules.Count; i++)
+                            {
+                                var examSchedule = examSchedules[i];
+                                worksheet.Cells[i + 3, 1].Value = examSchedule.Subject.Name;
+                                worksheet.Cells[i + 3, 2].Value = examSchedule.ExamDate?.ToString("dd-MM-yyyy");
+                                worksheet.Cells[i + 3, 3].Value = examSchedule.ExamDate?.ToString("HH:mm");
+                                worksheet.Cells[i + 3, 4].Value = examSchedule.ExamRoom;
+
+
+                            }
+
+                            // Vẽ border cho tất cả các ô chứa dữ liệu (bảng không cố định)
+                            var totalRows = examSchedules.Count + 2; // Bao gồm title, header và dữ liệu
+                            var totalColumns = headers.Length;
+                            var dataRange = worksheet.Cells[1, 1, totalRows, totalColumns];
+                            dataRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            dataRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                            dataRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            dataRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                            // Lưu file Excel
+                            File.WriteAllBytes(filePath, package.GetAsByteArray());
+                        }
+                    }
+
+                    // Thông báo thành công
+                    ToastMessageViewModel.ShowSuccessToast($"Xuất dữ liệu thành công vào file: {filePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ToastMessageViewModel.ShowErrorToast($"Xuất dữ liệu thất bại: {ex.Message}");
+            }
         }
 
         private async void DeleteExamSchedule()
@@ -145,7 +263,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                     e.SubjectId == selectedExamSchedule.SubjectId &&
                         e.Semester == SelectedSemester &&
                         e.ExamType == SelectedExamType
-                 
+
                 );
 
                 //xóa trong giao diện
@@ -244,7 +362,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         e.Semester == SelectedSemester &&
                         e.ExamType == SelectedExamType,
                     include: query => query.Include(e => e.Subject)
-                   
+
                 );
                 _examScheduleStore.Load(examSchedules);
             }

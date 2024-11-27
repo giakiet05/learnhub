@@ -38,15 +38,14 @@ namespace LearnHub.ViewModels.EditModalViewModels
             {
                 SchoolYearDetailsFormViewModel.IsEnable = false;
                 SchoolYearDetailsFormViewModel.Id = selectedSchoolYear.Id;
-                SchoolYearDetailsFormViewModel.Name = selectedSchoolYear.Name;
+                SchoolYearDetailsFormViewModel.StartYear = (int)selectedSchoolYear.StartYear;
             }
         }
         private async void ExecuteSubmit()
         {
             SchoolYearDetailsFormViewModel formViewModel = SchoolYearDetailsFormViewModel;
 
-            if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
-                string.IsNullOrWhiteSpace(formViewModel.Name))
+            if (string.IsNullOrWhiteSpace(formViewModel.Id) || formViewModel.StartYear<0)
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
@@ -55,7 +54,8 @@ namespace LearnHub.ViewModels.EditModalViewModels
             var selectedSchoolYear = _schoolYearStore.SelectedItem;  // Accessing SelectedItem from GenericStore<AcademicYear>
 
             selectedSchoolYear.Id = formViewModel.Id;
-            selectedSchoolYear.Name = formViewModel.Name;
+            selectedSchoolYear.StartYear = formViewModel.StartYear;
+            selectedSchoolYear.Name = formViewModel.StartYear + "-"+(formViewModel.StartYear + 1).ToString();
 
             try
             {

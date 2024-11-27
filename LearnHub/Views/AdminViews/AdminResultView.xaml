@@ -64,7 +64,7 @@
                     <ComboBox x:Name="cbKhoiLop" Width="100" Height="30"  FontSize="15"
                               ItemsSource="{Binding Grades}"
                               SelectedItem="{Binding SelectedGrade}"
-                              DisplayMemberPath="Name"
+                              DisplayMemberPath="Number"
                               Margin="10 0 0 0" Background="#d9d9d9d9"/>
                 </StackPanel>
 
@@ -121,7 +121,7 @@
                     <DataGridTextColumn Header="Thường xuyên" Binding="{Binding RegularScores}"/>
                     <DataGridTextColumn Header="Giữa kì" Binding="{Binding MidTermScore}"/>
                     <DataGridTextColumn Header="Cuối kì" Binding="{Binding FinalTermScore}"/>
-                    <DataGridTextColumn Header="Trung bình" Binding="{Binding AverageScore}"/>
+                    <DataGridTextColumn Header="Trung bình" Binding="{Binding AverageScore, StringFormat=F2}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

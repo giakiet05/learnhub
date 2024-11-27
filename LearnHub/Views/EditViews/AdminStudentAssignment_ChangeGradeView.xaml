@@ -28,9 +28,8 @@ SelectedItem="{Binding SelectedYear}"
                         FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
             <ComboBox x:Name="cbKhoi" Width="100" Height="30" FontSize="13"
                         ItemsSource="{Binding Grades}"
-  SelectedItem="{Binding SelectedGrade}"
-  DisplayMemberPath="Name"
-                      Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                        SelectedItem="{Binding SelectedGrade}"
+                         Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
 
             <!--chọn lớp-->
             <TextBlock Text="Lớp: " VerticalAlignment="Center" Margin="15 0 0 0"

@@ -148,7 +148,7 @@ namespace LearnHub.ViewModels.FormViewModels
                 double total = 0, min = 11;
                 foreach (var score in YearScoreViewModels) { total += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
                 AverageScore = total / ScoreViewModels.Count;
-                Conduct = CaculateCondcut(semesterResult1.Conduct, semesterResult2.Conduct);
+                Conduct = CaculateConduct(semesterResult1.Conduct, semesterResult2.Conduct);
                 if (AverageScore >= 8 && min >= 6.5) AcademicPerformance = "Giỏi";
                 else if (AverageScore >= 6.5 && min >= 5) AcademicPerformance = "Khá";
                 else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
@@ -163,7 +163,7 @@ namespace LearnHub.ViewModels.FormViewModels
             
             OnPropertyChanged(nameof(YearScoreViewModels));
         }
-        private string CaculateCondcut(string hk1, string hk2)
+        private string CaculateConduct(string hk1, string hk2)
         {
             if (hk1 == null || hk2 == null)
             {

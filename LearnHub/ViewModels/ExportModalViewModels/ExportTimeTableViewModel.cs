@@ -19,6 +19,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
 {
     public class ExportTimeTableViewModel : BaseViewModel
     {
+      
         public IEnumerable<AcademicYear> Years { get; private set; }
 
         private AcademicYear _selectedYear;

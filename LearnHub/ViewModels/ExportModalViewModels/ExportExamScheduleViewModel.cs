@@ -194,8 +194,9 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                             }
 
                             // Lưu file Excel
-                            File.WriteAllBytes(filePath, package.GetAsByteArray());
+                           
                         }
+                        File.WriteAllBytes(filePath, package.GetAsByteArray());
                     }
 
                     // Thông báo thành công

@@ -10,7 +10,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="270"/>
+                <RowDefinition Height="220"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="Xuất kết quả" Style="{StaticResource font_style}"
@@ -48,6 +48,7 @@ Text="{Binding SelectedSemester}"
                                       FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
                                 <ComboBoxItem Content="HK1"/>
                                 <ComboBoxItem Content="HK2"/>
+                                <ComboBoxItem Content="Cả năm"/>
                             </ComboBox>
                         </StackPanel>
                         

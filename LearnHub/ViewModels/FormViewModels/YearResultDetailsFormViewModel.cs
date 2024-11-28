@@ -167,7 +167,6 @@ namespace LearnHub.ViewModels.FormViewModels
         {
             if (hk1 == null || hk2 == null)
             {
-                ToastMessageViewModel.ShowWarningToast("Chưa nhập hạnh kiểm học kì.");
                 return null;
             }
             Dictionary<string, int> conducts = new Dictionary<string, int>()

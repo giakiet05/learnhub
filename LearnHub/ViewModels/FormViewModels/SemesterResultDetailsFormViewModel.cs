@@ -247,7 +247,7 @@ namespace LearnHub.ViewModels.FormViewModels
 
             if (AverageScore >= 8 && min >= 6.5 && Conduct == "Tốt") Title = "Học Sinh Giỏi";
             else if (AverageScore > 6.5 && (Conduct == "Tốt" || Conduct == "Khá") && min >= 5) Title = "Học Sinh Tiên Tiến";
-            else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct == "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
+            else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct != "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
             else Title = "Học Sinh Yếu";
 
 
@@ -291,8 +291,16 @@ namespace LearnHub.ViewModels.FormViewModels
                     }
 
                 }
+                double sum = 0, min = 11;
+                foreach (var score in ScoreViewModels) { sum += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
+                AverageScore = sum / ScoreViewModels.Count;
+                if (AverageScore >= 8 && min >= 6.5) AcademicPerformance = "Giỏi";
+                else if (AverageScore >= 6.5 && min >= 5) AcademicPerformance = "Khá";
+                else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
+                else if (AverageScore >= 3.5 && min >= 2) AcademicPerformance = "Yếu";
+                else AcademicPerformance = "Kém";
                 if (semesterResult.Conduct != Conduct || semesterResult.AuthorizedLeaveDays != AuthorizedLeaveDays ||
-                    semesterResult.UnauthorizedLeaveDays != UnauthorizedLeaveDays)
+                    semesterResult.UnauthorizedLeaveDays != UnauthorizedLeaveDays || semesterResult.AcademicPerformance!= AcademicPerformance)
                 {
                     List<string> conducts = new List<string>() { "Tốt", "Khá", "Trung bình", "Yếu", "Kém" };
                     if (conducts.Contains(Conduct) && AuthorizedLeaveDays >= 0 && UnauthorizedLeaveDays >= 0)
@@ -300,14 +308,7 @@ namespace LearnHub.ViewModels.FormViewModels
                         semesterResult.Conduct = Conduct;
                         semesterResult.AuthorizedLeaveDays = AuthorizedLeaveDays;
                         semesterResult.UnauthorizedLeaveDays = UnauthorizedLeaveDays;
-                        double sum = 0, min = 11;
-                        foreach (var score in ScoreViewModels) { sum += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
-                        AverageScore = sum / ScoreViewModels.Count;
-                        if (AverageScore >= 8 && min >= 6.5) semesterResult.AcademicPerformance = "Giỏi";
-                        else if (AverageScore >= 6.5 && min >= 5) semesterResult.AcademicPerformance = "Khá";
-                        else if (AverageScore >= 5 && min >= 3.5) semesterResult.AcademicPerformance = "Trung bình";
-                        else if (AverageScore >= 3.5 && min >= 2) semesterResult.AcademicPerformance = "Yếu";
-                        else AcademicPerformance = "Kém";
+                        semesterResult.AcademicPerformance = AcademicPerformance;
                         var test = await GenericDataService<SemesterResult>.Instance.UpdateOne(semesterResult, e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
                         ToastMessageViewModel.ShowSuccessToast("Sửa kết quả học kì thành công");
                     }

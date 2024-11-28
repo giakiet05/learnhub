@@ -2,6 +2,7 @@
 using LearnHub.Data;
 using LearnHub.Models;
 using LearnHub.Services;
+using LearnHub.ViewModels.ExportModalViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Input;
 
@@ -20,15 +21,12 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ResultViewModel()
         {
             SwitchToScoreInputCommand = new NavigateLayoutCommand(() => new ScoreInputViewModel());
-            ExportToExcelCommand = new RelayCommand(ExportToExcel);
+            ExportToExcelCommand = new NavigateModalCommand(() => new ExportResultViewModel());
             LoadGrades();
             LoadYears();
         }
 
-        private void ExportToExcel()
-        {
-            throw new NotImplementedException();
-        }
+      
 
         private string _selectedSemester;
         public string SelectedSemester

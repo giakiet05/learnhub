@@ -18,10 +18,10 @@
                 <!--Môn học-->
                 <StackPanel Margin="25" Orientation="Horizontal">
                     <TextBlock Text="Môn học:" Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" Width="100"/>
-
+                                VerticalAlignment="Center" Width="80"/>
+                    <TextBlock Text="*" Foreground="Red"/>
                     <ComboBox x:Name="cbSubject" FontSize="15" Width="150" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
+                             Margin="15 0 0 0" Background="#d9d9d9d9"
                               IsEnabled="{Binding IsEnable}"
                                 ItemsSource="{Binding Subjects}"
                               DisplayMemberPath="Name"

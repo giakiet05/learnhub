@@ -56,16 +56,18 @@
                                 <TextBlock Text="Chuyên cần" Style="{StaticResource font_style}" Foreground="Blue"/>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Nghỉ có phép:"
-                                Style="{StaticResource font_style}"/>
+                                                 Style="{StaticResource font_style}"/>
                                     <TextBox Width="30" Height="20" Style="{x:Null}" Text="{Binding AuthorizedLeaveDays}"
-                                  IsReadOnly="{Binding IsReadOnly}"/>
+                                                IsReadOnly="{Binding IsReadOnly}"
+                                             PreviewTextInput="TextBox_PreviewTextInput"/>
                                 </StackPanel>
                                 <StackPanel Margin="0 10 0 5" Orientation="Horizontal">
                                     <TextBlock Text="Nghỉ không phép:"
-                                     Style="{StaticResource font_style}"/>
+                                                Style="{StaticResource font_style}"/>
                                     <TextBox Width="30" Height="20" Style="{x:Null}" 
-                                  Text="{Binding UnauthorizedLeaveDays}"
-                                  IsReadOnly="{Binding IsReadOnly}"/>
+                                              Text="{Binding UnauthorizedLeaveDays}"
+                                              IsReadOnly="{Binding IsReadOnly}"
+                                             PreviewTextInput="TextBox_PreviewTextInput"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -91,8 +93,8 @@
                             <StackPanel>
                                 <TextBlock Text="Hạnh kiểm" Style="{StaticResource font_style}" Foreground="Blue"/>
                                 <ComboBox Background="#d9d9d9d9"  Width="100" HorizontalAlignment="Left" Margin="3 0 0 5"
-                               IsEnabled="{Binding IsEnabled}"
-                             Text="{Binding Conduct}">
+                                           IsEnabled="{Binding IsEnabled}"
+                                         Text="{Binding Conduct}">
                                     <ComboBoxItem Content="Tốt"/>
                                     <ComboBoxItem Content="Khá"/>
                                     <ComboBoxItem Content="Trung bình"/>

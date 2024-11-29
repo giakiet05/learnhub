@@ -76,13 +76,13 @@
                 <!--Menu items-->
                 <Grid Height="500">
                     <StackPanel>
-                        <!--Home button-->
-                        <RadioButton  FontSize="30" IsChecked="True"
-                                     Command="{Binding HomeCommand}"
+                        <!--Base button-->
+                        <RadioButton FontSize="30" IsChecked="True"
+                                     Command="{Binding SchoolYearCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Content="Trang chủ">
+                                     Content="Cơ sở">
                             <RadioButton.Tag>
-                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/home.png" />
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/base.png" />
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Class button-->
@@ -103,43 +103,24 @@
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/subject.png" />
                             </RadioButton.Tag>
                         </RadioButton>
-                        <!--Teacher button-->
+                        <!--Teacher-Student button-->
                         <RadioButton FontSize="30"
                                      Command="{Binding TeacherCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Content="Giáo viên">
+                                     Content="GV - HS">
                             <RadioButton.Tag>
-                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/teacher.png" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-                        <!--Student button-->
-                        <RadioButton FontSize="30"
-                                     Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding StudentCommand}"
-                                     Content="Học sinh">
-                            <RadioButton.Tag>
-                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/student.png" />
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/group.png" />
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Calendar button-->
                         <RadioButton FontSize="30"
                                      Command="{Binding CalendarCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
-                                     Content="Lịch thi">
+                                     Content="TKB - Lịch thi">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/calendar.png" />
                             </RadioButton.Tag>
                         </RadioButton>
-                        <!--Semester button-->
-                        <RadioButton FontSize="30"
-                                     Command="{Binding SchoolYearCommand}"
-                                     Style="{StaticResource MenuButtonTheme}"
-                                     Content="Năm học">
-                            <RadioButton.Tag>
-                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/semester.png" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-
                         <!--Result button-->
                         <RadioButton FontSize="30"
                                      Command="{Binding ResultCommand}"
@@ -147,6 +128,15 @@
                                      Content="Kết quả">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/result.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Statistic button-->
+                        <RadioButton FontSize="30"
+                                     Command="{Binding StatisticCommand}"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Content="Thống kê">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/chart.png" />
                             </RadioButton.Tag>
                         </RadioButton>
                     </StackPanel>

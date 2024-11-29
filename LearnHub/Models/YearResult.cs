@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class SemesterResult
+    public class YearResult
     {
 
         //----Composite Key------
         [ForeignKey("AcademicYear")]
         public string YearId { get; set; }
         public string StudentId { get; set; }
-        public string Semester {  get; set; }
 
         //public double? YearAvgScore { get; set; }
         public string? Conduct { get; set; } //Hạnh kiểm

@@ -29,7 +29,7 @@ namespace LearnHub.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Number = table.Column<int>(type: "INTEGER", nullable: true)
+                    Number = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +41,7 @@ namespace LearnHub.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,7 +68,7 @@ namespace LearnHub.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     LessonNumber = table.Column<int>(type: "INTEGER", nullable: true),
                     GradeId = table.Column<string>(type: "TEXT", nullable: true),
                     MajorId = table.Column<string>(type: "TEXT", nullable: true)
@@ -93,8 +93,8 @@ namespace LearnHub.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    FullName = table.Column<string>(type: "TEXT", nullable: true),
-                    Gender = table.Column<string>(type: "TEXT", nullable: true),
+                    FullName = table.Column<string>(type: "TEXT", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     Birthday = table.Column<DateTime>(type: "TEXT", nullable: true),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
@@ -122,9 +122,9 @@ namespace LearnHub.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    CitizenID = table.Column<string>(type: "TEXT", nullable: true),
-                    FullName = table.Column<string>(type: "TEXT", nullable: true),
-                    Gender = table.Column<string>(type: "TEXT", nullable: true),
+                    CitizenID = table.Column<string>(type: "TEXT", nullable: false),
+                    FullName = table.Column<string>(type: "TEXT", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false),
                     Salary = table.Column<int>(type: "INTEGER", nullable: true),
                     DateOfJoining = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
@@ -163,11 +163,13 @@ namespace LearnHub.Migrations
                     Semester = table.Column<string>(type: "TEXT", nullable: false),
                     MidTermScore = table.Column<double>(type: "REAL", nullable: true),
                     FinalTermScore = table.Column<double>(type: "REAL", nullable: true),
-                    RegularScores = table.Column<string>(type: "TEXT", nullable: true)
+                    RegularScores = table.Column<string>(type: "TEXT", nullable: true),
+                    AvgScore = table.Column<double>(type: "REAL", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Scores", x => new { x.SubjectId, x.Semester, x.YearId, x.StudentId });
+                    table.CheckConstraint("CK_Score_AvgScore", "[AvgScore] BETWEEN 0 AND 10");
                     table.CheckConstraint("CK_Score_FinalTermScore", "[FinalTermScore] BETWEEN 0 AND 10");
                     table.CheckConstraint("CK_Score_MidTermScore", "[MidTermScore] BETWEEN 0 AND 10");
                     table.CheckConstraint("CK_Score_Semester", "[Semester] IN ('HK1', 'HK2')");
@@ -200,16 +202,18 @@ namespace LearnHub.Migrations
                     Semester = table.Column<string>(type: "TEXT", nullable: false),
                     Conduct = table.Column<string>(type: "TEXT", nullable: true),
                     AcademicPerformance = table.Column<string>(type: "TEXT", nullable: true),
+                    AvgScore = table.Column<double>(type: "REAL", nullable: true),
                     AuthorizedLeaveDays = table.Column<int>(type: "INTEGER", nullable: true),
                     UnauthorizedLeaveDays = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SemesterResults", x => new { x.YearId, x.StudentId, x.Semester });
-                    table.CheckConstraint("CK_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
-                    table.CheckConstraint("CK_AuthorizedLeaveDays", "[AuthorizedLeaveDays] >= 0");
-                    table.CheckConstraint("CK_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
-                    table.CheckConstraint("CK_UnathorizedLeaveDays", "[UnauthorizedLeaveDays] >= 0");
+                    table.CheckConstraint("CK_Semester_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                    table.CheckConstraint("CK_Semester_AuthorizedLeaveDays", "[AuthorizedLeaveDays] >= 0");
+                    table.CheckConstraint("CK_Semester_AvgScore", "[AvgScore] BETWEEN 0 AND 10");
+                    table.CheckConstraint("CK_Semester_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                    table.CheckConstraint("CK_Semester_UnathorizedLeaveDays", "[UnauthorizedLeaveDays] >= 0");
                     table.ForeignKey(
                         name: "FK_SemesterResults_AcademicYears_YearId",
                         column: x => x.YearId,
@@ -225,11 +229,45 @@ namespace LearnHub.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "YearResults",
+                columns: table => new
+                {
+                    YearId = table.Column<string>(type: "TEXT", nullable: false),
+                    StudentId = table.Column<string>(type: "TEXT", nullable: false),
+                    Conduct = table.Column<string>(type: "TEXT", nullable: true),
+                    AcademicPerformance = table.Column<string>(type: "TEXT", nullable: true),
+                    AvgScore = table.Column<double>(type: "REAL", nullable: true),
+                    AuthorizedLeaveDays = table.Column<int>(type: "INTEGER", nullable: true),
+                    UnauthorizedLeaveDays = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_YearResults", x => new { x.YearId, x.StudentId });
+                    table.CheckConstraint("CK_Year_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                    table.CheckConstraint("CK_Year_AuthorizedLeaveDays", "[AuthorizedLeaveDays] >= 0");
+                    table.CheckConstraint("CK_Year_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                    table.CheckConstraint("CK_Year_Semester_AvgScore", "[AvgScore] BETWEEN 0 AND 10");
+                    table.CheckConstraint("CK_Year_UnathorizedLeaveDays", "[UnauthorizedLeaveDays] >= 0");
+                    table.ForeignKey(
+                        name: "FK_YearResults_AcademicYears_YearId",
+                        column: x => x.YearId,
+                        principalTable: "AcademicYears",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_YearResults_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Classrooms",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Capacity = table.Column<int>(type: "INTEGER", nullable: true),
                     GradeId = table.Column<string>(type: "TEXT", nullable: true),
                     TeacherInChargeId = table.Column<string>(type: "TEXT", nullable: true),
@@ -448,6 +486,11 @@ namespace LearnHub.Migrations
                 table: "Users",
                 column: "Username",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YearResults_StudentId",
+                table: "YearResults",
+                column: "StudentId");
         }
 
         /// <inheritdoc />
@@ -472,13 +515,16 @@ namespace LearnHub.Migrations
                 name: "TeachingAssignments");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "YearResults");
 
             migrationBuilder.DropTable(
                 name: "Classrooms");
 
             migrationBuilder.DropTable(
                 name: "Subjects");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "AcademicYears");

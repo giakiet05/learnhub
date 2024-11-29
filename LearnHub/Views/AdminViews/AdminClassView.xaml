@@ -21,14 +21,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnLopHoc" Content="Lớp học" IsEnabled="False"
+                <Button Content="Lớp học" IsEnabled="False"
                         BorderBrush="#5CB3FF" Background="#5CB3FF"
                         Margin="10 0 0 0" FontSize="18" Width="125" Height="50"
                         Style="{StaticResource btnStyle}"/>
 
-                <Button x:Name="btnKhoiLop" Content="Khối lớp"  
-                        Command="{Binding SwitchToGradeCommand}"
-                        BorderBrush="#5CB3FF" Background="White"
+                <Button Content="Phân lớp"
+                        Command="{Binding SwitchToStudentAssignmentCommand}"
+                        BorderBrush="#5CB3FF" Background="#ffffff"
                         Margin="10 0 0 0" FontSize="18" Width="125" Height="50"
                         Style="{StaticResource btnStyle}"/>
             </StackPanel>

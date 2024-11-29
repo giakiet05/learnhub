@@ -17,22 +17,25 @@
                 <!--Mã năm-->
                 <StackPanel Margin="25" Orientation="Horizontal">
                     <TextBlock Text="Mã năm:" Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" Width="126"/>
+                                VerticalAlignment="Center" Width="110"/>
                     <TextBlock Text="*" Foreground="Red"/>
                     <TextBox x:Name="tbID" FontSize="15" Width="150" Height="30"
                              Background="#d9d9d9d9"
-                              IsEnabled="{Binding IsEnable}"
+                             Margin="15 0 0 0" 
+                             IsEnabled="{Binding IsEnable}"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding Id}"/>
                 </StackPanel>
 
                 <!--Tên năm-->
                 <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
                     <TextBlock Text="Năm bắt đầu :" Style="{StaticResource font_style}"
-                                VerticalAlignment="Center" Width="112"/>
-
-                    <TextBox x:Name="tbName" FontSize="15" Width="150" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
-                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" Text="{Binding StartYear}"/>
+                                VerticalAlignment="Center" Width="110"/>
+                    <TextBlock Text="*" Foreground="Red"/>
+                    <TextBox  FontSize="15" Width="150" Height="30"
+                             Margin="15 0 0 0" Background="#d9d9d9d9"
+                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                             Text="{Binding StartYear}"
+                             PreviewTextInput="TextBox_PreviewTextInput"/>
                 </StackPanel>
 
 			

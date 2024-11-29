@@ -30,9 +30,9 @@
                 <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
                     <TextBlock Text="Tên lớp:" Style="{StaticResource font_style}"
                                  VerticalAlignment="Center" Width="80"/>
-
+                    <TextBlock Text="*" Foreground="Red"/>
                     <TextBox x:Name="tbName" FontSize="15" Width="150" Height="30"
-                             Margin="20 0 0 0" Background="#d9d9d9d9"
+                             Margin="15 0 0 0" Background="#d9d9d9d9"
                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
 				            Text="{Binding Name}"/>
                 </StackPanel>
@@ -45,7 +45,8 @@
                     <TextBox x:Name="tbNumber" FontSize="15" Width="70" Height="30"
                               Margin="20 0 0 0" Background="#d9d9d9d9"
                               Text="{Binding Capacity}"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                             PreviewTextInput="tbNumber_PreviewTextInput"/>
                 </StackPanel>
 
                 <!--Năm học-->
@@ -55,8 +56,8 @@
 
                     <ComboBox x:Name="cbYear" FontSize="15" Width="150" Height="30"
                               ItemsSource="{Binding Years}"
-SelectedItem="{Binding SelectedYear}"
-   DisplayMemberPath="Name"
+                            SelectedItem="{Binding SelectedYear}"
+                               DisplayMemberPath="Name"
                               SelectedValue="{Binding SelectedYear.Id}"
                               SelectedValuePath="Id"
                               Margin="20 0 0 0" Background="#d9d9d9d9"
@@ -69,14 +70,13 @@ SelectedItem="{Binding SelectedYear}"
                   VerticalAlignment="Center" Width="80"/>
 
                     <ComboBox x:Name="cbGrade" FontSize="15" Width="150" Height="30"
-                Margin="20 0 0 0" Background="#d9d9d9d9"
-                  ItemsSource="{Binding Grades}"
-   SelectedItem="{Binding SelectedGrade}"
+                            Margin="20 0 0 0" Background="#d9d9d9d9"
+                              ItemsSource="{Binding Grades}"
+                            SelectedItem="{Binding SelectedGrade}"
                               SelectedValue="{Binding SelectedGrade.Id}"
                               SelectedValuePath="Id"
-   DisplayMemberPath="Number"
-                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" 
-                />
+                                DisplayMemberPath="Number"
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto" />
 
                 </StackPanel>
 
@@ -87,12 +87,11 @@ SelectedItem="{Binding SelectedYear}"
 
                     <ComboBox x:Name="cbTeacher" FontSize="15" Width="150" Height="30"
                               Margin="20 0 0 0" Background="#d9d9d9d9" 
-                              
                              ItemsSource="{Binding Teachers}"
-  DisplayMemberPath="FullName"
-SelectedValuePath="Id"
-SelectedValue="{Binding SelectedTeacher.Id}"
-  SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
+                              DisplayMemberPath="FullName"
+                            SelectedValuePath="Id"
+                            SelectedValue="{Binding SelectedTeacher.Id}"
+                              SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                               FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 

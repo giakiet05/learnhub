@@ -12,10 +12,13 @@
     <None Remove="Resource\Fonts\Roboto-Bold.ttf" />
     <None Remove="Resource\Fonts\Roboto-Medium.ttf" />
     <None Remove="Resource\Icons\appIcon.png" />
+    <None Remove="Resource\Icons\base.png" />
     <None Remove="Resource\Icons\calendar.png" />
+    <None Remove="Resource\Icons\chart.png" />
     <None Remove="Resource\Icons\class.png" />
     <None Remove="Resource\Icons\delete.png" />
     <None Remove="Resource\Icons\edit.png" />
+    <None Remove="Resource\Icons\group.png" />
     <None Remove="Resource\Icons\home.png" />
     <None Remove="Resource\Icons\icons8-school-26.png" />
     <None Remove="Resource\Icons\login.png" />
@@ -51,10 +54,13 @@
     <Resource Include="Resource\Fonts\Roboto-Bold.ttf" />
     <Resource Include="Resource\Fonts\Roboto-Medium.ttf" />
     <Resource Include="Resource\Icons\appIcon.png" />
+    <Resource Include="Resource\Icons\base.png" />
     <Resource Include="Resource\Icons\calendar.png" />
+    <Resource Include="Resource\Icons\chart.png" />
     <Resource Include="Resource\Icons\class.png" />
     <Resource Include="Resource\Icons\delete.png" />
     <Resource Include="Resource\Icons\edit.png" />
+    <Resource Include="Resource\Icons\group.png" />
     <Resource Include="Resource\Icons\home.png" />
     <Resource Include="Resource\Icons\icons8-school-26.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>

@@ -68,15 +68,14 @@
                                                 FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                             </StackPanel>
 
-
-
                             <!--SDT-->
                             <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                 <TextBlock Text="Số điện thoại:" Style="{StaticResource font_style}"
                                                 VerticalAlignment="Center" Width="120"/>
                                 <TextBox x:Name="tbPhone" FontSize="15" Width="200" Height="30"
                                              Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding PhoneNumber}"
-                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                                         PreviewTextInput="tbPhone_PreviewTextInput"/>
                             </StackPanel>
 
                             <!--Tôn giáo-->
@@ -123,7 +122,8 @@
                                                 VerticalAlignment="Center" Width="130"/>
                                 <TextBox x:Name="tbFatherPhone" FontSize="15" Width="200" Height="30"
                                          Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding FatherPhone}"
-                                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                                         PreviewTextInput="tbPhone_PreviewTextInput"/>
                             </StackPanel>
 
                             <!--Họ tên mẹ-->
@@ -141,7 +141,8 @@
                                                 VerticalAlignment="Center" Width="130"/>
                                 <TextBox x:Name="tbMotherPhone" FontSize="15" Width="200" Height="30"
                                              Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding MotherPhone}"
-                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                                             FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                                         PreviewTextInput="tbPhone_PreviewTextInput"/>
                             </StackPanel>
 
                         </StackPanel>

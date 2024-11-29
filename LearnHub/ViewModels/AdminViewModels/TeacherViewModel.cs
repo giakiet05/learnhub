@@ -56,8 +56,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
-        public ICommand SwitchToAssignmentCommand { get; }
-        public ICommand SwitchToAssignmentByTeacherCommand { get; }
+        public ICommand SwitchToStudentCommand { get; }
         public ICommand ExportToExcelCommand { get; }
         public ICommand ImportFromExcelCommand { get; private set; }
         public TeacherViewModel()
@@ -84,8 +83,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 "Chưa chọn giáo viên để sửa"
             );
 
-            SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new TeachingAssignmentViewModel());
-            SwitchToAssignmentByTeacherCommand = new NavigateLayoutCommand(() => new AdminAssignmentByTeacherViewModel());
+            SwitchToStudentCommand = new NavigateLayoutCommand(() => new StudentViewModel());
             ExportToExcelCommand = new RelayCommand(ExportToExcel);
             ImportFromExcelCommand = new RelayCommand(ImportFromExcel);
             LoadTeachers();

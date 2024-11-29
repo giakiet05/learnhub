@@ -87,14 +87,14 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
         }
 
-        public ICommand SwitchToStudentCommand { get; }
+        public ICommand SwitchToClassCommand { get; }
         public ICommand ShowAddModalCommand { get; private set; }
         public ICommand ShowChangeClassModalCommand { get; private set; }
         public ICommand ShowDeleteModalCommand { get; private set; }
 
         public StudentAssignmentViewModel()
         {
-            SwitchToStudentCommand = new NavigateLayoutCommand(() => new StudentViewModel());
+            SwitchToClassCommand = new NavigateLayoutCommand(() => new ClassViewModel());
             _classroomStore = GenericStore<Classroom>.Instance;
             _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
             _gradeStore = GenericStore<Grade>.Instance;

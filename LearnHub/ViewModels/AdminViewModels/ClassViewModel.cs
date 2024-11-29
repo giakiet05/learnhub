@@ -37,7 +37,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
-        public ICommand SwitchToGradeCommand { get; }
+        public ICommand SwitchToStudentAssignmentCommand { get; }
 
         public ClassViewModel()
         {
@@ -47,7 +47,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowAddModalCommand = new NavigateModalCommand(() => new AddClassViewModel());
             ShowEditModalCommand = new NavigateModalCommand(() => new EditClassViewModel(), () => _selectedClassroom != null, "Chưa chọn lớp học để sửa");
 
-            SwitchToGradeCommand = new NavigateLayoutCommand(() => new GradeViewModel());
+            SwitchToStudentAssignmentCommand = new NavigateLayoutCommand(() => new StudentAssignmentViewModel());
 
             LoadClassrooms();
         }

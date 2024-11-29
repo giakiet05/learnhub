@@ -16,7 +16,7 @@ using LearnHub.Data;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
-    public class AdminAssignmentByTeacherViewModel : BaseViewModel
+    public class AssignmentByTeacherViewModel : BaseViewModel
     {
         private readonly GenericStore<TeachingAssignment> _teachingAssignmentStore;
         private readonly GenericStore<Teacher> _teacherStore;
@@ -91,20 +91,20 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; private set; }
         public ICommand ShowEditModalCommand { get; private set; }
         public ICommand ShowDeleteModalCommand { get; private set; }
-        public ICommand SwitchToTeacherCommand { get; }
+        public ICommand SwitchToCalendarCommand { get; }
 
-        public ICommand SwitchToAssignmentCommand { get; }
+        public ICommand SwitchToTeacherAssignmentCommand { get; }
 
-        public AdminAssignmentByTeacherViewModel()
+        public AssignmentByTeacherViewModel()
         {
             _teachingAssignmentStore = GenericStore<TeachingAssignment>.Instance;
             _teacherStore = GenericStore<Teacher>.Instance;
             _academicYearStore = GenericStore<AcademicYear>.Instance;
 
-         //   _classroomStore = GenericStore<Classroom>.Instance;
+            //   _classroomStore = GenericStore<Classroom>.Instance;
 
-            SwitchToTeacherCommand = new NavigateLayoutCommand(() => new TeacherViewModel());
-            SwitchToAssignmentCommand = new NavigateLayoutCommand(() => new TeachingAssignmentViewModel());
+            SwitchToCalendarCommand = new NavigateLayoutCommand(() => new CalendarViewModel());
+            SwitchToTeacherAssignmentCommand = new NavigateLayoutCommand(() => new TeachingAssignmentViewModel());
             _teachingAssignmentStore.Clear();
             LoadMajors();
             UpdateModalCommands(); // Khởi tạo lệnh khi tạo ViewModel

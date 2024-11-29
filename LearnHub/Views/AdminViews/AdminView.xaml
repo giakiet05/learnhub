@@ -114,7 +114,7 @@
                         </RadioButton>
                         <!--Calendar button-->
                         <RadioButton FontSize="30"
-                                     Command="{Binding CalendarCommand}"
+                                     Command="{Binding TeachingAssignmentCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="TKB - Lịch thi">
                             <RadioButton.Tag>

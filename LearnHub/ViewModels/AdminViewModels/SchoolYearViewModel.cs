@@ -36,6 +36,8 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
+        public ICommand SwitchToGradeCommand { get; }
+        public ICommand SwitchToMajorCommand { get; }
 
         public SchoolYearViewModel()
         {
@@ -45,7 +47,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteSchoolYear), () => _selectedSchoolYear != null, "Chưa chọn năm học để xóa");
             ShowAddModalCommand = new NavigateModalCommand(() => new AddSchoolYearViewModel());
             ShowEditModalCommand = new NavigateModalCommand(() => new EditSchoolYearViewModel(), () => _selectedSchoolYear != null, "Chưa chọn năm học để sửa");
-
+            SwitchToGradeCommand = new NavigateLayoutCommand(()=>new GradeViewModel());
+            SwitchToMajorCommand = new NavigateLayoutCommand(()=> new MajorViewModel());
 
             LoadSchoolYearsAsync();
         }

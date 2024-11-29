@@ -119,20 +119,10 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (SelectedClassroom == null) Students = Enumerable.Empty<Student>();
             else
             {
-                //using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
-                //{
-
-                //    Students = context.StudentPlacements
-                //              .Where(sp => sp.ClassroomId == SelectedClassroom.Id)
-                //              .Select(sp => sp.Student) // Navigation property
-                //              .ToList();
-                //}
 
                 Students = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
                      sp.Where(sp => sp.ClassroomId == SelectedClassroom.Id)
-                     .Select(sp => sp.Student)
-    );
-
+                     .Select(sp => sp.Student));
 
             }
             OnPropertyChanged(nameof(Students));

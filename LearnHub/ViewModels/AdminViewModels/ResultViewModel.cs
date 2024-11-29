@@ -124,6 +124,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
             else
             {
+
                 using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
                 {
                     var scores = await context.Scores

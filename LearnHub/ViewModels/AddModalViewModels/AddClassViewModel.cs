@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Exceptions;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -16,12 +17,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
 {
     public class AddClassViewModel : BaseViewModel
     {
-
-
-
-
         public ClassDetailsFormViewModel ClassDetailsFormViewModel { get; }
-
         public AddClassViewModel()
         {
             // Initialize the RelayCommand for Submit
@@ -70,6 +66,14 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 GenericStore<Classroom>.Instance.Add(entity);
                 ToastMessageViewModel.ShowSuccessToast("Thêm lớp thành công.");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Mã này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

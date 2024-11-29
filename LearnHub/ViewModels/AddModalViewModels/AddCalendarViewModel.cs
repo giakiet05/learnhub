@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using LearnHub.ViewModels.AdminViewModels;
+using LearnHub.Exceptions;
 
 namespace LearnHub.ViewModels.AddModalViewModels
 {
@@ -95,6 +96,14 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 ToastMessageViewModel.ShowSuccessToast("Thêm lịch thi thành công.");
 
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Giá trị này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

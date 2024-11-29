@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using LearnHub.ViewModels.FormViewModels;
 using LearnHub.Data;
+using LearnHub.Exceptions;
 
 namespace LearnHub.ViewModels.EditModalViewModels
 {
@@ -175,6 +176,14 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 // Đóng modal
                 ToastMessageViewModel.ShowSuccessToast("Cập nhật phân công thành công.");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Giá trị này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

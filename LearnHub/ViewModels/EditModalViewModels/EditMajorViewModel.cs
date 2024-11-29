@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using LearnHub.ViewModels.AdminViewModels;
+using LearnHub.Exceptions;
 
 namespace LearnHub.ViewModels.EditModalViewModels
 {
@@ -65,6 +66,14 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 GenericStore<Major>.Instance.Update(selectedMajor, e => e.Id == selectedMajor.Id); // Update in store
                 ToastMessageViewModel.ShowSuccessToast("Cập nhật bộ môn thành công.");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Giá trị này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

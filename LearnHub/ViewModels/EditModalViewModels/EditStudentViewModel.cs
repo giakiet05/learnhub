@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Exceptions;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -95,6 +96,14 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 _studentStore.Update(selectedStudent, e => e.Id == selectedStudent.Id);  // Update in GenericStore
                 ToastMessageViewModel.ShowSuccessToast("Cập nhật học sinh thành công.");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Giá trị này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

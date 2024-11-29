@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Exceptions;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -54,6 +55,14 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 GenericStore<AcademicYear>.Instance.Add(newSchoolYear);
                 ToastMessageViewModel.ShowSuccessToast("Thêm năm học thành công.");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Mã này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using LearnHub.ViewModels.AdminViewModels;
+using LearnHub.Exceptions;
 
 namespace LearnHub.ViewModels.AddModalViewModels
 {
@@ -55,6 +56,14 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 GenericStore<Major>.Instance.Add(newMajor);
                 ToastMessageViewModel.ShowSuccessToast("Thêm bộ môn thành công.");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Mã này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

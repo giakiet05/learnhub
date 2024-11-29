@@ -1,5 +1,6 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Data;
+using LearnHub.Exceptions;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -73,41 +74,46 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
                 ToastMessageViewModel.ShowSuccessToast("Phân công thành công.");
                 // thêm điểm môn học mới cho tất cả các học sinh thuộc lớp
-                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                var studentIds = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
+                sp.Where(sp => sp.ClassroomId == _classroomStore.SelectedItem.Id)
+                            .Select(sp => sp.StudentId));
+                foreach (var student in studentIds)
                 {
-                    var studentIds = context.StudentPlacements
-                            .Where(sp => sp.ClassroomId == _classroomStore.SelectedItem.Id)
-                            .Select(sp => sp.StudentId)
-                            .ToList();
-                    foreach (var student in studentIds)
+                    Score score = new Score()
                     {
-                        Score score = new Score()
-                        {
-                            YearId = _classroomStore.SelectedItem.YearId,
-                            SubjectId = formViewModel.SelectedSubject.Id,
-                            StudentId = student,
-                            Semester = "HK1",
-                            MidTermScore = 0,
-                            FinalTermScore = 0,
-                            RegularScores = "0",
-                            AvgScore = 0
-                        };
-                        // check trùng
-                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
-                        e.SubjectId == score.SubjectId &&
-                        e.StudentId == score.StudentId &&
-                        e.Semester == score.Semester) == null)
-                            await GenericDataService<Score>.Instance.CreateOne(score);
-                        score.Semester = "HK2";
-                        //check trùng
-                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
-                        e.SubjectId == score.SubjectId &&
-                        e.StudentId == score.StudentId &&
-                        e.Semester == score.Semester) == null)
-                            await GenericDataService<Score>.Instance.CreateOne(score);
-                    }
+                        YearId = _classroomStore.SelectedItem.YearId,
+                        SubjectId = formViewModel.SelectedSubject.Id,
+                        StudentId = student,
+                        Semester = "HK1",
+                        MidTermScore = 0,
+                        FinalTermScore = 0,
+                        RegularScores = "0",
+                        AvgScore = 0
+                    };
+                    // check trùng
+                    if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                    e.SubjectId == score.SubjectId &&
+                    e.StudentId == score.StudentId &&
+                    e.Semester == score.Semester) == null)
+                        await GenericDataService<Score>.Instance.CreateOne(score);
+                    score.Semester = "HK2";
+                    //check trùng
+                    if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                    e.SubjectId == score.SubjectId &&
+                    e.StudentId == score.StudentId &&
+                    e.Semester == score.Semester) == null)
+                        await GenericDataService<Score>.Instance.CreateOne(score);
                 }
+
                 ModalNavigationStore.Instance.Close();
+            }
+            catch(UniqueConstraintException)
+            { 
+                ToastMessageViewModel.ShowInfoToast("Giá trị này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

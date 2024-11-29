@@ -8,6 +8,7 @@ using System.Windows;
 using LearnHub.Stores.AdminStores;
 using LearnHub.ViewModels.AdminViewModels;
 using Microsoft.AspNetCore.Identity;
+using LearnHub.Exceptions;
 
 namespace LearnHub.ViewModels.AddModalViewModels
 {
@@ -71,6 +72,14 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 GenericStore<Teacher>.Instance.Add(entity);
                 ToastMessageViewModel.ShowSuccessToast("Thêm giáo viên thành công.");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Mã hoặc tài khoản này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

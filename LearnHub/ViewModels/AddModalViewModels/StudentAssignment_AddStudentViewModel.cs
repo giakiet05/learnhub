@@ -1,5 +1,6 @@
 ﻿using LearnHub.Commands;
 using LearnHub.Data;
+using LearnHub.Exceptions;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -159,6 +160,14 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
                 ToastMessageViewModel.ShowSuccessToast("Thêm vào lớp thành công");
                 ModalNavigationStore.Instance.Close();
+            }
+            catch (UniqueConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Giá trị này đã tồn tại.");
+            }
+            catch (CheckConstraintException)
+            {
+                ToastMessageViewModel.ShowInfoToast("Sai miền giá trị.");
             }
             catch (Exception)
             {

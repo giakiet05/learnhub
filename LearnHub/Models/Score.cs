@@ -20,8 +20,8 @@ namespace LearnHub.Models
 
         public double? MidTermScore { get; set; } //điểm GK
         public double? FinalTermScore { get; set; } // điểm CK
-        public string? RegularScores { get; set; } // điểm TX
-       
+        public string? RegularScores { get; set; } // điểm TX      
+        public double? AvgScore { get; set; } // điểm tb
 
         //Navigation Properties
         public Subject Subject { get; set; }

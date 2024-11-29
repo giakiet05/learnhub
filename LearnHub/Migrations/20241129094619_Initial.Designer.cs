@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnHub.Migrations
 {
     [DbContext(typeof(LearnHubDbContext))]
-    [Migration("20241126142507_Initial")]
+    [Migration("20241129094619_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -48,6 +48,7 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TeacherInChargeId")
@@ -104,7 +105,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Number")
+                    b.Property<int>("Number")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -118,6 +119,7 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -168,6 +170,9 @@ namespace LearnHub.Migrations
                     b.Property<string>("StudentId")
                         .HasColumnType("TEXT");
 
+                    b.Property<double?>("AvgScore")
+                        .HasColumnType("REAL");
+
                     b.Property<double?>("FinalTermScore")
                         .HasColumnType("REAL");
 
@@ -185,6 +190,8 @@ namespace LearnHub.Migrations
 
                     b.ToTable("Scores", t =>
                         {
+                            t.HasCheckConstraint("CK_Score_AvgScore", "[AvgScore] BETWEEN 0 AND 10");
+
                             t.HasCheckConstraint("CK_Score_FinalTermScore", "[FinalTermScore] BETWEEN 0 AND 10");
 
                             t.HasCheckConstraint("CK_Score_MidTermScore", "[MidTermScore] BETWEEN 0 AND 10");
@@ -210,6 +217,9 @@ namespace LearnHub.Migrations
                     b.Property<int?>("AuthorizedLeaveDays")
                         .HasColumnType("INTEGER");
 
+                    b.Property<double?>("AvgScore")
+                        .HasColumnType("REAL");
+
                     b.Property<string>("Conduct")
                         .HasColumnType("TEXT");
 
@@ -222,13 +232,15 @@ namespace LearnHub.Migrations
 
                     b.ToTable("SemesterResults", t =>
                         {
-                            t.HasCheckConstraint("CK_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                            t.HasCheckConstraint("CK_Semester_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
 
-                            t.HasCheckConstraint("CK_AuthorizedLeaveDays", "[AuthorizedLeaveDays] >= 0");
+                            t.HasCheckConstraint("CK_Semester_AuthorizedLeaveDays", "[AuthorizedLeaveDays] >= 0");
 
-                            t.HasCheckConstraint("CK_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+                            t.HasCheckConstraint("CK_Semester_AvgScore", "[AvgScore] BETWEEN 0 AND 10");
 
-                            t.HasCheckConstraint("CK_UnathorizedLeaveDays", "[UnauthorizedLeaveDays] >= 0");
+                            t.HasCheckConstraint("CK_Semester_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+
+                            t.HasCheckConstraint("CK_Semester_UnathorizedLeaveDays", "[UnauthorizedLeaveDays] >= 0");
                         });
                 });
 
@@ -262,6 +274,7 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -331,6 +344,47 @@ namespace LearnHub.Migrations
                     b.UseTptMappingStrategy();
                 });
 
+            modelBuilder.Entity("LearnHub.Models.YearResult", b =>
+                {
+                    b.Property<string>("YearId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AcademicPerformance")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("AuthorizedLeaveDays")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("AvgScore")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Conduct")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UnauthorizedLeaveDays")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("YearId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("YearResults", t =>
+                        {
+                            t.HasCheckConstraint("CK_Year_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+
+                            t.HasCheckConstraint("CK_Year_AuthorizedLeaveDays", "[AuthorizedLeaveDays] >= 0");
+
+                            t.HasCheckConstraint("CK_Year_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')");
+
+                            t.HasCheckConstraint("CK_Year_Semester_AvgScore", "[AvgScore] BETWEEN 0 AND 10");
+
+                            t.HasCheckConstraint("CK_Year_UnathorizedLeaveDays", "[UnauthorizedLeaveDays] >= 0");
+                        });
+                });
+
             modelBuilder.Entity("LearnHub.Models.Student", b =>
                 {
                     b.HasBaseType("LearnHub.Models.User");
@@ -351,9 +405,11 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MotherName")
@@ -387,6 +443,7 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CitizenID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("Coefficient")
@@ -399,9 +456,11 @@ namespace LearnHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MajorId")
@@ -588,6 +647,25 @@ namespace LearnHub.Migrations
                     b.Navigation("Subject");
 
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("LearnHub.Models.YearResult", b =>
+                {
+                    b.HasOne("LearnHub.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LearnHub.Models.AcademicYear", "AcademicYear")
+                        .WithMany()
+                        .HasForeignKey("YearId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AcademicYear");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Student", b =>

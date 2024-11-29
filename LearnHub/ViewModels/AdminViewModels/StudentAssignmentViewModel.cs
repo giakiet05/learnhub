@@ -253,8 +253,6 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 YearId = SelectedYear.Id,
                                 StudentId = item.StudentId,
                                 Semester = "HK1",
-                                AuthorizedLeaveDays = 0,
-                                UnauthorizedLeaveDays = 0
                             };
                             await GenericDataService<SemesterResult>.Instance.DeleteOne(e => e.YearId == semesterResult.YearId &&
                                e.StudentId == semesterResult.StudentId &&
@@ -263,6 +261,15 @@ namespace LearnHub.ViewModels.AdminViewModels
                             await GenericDataService<SemesterResult>.Instance.DeleteOne(e => e.YearId == semesterResult.YearId &&
                                e.StudentId == semesterResult.StudentId &&
                                e.Semester == semesterResult.Semester);
+                            // xóa kết quả năm
+                            YearResult yearResult = new YearResult()
+                            {
+
+                                YearId = SelectedYear.Id,
+                                StudentId = item.StudentId,
+                            };
+                            await GenericDataService<YearResult>.Instance.DeleteOne(e => e.YearId == yearResult.YearId && e.StudentId == yearResult.StudentId );
+
                         }
                     }
                 }

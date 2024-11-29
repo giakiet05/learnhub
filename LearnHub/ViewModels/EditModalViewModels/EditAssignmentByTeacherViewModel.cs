@@ -90,42 +90,40 @@ namespace LearnHub.ViewModels.EditModalViewModels
                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
                    e.TeacherId == selectedTeachingAssignment.TeacherId &&
                    e.ClassroomId == selectedTeachingAssignment.ClassroomId);
-                
+
 
                 // xóa điểm môn học cũ cho tất cả học sinh trong lớp
-                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+
+                var studentIds = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
+                        sp.Where(sp => sp.ClassroomId == _teachingAssignmentStore.SelectedItem.ClassroomId)
+                        .Select(sp => sp.StudentId));
+
+                var selectedYear = GenericStore<AcademicYear>.Instance.SelectedItem;
+                foreach (var student in studentIds)
                 {
-                    var studentIds = context.StudentPlacements
-                            .Where(sp => sp.ClassroomId == _teachingAssignmentStore.SelectedItem.ClassroomId)
-                            .Select(sp => sp.StudentId)
-                            .ToList();
-
-                    var selectedYear = GenericStore<AcademicYear>.Instance.SelectedItem;
-                    foreach (var student in studentIds)
+                    Score score = new Score()
                     {
-                        Score score = new Score()
-                        {
-                            YearId = selectedYear.Id,
-                            SubjectId = selectedTeachingAssignment.SubjectId,
-                            StudentId = student,
-                            Semester = "HK1",
-                        };
+                        YearId = selectedYear.Id,
+                        SubjectId = selectedTeachingAssignment.SubjectId,
+                        StudentId = student,
+                        Semester = "HK1",
+                    };
 
-                        // xóa điểm
-                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
-                       e.SubjectId == score.SubjectId &&
-                       e.StudentId == score.StudentId &&
-                       e.Semester == score.Semester);
+                    // xóa điểm
+                    await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                   e.SubjectId == score.SubjectId &&
+                   e.StudentId == score.StudentId &&
+                   e.Semester == score.Semester);
 
-                        score.Semester = "HK2";
+                    score.Semester = "HK2";
 
-                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
-                        e.SubjectId == score.SubjectId &&
-                        e.StudentId == score.StudentId &&
-                        e.Semester == score.Semester);
+                    await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                    e.SubjectId == score.SubjectId &&
+                    e.StudentId == score.StudentId &&
+                    e.Semester == score.Semester);
 
-                    }
                 }
+
                 //thêm phân công môn học mới
                 var entity = await GenericDataService<TeachingAssignment>.Instance.CreateOne(newTeachingAssignment);
                 entity.Teacher = await GenericDataService<Teacher>.Instance.GetOne(e => e.Id == entity.TeacherId);
@@ -134,41 +132,38 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 // Thêm vào GenericStore
                 _teachingAssignmentStore.Add(entity);
                 //thêm điểm cho tất cả các học sinh trong lớp
-                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
-                {
-                    var studentIds = context.StudentPlacements
-                            .Where(sp => sp.ClassroomId == entity.ClassroomId)
-                            .Select(sp => sp.StudentId)
-                            .ToList();
+                studentIds = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
+                        sp.Where(sp => sp.ClassroomId == entity.ClassroomId)
+                            .Select(sp => sp.StudentId));
 
-                    var selectedYear = GenericStore<AcademicYear>.Instance.SelectedItem;
-                    foreach (var student in studentIds)
+                selectedYear = GenericStore<AcademicYear>.Instance.SelectedItem;
+                foreach (var student in studentIds)
+                {
+                    Score score = new Score()
                     {
-                        Score score = new Score()
-                        {
-                            YearId = selectedYear.Id,
-                            SubjectId = formViewModel.SelectedSubject.Id,
-                            StudentId = student,
-                            Semester = "HK1",
-                            MidTermScore = 0,
-                            FinalTermScore = 0,
-                            RegularScores = ""
-                        };
-                        // check trùng
-                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
-                        e.SubjectId == score.SubjectId &&
-                        e.StudentId == score.StudentId &&
-                        e.Semester == score.Semester) == null)
-                            await GenericDataService<Score>.Instance.CreateOne(score);
-                        score.Semester = "HK2";
-                        //check trùng
-                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
-                        e.SubjectId == score.SubjectId &&
-                        e.StudentId == score.StudentId &&
-                        e.Semester == score.Semester) == null)
-                            await GenericDataService<Score>.Instance.CreateOne(score);
-                    }
+                        YearId = selectedYear.Id,
+                        SubjectId = formViewModel.SelectedSubject.Id,
+                        StudentId = student,
+                        Semester = "HK1",
+                        MidTermScore = 0,
+                        FinalTermScore = 0,
+                        RegularScores = "0"
+                    };
+                    // check trùng
+                    if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                    e.SubjectId == score.SubjectId &&
+                    e.StudentId == score.StudentId &&
+                    e.Semester == score.Semester) == null)
+                        await GenericDataService<Score>.Instance.CreateOne(score);
+                    score.Semester = "HK2";
+                    //check trùng
+                    if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                    e.SubjectId == score.SubjectId &&
+                    e.StudentId == score.StudentId &&
+                    e.Semester == score.Semester) == null)
+                        await GenericDataService<Score>.Instance.CreateOne(score);
                 }
+
 
                 // Xóa và thêm vào GenericStore
                 _teachingAssignmentStore.Delete(e =>

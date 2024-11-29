@@ -61,7 +61,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
            
             else if (SelectedStudents.Count() + _studentPlacementStore.Items.Count() > _classroomStore.SelectedItem.Capacity)
             {
-                ToastMessageViewModel.ShowWarningToast("Số lượng học sinh thêm vào không được vượt quá sỉ số lớp. Vui lòng giảm số lượng thêm");
+                ToastMessageViewModel.ShowWarningToast("Số lượng học sinh thêm vào không được vượt quá sĩ số lớp. Vui lòng giảm số lượng.");
                 return;
             }
             try
@@ -97,7 +97,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                                 Semester = "HK1",
                                 MidTermScore = 0,
                                 FinalTermScore = 0,
-                                RegularScores = ""
+                                RegularScores = "0",
+                                AvgScore = 0,
                             };
                             // check trùng
                             if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
@@ -121,7 +122,9 @@ namespace LearnHub.ViewModels.AddModalViewModels
                             StudentId = student.Id,
                             Semester ="HK1",
                             AuthorizedLeaveDays =0,
-                            UnauthorizedLeaveDays=0
+                            UnauthorizedLeaveDays=0,
+                            AvgScore=0,
+                            Result=""
                         };
                         // check trùng
                         if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
@@ -134,6 +137,21 @@ namespace LearnHub.ViewModels.AddModalViewModels
                           e.StudentId == semesterResult.StudentId &&
                           e.Semester == semesterResult.Semester) == null)
                             await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
+                        // thêm kết quả năm
+                        //check trùng
+                        if(await GenericDataService<YearResult>.Instance.GetOne(e=>e.YearId==_yearStore.Id && e.StudentId == student.Id) == null)
+                        {
+                            YearResult yearResult = new YearResult()
+                            {
+                                YearId = _yearStore.Id,
+                                StudentId = student.Id,
+                                AvgScore = 0,
+                                AuthorizedLeaveDays = 0,
+                                UnauthorizedLeaveDays = 0,
+                            };
+                            await GenericDataService<YearResult>.Instance.CreateOne(yearResult);
+                        }
+
                     }
                 }
                 

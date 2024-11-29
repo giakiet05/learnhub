@@ -138,10 +138,10 @@ namespace LearnHub.ViewModels.AdminViewModels
                 //Xóa điểm tất cả các học sinh trong lớp
                 using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
                 {
-                    var studentIds = context.StudentPlacements
-                            .Where(sp => sp.ClassroomId == selectedTeachingAssignment.ClassroomId)
-                            .Select(sp => sp.StudentId)
-                            .ToList();
+                    var studentIds = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
+                     sp.Where(sp => sp.ClassroomId == selectedTeachingAssignment.ClassroomId)
+                           .Select(sp => sp.StudentId));
+                   
                     foreach (var student in studentIds)
                     {
                         Score score = new Score()

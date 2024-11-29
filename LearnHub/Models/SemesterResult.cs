@@ -19,9 +19,10 @@ namespace LearnHub.Models
         //public double? YearAvgScore { get; set; }
         public string? Conduct { get; set; } //Hạnh kiểm
         public string? AcademicPerformance { get; set; } //Học lực
-        public double? AvgScore { get; set; } 
+        public double? AvgScore { get; set; } // điểm trung bình
         public int? AuthorizedLeaveDays { get; set; } // nghỉ có phép
         public int? UnauthorizedLeaveDays { get; set; } // nghỉ không phép
+        public string? Result {  get; set; } // danh hiệu
         //Navigation Properties
         public AcademicYear AcademicYear { get; set; }
         public Student Student { get; set; }

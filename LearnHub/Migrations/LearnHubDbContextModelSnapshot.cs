@@ -220,6 +220,9 @@ namespace LearnHub.Migrations
                     b.Property<string>("Conduct")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Result")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("UnauthorizedLeaveDays")
                         .HasColumnType("INTEGER");
 
@@ -359,6 +362,9 @@ namespace LearnHub.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Conduct")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Result")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("UnauthorizedLeaveDays")

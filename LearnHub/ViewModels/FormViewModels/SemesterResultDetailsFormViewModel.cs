@@ -235,23 +235,10 @@ namespace LearnHub.ViewModels.FormViewModels
             AuthorizedLeaveDays = (int)semesterResult.AuthorizedLeaveDays;
             UnauthorizedLeaveDays = (int)semesterResult.UnauthorizedLeaveDays;
             Conduct = semesterResult.Conduct;
-            double total = 0, min = 11;
-            foreach (var score in ScoreViewModels) { total += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
-            AverageScore = total / ScoreViewModels.Count;
-
-            if (AverageScore >= 8 && min >= 6.5) AcademicPerformance = "Giỏi";
-            else if (AverageScore >= 6.5 && min >= 5) AcademicPerformance = "Khá";
-            else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
-            else if (AverageScore >= 3.5 && min >= 2) AcademicPerformance = "Yếu";
-            else AcademicPerformance = "Kém";
-
-            if (AverageScore >= 8 && min >= 6.5 && Conduct == "Tốt") Title = "Học Sinh Giỏi";
-            else if (AverageScore > 6.5 && (Conduct == "Tốt" || Conduct == "Khá") && min >= 5) Title = "Học Sinh Tiên Tiến";
-            else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct != "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
-            else Title = "Học Sinh Yếu";
-
-
-
+            AverageScore = (double)semesterResult.AvgScore;
+            AcademicPerformance = semesterResult.AcademicPerformance;
+            Title = semesterResult.Result;
+           
         }
         private async void UpdateScores()
         {
@@ -261,6 +248,7 @@ namespace LearnHub.ViewModels.FormViewModels
                 int total = ScoreViewModels.Count;
                 int failed = 0;
                 int successed = 0;
+                // cập nhật từng con điểm
                 foreach (var score in ScoreViewModels)
                 {
 
@@ -299,16 +287,23 @@ namespace LearnHub.ViewModels.FormViewModels
                 else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
                 else if (AverageScore >= 3.5 && min >= 2) AcademicPerformance = "Yếu";
                 else AcademicPerformance = "Kém";
+                if (AverageScore >= 8 && min >= 6.5 && Conduct == "Tốt") Title = "Học Sinh Giỏi";
+                else if (AverageScore > 6.5 && (Conduct == "Tốt" || Conduct == "Khá") && min >= 5) Title = "Học Sinh Tiên Tiến";
+                else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct != "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
+                else Title = "Học Sinh Yếu";
                 if (semesterResult.Conduct != Conduct || semesterResult.AuthorizedLeaveDays != AuthorizedLeaveDays ||
-                    semesterResult.UnauthorizedLeaveDays != UnauthorizedLeaveDays || semesterResult.AcademicPerformance!= AcademicPerformance)
+                    semesterResult.UnauthorizedLeaveDays != UnauthorizedLeaveDays || semesterResult.AcademicPerformance!= AcademicPerformance ||
+                    Title!=semesterResult.Result || AverageScore !=semesterResult.AvgScore)
                 {
-                    List<string> conducts = new List<string>() { "Tốt", "Khá", "Trung bình", "Yếu", "Kém" };
-                    if (conducts.Contains(Conduct) && AuthorizedLeaveDays >= 0 && UnauthorizedLeaveDays >= 0)
+                   
+                    if ( AuthorizedLeaveDays >= 0 && UnauthorizedLeaveDays >= 0)
                     {
                         semesterResult.Conduct = Conduct;
                         semesterResult.AuthorizedLeaveDays = AuthorizedLeaveDays;
                         semesterResult.UnauthorizedLeaveDays = UnauthorizedLeaveDays;
                         semesterResult.AcademicPerformance = AcademicPerformance;
+                        semesterResult.AvgScore = AverageScore;
+                        semesterResult.Result = Title;
                         var test = await GenericDataService<SemesterResult>.Instance.UpdateOne(semesterResult, e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
                         ToastMessageViewModel.ShowSuccessToast("Sửa kết quả học kì thành công");
                     }
@@ -317,12 +312,77 @@ namespace LearnHub.ViewModels.FormViewModels
                         ToastMessageViewModel.ShowErrorToast("Nhập kết quả học kì không hợp lệ");
                     }
                 }
+                // sửa kết quả năm
+                var semesterResult1 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK1" == e.Semester);
+                var semesterResult2 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK2" == e.Semester);
+                YearResult yearResult = await GenericDataService<YearResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id);
+                if (yearResult == null) 
+                {
+                    YearResult newYearResult = new YearResult()
+                    {
+                        StudentId = SelectedStudent.Id,
+                        YearId = SelectedYear.Id,
+                    };
+                    yearResult = await GenericDataService<YearResult>.Instance.CreateOne(newYearResult);
+                }
+                min = 11;
+                string semester="HK1";
+                if (semester == SelectedSemester) semester = "HK2";
+                foreach (var score in ScoreViewModels)
+                {
+                    var score2 = new ScoreViewModel(await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score._score.YearId &&
+                    e.StudentId == score._score.StudentId &&
+                    e.SubjectId == score._score.SubjectId &&
+                    e.Semester == semester));
+                    double temp;
+                    if(semester == "HK2")
+                    {
+                        temp = (score2.AverageScore * 2 + score.AverageScore) / 3;
+                    }
+                    else temp = (score2.AverageScore + score.AverageScore*2) / 3;
+                    if (min>temp) { min = temp; }
+                }
+                yearResult.AuthorizedLeaveDays = semesterResult1.AuthorizedLeaveDays+semesterResult2.AuthorizedLeaveDays;
+                yearResult.UnauthorizedLeaveDays = semesterResult1.UnauthorizedLeaveDays+semesterResult2.UnauthorizedLeaveDays;
+                yearResult.AvgScore = (semesterResult1.AvgScore+ semesterResult2.AvgScore*2)/3;
+                yearResult.Conduct = CaculateConduct(semesterResult1.Conduct, semesterResult2.Conduct);
+                if (yearResult.AvgScore >= 8 && min >= 6.5) yearResult.AcademicPerformance = "Giỏi";
+                else if (yearResult.AvgScore >= 6.5 && min >= 5) yearResult.AcademicPerformance = "Khá";
+                else if (yearResult.AvgScore >= 5 && min >= 3.5) yearResult.AcademicPerformance = "Trung bình";
+                else if (yearResult.AvgScore >= 3.5 && min >= 2) yearResult.AcademicPerformance = "Yếu";
+                else yearResult.AcademicPerformance = "Kém";
+
+                if (yearResult.Conduct == null) yearResult.Result = "Chưa xếp loại.";
+                else if (yearResult.AvgScore >= 8 && min >= 6.5 && yearResult.Conduct == "Tốt") Title = "Học Sinh Giỏi";
+                else if (yearResult.AvgScore > 6.5 && (yearResult.Conduct == "Tốt" || yearResult.Conduct == "Khá") && min >= 5) yearResult.Result = "Học Sinh Tiên Tiến";
+                else if (yearResult.AvgScore >= 5.0 && (yearResult.Conduct != "Yếu" || yearResult.Conduct != "Kém") && min >= 3.5) yearResult.Result = "Học Sinh Trung Bình";
+                else yearResult.Result = "Học Sinh Yếu";
+                await GenericDataService<YearResult>.Instance.UpdateOne(yearResult, e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id);
                 if (successed > 0) ToastMessageViewModel.ShowSuccessToast("Sửa thành công " + successed.ToString() + " điểm môn học.");
                 if (failed > 0) ToastMessageViewModel.ShowErrorToast(failed.ToString() + " điểm môn học không hợp lệ.");
                 LoadScoreViewModels();
             }
         }
-           
-       
+        private string CaculateConduct(string hk1, string hk2)
+        {
+            if (hk1 == null || hk2 == null)
+            {
+                return null;
+            }
+            Dictionary<string, int> conducts = new Dictionary<string, int>()
+            {
+                {"Tốt",5 },{"Khá",4},{"Trung bình", 3 },{"Yếu",2},{"Kém",1}
+            };
+            int result = (conducts[hk1] + 2 * conducts[hk2]) / 3;
+            switch (result)
+            {
+                case 5: return "Tốt";
+                case 4: return "Khá";
+                case 3: return "Trung bình";
+                case 2: return "Yếu";
+                default: return "Kém";
+            }
+        }
+
     }
 }

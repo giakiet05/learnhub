@@ -80,7 +80,7 @@
     <DataTemplate DataType="{x:Type adminvm:HomeViewModel}">
         <adminviews:AdminHomeView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type adminvm:AdminAssignmentByTeacherViewModel}">
+    <DataTemplate DataType="{x:Type adminvm:AssignmentByTeacherViewModel}">
         <adminviews:AdminAssignmentByTeacherView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type adminvm:TeachingAssignmentViewModel}">

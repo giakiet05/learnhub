@@ -34,8 +34,9 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
-        public ICommand SwitchToSubjectCommand { get; }
-
+        public ICommand SwitchToSchoolYearCommand { get; }
+        public ICommand SwitchToGradeCommand { get; }
+                
         public MajorViewModel()
         {
             _majorStore = GenericStore<Major>.Instance; // Khởi tạo Store
@@ -53,7 +54,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                 () => _selectedMajor != null,
                 "Chưa chọn bộ môn để sửa"
             );
-            SwitchToSubjectCommand = new NavigateLayoutCommand(() => new SubjectViewModel());
+            SwitchToSchoolYearCommand = new NavigateLayoutCommand(() => new SchoolYearViewModel());
+            SwitchToGradeCommand = new NavigateLayoutCommand( () => new GradeViewModel());
 
             LoadMajorsAsync(); // Nạp dữ liệu ban đầu
         }

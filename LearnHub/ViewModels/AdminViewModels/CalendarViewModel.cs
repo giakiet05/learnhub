@@ -119,13 +119,16 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowEditModalCommand { get; private set; }
         public ICommand ShowDeleteModalCommand { get; private set; }
         public ICommand ExportToExcelCommand { get; }
+        public ICommand SwitchToAssignmentByTeacherCommand { get; }
+        public ICommand SwitchToTeacherAssignmentCommand { get; }
 
         public CalendarViewModel()
         {
             _examScheduleStore = GenericStore<ExamSchedule>.Instance;
             _classroomStore = GenericStore<Classroom>.Instance;
             ExportToExcelCommand = new NavigateModalCommand(() => new ExportExamScheduleViewModel());
-
+            SwitchToAssignmentByTeacherCommand = new NavigateLayoutCommand(() => new AssignmentByTeacherViewModel());
+            SwitchToTeacherAssignmentCommand = new NavigateLayoutCommand(() => new TeachingAssignmentViewModel());
             _examScheduleStore.Clear();
             LoadGrades();
             LoadYears();

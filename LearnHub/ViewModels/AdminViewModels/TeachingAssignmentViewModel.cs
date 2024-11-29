@@ -87,6 +87,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand SwitchToTeacherCommand { get; }
         public ICommand ExportToExcelCommand { get; }
         public ICommand SwitchToAssignmentByTeacherCommand { get; }
+        public ICommand SwitchToCalendarCommand { get; }
 
         public TeachingAssignmentViewModel()
         {
@@ -94,7 +95,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             _classroomStore = GenericStore<Classroom>.Instance;
 
             SwitchToTeacherCommand = new NavigateLayoutCommand(() => new TeacherViewModel());
-            SwitchToAssignmentByTeacherCommand = new NavigateLayoutCommand(() => new AdminAssignmentByTeacherViewModel());
+            SwitchToAssignmentByTeacherCommand = new NavigateLayoutCommand(() => new AssignmentByTeacherViewModel());
+            SwitchToCalendarCommand = new NavigateLayoutCommand(() => new CalendarViewModel());
             ExportToExcelCommand = new NavigateModalCommand(() => new ExportTimeTableViewModel());
             _teachingAssignmentStore.Clear();
             LoadGrades();

@@ -158,69 +158,82 @@ namespace LearnHub.ViewModels.EditModalViewModels
 
                 ToastMessageViewModel.ShowSuccessToast("Chuyển lớp thành công.");
                 // thêm điểm cho các học sinh mới
-                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
-                {
-                    // lấy danh sách tất cả môn học
-                    var subjectIds = context.TeachingAssignments
-                    .Where(ta => ta.ClassroomId == _selectedClassroom.Id)
-                    .Select(ta => ta.SubjectId)
-                    .Distinct() // Nếu không muốn trùng lặp
-                    .ToList();
-                    var _yearStore = GenericStore<AcademicYear>.Instance.SelectedItem;
-                    foreach (var student in newStudentPlacements)
-                    {
 
-                        foreach (var subjectId in subjectIds)
+                // lấy danh sách tất cả môn học
+                var subjectIds = await GenericDataService<TeachingAssignment>.Instance.Query(ta =>
+                 ta.Where(ta => ta.ClassroomId == _selectedClassroom.Id)
+                .Select(ta => ta.SubjectId)
+                .Distinct());
+                var _yearStore = GenericStore<AcademicYear>.Instance.SelectedItem;
+                foreach (var student in newStudentPlacements)
+                {
+
+                    foreach (var subjectId in subjectIds)
+                    {
+                        Score score = new Score()
                         {
-                            Score score = new Score()
-                            {
-                                YearId = SelectedYear.Id,
-                                SubjectId = subjectId,
-                                StudentId = student.StudentId,
-                                Semester = "HK1",
-                                MidTermScore = 0,
-                                FinalTermScore = 0,
-                                RegularScores = ""
-                            };
-                            // check trùng
-                            if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
-                            e.SubjectId == score.SubjectId &&
-                            e.StudentId == score.StudentId &&
-                            e.Semester == score.Semester) == null)
-                                await GenericDataService<Score>.Instance.CreateOne(score);
-                            score.Semester = "HK2";
-                            //check trùng
-                            if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
-                            e.SubjectId == score.SubjectId &&
-                            e.StudentId == score.StudentId &&
-                            e.Semester == score.Semester) == null)
-                                await GenericDataService<Score>.Instance.CreateOne(score);
-                        }
-                        // thêm kết quả học kì
-                        SemesterResult semesterResult = new SemesterResult()
+                            YearId = SelectedYear.Id,
+                            SubjectId = subjectId,
+                            StudentId = student.StudentId,
+                            Semester = "HK1",
+                            MidTermScore = 0,
+                            FinalTermScore = 0,
+                            RegularScores = "0"
+                        };
+                        // check trùng
+                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                        e.SubjectId == score.SubjectId &&
+                        e.StudentId == score.StudentId &&
+                        e.Semester == score.Semester) == null)
+                            await GenericDataService<Score>.Instance.CreateOne(score);
+                        score.Semester = "HK2";
+                        //check trùng
+                        if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
+                        e.SubjectId == score.SubjectId &&
+                        e.StudentId == score.StudentId &&
+                        e.Semester == score.Semester) == null)
+                            await GenericDataService<Score>.Instance.CreateOne(score);
+                    }
+                    // thêm kết quả học kì
+                    SemesterResult semesterResult = new SemesterResult()
+                    {
+                        YearId = SelectedYear.Id,
+                        StudentId = student.StudentId,
+                        Semester = "HK1",
+                        AuthorizedLeaveDays = 0,
+                        UnauthorizedLeaveDays = 0
+                    };
+                    // check trùng
+                    if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
+                       e.StudentId == semesterResult.StudentId &&
+                       e.Semester == semesterResult.Semester) == null)
+                        await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
+                    semesterResult.Semester = "HK2";
+                    //check trùng
+                    if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
+                      e.StudentId == semesterResult.StudentId &&
+                      e.Semester == semesterResult.Semester) == null)
+                        await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
+                    // thêm kết quả năm
+                    //check trùng
+                    if (await GenericDataService<YearResult>.Instance.GetOne(e => e.YearId == SelectedYear.Id && e.StudentId == student.StudentId) == null)
+                    {
+                        YearResult yearResult = new YearResult()
                         {
                             YearId = SelectedYear.Id,
                             StudentId = student.StudentId,
-                            Semester = "HK1",
+                            AvgScore = 0,
                             AuthorizedLeaveDays = 0,
-                            UnauthorizedLeaveDays = 0
+                            UnauthorizedLeaveDays = 0,
                         };
-                        // check trùng
-                        if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
-                           e.StudentId == semesterResult.StudentId &&
-                           e.Semester == semesterResult.Semester) == null)
-                            await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
-                        semesterResult.Semester = "HK2";
-                        //check trùng
-                        if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
-                          e.StudentId == semesterResult.StudentId &&
-                          e.Semester == semesterResult.Semester) == null)
-                            await GenericDataService<SemesterResult>.Instance.CreateOne(semesterResult);
-
+                        await GenericDataService<YearResult>.Instance.CreateOne(yearResult);
                     }
+
                 }
-                    // Close the modal
-                    ModalNavigationStore.Instance.Close();
+
+
+                // Close the modal
+                ModalNavigationStore.Instance.Close();
             }
             catch (Exception ex)
             {

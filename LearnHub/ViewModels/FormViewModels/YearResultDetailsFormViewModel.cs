@@ -120,68 +120,52 @@ namespace LearnHub.ViewModels.FormViewModels
         }
         private async void LoadScores()
         {
-           
-                var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK1" == e.Semester);
-                var ScoreViewModels = new ObservableCollection<ScoreViewModel>(ScoreViewModel.ConvertToScoreViewModels(scores));
 
-                var semesterResult1 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK1" == e.Semester);
-                var semesterResult2 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK2" == e.Semester);
+            var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK1" == e.Semester);
+            var ScoreViewModels = new ObservableCollection<ScoreViewModel>(ScoreViewModel.ConvertToScoreViewModels(scores));
 
-                AuthorizedLeaveDays = (int)(semesterResult1?.AuthorizedLeaveDays + semesterResult2?.AuthorizedLeaveDays);
-                UnauthorizedLeaveDays = (int)(semesterResult1?.UnauthorizedLeaveDays + semesterResult2?.UnauthorizedLeaveDays);
-
-                YearScoreViewModels = new ObservableCollection<YearScoreViewModel>();
-                foreach (var score in ScoreViewModels)
+            var semesterResult1 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK1" == e.Semester);
+            var semesterResult2 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK2" == e.Semester);
+            var yearResult = await GenericDataService<YearResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id);
+            AuthorizedLeaveDays = (int)yearResult.AuthorizedLeaveDays;
+            UnauthorizedLeaveDays = (int)yearResult.UnauthorizedLeaveDays;
+            AverageScore = (double)yearResult.AvgScore;
+            Conduct = yearResult.Conduct;
+            AcademicPerformance = yearResult.AcademicPerformance;
+            Title = yearResult.Result;
+            YearScoreViewModels = new ObservableCollection<YearScoreViewModel>();
+            foreach (var score in ScoreViewModels)
+            {
+                var score2 = new ScoreViewModel(await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score._score.YearId &&
+                e.StudentId == score._score.StudentId &&
+                e.SubjectId == score._score.SubjectId &&
+                e.Semester == "HK2"));
+                var newYearScore = new YearScoreViewModel()
                 {
-                    var score2 = new ScoreViewModel(await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score._score.YearId &&
-                    e.StudentId == score._score.StudentId &&
-                    e.SubjectId == score._score.SubjectId &&
-                    e.Semester == "HK2"));
-                    var newYearScore = new YearScoreViewModel()
-                    {
-                        Subject = score.Subject.Name,
-                        Semester1 = score.AverageScore,
-                        Semester2 = score2.AverageScore,
-                    };
-                    YearScoreViewModels.Add(newYearScore);
-                }
-                double total = 0, min = 11;
-                foreach (var score in YearScoreViewModels) { total += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
-                AverageScore = total / ScoreViewModels.Count;
-                Conduct = CaculateConduct(semesterResult1.Conduct, semesterResult2.Conduct);
-                if (AverageScore >= 8 && min >= 6.5) AcademicPerformance = "Giỏi";
-                else if (AverageScore >= 6.5 && min >= 5) AcademicPerformance = "Khá";
-                else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
-                else if (AverageScore >= 3.5 && min >= 2) AcademicPerformance = "Yếu";
-                else AcademicPerformance = "Kém";
+                    Subject = score.Subject.Name,
+                    Semester1 = score.AverageScore,
+                    Semester2 = score2.AverageScore,
+                };
+                YearScoreViewModels.Add(newYearScore);
+            }
+            //double total = 0, min = 11;
+            //foreach (var score in YearScoreViewModels) { total += score.AverageScore; if (score.AverageScore < min) min = score.AverageScore; }
+            //AverageScore = total / ScoreViewModels.Count;
+            //Conduct = CaculateConduct(semesterResult1.Conduct, semesterResult2.Conduct);
+            //if (AverageScore >= 8 && min >= 6.5) AcademicPerformance = "Giỏi";
+            //else if (AverageScore >= 6.5 && min >= 5) AcademicPerformance = "Khá";
+            //else if (AverageScore >= 5 && min >= 3.5) AcademicPerformance = "Trung bình";
+            //else if (AverageScore >= 3.5 && min >= 2) AcademicPerformance = "Yếu";
+            //else AcademicPerformance = "Kém";
 
-                if (AverageScore >= 8 && min >= 6.5 && Conduct == "Tốt") Title = "Học Sinh Giỏi";
-                else if (AverageScore > 6.5 && (Conduct == "Tốt" || Conduct == "Khá") && min >= 5) Title = "Học Sinh Tiên Tiến";
-                else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct != "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
-                else Title = "Học Sinh Yếu";
+            //if (AverageScore >= 8 && min >= 6.5 && Conduct == "Tốt") Title = "Học Sinh Giỏi";
+            //else if (AverageScore > 6.5 && (Conduct == "Tốt" || Conduct == "Khá") && min >= 5) Title = "Học Sinh Tiên Tiến";
+            //else if (AverageScore >= 5.0 && (Conduct != "Yếu" || Conduct != "Kém") && min >= 3.5) Title = "Học Sinh Trung Bình";
+            //else Title = "Học Sinh Yếu";
 
-            
+
             OnPropertyChanged(nameof(YearScoreViewModels));
         }
-        private string CaculateConduct(string hk1, string hk2)
-        {
-            if (hk1 == null || hk2 == null)
-            {
-                return null;
-            }
-            Dictionary<string, int> conducts = new Dictionary<string, int>()
-            {
-                {"Tốt",5 },{"Khá",4},{"Trung bình", 3 },{"Yếu",2},{"Kém",1}
-            };
-            int result = (conducts[hk1] + 2 * conducts[hk2]) / 3;
-            switch (result)
-            {
-                case 5: return "Tốt";
-                case 4: return "Khá";
-                case 3: return "Trung bình";
-                case 2: return "Yếu";
-                default: return "Kém";
-            }
-        }
+       
     }
 }

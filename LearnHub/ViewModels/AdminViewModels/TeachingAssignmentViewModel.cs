@@ -132,39 +132,37 @@ namespace LearnHub.ViewModels.AdminViewModels
                 ToastMessageViewModel.ShowSuccessToast("Xóa thành công.");
 
                 //Xóa điểm tất cả các học sinh trong lớp
-                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                var studentIds = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
+                sp.Where(sp => sp.ClassroomId == selectedTeachingAssignment.ClassroomId)
+                            .Select(sp => sp.StudentId));
+                foreach (var student in studentIds)
                 {
-                    var studentIds = context.StudentPlacements
-                            .Where(sp => sp.ClassroomId == selectedTeachingAssignment.ClassroomId)
-                            .Select(sp => sp.StudentId)
-                            .ToList();
-                    foreach (var student in studentIds)
+                    Score score = new Score()
                     {
-                        Score score = new Score()
-                        {
-                            YearId = SelectedYear.Id,
-                            SubjectId = selectedTeachingAssignment.SubjectId,
-                            StudentId = student,
-                            Semester = "HK1",
-                            MidTermScore = 0,
-                            FinalTermScore = 0,
-                            RegularScores = ""
-                        };
-                        // xóa điểm
-                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
-                       e.SubjectId == score.SubjectId &&
-                       e.StudentId == score.StudentId &&
-                       e.Semester == score.Semester);
+                        YearId = SelectedYear.Id,
+                        SubjectId = selectedTeachingAssignment.SubjectId,
+                        StudentId = student,
+                        Semester = "HK1",
+                        MidTermScore = 0,
+                        FinalTermScore = 0,
+                        RegularScores = ""
+                    };
+                    // xóa điểm
+                    await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                   e.SubjectId == score.SubjectId &&
+                   e.StudentId == score.StudentId &&
+                   e.Semester == score.Semester);
 
-                        score.Semester = "HK2";
+                    score.Semester = "HK2";
 
-                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
-                        e.SubjectId == score.SubjectId &&
-                        e.StudentId == score.StudentId &&
-                        e.Semester == score.Semester);
-                    }
+                    await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                    e.SubjectId == score.SubjectId &&
+                    e.StudentId == score.StudentId &&
+                    e.Semester == score.Semester);
                 }
+
                 ModalNavigationStore.Instance.Close();
+
             }
             catch (Exception)
             {

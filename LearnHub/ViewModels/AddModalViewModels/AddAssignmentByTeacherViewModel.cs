@@ -82,7 +82,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                             Semester = "HK1",
                             MidTermScore = 0,
                             FinalTermScore = 0,
-                            RegularScores = ""
+                            RegularScores = "0",
+                            AvgScore = 0
                         };
                         // check trùng
                         if(await GenericDataService<Score>.Instance.GetOne(e=>e.YearId==score.YearId &&

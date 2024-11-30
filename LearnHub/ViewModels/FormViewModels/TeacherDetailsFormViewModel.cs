@@ -96,6 +96,45 @@ namespace LearnHub.ViewModels.AdminViewModels
             }
         }
 
+        public List<string> Ethnicities { get; set; } = new List<string>
+                {
+            "Kinh", "Ba-na", "Bố Y", "Bru-Vân Kiều", "Chơ-ro", "Chăm", "Co", "Co Lao",
+            "Cơ-ho", "Cơ-tu", "Cống", "Dao", "Ê-đê", "Gia-rai", "Giáy", "Hà Nhì",
+            "H'Mông", "Hrê", "Khơ-mú", "Khơ-me", "La Chí", "La Ha", "La Hủ", "Lô Lô",
+            "Lự", "Mạ", "Mảng", "Mnông", "Mường", "Nùng", "Phù Lá", "Pà Thẻn", "Pu Péo",
+            "Rơ-măm", "Ra-glai", "Si La", "Sán Chay", "Sán Dìu", "Stiêng", "Tà-ôi",
+            "Thái", "Thổ", "Tày", "Xơ-đăng"
+        };
+
+
+                public List<string> Religions { get; set; } = new List<string>
+        {
+            "Không", "Phật giáo", "Thiên Chúa giáo", "Tin Lành","Hồi giáo", "Hòa Hảo", "Cao Đài", "Khác"
+        };
+
+        private string _selectedEthnicity;
+        public string SelectedEthnicity
+        {
+            get => _selectedEthnicity;
+            set
+            {
+                _selectedEthnicity = value;
+                OnPropertyChanged(); // Cập nhật giao diện khi giá trị thay đổi
+            }
+        }
+
+        private string _selectedReligion;
+        public string SelectedReligion
+        {
+            get => _selectedReligion;
+            set
+            {
+                _selectedReligion = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public string? Ethnicity
         {
             get => _ethnicity;

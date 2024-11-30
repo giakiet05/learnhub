@@ -82,8 +82,10 @@
                             <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                 <TextBlock Text="Tôn giáo:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
-                                <TextBox x:Name="tbReligion" FontSize="15" Width="200" Height="30"
-                                         Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Religion}"
+                                <ComboBox x:Name="tbReligion" FontSize="15" Width="200" Height="30"
+                                         Margin="20 0 0 0" Background="#d9d9d9" 
+										  ItemsSource="{Binding Religions}" 
+              SelectedItem="{Binding SelectedReligion}" 
                                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                             </StackPanel>
 
@@ -91,8 +93,10 @@
                             <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                 <TextBlock Text="Dân tộc:" Style="{StaticResource font_style}"
                                              VerticalAlignment="Center" Width="120"/>
-                                <TextBox x:Name="tbEthnic" FontSize="15" Width="200" Height="30"
-                                         Margin="20 0 0 0" Background="#d9d9d9" Text="{Binding Ethnicity}"
+                                <ComboBox x:Name="tbEthnic" FontSize="15" Width="200" Height="30"
+                                         Margin="20 0 0 0" Background="#d9d9d9" 
+										  ItemsSource="{Binding Ethnicities}" 
+                                          SelectedItem="{Binding SelectedEthnicity}"
                                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                             </StackPanel>
                         </StackPanel>
@@ -105,6 +109,7 @@
                                 <TextBox x:Name="tbID" FontSize="15" Width="200" Height="30"
                                          Margin="15 0 0 0" Background="#d9d9d9" Text="{Binding CitizenID}"
                                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+										 
                                          PreviewTextInput="TextBox_PreviewTextInput"/>
                             </StackPanel>
 

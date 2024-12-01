@@ -228,6 +228,7 @@ namespace LearnHub.ViewModels.FormViewModels
                     Semester = SelectedSemester,
                     AuthorizedLeaveDays = 0,
                     UnauthorizedLeaveDays = 0,
+                    AvgScore=0
                 };
 
                 semesterResult = await GenericDataService<SemesterResult>.Instance.CreateOne(newSR);

@@ -20,6 +20,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
     {
         public IEnumerable<AcademicYear> Years { get; private set; }
 
+        private const double NULL_SCORE = 0;
         private AcademicYear _selectedYear;
         public AcademicYear SelectedYear
         {
@@ -195,6 +196,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                             headers.Add("Trung bình");
                             headers.Add("Học lực");
                             headers.Add("Hạnh kiểm");
+                            headers.Add("Danh hiệu");
 
 
                             //Ghi các headers
@@ -217,45 +219,49 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                             //Duyệt từng học sinh
                             for (int i = 0; i < students.Count; i++)
                             {
+                                var student = students[i];
                                 worksheet.Cells[i + 3, 1].Value = i + 1; //STT
-                                worksheet.Cells[i + 3, 2].Value = students[i].FullName; //Họ tên
+                                worksheet.Cells[i + 3, 2].Value = student.FullName; //Họ tên
 
                                 if (SelectedSemester == "HK1" || SelectedSemester == "HK2")
                                 {
 
 
                                     //lấy danh sách điểm của từng học sinh kèm theo môn
-                                    var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == students[i].Id && e.Semester == SelectedSemester,
+                                    var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == student.Id && e.Semester == SelectedSemester,
                                         include: query => query.Include(e => e.Subject));
 
-                                    for (int j = 3; j <= headers.Count - 3; j++)
+                                    for (int j = 3; j <= headers.Count - 4; j++)
                                     {
                                         //ở mỗi cột môn (bắt đàu từ 3), kiểm tra trong đống scores thằng nào có subject name trùng với tên cột 
                                         //thì tính trung bình rồi quăng vào ô đó
                                         string subjectName = worksheet.Cells[2, j].Value.ToString(); // tên môn (dòng 2)
-                                        Score matchedScore = scores.FirstOrDefault(e => e.Subject.Name == subjectName); //điểm match với tên môn
-                                        worksheet.Cells[i + 3, j].Value = Math.Round(CalculateAverageScore(matchedScore), 2);
+                                        double subjectAvgScore = scores.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
+                                        worksheet.Cells[i + 3, j].Value = Math.Round(subjectAvgScore, 2);
                                     }
 
                                     //lấy ra semesterresult của học sinh
-                                    var semesterResult = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == students[i].Id
+                                    var semesterResult = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == student.Id
                                     && e.YearId == SelectedYear.Id && e.Semester == SelectedSemester);
+                                    double semesterAvgScore = semesterResult.AvgScore ?? NULL_SCORE;                     
+                                    //các cột kết quả cuối cùng
+                                    worksheet.Cells[i + 3, headers.Count - 3].Value = Math.Round(semesterAvgScore, 2); //tb cả kì
+                                    worksheet.Cells[i + 3, headers.Count - 2].Value = semesterResult.AcademicPerformance ?? "Chưa có";
+                                    worksheet.Cells[i + 3, headers.Count - 1].Value = semesterResult.Conduct ?? "Chưa có";
+                                    worksheet.Cells[i + 3, headers.Count].Value = semesterResult.Result ?? "Chưa có";
+                              
 
-                                    var avgScores = scores.Select(CalculateAverageScore); //điểm trung bình của các môn
-                                                                                          //các cột kết quả cuối cùng
-                                    worksheet.Cells[i + 3, headers.Count - 2].Value = Math.Round(avgScores.Average(), 2); //tb cả kì
-                                    worksheet.Cells[i + 3, headers.Count - 1].Value = semesterResult.AcademicPerformance ?? "Chưa có";
-                                    worksheet.Cells[i + 3, headers.Count].Value = semesterResult.Conduct ?? "Chưa có";
-                                    Console.WriteLine();
                                 }
                                 else if (SelectedSemester == "Cả năm")
                                 {
                                     //Lấy điểm của hk1 và hk2
                                     //Do cả 2 kì học như nhau nên mặc định chiều dài của 2 mảng này bằng nhau đối vớ 1 sinh viên ?
-                                    var scores1 = (await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == students[i].Id && e.Semester == "HK1",
+                                    var scores1 = (await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == student.Id && e.Semester == "HK1",
                                     include: query => query.Include(e => e.Subject))).ToList();
-                                    var scores2 = (await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == students[i].Id && e.Semester == "HK2",
+                                    var scores2 = (await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == student.Id && e.Semester == "HK2",
                                     include: query => query.Include(e => e.Subject))).ToList();
+
+
 
 
                                     if (scores1.Count != scores2.Count)
@@ -264,41 +270,25 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                                         return;
                                     }
 
-                                    for (int j = 3; j <= headers.Count - 3; j++)
+                                    for (int j = 3; j <= headers.Count - 4; j++)
                                     {
                                         //ở mỗi cột môn (bắt đàu từ 3), kiểm tra trong đống scores thằng nào có subject name trùng với tên cột 
                                         //thì tính trung bình rồi quăng vào ô đó
                                         string subjectName = worksheet.Cells[2, j].Value.ToString(); // tên môn (dòng 2)
-                                        Score matchedScore1 = scores1.FirstOrDefault(e => e.Subject.Name == subjectName); //điểm match với tên môn
-                                        Score matchedScore2 = scores2.FirstOrDefault(e => e.Subject.Name == subjectName); //điểm match với tên môn
+                                        double subjectAvgScore1 = scores1.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
+                                        double subjectAvgScore2 = scores2.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
                                         //tính điểm tb cả năm (hk2 hệ số 2)
-                                        double yearAvgScore = (CalculateAverageScore(matchedScore1) + CalculateAverageScore(matchedScore2) * 2) / 3;
-                                        worksheet.Cells[i + 3, j].Value = Math.Round(yearAvgScore, 2);
+                                        double yearSubjectAvgScore = (subjectAvgScore1 + subjectAvgScore2 * 2) / 3;
+                                        worksheet.Cells[i + 3, j].Value = Math.Round(yearSubjectAvgScore, 2);
                                     }
 
+                                    var yearResult = await GenericDataService<YearResult>.Instance.GetOne(e => e.StudentId == student.Id && e.YearId == SelectedYear.Id);
+                                    double yearAvgScore = yearResult.AvgScore ?? NULL_SCORE;
+                                    worksheet.Cells[i + 3, headers.Count - 3].Value = Math.Round(yearAvgScore, 2); //tb cả kì
+                                    worksheet.Cells[i + 3, headers.Count - 2].Value = yearResult.AcademicPerformance ?? "Chưa có";
+                                    worksheet.Cells[i + 3, headers.Count - 1].Value = yearResult.Conduct ?? "Chưa có";
+                                    worksheet.Cells[i + 3, headers.Count].Value = yearResult.Result ?? "Chưa có";
 
-                                    //Điểm tb từng môn (do cùng số lượng và sắp xêp như nhau => khả năng cao là trên dưới tương ứng)
-                                    var avgScores1 = scores1.OrderBy(e => e.SubjectId).Select(CalculateAverageScore).ToList();
-                                    var avgScores2 = scores2.OrderBy(e => e.SubjectId).Select(CalculateAverageScore).ToList();
-
-                                    var yearAvgScores = new List<double>();
-                                    for (int j = 0; j < avgScores1.Count; j++)
-                                    {
-                                        double yearAvgScore = (avgScores1[j] + avgScores2[j] * 2) / 3;
-                                        yearAvgScores.Add(yearAvgScore);
-                                        Console.WriteLine();
-                                    }
-
-
-                                    var semesterResult1 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == students[i].Id
-                                  && e.YearId == SelectedYear.Id && e.Semester == "HK1");
-                                    var semesterResult2 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == students[i].Id
-                                  && e.YearId == SelectedYear.Id && e.Semester == "HK2");
-
-                                    worksheet.Cells[i + 3, headers.Count - 2].Value = Math.Round(yearAvgScores.Average(), 2); //tb cả kì
-                                    worksheet.Cells[i + 3, headers.Count - 1].Value = CalculateAcademicPerformance(yearAvgScores) ?? "Chưa có";
-                                    worksheet.Cells[i + 3, headers.Count].Value = CaculateConduct(semesterResult1.Conduct, semesterResult2.Conduct) ?? "Chưa có";
-                                  
                                 }
 
                             }

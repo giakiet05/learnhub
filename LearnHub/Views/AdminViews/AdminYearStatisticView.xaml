@@ -22,7 +22,7 @@
 
             <Button Content="Khối"
                     BorderBrush="#5CB3FF" Background="#ffffff"
-                    Command="{Binding SwitchToGradeStatisticCommand}"
+                    Command="{Binding SwitchToGradeCommand}"
                     Margin="10 0 0 0" FontSize="18" Width="125" Height="50"
                     Style="{StaticResource btnStyle}"/>
         </StackPanel>
@@ -66,10 +66,12 @@
                         <TextBlock Text="{Binding TotalFemaleStudents}" VerticalAlignment="Center"
                                 FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
 
-                        <TextBlock Margin="30 0 0 0" Text=", Tỉ lệ: " VerticalAlignment="Center"
+                        <TextBlock Text="     Tỉ lệ: " VerticalAlignment="Center"
                             FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                         <TextBlock Text="{Binding FemaleStudentRatio}" VerticalAlignment="Center"
                                 FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
+                        <TextBlock Text="%" VerticalAlignment="Center"
+            FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                     </StackPanel>
 
                     <!--số lớp-->
@@ -80,7 +82,7 @@
                                 FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                     </StackPanel>
                 </StackPanel>
-                
+
                 <!--grid cho datagrid học lực + hạnh kiểm-->
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -89,35 +91,35 @@
                     </Grid.ColumnDefinitions>
 
                     <!--datagrid học lực-->
-                    <DataGrid Grid.Column="0" ItemsSource="{Binding AcademicPerformanceList}" 
+                    <DataGrid Grid.Column="0" ItemsSource="{Binding AcademicPerformanceStatistics}" 
                               AutoGenerateColumns="False" SelectionMode="Single"
                               IsReadOnly="True" Background="#fff7f7" BorderBrush="#fff7f7" 
                               RowBackground="#fff7f7" RowHeaderWidth="0" 
                               FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto" 
                               FontSize="15" HorizontalAlignment="Center">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Học lực" Binding="{Binding }"/>
-                            <DataGridTextColumn Header="Số lượng" Binding="{Binding }"/>
-                            <DataGridTextColumn Header="Tỉ lệ" Binding="{Binding }"/>
+                            <DataGridTextColumn Header="Học lực" Binding="{Binding Type}"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Tỉ lệ (%)" Binding="{Binding Ratio}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
                     <!--dataGrid hạnh kiểm-->
-                    <DataGrid Grid.Column="1" ItemsSource="{Binding ConductList}" 
+                    <DataGrid Grid.Column="1" ItemsSource="{Binding ConductStatistics}" 
                               AutoGenerateColumns="False" SelectionMode="Single"
                               IsReadOnly="True" Background="#fff7f7" BorderBrush="#fff7f7" 
                               RowBackground="#fff7f7" RowHeaderWidth="0" 
                               FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto" 
                               FontSize="15" HorizontalAlignment="Center">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Hạnh kiểm" Binding="{Binding }"/>
-                            <DataGridTextColumn Header="Số lượng" Binding="{Binding }"/>
-                            <DataGridTextColumn Header="Tỉ lệ" Binding="{Binding }"/>
+                            <DataGridTextColumn Header="Hạnh kiểm" Binding="{Binding Type}"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Tỉ lệ (%)" Binding="{Binding Ratio}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </Grid>
-            
+
             <!--grid để hiển thị biểu đồ cột của học lực và hạnh kiểm, 
             chọn loại học lực (hạnh kiểm) để so sánh với các năm-->
             <Grid Grid.Column="1">
@@ -133,20 +135,23 @@
                     </Grid.RowDefinitions>
                     <!--comboBox chọn loại học lực-->
                     <StackPanel Grid.Row="0" Margin="15 0 0 0" Orientation="Horizontal">
-                        <TextBlock Text="Học lực: " VerticalAlignment="Center"
+                        <TextBlock Text="Số năm hiển thị: " VerticalAlignment="Center"
                             FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
-                        <ComboBox x:Name="cbLoaiHocLuc" Width="100" Height="30" FontSize="13"
-                             ItemsSource="{Binding }"
-                             DisplayMemberPath="Name" 
-                             SelectedItem="{Binding SelectedAcademicPerformanceType}"
-                              Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                        <ComboBox x:Name="cbLoaiHocLuc" Width="100" Height="30" FontSize="13"                           
+                          Text="{Binding SelectedYearNumber}"
+                              Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+                            <ComboBoxItem Content="3"/>
+                            <ComboBoxItem Content="5"/>
+                            <ComboBoxItem Content="10"/>
+                          
+                        </ComboBox>
                     </StackPanel>
 
                     <!--biểu đồ cột học lực-->
-                    <lvc:CartesianChart Grid.Row="1" Series="{Binding }">
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding AcademicPerformanceChartSeries}">
                         <!--trục X-->
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Năm học" Labels="{Binding }"/>
+                            <lvc:Axis Title="Năm học" Labels="{Binding AcademicPerformanceXAxisLabels}"/>
                         </lvc:CartesianChart.AxisX>
                         <!--trục Y-->
                         <lvc:CartesianChart.AxisY>
@@ -165,17 +170,21 @@
                         <TextBlock Text="Hạnh kiểm: " VerticalAlignment="Center"
                             FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                         <ComboBox x:Name="cbLoaiHanhKiem" Width="100" Height="30" FontSize="13"
-                             ItemsSource="{Binding }"
-                             DisplayMemberPath="Name" 
-                             SelectedItem="{Binding SelectedConductType}"
-                              Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                           
+                          Text="{Binding SelectedConduct}"
+                              Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
+                            <ComboBoxItem Content="Tốt"/>
+                            <ComboBoxItem Content="Khá"/>
+                            <ComboBoxItem Content="Trung bình"/>
+                            <ComboBoxItem Content="Yếu"/>
+                        </ComboBox> 
                     </StackPanel>
 
                     <!--biểu đồ cột hạnh kiểm-->
-                    <lvc:CartesianChart Grid.Row="1" Series="{Binding }">
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding ConductChartSeries}">
                         <!--trục X-->
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Năm học" Labels="{Binding }"/>
+                            <lvc:Axis Title="Năm học" Labels="{Binding ConductXAxisLabels}"/>
                         </lvc:CartesianChart.AxisX>
                         <!--trục Y-->
                         <lvc:CartesianChart.AxisY>
@@ -188,6 +197,6 @@
 
 
         </Grid>
-        
+
     </Grid>
 </UserControl>

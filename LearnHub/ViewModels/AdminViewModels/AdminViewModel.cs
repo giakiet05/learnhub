@@ -20,6 +20,8 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand StudentCommand {  get; }
         public ICommand TeachingAssignmentCommand {  get; }
         public ICommand SchoolYearCommand { get; }
+
+        public ICommand StatisticCommand    { get; }
         public ICommand ResultCommand { get; }
         //   public ICommand AccountCommand = new NavigateLayoutCommand<AdminAcc;
         public ICommand LogoutCommand {  get; }
@@ -34,6 +36,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             LogoutCommand = new NavigateModalCommand(() =>new LogoutConfirmViewModel());
             SchoolYearCommand = new NavigateLayoutCommand(()=> new SchoolYearViewModel());
             ResultCommand = new NavigateLayoutCommand(()=>new ResultViewModel());
+            StatisticCommand =new NavigateLayoutCommand(() => new AdminYearStatisticViewModel());
             NavigationStore.Instance.CurrentLayoutModelChanged += OnCurrentLayoutModelChanged;
             NavigationStore.Instance.CurrentLayoutModel = new SchoolYearViewModel();
         }

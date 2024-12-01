@@ -179,7 +179,8 @@ namespace LearnHub.ViewModels.EditModalViewModels
                             Semester = "HK1",
                             MidTermScore = 0,
                             FinalTermScore = 0,
-                            RegularScores = "0"
+                            RegularScores = "0",
+                            AvgScore = 0,
                         };
                         // check trùng
                         if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&
@@ -202,7 +203,8 @@ namespace LearnHub.ViewModels.EditModalViewModels
                         StudentId = student.StudentId,
                         Semester = "HK1",
                         AuthorizedLeaveDays = 0,
-                        UnauthorizedLeaveDays = 0
+                        UnauthorizedLeaveDays = 0,
+                        AvgScore=0
                     };
                     // check trùng
                     if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&

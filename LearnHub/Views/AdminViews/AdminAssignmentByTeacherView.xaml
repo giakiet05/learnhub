@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+              xmlns:helpers="clr-namespace:LearnHub.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000" Background="#fff7f7">
     <Grid>
@@ -128,11 +129,12 @@
 
 
                     <!--danh sách học sinh của lớp đã chọn-->
+    
                     <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended" CanUserDeleteRows="True"
                               ItemsSource="{Binding TeachingAssignments}"
-                              SelectedItem="{Binding SelectedTeachingAssignment}"
-                              Margin="5" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown">
+                              helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedTeachingAssignments}"
+                              Margin="5" >
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0"/>

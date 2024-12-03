@@ -21,14 +21,14 @@ namespace LearnHub.ViewModels.AdminViewModels
         private readonly GenericStore<Subject> _subjectStore;
         public IEnumerable<Subject> Subjects => _subjectStore.Items; // Binding vào view
 
-        private Subject _selectedSubject;
-        public Subject SelectedSubject // Binding vào view
+        private ObservableCollection<Subject> _selectedSubjects = new();
+        public ObservableCollection<Subject> SelectedSubjects
         {
-            get => _selectedSubject;
+            get => _selectedSubjects;
             set
             {
-                _selectedSubject = value;
-                _subjectStore.SelectedItem = value; // Sync với GenericStore
+                _selectedSubjects = value;
+                OnPropertyChanged(nameof(SelectedSubjects));
             }
         }
 
@@ -41,24 +41,41 @@ namespace LearnHub.ViewModels.AdminViewModels
             _subjectStore = GenericStore<Subject>.Instance; // Tạo trường cho GenericStore
 
             // Khởi tạo các command cho Add, Delete, Edit
-            ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteSubject), () => _selectedSubject != null, "Chưa chọn môn học để xóa");
+            ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteSubject), 
+                () => SelectedSubjects != null && SelectedSubjects.Any(), 
+                "Chưa chọn môn học để xóa");
             ShowAddModalCommand = new NavigateModalCommand(() => new AddSubjectViewModel());
-            ShowEditModalCommand = new NavigateModalCommand(() => new EditSubjectViewModel(), () => _selectedSubject != null, "Chưa chọn môn học để sửa");
+            ShowEditModalCommand = new RelayCommand(ExecuteEdit);
             SwitchToMajorCommand = new NavigateLayoutCommand(() => new MajorViewModel());
             LoadSubjects();
         }
 
+        public void ExecuteEdit()
+        {
+            if(SelectedSubjects == null || !SelectedSubjects.Any()) 
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn môn học để sửa.");
+                return;
+            }
+            if (SelectedSubjects.Count > 1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 môn hộc để sửa");
+                return;
+            }
+            _subjectStore.SelectedItem = SelectedSubjects.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new EditSubjectViewModel();
+        }
         //Phuong thuc xoa mon hoc
         private async void DeleteSubject()
         {
-            var selectedSubject = _subjectStore.SelectedItem;
-
             try
             {
-                await GenericDataService<Subject>.Instance.DeleteOne(e => e.Id == selectedSubject.Id);
+                foreach (var subject in SelectedSubjects)
+                {
+                    await GenericDataService<Subject>.Instance.DeleteOne(e => e.Id == subject.Id);
+                }
 
-                _subjectStore.Delete(subject => subject.Id == selectedSubject.Id); // Xóa từ GenericStore
-
+                LoadSubjects();
                 ToastMessageViewModel.ShowSuccessToast("Xóa môn học thành công");
                 ModalNavigationStore.Instance.Close();
             }

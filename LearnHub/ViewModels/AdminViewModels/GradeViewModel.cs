@@ -21,14 +21,15 @@ namespace LearnHub.ViewModels.AdminViewModels
       
         public IEnumerable<Grade> Grades => _gradeStore.Items; // Binding vào view
 
-        private Grade _selectedGrade;
-        public Grade SelectedGrade // Binding vào view
+
+        private ObservableCollection<Grade> _selectedGrades = new();
+        public ObservableCollection<Grade> SelectedGrades
         {
-            get => _selectedGrade;
+            get => _selectedGrades;
             set
             {
-                _selectedGrade = value;
-                _gradeStore.SelectedItem = value; // Đồng bộ với Store
+                _selectedGrades = value;
+                OnPropertyChanged(nameof(SelectedGrades));
             }
         }
 
@@ -46,21 +47,31 @@ namespace LearnHub.ViewModels.AdminViewModels
             // Các command cho viewmodel
             ShowDeleteModalCommand = new NavigateModalCommand(
                 () => new DeleteConfirmViewModel(DeleteGrade),
-                () => _selectedGrade != null,
+                () => SelectedGrades != null && SelectedGrades.Any(),
                 "Chưa chọn khối để xóa"
             );
             ShowAddModalCommand = new NavigateModalCommand(() => new AddGradeViewModel());
-            ShowEditModalCommand = new NavigateModalCommand(
-                () => new EditGradeViewModel(),
-                () => _selectedGrade != null,
-                "Chưa chọn khối để sửa"
-            );
+            ShowEditModalCommand = new RelayCommand(ExecuteEdit);
             SwitchToSchoolYearCommand = new NavigateLayoutCommand(() => new SchoolYearViewModel());
             SwitchToMajorCommand = new NavigateLayoutCommand( () => new MajorViewModel());
 
             LoadGradesAsync(); // Nạp dữ liệu ban đầu
         }
-
+        public void ExecuteEdit()
+        {
+            if (SelectedGrades == null || !SelectedGrades.Any())
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn khối để sửa.");
+                return;
+            }
+            else if (SelectedGrades.Count>1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 khối để sửa.");
+                return ;
+            }
+            _gradeStore.SelectedItem = SelectedGrades.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new EditGradeViewModel();
+        }
         private async void LoadGradesAsync()
         {
             try
@@ -76,25 +87,20 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void DeleteGrade()
         {
-            var selectedGrade = _gradeStore.SelectedItem;
-
-            if (selectedGrade == null)
+            if (SelectedGrades == null || !SelectedGrades.Any())
             {
-                ToastMessageViewModel.ShowWarningToast("Chưa chọn khối để xóa");
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn khối để xóa.");
                 return;
             }
 
+
             try
             {
-               
-                await GenericDataService<Grade>.Instance.DeleteOne(e => e.Id == selectedGrade.Id);
-               
-                _gradeStore.Delete(g => g.Id == selectedGrade.Id); // Xóa khối trong Store
-
-
-
-         
-
+                foreach (var grade in SelectedGrades)
+                {
+                    await GenericDataService<Grade>.Instance.DeleteOne(e => e.Id == grade.Id);
+                }
+                LoadGradesAsync();
                 ToastMessageViewModel.ShowSuccessToast("Xóa khối thành công.");
 
                 ModalNavigationStore.Instance.Close();

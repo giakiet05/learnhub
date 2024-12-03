@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Views.AdminViews" xmlns:components="clr-namespace:LearnHub.Components"
+             xmlns:helpers="clr-namespace:LearnHub.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
 
@@ -15,10 +16,10 @@
 
         <!--datagrid để hiển thị list bộ môn-->
         <DataGrid Grid.Row="1" x:Name="BoMonDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                  IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                  IsReadOnly="True" SelectionUnit="FullRow"  SelectionMode="Extended"
                   CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
-                  PreviewMouseLeftButtonDown="BoMonDG_PreviewMouseLeftButtonDown"
-			      ItemsSource="{Binding Majors}" SelectedItem="{Binding SelectedMajor}">
+                  helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedMajors}"
+			      ItemsSource="{Binding Majors}" >
             <DataGrid.CellStyle>
                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                     <Setter Property="BorderThickness" Value="0"/>

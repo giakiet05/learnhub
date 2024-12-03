@@ -22,17 +22,18 @@ namespace LearnHub.ViewModels.AdminViewModels
         // Tạo trường cho GenericStore<Classroom>
         private readonly GenericStore<Classroom> _classroomStore;
         public IEnumerable<Classroom> Classrooms => _classroomStore.Items; // Binding vào view
-
-        private Classroom _selectedClassroom;
-        public Classroom SelectedClassroom
+        private ObservableCollection<Classroom> _selectedClassrooms = new();
+        public ObservableCollection<Classroom> SelectedClassrooms
         {
-            get => _selectedClassroom;  
+            get => _selectedClassrooms;
             set
             {
-                _selectedClassroom = value;
-                _classroomStore.SelectedItem = value;  // Sync với GenericStore
+                _selectedClassrooms = value;
+                OnPropertyChanged(nameof(SelectedClassrooms));
             }
         }
+
+      
 
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
@@ -43,13 +44,30 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             _classroomStore = GenericStore<Classroom>.Instance; // Tạo trường cho GenericStore
             // Khởi tạo các command cho Add, Delete, Edit
-            ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteClassroom), () => _selectedClassroom != null, "Chưa chọn lớp học để xóa");
+            ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteClassroom), 
+                () => SelectedClassrooms != null && SelectedClassrooms.Any(),
+                "Chưa chọn lớp học để xóa");
             ShowAddModalCommand = new NavigateModalCommand(() => new AddClassViewModel());
-            ShowEditModalCommand = new NavigateModalCommand(() => new EditClassViewModel(), () => _selectedClassroom != null, "Chưa chọn lớp học để sửa");
+            ShowEditModalCommand = new RelayCommand(ExecuteEdit);
 
             SwitchToStudentAssignmentCommand = new NavigateLayoutCommand(() => new StudentAssignmentViewModel());
 
             LoadClassrooms();
+        }
+        public void ExecuteEdit()
+        {
+            if (SelectedClassrooms == null || !SelectedClassrooms.Any()) 
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp học để sửa.");
+                return;
+            }
+            if(SelectedClassrooms.Count>1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 lớp học để sửa.");
+                return ;
+            }
+            _classroomStore.SelectedItem = SelectedClassrooms.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new EditClassViewModel();
         }
 
             // Tải danh sách classrooms từ DB rồi cập nhật vào GenericStore
@@ -73,26 +91,23 @@ namespace LearnHub.ViewModels.AdminViewModels
             // Xóa class đã chọn
         private async void DeleteClassroom()
         {
-            var selectedClassroom = _classroomStore.SelectedItem;
-            if (selectedClassroom == null)
+            try
             {
-                ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp để xóa");
-                return;
+                foreach(var classroom in SelectedClassrooms)
+                {
+                    await GenericDataService<Classroom>.Instance.DeleteOne(e => e.Id == classroom.Id);
+                }
+                LoadClassrooms();
+
+                ToastMessageViewModel.ShowSuccessToast("Xóa lớp thành công");
+                ModalNavigationStore.Instance.Close();
+            }
+            catch (Exception)
+            {
+                ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
             }
 
-            try
-                {
-                     await GenericDataService<Classroom>.Instance.DeleteOne(e => e.Id == selectedClassroom.Id);
-             
-                    _classroomStore.Delete(classroom => classroom.Id == selectedClassroom.Id); // Xóa từ GenericStore
 
-                    ToastMessageViewModel.ShowSuccessToast("Xóa lớp thành công");
-                    ModalNavigationStore.Instance.Close();
-                }
-                catch (Exception)
-                {
-                    ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
-                }
         }
     }
 }

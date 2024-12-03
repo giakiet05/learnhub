@@ -127,9 +127,9 @@ namespace LearnHub.ViewModels.FormViewModels
             var semesterResult1 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK1" == e.Semester);
             var semesterResult2 = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && "HK2" == e.Semester);
             var yearResult = await GenericDataService<YearResult>.Instance.GetOne(e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id);
-            AuthorizedLeaveDays = (int)yearResult.AuthorizedLeaveDays;
-            UnauthorizedLeaveDays = (int)yearResult.UnauthorizedLeaveDays;
-            AverageScore = (double)yearResult.AvgScore;
+            AuthorizedLeaveDays = yearResult.AuthorizedLeaveDays??0;
+            UnauthorizedLeaveDays = yearResult.UnauthorizedLeaveDays ?? 0;
+            AverageScore = yearResult.AvgScore ?? 0;
             Conduct = yearResult.Conduct;
             AcademicPerformance = yearResult.AcademicPerformance;
             Title = yearResult.Result;

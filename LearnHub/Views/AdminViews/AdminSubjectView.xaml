@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:helpers="clr-namespace:LearnHub.Helpers"
       xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
@@ -16,10 +17,10 @@
 
         <!--datagrid để hiển thị list môn học-->
         <DataGrid Grid.Row="1" x:Name="MonHocDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                  IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                  IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended"
                   CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
-                  PreviewMouseLeftButtonDown="MonHocDG_PreviewMouseLeftButtonDown"
-				  ItemsSource="{Binding Subjects}" SelectedItem="{Binding SelectedSubject}">
+				  ItemsSource="{Binding Subjects}"
+                   helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedSubjects}">
             <DataGrid.CellStyle>
                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                     <Setter Property="BorderThickness" Value="0"/>

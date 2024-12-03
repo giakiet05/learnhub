@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+      xmlns:helpers="clr-namespace:LearnHub.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
 
@@ -64,13 +65,12 @@
                 <ColumnDefinition Width="157*"/>
                 <ColumnDefinition Width="43*"/>
             </Grid.ColumnDefinitions>
-            <!--datagrid để hiển thị list khối lớp-->
+            <!--datagrid để hiển thị list khối lớp--> 
             <DataGrid x:Name="KhoiLopDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10,10,10,10"
                       ItemsSource="{Binding Grades}" FontSize="16"
-                      SelectedItem="{Binding SelectedGrade, Mode=TwoWay}"
-                      PreviewMouseLeftButtonDown="KhoiLopDG_PreviewMouseLeftButtonDown"
-                      IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single" Grid.ColumnSpan="2">
+                       helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedGrades}"
+                      IsReadOnly="True" SelectionUnit="FullRow"  SelectionMode="Extended" Grid.ColumnSpan="2">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                         <Setter Property="BorderThickness" Value="0"/>

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
+using System.Collections.ObjectModel;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -20,14 +21,14 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         public IEnumerable<Major> Majors => _majorStore.Items; // Binding vào view
 
-        private Major _selectedMajor;
-        public Major SelectedMajor // Binding vào view
+        private ObservableCollection<Major> _selectedMajors = new();
+        public ObservableCollection<Major> SelectedMajors
         {
-            get => _selectedMajor;
+            get => _selectedMajors;
             set
             {
-                _selectedMajor = value;
-                _majorStore.SelectedItem = value; // Đồng bộ với Store
+                _selectedMajors = value;
+                OnPropertyChanged(nameof(SelectedMajors));
             }
         }
 
@@ -45,22 +46,32 @@ namespace LearnHub.ViewModels.AdminViewModels
             // Các command cho viewmodel
             ShowDeleteModalCommand = new NavigateModalCommand(
                 () => new DeleteConfirmViewModel(DeleteMajor),
-                () => _selectedMajor != null,
+                () => SelectedMajors != null && SelectedMajors.Any(),
                 "Chưa chọn bộ môn để xóa"
             );
             ShowAddModalCommand = new NavigateModalCommand(() => new AddMajorViewModel());
-            ShowEditModalCommand = new NavigateModalCommand(
-                () => new EditMajorViewModel(),
-                () => _selectedMajor != null,
-                "Chưa chọn bộ môn để sửa"
-            );
+            ShowEditModalCommand = new RelayCommand(ExecuteEdit);
             SwitchToSchoolYearCommand = new NavigateLayoutCommand(() => new SchoolYearViewModel());
             SwitchToGradeCommand = new NavigateLayoutCommand( () => new GradeViewModel());
 
             LoadMajorsAsync(); // Nạp dữ liệu ban đầu
         }
 
-
+        public void ExecuteEdit()
+        {
+            if(SelectedMajors == null || !SelectedMajors.Any())
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn bộ môn để sửa.");
+                return;
+            }
+            if(SelectedMajors.Count > 1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 bộ môn để sửa.");
+                return;
+            }
+            _majorStore.SelectedItem = SelectedMajors.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new EditMajorViewModel();
+        }
         private async void LoadMajorsAsync()
         {
             try
@@ -76,22 +87,13 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void DeleteMajor()
         {
-            var selectedMajor = _majorStore.SelectedItem;
-
-            if (selectedMajor == null)
-            {
-                ToastMessageViewModel.ShowWarningToast("Chưa chọn bộ môn để xóa");
-                return;
-            }
-
             try
             {
-
-                await GenericDataService<Major>.Instance.DeleteOne(e => e.Id == selectedMajor.Id);
-
-                _majorStore.Delete(g => g.Id == selectedMajor.Id); // Xóa khối trong Store
-
-
+                foreach(var major in SelectedMajors)
+                {
+                    await GenericDataService<Major>.Instance.DeleteOne(e => e.Id == major.Id);
+                }
+                LoadMajorsAsync();
                 ToastMessageViewModel.ShowSuccessToast("Xóa bộ môn thành công.");
 
                 ModalNavigationStore.Instance.Close();

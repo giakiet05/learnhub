@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:helpers="clr-namespace:LearnHub.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="850" Background="#fff7f7">
     <Grid>
@@ -83,10 +84,9 @@ Style="{StaticResource btnStyle}"/>
 
             <!--datagrid để hiển thị list giáo viên-->
             <DataGrid Grid.Row="1" x:Name="GiaoVienDG" AutoGenerateColumns="False" CanUserAddRows="True" 
-                      IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
+                      IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended"
                        ItemsSource="{Binding FilteredTeachers}"  FontSize="16"
-                      PreviewMouseLeftButtonDown="GiaoVienDG_PreviewMouseLeftButtonDown"
-                      SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
+                      helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedTeachers}"
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       RowStyle="{StaticResource DataGridRowStyle}"
                       CellStyle="{StaticResource DataGridCellStyle}">

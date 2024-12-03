@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+              xmlns:helpers="clr-namespace:LearnHub.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
 
@@ -83,11 +84,10 @@ Style="{StaticResource btnStyle}"/>
             <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       ItemsSource="{Binding FilteredStudents}" FontSize="16"
-                      SelectedItem="{Binding SelectedStudent, Mode=TwoWay}"
                       IsReadOnly="True" 
-                      PreviewMouseLeftButtonDown="HocSinhDG_PreviewMouseLeftButtonDown"
                       SelectionUnit="FullRow" 
-                      SelectionMode="Single"
+                      SelectionMode="Extended"
+                      helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedStudents}"
                       RowStyle="{StaticResource DataGridRowStyle}"
                       CellStyle="{StaticResource DataGridCellStyle}">
                 <DataGrid.Columns>

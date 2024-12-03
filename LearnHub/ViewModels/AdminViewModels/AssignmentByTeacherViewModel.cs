@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
 using LearnHub.Data;
+using System.Collections.ObjectModel;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -29,16 +30,27 @@ namespace LearnHub.ViewModels.AdminViewModels
         public IEnumerable<AcademicYear> Years { get; private set; }
         public IEnumerable<TeachingAssignment> TeachingAssignments => _teachingAssignmentStore.Items;
 
-        private TeachingAssignment _selectedTeachingAssignment;
-        public TeachingAssignment SelectedTeachingAssignment
+        //private TeachingAssignment _selectedTeachingAssignment;
+        //public TeachingAssignment SelectedTeachingAssignment
+        //{
+        //    get => _selectedTeachingAssignment;
+        //    set
+        //    {
+               
+        //        _selectedTeachingAssignment = value;
+        //        _teachingAssignmentStore.SelectedItem = value;
+        //        OnPropertyChanged(nameof(SelectedTeachingAssignment));
+        //    }
+        //}
+        private ObservableCollection<TeachingAssignment> _selectedTeachingAssignments = new();
+        public ObservableCollection<TeachingAssignment> SelectedTeachingAssignments
         {
-            get => _selectedTeachingAssignment;
+            get => _selectedTeachingAssignments;
             set
             {
-               
-                _selectedTeachingAssignment = value;
-                _teachingAssignmentStore.SelectedItem = value;
-                OnPropertyChanged(nameof(SelectedTeachingAssignment));
+                _selectedTeachingAssignments = value;
+                OnPropertyChanged(nameof(SelectedTeachingAssignments));
+                UpdateModalCommands();
             }
         }
 
@@ -112,65 +124,70 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void DeleteTeachingAssignment()
         {
-            var selectedTeachingAssignment = _teachingAssignmentStore.SelectedItem;
-
-            if (selectedTeachingAssignment == null)
+            if (SelectedTeachingAssignments == null || !SelectedTeachingAssignments.Any())
             {
-                ToastMessageViewModel.ShowWarningToast("Chưa chọn phân công để xóa");
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn học sinh để xóa khỏi lớp");
                 return;
             }
 
             try
             {
-                //xóa trong db
-                await GenericDataService<TeachingAssignment>.Instance.DeleteOne(
-                    e => e.ClassroomId == selectedTeachingAssignment.ClassroomId &&
-                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
-                    e.TeacherId == selectedTeachingAssignment.TeacherId
-                );
-
-                //xóa trong giao diện
-                _teachingAssignmentStore.Delete(
-                    e => e.ClassroomId == selectedTeachingAssignment.ClassroomId &&
-                    e.SubjectId == selectedTeachingAssignment.SubjectId &&
-                    e.TeacherId == selectedTeachingAssignment.TeacherId);
-
-                //Xóa điểm tất cả các học sinh trong lớp
-                using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+                foreach(var assignment in SelectedTeachingAssignments)
                 {
-                    var studentIds = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
-                     sp.Where(sp => sp.ClassroomId == selectedTeachingAssignment.ClassroomId)
-                           .Select(sp => sp.StudentId));
-                   
-                    foreach (var student in studentIds)
+                    //xóa trong db
+                    await GenericDataService<TeachingAssignment>.Instance.DeleteOne(
+                        e => e.ClassroomId == assignment.ClassroomId &&
+                        e.SubjectId == assignment.SubjectId &&
+                        e.TeacherId == assignment.TeacherId &&
+                        e.Weekday == assignment.Weekday &&
+                        e.Period == assignment.Period 
+                    );
+                    //kiểm tra xem lớp đó còn tiết môn đó không
+                    var test = await GenericDataService<TeachingAssignment>.Instance.GetOne(e => e.ClassroomId == assignment.ClassroomId &&
+                        e.SubjectId == assignment.SubjectId &&
+                        e.TeacherId == assignment.TeacherId);
+                    // xóa điểm tất cả học sinh
+                    if(test  == null)
                     {
-                        Score score = new Score()
+                        var studentIds = await GenericDataService<StudentPlacement>.Instance.Query(sp =>
+                         sp.Where(sp => sp.ClassroomId == assignment.ClassroomId)
+                        .Select(sp => sp.StudentId));
+
+                        foreach (var student in studentIds)
                         {
-                            YearId = SelectedYear.Id,
-                            SubjectId = selectedTeachingAssignment.SubjectId,
-                            StudentId = student,
-                            Semester = "HK1",
-                            MidTermScore = 0,
-                            FinalTermScore = 0,
-                            RegularScores = ""
-                        };
-                        // xóa điểm
-                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
-                       e.SubjectId == score.SubjectId &&
-                       e.StudentId == score.StudentId &&
-                       e.Semester == score.Semester);
+                            Score score = new Score()
+                            {
+                                YearId = SelectedYear.Id,
+                                SubjectId = assignment.SubjectId,
+                                StudentId = student,
+                                Semester = "HK1",
+                                MidTermScore = 0,
+                                FinalTermScore = 0,
+                                RegularScores = ""
+                            };
+                            // xóa điểm
+                            await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                           e.SubjectId == score.SubjectId &&
+                           e.StudentId == score.StudentId &&
+                           e.Semester == score.Semester);
 
-                        score.Semester = "HK2";
+                            score.Semester = "HK2";
 
-                        await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
-                        e.SubjectId == score.SubjectId &&
-                        e.StudentId == score.StudentId &&
-                        e.Semester == score.Semester);
+                            await GenericDataService<Score>.Instance.DeleteOne(e => e.YearId == score.YearId &&
+                            e.SubjectId == score.SubjectId &&
+                            e.StudentId == score.StudentId &&
+                            e.Semester == score.Semester);
+                        }
                     }
+
+                  
+
                 }
+                 LoadTeachingAssignments();
                 ToastMessageViewModel.ShowSuccessToast("Xóa thành công.");
                 ModalNavigationStore.Instance.Close();
             }
+              
             catch (Exception)
             {
                 ToastMessageViewModel.ShowErrorToast("Xóa thất bại");
@@ -183,14 +200,11 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (SelectedYear != null)
             {
                 ShowAddModalCommand = new NavigateModalCommand(() => new AddAssignmentByTeacherViewModel());
-                ShowEditModalCommand = new NavigateModalCommand(
-                    () => new EditAssignmentByTeacherViewModel(),
-                    () => SelectedTeachingAssignment != null,
-                    "Chưa chọn phân công để sửa"
-                );
+                ShowEditModalCommand = new RelayCommand(ExcuteEdit);
+               
                 ShowDeleteModalCommand = new NavigateModalCommand(
                     () => new DeleteConfirmViewModel(DeleteTeachingAssignment),
-                    () => SelectedTeachingAssignment != null,
+                    () => SelectedTeachingAssignments != null && SelectedTeachingAssignments.Any(),
                     "Chưa chọn phân công để xóa"
                 );
             }
@@ -213,7 +227,21 @@ namespace LearnHub.ViewModels.AdminViewModels
             OnPropertyChanged(nameof(ShowDeleteModalCommand));
         }
 
-       
+        public void ExcuteEdit()
+        {
+            if(SelectedTeachingAssignments == null || !SelectedTeachingAssignments.Any())
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn phân công để sửa.");
+                return;
+            }
+            if(SelectedTeachingAssignments.Count>1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 phân công để sửa.");
+                return;
+            }
+            _teachingAssignmentStore.SelectedItem = SelectedTeachingAssignments.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new EditAssignmentByTeacherViewModel();
+        }
         private async void LoadYears()
         {
             

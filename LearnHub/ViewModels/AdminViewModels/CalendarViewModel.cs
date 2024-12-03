@@ -20,6 +20,7 @@ using Microsoft.Win32;
 using OfficeOpenXml.Style;
 using System.IO;
 using LearnHub.ViewModels.ExportModalViewModels;
+using System.Collections.ObjectModel;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -35,15 +36,14 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         public IEnumerable<ExamSchedule> ExamSchedules => _examScheduleStore.Items;
 
-        private ExamSchedule _selectedExamSchedule;
-        public ExamSchedule SelectedExamSchedule
+        private ObservableCollection<ExamSchedule> _selectedExamSchedules = new();
+        public ObservableCollection<ExamSchedule> SelectedExamSchedules
         {
-            get => _selectedExamSchedule;
+            get => _selectedExamSchedules;
             set
             {
-                _selectedExamSchedule = value;
-                _examScheduleStore.SelectedItem = value;
-                OnPropertyChanged(nameof(SelectedExamSchedule));
+                _selectedExamSchedules = value;
+                OnPropertyChanged(nameof(SelectedExamSchedules));
             }
         }
 
@@ -139,33 +139,20 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void DeleteExamSchedule()
         {
-            var selectedExamSchedule = _examScheduleStore.SelectedItem;
-
-            if (selectedExamSchedule == null)
-            {
-                ToastMessageViewModel.ShowWarningToast("Chưa chọn lịch thi để xóa");
-                return;
-            }
 
             try
             {
-                //xóa trong db
-                await GenericDataService<ExamSchedule>.Instance.DeleteOne(
-                    e => e.ClassroomId == selectedExamSchedule.ClassroomId &&
-                    e.SubjectId == selectedExamSchedule.SubjectId &&
-                        e.Semester == SelectedSemester &&
-                        e.ExamType == SelectedExamType
-
-                );
-
-                //xóa trong giao diện
-                _examScheduleStore.Delete(
-                  e => e.ClassroomId == selectedExamSchedule.ClassroomId &&
-                    e.SubjectId == selectedExamSchedule.SubjectId &&
-                        e.Semester == SelectedSemester &&
-                        e.ExamType == SelectedExamType
+                foreach(var exam in SelectedExamSchedules)
+                {
+                    //xóa trong db
+                    await GenericDataService<ExamSchedule>.Instance.DeleteOne(
+                        e => e.ClassroomId == exam.ClassroomId &&
+                        e.SubjectId == exam.SubjectId &&
+                            e.Semester == SelectedSemester &&
+                            e.ExamType == SelectedExamType
                     );
-
+                }
+                LoadExamSchedules();
                 ToastMessageViewModel.ShowSuccessToast("Xóa lịch thi thành công.");
                 ModalNavigationStore.Instance.Close();
             }
@@ -181,14 +168,10 @@ namespace LearnHub.ViewModels.AdminViewModels
             if (SelectedClassroom != null)
             {
                 ShowAddModalCommand = new NavigateModalCommand(() => new AddCalendarViewModel(_selectedSemester, _selectedExamType));
-                ShowEditModalCommand = new NavigateModalCommand(
-                    () => new EditCalendarViewModel(),
-                    () => SelectedExamSchedule != null,
-                    "Chưa chọn lịch thi để sửa"
-                );
+                ShowEditModalCommand = new RelayCommand(ExecuteEdit);
                 ShowDeleteModalCommand = new NavigateModalCommand(
                     () => new DeleteConfirmViewModel(DeleteExamSchedule),
-                    () => SelectedExamSchedule != null,
+                    () => SelectedExamSchedules != null && SelectedExamSchedules.Any(),
                     "Chưa chọn lịch thi để xóa"
                 );
             }
@@ -210,7 +193,21 @@ namespace LearnHub.ViewModels.AdminViewModels
             OnPropertyChanged(nameof(ShowEditModalCommand));
             OnPropertyChanged(nameof(ShowDeleteModalCommand));
         }
-
+        public void ExecuteEdit()
+        {
+            if(SelectedExamSchedules==null || !SelectedExamSchedules.Any())
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn lịch để sửa.");
+                return;
+            }
+            if (SelectedExamSchedules.Count > 1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 lịch để sửa.");
+                return ;
+            }
+            _examScheduleStore.SelectedItem = SelectedExamSchedules.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new EditCalendarViewModel();
+        }
         private async void LoadGrades()
         {
             Grades = await GenericDataService<Grade>.Instance.GetAll();

@@ -163,6 +163,7 @@
 
                     <!--biểu đồ cột học lực-->
                     <lvc:CartesianChart Grid.Row="1" Series="{Binding AcademicPerformanceChartSeries}">
+                        
                         <!--trục X-->
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Năm học" Labels="{Binding AcademicPerformanceXAxisLabels}"/>

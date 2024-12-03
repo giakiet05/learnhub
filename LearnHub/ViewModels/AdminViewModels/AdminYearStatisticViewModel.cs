@@ -120,7 +120,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
 
 
-     
+
 
         public ObservableCollection<ResultStatistic> AcademicPerformanceStatistics { get; set; }
         public ObservableCollection<ResultStatistic> ConductStatistics { get; set; }
@@ -361,27 +361,48 @@ namespace LearnHub.ViewModels.AdminViewModels
                         conductDict[key].Add(conductCount[key]);
                 }
 
-                // Create SeriesCollection for AcademicPerformance
+
+                // Biểu đồ học lực
                 AcademicPerformanceChartSeries = new SeriesCollection();
+                var totalAcademicPerformance = academicPerformanceDict.Values.SelectMany(v => v).Sum(); // Tổng số lượng
                 foreach (var key in academicPerformanceDict.Keys)
                 {
                     AcademicPerformanceChartSeries.Add(new ColumnSeries
                     {
                         Title = key,
-                        Values = new ChartValues<int>(academicPerformanceDict[key])
+                        Values = new ChartValues<int>(academicPerformanceDict[key]),
+                        
+                        LabelPoint = point =>
+                        {
+                            // Tính tỷ lệ phần trăm
+                            double percentage = totalAcademicPerformance > 0
+                                ? (point.Y / totalAcademicPerformance) * 100
+                                : 0;
+                            return $"{point.Y}   ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
+                        }
                     });
                 }
 
-                // Create SeriesCollection for Conduct
+                // Biểu đồ hạnh kiểm
                 ConductChartSeries = new SeriesCollection();
+                var totalConduct = conductDict.Values.SelectMany(v => v).Sum(); // Tổng số lượng
                 foreach (var key in conductDict.Keys)
                 {
                     ConductChartSeries.Add(new ColumnSeries
                     {
                         Title = key,
-                        Values = new ChartValues<int>(conductDict[key])
+                        Values = new ChartValues<int>(conductDict[key]),
+
+                        LabelPoint = point =>
+                        {
+                            double percentage = totalConduct > 0
+                                ? (point.Y / totalConduct) * 100
+                                : 0;
+                            return $"{point.Y}   ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
+                        }
                     });
                 }
+
 
                 // Set X-axis labels to the filtered years' names
                 AcademicPerformanceXAxisLabels = filteredYears.Select(y => y.Name).ToList();

@@ -142,7 +142,7 @@
                     <TextBlock Text="Số năm hiển thị: " VerticalAlignment="Center"
                             FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                     <ComboBox x:Name="cbLoaiHocLuc" Width="100" Height="30" FontSize="13"                           
-                                Text="{Binding SelectedYearNumber}"
+                                Text="{Binding SelectedDisplayYearNumber}"
                                 Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
                         <ComboBoxItem Content="3"/>
                         <ComboBoxItem Content="5"/>

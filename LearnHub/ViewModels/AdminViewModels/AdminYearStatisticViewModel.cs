@@ -89,6 +89,21 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             }
         }
+
+        private int _selectedDisplayYearNumber = 5;
+        public int SelectedDisplayYearNumber
+        {
+            get
+            {
+                return _selectedDisplayYearNumber;
+            }
+            set
+            {
+                _selectedDisplayYearNumber = value;
+                OnPropertyChanged(nameof(SelectedDisplayYearNumber));
+                LoadCharts();
+            }
+        }
         public class ResultStatistic
         {
             public ResultStatistic(string type, int quantity, double ratio)
@@ -103,21 +118,9 @@ namespace LearnHub.ViewModels.AdminViewModels
             public double Ratio { get; set; }
         }
 
-      
 
-        private string _selectedYearNumber;
-        public string SelectedYearNumber
-        {
-            get
-            {
-                return _selectedYearNumber;
-            }
-            set
-            {
-                _selectedYearNumber = value;
-                OnPropertyChanged(nameof(SelectedYearNumber));
-            }
-        }
+
+     
 
         public ObservableCollection<ResultStatistic> AcademicPerformanceStatistics { get; set; }
         public ObservableCollection<ResultStatistic> ConductStatistics { get; set; }
@@ -128,8 +131,6 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             AcademicPerformanceStatistics = new ObservableCollection<ResultStatistic>();
             ConductStatistics = new ObservableCollection<ResultStatistic>();
-            AcademicPerformanceChartSeries = new SeriesCollection();
-            AcademicPerformanceXAxisLabels = new List<string>();
             SwitchToGradeCommand = new NavigateLayoutCommand(() => new AdminGradeStatisticViewModel());
             LoadYears();
         }
@@ -139,6 +140,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             Years = await GenericDataService<AcademicYear>.Instance.GetAll();
             OnPropertyChanged(nameof(Years));
         }
+
+        //gọi các hàm thống kê
         private async void LoadInformation()
         {
             var students = await GetStudentsForSelectedYear();
@@ -281,12 +284,18 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void LoadCharts()
         {
-            if (Years == null || !Years.Any())
+            if (Years == null || !Years.Any() || SelectedDisplayYearNumber <= 0)
                 return;
 
             using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
             {
-                // ===== AcademicPerformance =====
+                // Filter the years based on SelectedDisplayYearNumber
+                var filteredYears = Years
+                    .OrderByDescending(y => y.StartYear)
+                    .Take(SelectedDisplayYearNumber)
+                    .OrderBy(y => y.StartYear) //quay thứ tự lại đê vẽ biểu đồ cho đúng
+                    .ToList();
+
                 var academicPerformanceDict = new Dictionary<string, List<int>>
         {
             { "Giỏi", new List<int>() },
@@ -296,7 +305,6 @@ namespace LearnHub.ViewModels.AdminViewModels
             { "Kém", new List<int>() }
         };
 
-                // ===== Conduct =====
                 var conductDict = new Dictionary<string, List<int>>
         {
             { "Tốt", new List<int>() },
@@ -305,10 +313,9 @@ namespace LearnHub.ViewModels.AdminViewModels
             { "Yếu", new List<int>() }
         };
 
-                // ===== Duyệt qua từng năm =====
-                foreach (var year in Years)
+                foreach (var year in filteredYears)
                 {
-                    // Đếm số lượng học sinh theo AcademicPerformance
+                    // Students for the current year
                     var students = from s in context.Students
                                    join sp in context.StudentPlacements on s.Id equals sp.StudentId
                                    join c in context.Classrooms on sp.ClassroomId equals c.Id
@@ -337,26 +344,24 @@ namespace LearnHub.ViewModels.AdminViewModels
                         var yearResult = context.YearResults.FirstOrDefault(y => y.StudentId == student.Id);
                         if (yearResult != null)
                         {
-                            // Cập nhật AcademicPerformance
-                            if (performanceCount.ContainsKey(yearResult.AcademicPerformance))
+                            // Update AcademicPerformance
+                            if (yearResult.AcademicPerformance != null && performanceCount.ContainsKey(yearResult.AcademicPerformance))
                                 performanceCount[yearResult.AcademicPerformance]++;
 
-                            // Cập nhật Conduct
-                            if (conductCount.ContainsKey(yearResult.Conduct))
+                            // Update Conduct
+                            if (yearResult.Conduct != null && conductCount.ContainsKey(yearResult.Conduct))
                                 conductCount[yearResult.Conduct]++;
                         }
                     }
 
-                    // Thêm dữ liệu vào academicPerformanceDict
                     foreach (var key in academicPerformanceDict.Keys)
                         academicPerformanceDict[key].Add(performanceCount[key]);
 
-                    // Thêm dữ liệu vào conductDict
                     foreach (var key in conductDict.Keys)
                         conductDict[key].Add(conductCount[key]);
                 }
 
-                // ===== Tạo SeriesCollection cho AcademicPerformance =====
+                // Create SeriesCollection for AcademicPerformance
                 AcademicPerformanceChartSeries = new SeriesCollection();
                 foreach (var key in academicPerformanceDict.Keys)
                 {
@@ -367,7 +372,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                     });
                 }
 
-                // ===== Tạo SeriesCollection cho Conduct =====
+                // Create SeriesCollection for Conduct
                 ConductChartSeries = new SeriesCollection();
                 foreach (var key in conductDict.Keys)
                 {
@@ -378,12 +383,11 @@ namespace LearnHub.ViewModels.AdminViewModels
                     });
                 }
 
-                // Gán tên trục X là các năm học
-                AcademicPerformanceXAxisLabels = Years.Select(y => y.Name).ToList();
-                ConductXAxisLabels = Years.Select(y => y.Name).ToList();
+                // Set X-axis labels to the filtered years' names
+                AcademicPerformanceXAxisLabels = filteredYears.Select(y => y.Name).ToList();
+                ConductXAxisLabels = filteredYears.Select(y => y.Name).ToList();
             }
         }
-
 
 
     }

@@ -30,7 +30,7 @@ namespace LearnHub
             using (LearnHubDbContext context = LearnHubDbContextFactory.Instance.CreateDbContext())
             {
 
-                //context.Database.Migrate();
+                context.Database.Migrate();
                 NavigationStore.Instance.CurrentViewModel = new WaitingViewModel();
                 NavigationStore.Instance.CurrentLayoutModel = null;
                 ModalNavigationStore.Instance.CurrentModalViewModel = null;

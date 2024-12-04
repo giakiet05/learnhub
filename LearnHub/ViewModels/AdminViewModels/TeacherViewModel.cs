@@ -21,6 +21,7 @@ using Microsoft.Win32;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
+using LearnHub.Helpers;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -70,7 +71,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             // Initialize commands
             ShowAddModalCommand = new NavigateModalCommand(() => new AddTeacherViewModel());
-            
+
             ShowDeleteModalCommand = new NavigateModalCommand(
                 () => new DeleteConfirmViewModel(DeleteTeacher),
                 () => SelectedTeachers != null && SelectedTeachers.Any(),
@@ -91,7 +92,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 ToastMessageViewModel.ShowWarningToast("Chưa chọn giáo viên để sửa.");
                 return;
             }
-            if(SelectedTeachers.Count > 1)
+            if (SelectedTeachers.Count > 1)
             {
                 ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 giáo viên để sửa.");
                 return;
@@ -109,10 +110,10 @@ namespace LearnHub.ViewModels.AdminViewModels
         // Delete teacher from store and database
         private async void DeleteTeacher()
         {
-          
+
             try
             {
-                foreach(var teacher in SelectedTeachers)
+                foreach (var teacher in SelectedTeachers)
                 {
                     await GenericDataService<Teacher>.Instance.DeleteOne(e => e.Id == teacher.Id);
                 }
@@ -136,11 +137,19 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 if (string.IsNullOrWhiteSpace(SearchText)) return true; // No filter if SearchText is empty
 
-                return teacher.Username.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                       teacher.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+                // Remove diacritics from both search text and teacher fields
+                string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
+                string normalizedUsername = TextHelper.RemoveDiacritics(teacher.Username);
+                string normalizedId = TextHelper.RemoveDiacritics(teacher.Id);
+                string normalizedFullName = TextHelper.RemoveDiacritics(teacher.FullName);
+
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                       normalizedId.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                       normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
             }
             return false;
         }
+
 
         private void ExportToExcel()
         {

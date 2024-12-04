@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="LearnHub.Views.AuthenticationViews.SignUpView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LearnHub.Views.AuthenticationViews"
+             xmlns:localHelpers="clr-namespace:LearnHub.Helpers"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1250" Background="Transparent">
+    <Border>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#fddb92" Offset="0.0"/>
+                <GradientStop Color="#d1fdff" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 100">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="pack://application:,,,/LearnHub;component/Resource/Icons/icons8-school-26.png" 
+                   Opacity="1" Stretch="Fill" Height="75" Width="71"
+                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Column="1" Text="LearnHub" FontSize="60" Width="266" Height="60"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontFamily="/Resource/Fonts/Roboto-Bold.ttf #Roboto"
+                       Margin="15 0 50 0" Foreground="#5CB3FF"/>
+            </Grid>
+
+            <TextBlock Text="Đăng Ký" FontSize="35" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" TextAlignment="Center"
+                   FontWeight="SemiBold"
+                   FontFamily="/Resource/Fonts/Roboto-Mediumlight.ttf #Roboto"
+                   Margin="0 15 0 0"/>
+
+            <Grid Width="400" Margin="0 35 0 0">
+
+                <!--tên đăng nhập-->
+                <TextBox x:Name="tbUsername" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     materialDesign:HintAssist.Hint="Tên Đăng Nhập" FontSize="20"
+                     HorizontalAlignment="Center" Width="298" Height="48"
+                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button x:Name="btnClear" Content="X" HorizontalAlignment="Right"
+                    Background="Transparent" BorderThickness="0" Margin="0 0 36 0"
+                    Width="42" Foreground="Black" Opacity="0.7" Click="btnClear_Click"/>
+            </Grid>
+
+            <!--mật khẩu-->
+            <PasswordBox Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
+                     materialDesign:HintAssist.Hint="Mật Khẩu" FontSize="20"
+                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                     HorizontalAlignment="Center" Width="298" Height="48"
+                     Margin="0 10 0 0"
+                     localHelpers:PasswordBoxHelper.BindPassword="True"
+                     localHelpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!--xác nhận mật khẩu-->
+            <PasswordBox Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
+                     materialDesign:HintAssist.Hint="Xác Nhận Mật Khẩu" FontSize="20"
+                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                     HorizontalAlignment="Center" Width="298" Height="48"
+                     Margin="0 10 0 0"
+                     localHelpers:PasswordBoxHelper.BindPassword="True"
+                     localHelpers:PasswordBoxHelper.BoundPassword="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <StackPanel Width="400" Orientation="Horizontal" Margin="0 30 0 0">
+
+                <!--nút xác nhận-->
+                <Button  Content="Đăng Ký" Width="115" Height="41" FontSize="14"
+                    Background="#87C5FC" Foreground="Black" Opacity="0.9"
+                    materialDesign:ButtonAssist.CornerRadius="8" BorderThickness="0"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding SignUpCommand}"
+                    FontWeight="SemiBold" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                    Margin="75 0 0 0"/>
+
+                <!--nút thoát-->
+                <Button Content="Thoát" Width="115" Height="41" FontSize="14"
+                    Background="#93A7BF" Foreground="Black" Opacity="0.9"
+                    materialDesign:ButtonAssist.CornerRadius="8" BorderThickness="0"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    FontWeight="SemiBold"
+                    FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                    Command="{Binding ExitCommand}"
+                    Margin="30 0 0 0"/>
+
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

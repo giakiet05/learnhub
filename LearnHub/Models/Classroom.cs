@@ -11,6 +11,7 @@ namespace LearnHub.Models
 {
     public class Classroom : DomainObject
     {
+        public string Id  { get; set; }
         public string Name { get; set; }
         public int? Capacity { get; set; }
         public string? GradeId { get; set; }
@@ -18,6 +19,8 @@ namespace LearnHub.Models
 
         [ForeignKey("AcademicYear")]
         public string? YearId { get; set; }
+        public string? UserId { get; set; }
+        public User User { get; set; }
         //Navigation Properties
         public Grade Grade { get; set; }
         public Teacher TeacherInCharge { get; set; }

@@ -12,7 +12,9 @@ namespace LearnHub.Models
        
         public int Number { get; set; }
 
-        public string? Name { get; set; }  
+        public string? Name { get; set; }
+        public string? UserId { get; set; }
+        public User User { get; set; }
         //Navigation Properties
         public ICollection<Classroom> Classrooms { get; set; }
         public ICollection<Subject> Subjects { get; set; }

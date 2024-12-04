@@ -22,7 +22,8 @@ namespace LearnHub.Models
         public double? FinalTermScore { get; set; } // điểm CK
         public string? RegularScores { get; set; } // điểm TX      
         public double? AvgScore { get; set; } // điểm tb
-
+        public string? UserId { get; set; }
+        public User User { get; set; }
         //Navigation Properties
         public Subject Subject { get; set; }
         public Student Student { get; set; }

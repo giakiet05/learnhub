@@ -497,7 +497,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 ? (point.Y / totalAcademicPerformance) * 100
                                 : 0;
                             return $"{point.Y}   ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
-                        }
+                        },
+                     
 
                     });
                 }

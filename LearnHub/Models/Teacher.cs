@@ -25,6 +25,8 @@ namespace LearnHub.Models
         public string? Religion { get; set; }
         public double? Coefficient { get; set; } // hệ số lương
         public string? MajorId { get; set; }
+        public string? UserId { get; set; }
+        public User User { get; set; }
 
         //Navigation Properties 
         public Major Major { get; set; }

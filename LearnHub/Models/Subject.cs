@@ -18,6 +18,8 @@ namespace LearnHub.Models
         public string? GradeId { get; set; }
 
         public string? MajorId { get; set; }
+        public string? UserId { get; set; }
+        public User User { get; set; }
 
         //Navigation Properties
         public Grade Grade { get; set; }

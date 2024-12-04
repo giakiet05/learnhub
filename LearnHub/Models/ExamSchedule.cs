@@ -19,6 +19,8 @@ namespace LearnHub.Models
         public DateTime? ExamDate { get; set; }
         public string? ExamType { get; set; }
         public string? ExamRoom { get; set; }
+        public string? UserId { get; set; }
+        public User User { get; set; }
         //Navigation Properties
         public Subject Subject { get; set; }
       

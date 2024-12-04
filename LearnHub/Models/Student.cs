@@ -23,6 +23,8 @@ namespace LearnHub.Models
         public string? MotherName { get; set; }
         public string? FatherPhone { get; set; }
         public string? MotherPhone { get; set; }
+        public string? UserId { get; set; }
+        public User User { get; set; }
         //Navigation Properties
         public ICollection<StudentPlacement> StudentPlacements { get; set; }
         public ICollection<Score> SubjectResults { get; set; }

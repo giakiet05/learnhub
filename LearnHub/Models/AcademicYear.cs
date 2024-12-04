@@ -9,14 +9,16 @@ namespace LearnHub.Models
 {
     public class AcademicYear : DomainObject
     {
-      
+
         public string? Name { get; set; }
 
         public int? StartYear { get; set; }
-
+        public string? UserId { get; set; }
+        public User User { get; set; }
         //Navigation Properties
         public ICollection<SemesterResult> SemesterResults { get; set; }
         public ICollection<Classroom> Classrooms { get; set; }
         public ICollection<Score> SubjectResults { get; set; }
+     
     }
 }

@@ -11,6 +11,8 @@ namespace LearnHub.Models
     {
         public string ClassroomId { get; set; }
         public string StudentId { get; set; }
+        public string? UserId { get; set; }
+        public User User { get; set; }
 
         //Navigation Properties
         public Classroom Classroom { get; set; }

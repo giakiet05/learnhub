@@ -20,6 +20,7 @@ using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Win32;
+using LearnHub.Helpers;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -73,7 +74,7 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             // Khởi tạo các command cho Add, Delete, Edit, Export to Excel
             ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteStudent),
-                () => SelectedStudents != null&& SelectedStudents.Any(),
+                () => SelectedStudents != null && SelectedStudents.Any(),
                 "Chưa chọn học sinh để xóa");
             ShowAddModalCommand = new NavigateModalCommand(() => new AddStudentViewModel());
             ShowEditModalCommand = new RelayCommand(ExecutEdit);
@@ -84,12 +85,12 @@ namespace LearnHub.ViewModels.AdminViewModels
         }
         public void ExecutEdit()
         {
-            if(SelectedStudents == null ||  !SelectedStudents.Any()) 
+            if (SelectedStudents == null || !SelectedStudents.Any())
             {
                 ToastMessageViewModel.ShowWarningToast("Chưa chọn học sinh để sửa.");
                 return;
             }
-            if(SelectedStudents.Count > 1)
+            if (SelectedStudents.Count > 1)
             {
                 ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 học sinh để sửa.");
                 return;
@@ -107,11 +108,11 @@ namespace LearnHub.ViewModels.AdminViewModels
         // Xóa học sinh đã chọn
         private async void DeleteStudent()
         {
-            
+
 
             try
             {
-                foreach(var student in SelectedStudents)
+                foreach (var student in SelectedStudents)
                 {
                     await GenericDataService<Student>.Instance.DeleteOne(e => e.Id == student.Id);
                 }
@@ -136,8 +137,15 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 if (string.IsNullOrWhiteSpace(SearchText)) return true; // No filter if SearchText is empty
 
-                return student.Username.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                       student.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+                // Remove diacritics from both search text and student fields
+                string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
+                string normalizedUsername = TextHelper.RemoveDiacritics(student.Username);
+                string normalizedId = TextHelper.RemoveDiacritics(student.Id);
+                string normalizedFullName = TextHelper.RemoveDiacritics(student.FullName);
+
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                       normalizedId.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                       normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
             }
             return false;
         }
@@ -236,7 +244,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         //import danh sách từ excel
         private async void ImportFromExcel()
         {
-          
+
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             try
@@ -257,7 +265,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         var worksheet = package.Workbook.Worksheets.FirstOrDefault();
                         if (worksheet == null)
                         {
-                          ToastMessageViewModel.ShowErrorToast("Không tìm thấy sheet nào trong file Excel");
+                            ToastMessageViewModel.ShowErrorToast("Không tìm thấy sheet nào trong file Excel");
                             return;
                         }
 
@@ -269,9 +277,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                             var student = new Student
                             {
                                 Role = "Student",
-                                Id = worksheet.Cells[row,1].Text,
+                                Id = worksheet.Cells[row, 1].Text,
                                 Username = worksheet.Cells[row, 2].Text,
-                                Password = worksheet.Cells[row,3].Text,
+                                Password = worksheet.Cells[row, 3].Text,
                                 FullName = worksheet.Cells[row, 4].Text,
                                 PhoneNumber = worksheet.Cells[row, 5].Text,
                                 Birthday = DateTime.TryParse(worksheet.Cells[row, 6].Text, out DateTime birthday) ? birthday : null,
@@ -301,7 +309,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                             _studentStore.Add(student); // Append to existing data
                         }
 
-                       ToastMessageViewModel.ShowSuccessToast($"Import thành công! Đã thêm {importedStudents.Count} học sinh mới");
+                        ToastMessageViewModel.ShowSuccessToast($"Import thành công! Đã thêm {importedStudents.Count} học sinh mới");
                     }
                 }
             }

@@ -13,17 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LearnHub.Views.AdminViews
+namespace LearnHub.Views.AuthenticationViews
 {
     /// <summary>
-    /// Interaction logic for AdminYearStatisticView.xaml
+    /// Interaction logic for SignUpView.xaml
     /// </summary>
-    public partial class AdminYearStatisticView : UserControl
+    public partial class SignUpView : UserControl
     {
-        public AdminYearStatisticView()
+        public SignUpView()
         {
             InitializeComponent();
         }
 
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            tbUsername.Clear();
+            tbUsername.Focus();
+        }
     }
 }

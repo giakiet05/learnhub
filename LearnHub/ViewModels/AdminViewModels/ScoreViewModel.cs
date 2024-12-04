@@ -91,7 +91,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         if (!string.IsNullOrWhiteSpace(RegularScores))
         {
             double[] txScores = RegularScores.Split(' ')
-                                        .Select(s => double.Parse(s.Trim(),CultureInfo.InvariantCulture))
+                                        .Select(s => double.Parse(s.Trim(), System.Globalization.CultureInfo.InvariantCulture))
                                         .ToArray();
             sum += txScores.Average();
             count++;

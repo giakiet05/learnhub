@@ -94,7 +94,7 @@
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -140,19 +140,37 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <!--biểu đồ tròn học lực-->
-                    <lvc:PieChart Grid.Row="1" Grid.Column="0" Series="{Binding  AcademicPerformancePieSeries}" LegendLocation="Right">
-                        <lvc:PieChart.ChartLegend>
-                            <lvc:DefaultLegend />
-                        </lvc:PieChart.ChartLegend>
-                    </lvc:PieChart>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <!--biểu đồ tròn học lực-->
+                        <lvc:PieChart Series="{Binding  AcademicPerformancePieSeries}" LegendLocation="Right">
+                            <lvc:PieChart.ChartLegend>
+                                <lvc:DefaultLegend />
+                            </lvc:PieChart.ChartLegend>
+                        </lvc:PieChart>
 
-                    <!--biểu đồ tròn hạnh kiểm-->
-                    <lvc:PieChart Grid.Row="1" Grid.Column="1" Series="{Binding ConductPieSeries}" LegendLocation="Right" >
-                        <lvc:PieChart.ChartLegend>
-                            <lvc:DefaultLegend />
-                        </lvc:PieChart.ChartLegend>
-                    </lvc:PieChart>
+                        <TextBlock Grid.Row="1" Text="Biểu đồ phân bố học lực" Style="{StaticResource font_style}"
+                                    FontSize="15" HorizontalAlignment="Center" Foreground="DarkGray" Margin="0 0 0 5"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <!--biểu đồ tròn hạnh kiểm-->
+                        <lvc:PieChart Series="{Binding ConductPieSeries}" LegendLocation="Right" >
+                            <lvc:PieChart.ChartLegend>
+                                <lvc:DefaultLegend />
+                            </lvc:PieChart.ChartLegend>
+                        </lvc:PieChart>
+
+                        <TextBlock Grid.Row="1" Text="Biểu đồ phân bố hạnh kiểm" Style="{StaticResource font_style}"
+                                    FontSize="15"  HorizontalAlignment="Center" Foreground="DarkGray" Margin="0 0 0 5"/>
+                    </Grid>
                 </Grid>
             </Grid>
 
@@ -178,17 +196,17 @@
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Biểu đồ học lực theo từng năm" Style="{StaticResource font_style}"
-                               FontSize="15" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+                    <TextBlock Grid.Row="1" Text="Biểu đồ học lực theo từng năm" Style="{StaticResource font_style}"
+                               FontSize="15" HorizontalAlignment="Center" Foreground="DarkGray"/>
 
                     <!--biểu đồ cột học lực-->
-                    <lvc:CartesianChart Grid.Row="1" Series="{Binding AcademicPerformanceChartSeries}">
+                    <lvc:CartesianChart Grid.Row="0" Series="{Binding AcademicPerformanceChartSeries}">
                         
                         <!--trục X-->
                         <lvc:CartesianChart.AxisX>
@@ -200,11 +218,11 @@
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
 
-                    <TextBlock Grid.Row="2" Text="Biểu đồ hạnh kiểm theo từng năm" Style="{StaticResource font_style}"
-                                FontSize="15"  HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="3" Text="Biểu đồ hạnh kiểm theo từng năm" Style="{StaticResource font_style}"
+                                FontSize="15"  HorizontalAlignment="Center" Foreground="DarkGray" Margin="0 0 0 5"/>
 
                     <!--biểu đồ cột hạnh kiểm-->
-                    <lvc:CartesianChart Grid.Row="3" Series="{Binding ConductChartSeries}">
+                    <lvc:CartesianChart Grid.Row="2" Series="{Binding ConductChartSeries}">
                         <!--trục X-->
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Năm học" Labels="{Binding ConductXAxisLabels}"/>

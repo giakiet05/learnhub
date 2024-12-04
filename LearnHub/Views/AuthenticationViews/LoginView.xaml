@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:LearnHub.Views.AuthenticationViews"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:localHelpers="clr-namespace:LearnHub.Helpers"
-
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1250" Background="Transparent">
     
@@ -16,7 +16,6 @@
                 <GradientStop Color="#fddb92" Offset="0.0"/>
                 <GradientStop Color="#d1fdff" Offset="1.0"/>
             </LinearGradientBrush>
-            <!--<ImageBrush ImageSource="/Resource/Images/g.jpg"/>-->
         </Border.Background>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 100">
             <Grid>
@@ -47,8 +46,7 @@
                          materialDesign:HintAssist.Hint="Tên Đăng Nhập" FontSize="20"
                          HorizontalAlignment="Center" Width="298" Height="48"
                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                         />
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button x:Name="btnClear" Content="X" HorizontalAlignment="Right"
                         Background="Transparent" BorderThickness="0" Margin="0 0 36 0"
@@ -65,9 +63,9 @@
                          localHelpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!--nút quên mật khẩu-->
-            <TextBlock x:Name="tbForgot" Text="Quên mật khẩu?" FontSize="16"
+            <!--<TextBlock Text="Quên mật khẩu?" FontSize="16"
                        FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-                       HorizontalAlignment="Center" Margin="230 10 0 0"/>
+                       HorizontalAlignment="Center" Margin="230 10 0 0"/>-->
            
             <StackPanel Width="400" Orientation="Horizontal" Margin="0 30 0 0">
                
@@ -78,9 +76,7 @@
                         Style="{StaticResource MaterialDesignRaisedButton}"
                          Command="{Binding LoginCommand}"
                         FontWeight="SemiBold" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-                        Margin="75 0 0 0"
-                       
-                        />
+                        Margin="75 0 0 0"/>
                 
                 <!--nút thoát-->
                 <Button x:Name="btnCancel" Content="Thoát" Width="115" Height="41" FontSize="14"
@@ -93,6 +89,11 @@
                         Margin="30 0 0 0"/>
 
             </StackPanel>
+            
+            <!--nút đăng kí tài khoản-->
+            <TextBlock Text="Chưa có tài khoản? Đăng ký" FontSize="16"
+                       FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                       HorizontalAlignment="Center" Margin="0 30 0 0"/>
 
         </StackPanel>
     </Border>

@@ -32,6 +32,9 @@
     <DataTemplate DataType="{x:Type vm:LogoutConfirmViewModel}">
         <views:LogoutConfirmView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type authvm:SignUpViewModel}">
+        <authviews:SignUpView/>
+    </DataTemplate>
     <!--#endregion-->
     
     <!--#region export -->

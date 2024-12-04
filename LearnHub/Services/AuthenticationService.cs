@@ -16,13 +16,12 @@ namespace LearnHub.Services
         // Singleton property to access the instance
         public static AuthenticationService Instance => _instance.Value;
 
-        private AuthenticationService() {}
+        private AuthenticationService() { }
 
         public async Task<User> Login(string username, string password)
         {
-            using (var context = LearnHubDbContextFactory.Instance.CreateDbContext()) {
-
-                //User existingUser = await GenericDataService<User>.Instance.GetOne(e => e.Username == username);
+            using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
+            {
                 User existingUser = await context.Users.FirstOrDefaultAsync(e => e.Username == username);
 
                 if (existingUser == null)
@@ -33,11 +32,10 @@ namespace LearnHub.Services
                 if (result != PasswordVerificationResult.Success)
                     throw new InvalidPasswordException(username, password);
 
-                if (existingUser.Role == "Admin") return (Admin)existingUser;
+                if (existingUser.Role == "Admin") return existingUser;
 
                 return null;
             }
-
-        }
+        }    
     }
 }

@@ -93,7 +93,13 @@
             <!--nút đăng kí tài khoản-->
             <TextBlock Text="Chưa có tài khoản? Đăng ký" FontSize="16"
                        FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-                       HorizontalAlignment="Center" Margin="0 30 0 0"/>
+                       HorizontalAlignment="Center" Margin="0 30 0 0" Cursor="Hand">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding SwitchToSignUpCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBlock>
 
         </StackPanel>
     </Border>

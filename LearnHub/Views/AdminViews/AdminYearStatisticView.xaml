@@ -184,8 +184,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Biểu đồ học lực" Style="{StaticResource font_style}"
-                               FontSize="15" Foreground="DarkGray" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+                    <TextBlock Grid.Row="0" Text="Biểu đồ học lực theo từng năm" Style="{StaticResource font_style}"
+                               FontSize="15" HorizontalAlignment="Center" Margin="0 5 0 0"/>
 
                     <!--biểu đồ cột học lực-->
                     <lvc:CartesianChart Grid.Row="1" Series="{Binding AcademicPerformanceChartSeries}">
@@ -200,8 +200,8 @@
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
 
-                    <TextBlock Grid.Row="2" Text="Biểu đồ hạnh kiểm" Style="{StaticResource font_style}"
-                                FontSize="15" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Text="Biểu đồ hạnh kiểm theo từng năm" Style="{StaticResource font_style}"
+                                FontSize="15"  HorizontalAlignment="Center"/>
 
                     <!--biểu đồ cột hạnh kiểm-->
                     <lvc:CartesianChart Grid.Row="3" Series="{Binding ConductChartSeries}">
@@ -211,7 +211,7 @@
                         </lvc:CartesianChart.AxisX>
                         <!--trục Y-->
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Số lượng" />
+                            <lvc:Axis Title="Số lượng" LabelFormatter="{Binding Formatter}" />
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Grid>

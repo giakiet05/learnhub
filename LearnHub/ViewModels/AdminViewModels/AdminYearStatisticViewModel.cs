@@ -397,11 +397,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(ConductXAxisLabels));
             }
         }
-
-        private async void LoadPieCharts()
-        {
-
-        }
+     
+        public Func<double, string> Formatter { get; set; }
 
         private async void LoadBarCharts()
         {
@@ -530,7 +527,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                 AcademicPerformanceXAxisLabels = filteredYears.Select(y => y.Name).ToList();
                 ConductXAxisLabels = filteredYears.Select(y => y.Name).ToList();
 
-
+                //Formatter
+                Formatter = value => value.ToString("N0");
             }
         }
 

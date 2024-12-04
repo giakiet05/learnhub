@@ -79,7 +79,7 @@
                         <TextBlock Text="{Binding TotalFemaleStudents}" VerticalAlignment="Center"
                                      FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
 
-                        <TextBlock Margin="30 0 0 0" Text=", Tỉ lệ: " VerticalAlignment="Center"
+                        <TextBlock  Text="     Tỉ lệ: " VerticalAlignment="Center"
                                      FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                         <TextBlock Text="{Binding FemaleStudentRatio}" VerticalAlignment="Center"
                                     FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
@@ -103,14 +103,14 @@
                 </Grid.RowDefinitions>
 
                 <!--biểu đồ tròn học lực-->
-                <lvc:PieChart Grid.Row="0" Series="{Binding AcademicPerformanceSeries}" LegendLocation="Right">
+                <lvc:PieChart Grid.Row="0" Series="{Binding AcademicPerformanceChartSeries}" LegendLocation="Right">
                     <lvc:PieChart.ChartLegend>
                         <lvc:DefaultLegend />
                     </lvc:PieChart.ChartLegend>
                 </lvc:PieChart>
 
                 <!--biểu đồ tròn hạnh kiểm-->
-                <lvc:PieChart Grid.Row="1" Series="{Binding ConductSeries}" LegendLocation="Right" >
+                <lvc:PieChart Grid.Row="1" Series="{Binding ConductChartSeries}" LegendLocation="Right" >
                     <lvc:PieChart.ChartLegend>
                         <lvc:DefaultLegend />
                     </lvc:PieChart.ChartLegend>

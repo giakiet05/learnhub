@@ -141,14 +141,14 @@
                     </DataGrid>
 
                     <!--biểu đồ tròn học lực-->
-                    <lvc:PieChart Grid.Row="1" Grid.Column="0" Series="{Binding AcademicPerformanceSeries}" LegendLocation="Right">
+                    <lvc:PieChart Grid.Row="1" Grid.Column="0" Series="{Binding  AcademicPerformancePieSeries}" LegendLocation="Right">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend />
                         </lvc:PieChart.ChartLegend>
                     </lvc:PieChart>
 
                     <!--biểu đồ tròn hạnh kiểm-->
-                    <lvc:PieChart Grid.Row="1" Grid.Column="1" Series="{Binding ConductSeries}" LegendLocation="Right" >
+                    <lvc:PieChart Grid.Row="1" Grid.Column="1" Series="{Binding ConductPieSeries}" LegendLocation="Right" >
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend />
                         </lvc:PieChart.ChartLegend>
@@ -168,7 +168,7 @@
                     <TextBlock Text="Số năm hiển thị: " VerticalAlignment="Center"
                             FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
                     <ComboBox x:Name="cbLoaiHocLuc" Width="100" Height="30" FontSize="13"                           
-                                Text="{Binding SelectedYearNumber}"
+                                Text="{Binding SelectedDisplayYearNumber}"
                                 Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto">
                         <ComboBoxItem Content="3"/>
                         <ComboBoxItem Content="5"/>
@@ -184,11 +184,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Biểu đồ học lực" Style="{StaticResource font_style}"
-                               FontSize="15" Foreground="DarkGray" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+                    <TextBlock Grid.Row="0" Text="Biểu đồ học lực theo từng năm" Style="{StaticResource font_style}"
+                               FontSize="15" HorizontalAlignment="Center" Margin="0 5 0 0"/>
 
                     <!--biểu đồ cột học lực-->
                     <lvc:CartesianChart Grid.Row="1" Series="{Binding AcademicPerformanceChartSeries}">
+                        
                         <!--trục X-->
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Năm học" Labels="{Binding AcademicPerformanceXAxisLabels}"/>
@@ -199,8 +200,8 @@
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
 
-                    <TextBlock Grid.Row="2" Text="Biểu đồ hạnh kiểm" Style="{StaticResource font_style}"
-                                FontSize="15" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Text="Biểu đồ hạnh kiểm theo từng năm" Style="{StaticResource font_style}"
+                                FontSize="15"  HorizontalAlignment="Center"/>
 
                     <!--biểu đồ cột hạnh kiểm-->
                     <lvc:CartesianChart Grid.Row="3" Series="{Binding ConductChartSeries}">
@@ -210,7 +211,7 @@
                         </lvc:CartesianChart.AxisX>
                         <!--trục Y-->
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Số lượng"/>
+                            <lvc:Axis Title="Số lượng" LabelFormatter="{Binding Formatter}" />
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Grid>

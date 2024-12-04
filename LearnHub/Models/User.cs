@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-  public class User : DomainObject
+  public class User
     {
+        public string Id { get; set; }
+
         public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
-
-
-        //Navigation Properties
-       public ICollection<Notification> Notifications { get; set; }
+        public DateTime? RegisterTime { get; set; }   
     }
 }

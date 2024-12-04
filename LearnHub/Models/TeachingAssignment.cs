@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class TeachingAssignment
+    public class TeachingAssignment : IAdminId
     {
         public string ClassroomId { get; set; }
         public string SubjectId { get; set; }
@@ -17,6 +17,8 @@ namespace LearnHub.Models
 
         public string? Weekday { get; set; }
         public string? Period { get; set; }
+        public string? AdminId { get; set; }
+        public Admin Admin { get; set; }
         //Navigation Properties
         public Classroom Classroom { get; set; }
         public Subject Subject { get; set; }

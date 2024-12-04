@@ -56,7 +56,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 FatherName = formViewModel.FatherName,
                 MotherName = formViewModel.MotherName,
                 FatherPhone = formViewModel.FatherPhone,
-                MotherPhone = formViewModel.FatherPhone
+                MotherPhone = formViewModel.FatherPhone,
+                AdminId = AccountStore.Instance.CurrentUser.Id
             };
             var passwordHasher = new PasswordHasher<Student>();
             newStudent.Password = passwordHasher.HashPassword(newStudent, newStudent.Password);

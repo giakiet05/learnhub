@@ -1,6 +1,7 @@
 ﻿using LearnHub.Data;
 using LearnHub.Exceptions;
 using LearnHub.Models;
+using LearnHub.Stores;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -12,17 +13,19 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Services
 {
-    public class GenericDataService<T> where T : class
+    public class GenericDataService<T> where T : class, IAdminId
     {
         private static readonly Lazy<GenericDataService<T>> _instance = new Lazy<GenericDataService<T>>(() => new GenericDataService<T>());
         private readonly LearnHubDbContextFactory _contextFactory;
-
+        private readonly string _currentUserId;
         // Singleton instance property
         public static GenericDataService<T> Instance => _instance.Value;
+        
 
         private GenericDataService()
         {
             _contextFactory = LearnHubDbContextFactory.Instance;
+            _currentUserId = AccountStore.Instance.CurrentUser.Id;
         }
 
 
@@ -50,7 +53,7 @@ namespace LearnHub.Services
             {
                 try
                 {
-                    IQueryable<T> query = context.Set<T>();
+                    IQueryable<T> query = context.Set<T>().Where(e => e.AdminId == _currentUserId);
 
                     // Apply include if provided
                     if (include != null)
@@ -76,7 +79,7 @@ namespace LearnHub.Services
             {
                 try
                 {
-                    IQueryable<T> query = context.Set<T>();
+                    IQueryable<T> query = context.Set<T>().Where(e => e.AdminId == _currentUserId);
 
                     // Apply include if provided
                     if (include != null)
@@ -102,7 +105,7 @@ namespace LearnHub.Services
             {
                 try
                 {
-                    IQueryable<T> query = context.Set<T>();
+                    IQueryable<T> query = context.Set<T>().Where(e => e.AdminId == _currentUserId);
 
                     // Apply include if provided
                     if (include != null)
@@ -222,7 +225,7 @@ namespace LearnHub.Services
             {
                 try
                 {
-                    var existingEntity = await context.Set<T>().FirstOrDefaultAsync(predicate);
+                    var existingEntity = await context.Set<T>().Where(e => e.AdminId == _currentUserId).FirstOrDefaultAsync(predicate);
                     if (existingEntity == null)
                     {
                         throw new Exception("Đối tượng không tồn tại");
@@ -271,7 +274,7 @@ namespace LearnHub.Services
             {
                 try
                 {
-                    var entities = await context.Set<T>().Where(predicate).ToListAsync();
+                    var entities = await context.Set<T>().Where(predicate).Where(e => e.AdminId == _currentUserId).ToListAsync();
                     if (!entities.Any()) return 0;
 
                     foreach (var existingEntity in entities)
@@ -316,7 +319,7 @@ namespace LearnHub.Services
             {
                 try
                 {
-                    var entity = await context.Set<T>().FirstOrDefaultAsync(predicate);
+                    var entity = await context.Set<T>().Where(e => e.AdminId == _currentUserId).FirstOrDefaultAsync(predicate);
                     if (entity == null)
                     {
                         throw new EntityNotFoundException("Không tìm thấy đối tượng");
@@ -347,7 +350,7 @@ namespace LearnHub.Services
                 try
                 {
 
-                    var entities = await context.Set<T>().Where(predicate).ToListAsync();
+                    var entities = await context.Set<T>().Where(e => e.AdminId == _currentUserId).Where(predicate).ToListAsync();
                     if (!entities.Any()) throw new EntityNotFoundException("Không tìm thấy đối tượng");
 
                     context.Set<T>().RemoveRange(entities);

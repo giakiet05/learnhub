@@ -76,7 +76,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 ExamRoom = formViewModel.ExamRoom,
                 ExamType = _examType,
                 Semester = _semester,
-                ExamDate = CreateExamDate(formViewModel.ExamDay, formViewModel.ExamTime)
+                ExamDate = CreateExamDate(formViewModel.ExamDay, formViewModel.ExamTime),
+                AdminId = AccountStore.Instance.CurrentUser.Id
 
             };
 

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class DomainObject
+    public interface IAdminId
     {
-        public string Id { get; set; }
+        string? AdminId { get; set; }
+        Admin Admin { get; set; }
     }
 }

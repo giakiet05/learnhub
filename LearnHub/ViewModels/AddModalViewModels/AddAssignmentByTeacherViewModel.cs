@@ -48,7 +48,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 SubjectId = formViewModel.SelectedSubject.Id,
                 TeacherId = selectedTeacher.Id,
                 Weekday = formViewModel.SelectedWeekday,
-                Period = formViewModel.SelectedPeriod
+                Period = formViewModel.SelectedPeriod,
+                AdminId = AccountStore.Instance.CurrentUser.Id
             };
 
             try
@@ -81,7 +82,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                         MidTermScore = 0,
                         FinalTermScore = 0,
                         RegularScores = "0",
-                        AvgScore = 0
+                        AvgScore = 0,
+                        AdminId = AccountStore.Instance.CurrentUser.Id
                     };
                     // check trùng
                     if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&

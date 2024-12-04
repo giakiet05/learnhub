@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Grade : DomainObject
+    public class Grade : IAdminId
     {
-       
+
+        public string Id { get; set; }
         public int Number { get; set; }
 
-        public string? Name { get; set; }  
+        public string? Name { get; set; }
+        public string? AdminId { get; set; }
+        public Admin Admin { get; set; }
         //Navigation Properties
         public ICollection<Classroom> Classrooms { get; set; }
         public ICollection<Subject> Subjects { get; set; }

@@ -44,7 +44,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
             {
                 Id = formViewModel.Id,
                 StartYear = formViewModel.StartYear,
-                Name = formViewModel.StartYear+"-"+ (formViewModel.StartYear+1).ToString()
+                Name = formViewModel.StartYear+"-"+ (formViewModel.StartYear+1).ToString(),
+                AdminId = AccountStore.Instance.CurrentUser.Id
             };
 
             try

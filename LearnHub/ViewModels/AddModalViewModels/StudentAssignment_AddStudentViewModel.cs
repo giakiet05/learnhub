@@ -100,6 +100,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                                 FinalTermScore = 0,
                                 RegularScores = "0",
                                 AvgScore = 0,
+                                AdminId = AccountStore.Instance.CurrentUser.Id
                             };
                             // check trùng
                             if (await GenericDataService<Score>.Instance.GetOne(e => e.YearId == score.YearId &&

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Subject : DomainObject
+    public class Subject : IAdminId
     {
-        
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public int? LessonNumber { get; set; }
@@ -18,6 +18,8 @@ namespace LearnHub.Models
         public string? GradeId { get; set; }
 
         public string? MajorId { get; set; }
+        public string? AdminId { get; set; }
+        public Admin Admin { get; set; }
 
         //Navigation Properties
         public Grade Grade { get; set; }

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LearnHub.Components
+namespace LearnHub.Views.EditViews
 {
     /// <summary>
-    /// Interaction logic for AccountInformationDetailsForm.xaml
+    /// Interaction logic for EditPasswordView.xaml
     /// </summary>
-    public partial class AccountInformationDetailsForm : UserControl
+    public partial class EditPasswordView : UserControl
     {
-        public AccountInformationDetailsForm()
+        public EditPasswordView()
         {
             InitializeComponent();
         }

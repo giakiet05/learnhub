@@ -380,6 +380,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 : 0;
                             return $"{point.Y}   ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
                         }
+                       
                     });
                 }
 

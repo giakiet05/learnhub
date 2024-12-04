@@ -122,11 +122,11 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
                 string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
                 string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
 
-                if (!string.IsNullOrWhiteSpace(Username) ||
-                    !string.IsNullOrWhiteSpace(Password) ||
-                    !string.IsNullOrWhiteSpace(PasswordConfirmation) ||
-                    !string.IsNullOrWhiteSpace(Email) ||
-                    !string.IsNullOrWhiteSpace(SchoolName)
+                if (string.IsNullOrWhiteSpace(Username) ||
+                    string.IsNullOrWhiteSpace(Password) ||
+                    string.IsNullOrWhiteSpace(PasswordConfirmation) ||
+                    string.IsNullOrWhiteSpace(Email) ||
+                    string.IsNullOrWhiteSpace(SchoolName)
                     )
                 {
                     ErrorMessage = "Vui lòng nhập đầy đủ thông tin";

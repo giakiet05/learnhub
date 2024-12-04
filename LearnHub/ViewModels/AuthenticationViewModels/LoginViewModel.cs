@@ -86,7 +86,7 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Username) || !string.IsNullOrWhiteSpace(Password))
+                if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
                 {
                     ErrorMessage = "Vui lòng nhập đầy đủ thông tin";
                     return;

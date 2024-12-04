@@ -23,6 +23,7 @@ namespace LearnHub.ViewModels
 
         private void ExecuteLogout()
         {
+            AccountStore.Instance.CurrentUser = null;
             NavigationStore.Instance.NavigateCurrentViewModel(() => new WaitingViewModel());
             ModalNavigationStore.Instance.Close();
         }

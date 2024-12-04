@@ -60,6 +60,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 Salary = formViewModel.Salary,
                 MajorId = formViewModel.SelectedMajor?.Id,
                 DateOfJoining = formViewModel.DateOfJoining,
+                AdminId = AccountStore.Instance.CurrentUser.Id
             };
 
             var passwordHasher = new PasswordHasher<Teacher>();

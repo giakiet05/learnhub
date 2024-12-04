@@ -46,8 +46,8 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
 
         public LoginViewModel() 
         {
-            LoginCommand = new RelayCommand(ExecuteLogin);
-            //LoginCommand = new RelayCommand(ExecuteLogin, CanLogin); 
+            //LoginCommand = new RelayCommand(ExecuteLogin);
+            LoginCommand = new RelayCommand(ExecuteLogin, CanLogin); 
             ExitCommand = new RelayCommand(ExecuteExit);
         }
 
@@ -56,52 +56,37 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
             NavigationStore.Instance.NavigateCurrentViewModel(() => new WaitingViewModel());
         }
 
-        private void ExecuteLogin()
+        //private void ExecuteLogin()
+        //{
+        //    NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
+        //}
+
+        private bool CanLogin()
         {
-            NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
+            return !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
         }
 
-        //private bool CanLogin()
-        //{
-        //    return !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
-        //}
+        private async void ExecuteLogin()
+        {
+            try
+            {
 
-        //private async void ExecuteLogin()
-        //{
-        //    try
-        //    {
+                User user = await AuthenticationService.Instance.Login(Username, Password);
 
-        //        User user = await AuthenticationService.Instance.Login(Username, Password);
+                if (user == null) MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
+                else
+                {
+                    AccountStore.Instance.CurrentUser = user;
+                    NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
+                }
+            }
+            catch (Exception)
+            {
 
-
-        //        if (user == null) MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
-        //        else
-        //        {
-        //            switch (user.Role)
-        //            {
-        //                case "Admin":
-        //                    NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
-        //                    break;
-
-        //                case "Student":
-        //                    MessageBox.Show("Dây là tài khoản học sinh. Hiện tại chỉ hỗ trợ Admin");
-
-
-        //                    break;
-
-        //                case "Teacher":
-        //                    MessageBox.Show("Dây là tài khoản giáo viên. Hiện tại chỉ hỗ trợ Admin");
-        //                    break;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
-        //    }
-        //}
-
-
-    }
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng");
+            }
+        }
+        //NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
+        
+        }
 }

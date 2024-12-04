@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace LearnHub.Models
 {
     [Table("Students")]
-    public class Student : User
+    public class Student : User, IAdminId
     {
         
         public string FullName { get; set; }
@@ -23,8 +23,8 @@ namespace LearnHub.Models
         public string? MotherName { get; set; }
         public string? FatherPhone { get; set; }
         public string? MotherPhone { get; set; }
-        public string? UserId { get; set; }
-        public User User { get; set; }
+        public string? AdminId { get; set; }
+        public Admin Admin { get; set; }
         //Navigation Properties
         public ICollection<StudentPlacement> StudentPlacements { get; set; }
         public ICollection<Score> SubjectResults { get; set; }

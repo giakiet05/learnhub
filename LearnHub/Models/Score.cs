@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class Score
+    public class Score : IAdminId
     {
         //-----Composite Key------
         [ForeignKey("AcademicYear")]
@@ -22,8 +22,8 @@ namespace LearnHub.Models
         public double? FinalTermScore { get; set; } // điểm CK
         public string? RegularScores { get; set; } // điểm TX      
         public double? AvgScore { get; set; } // điểm tb
-        public string? UserId { get; set; }
-        public User User { get; set; }
+        public string? AdminId { get; set; }
+        public Admin Admin { get; set; }
         //Navigation Properties
         public Subject Subject { get; set; }
         public Student Student { get; set; }

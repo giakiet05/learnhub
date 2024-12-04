@@ -41,7 +41,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 Name = formViewModel.Name,
                 LessonNumber = formViewModel.LessonNumber,
                 GradeId = formViewModel.SelectedGrade.Id,
-                MajorId = formViewModel.SelectedMajor.Id
+                MajorId = formViewModel.SelectedMajor.Id,
+                AdminId = AccountStore.Instance.CurrentUser.Id
             };
 
             try

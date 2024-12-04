@@ -89,9 +89,7 @@
     <DataTemplate DataType="{x:Type adminvm:SchoolYearViewModel}">
         <adminviews:AdminSchoolYearView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type adminvm:HomeViewModel}">
-        <adminviews:AdminHomeView/>
-    </DataTemplate>
+   
     <DataTemplate DataType="{x:Type adminvm:AssignmentByTeacherViewModel}">
         <adminviews:AdminAssignmentByTeacherView/>
     </DataTemplate>

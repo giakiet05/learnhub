@@ -51,7 +51,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 Capacity = formViewModel.Capacity,
                 GradeId = formViewModel.SelectedGrade?.Id,
                 YearId = formViewModel.SelectedYear?.Id,
-                TeacherInChargeId = formViewModel.SelectedTeacher?.Id
+                TeacherInChargeId = formViewModel.SelectedTeacher?.Id,
+                AdminId = AccountStore.Instance.CurrentUser.Id
 
             };
             if (formViewModel.SelectedTeacher != null) newClass.TeacherInChargeId = formViewModel.SelectedTeacher.Id;

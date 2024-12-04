@@ -46,6 +46,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
             {
                 Id = formViewModel.Id,
                 Name = formViewModel.Name,
+                AdminId = AccountStore.Instance.CurrentUser.Id
             };
 
             try

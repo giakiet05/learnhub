@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class SemesterResult
+    public class SemesterResult : IAdminId
     {
 
         //----Composite Key------
@@ -23,8 +23,8 @@ namespace LearnHub.Models
         public int? AuthorizedLeaveDays { get; set; } // nghỉ có phép
         public int? UnauthorizedLeaveDays { get; set; } // nghỉ không phép
         public string? Result {  get; set; } // danh hiệu
-        public string? UserId { get; set; }
-        public User User { get; set; }
+        public string? AdminId { get; set; }
+        public Admin Admin { get; set; }
         //Navigation Properties
         public AcademicYear AcademicYear { get; set; }
         public Student Student { get; set; }

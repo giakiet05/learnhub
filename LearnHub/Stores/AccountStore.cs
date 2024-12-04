@@ -1,0 +1,28 @@
+﻿using LearnHub.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LearnHub.Stores
+{
+    public class AccountStore
+    {
+        private AccountStore() { }
+
+
+        private static AccountStore _instance;
+
+        public static AccountStore Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = new AccountStore();
+                return _instance;
+            }
+        }
+
+        public User? CurrentUser { get; set; }
+    }
+}

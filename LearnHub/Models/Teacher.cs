@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 namespace LearnHub.Models
 {
     [Table("Teachers")]
-    public class Teacher : User
+    public class Teacher : User, IAdminId
     {
-      
         public string CitizenID { get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }
@@ -25,8 +24,8 @@ namespace LearnHub.Models
         public string? Religion { get; set; }
         public double? Coefficient { get; set; } // hệ số lương
         public string? MajorId { get; set; }
-        public string? UserId { get; set; }
-        public User User { get; set; }
+        public string? AdminId { get; set; }
+        public Admin Admin { get; set; }
 
         //Navigation Properties 
         public Major Major { get; set; }

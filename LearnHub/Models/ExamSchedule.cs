@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Models
 {
-    public class ExamSchedule
+    public class ExamSchedule : IAdminId
     {
       
         public string SubjectId { get; set; }
@@ -19,8 +19,8 @@ namespace LearnHub.Models
         public DateTime? ExamDate { get; set; }
         public string? ExamType { get; set; }
         public string? ExamRoom { get; set; }
-        public string? UserId { get; set; }
-        public User User { get; set; }
+        public string? AdminId { get; set; }
+        public Admin Admin { get; set; }
         //Navigation Properties
         public Subject Subject { get; set; }
       

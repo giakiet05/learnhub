@@ -20,14 +20,13 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand StudentCommand {  get; }
         public ICommand TeachingAssignmentCommand {  get; }
         public ICommand SchoolYearCommand { get; }
-
         public ICommand StatisticCommand    { get; }
         public ICommand ResultCommand { get; }
         //   public ICommand AccountCommand = new NavigateLayoutCommand<AdminAcc;
         public ICommand LogoutCommand {  get; }
         public AdminViewModel()
         {
-            HomeCommand = new NavigateLayoutCommand(() => new HomeViewModel());
+           
             ClassCommand = new NavigateLayoutCommand(() => new ClassViewModel());
             SubjectCommand = new NavigateLayoutCommand(() => new SubjectViewModel());
             TeacherCommand = new NavigateLayoutCommand(() => new TeacherViewModel());

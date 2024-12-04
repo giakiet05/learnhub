@@ -197,7 +197,7 @@ namespace LearnHub.ViewModels.FormViewModels
             if (!string.IsNullOrWhiteSpace(score.RegularScores))
             {
                 double[] txScores = score.RegularScores.Split(' ')
-                                            .Select(s => double.Parse(s.Trim()))
+                                            .Select(s => double.Parse(s.Trim(), System.Globalization.CultureInfo.InvariantCulture))
                                             .ToArray();
                 count++;
                 foreach (var txScore in txScores)

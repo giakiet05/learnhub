@@ -67,6 +67,10 @@
         <adminviews:AdminView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type editvm:EditPassworkViewModel}">
+        <editviews:EditPasswordView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type adminvm:AdminYearStatisticViewModel}">
         <adminviews:AdminYearStatisticView/>
     </DataTemplate>

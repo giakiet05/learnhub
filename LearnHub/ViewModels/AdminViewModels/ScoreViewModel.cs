@@ -69,9 +69,9 @@ namespace LearnHub.ViewModels.AdminViewModels
     public ScoreViewModel(Score score)
     {
         _score = score;
-        _regularScores = score.RegularScores;  // Khởi tạo giá trị TXScore từ đối tượng Score ban đầu
-        _midTermScore = score.MidTermScore;  // Khởi tạo giá trị GKScore từ đối tượng Score ban đầu
-        _finalTermScore = score.FinalTermScore;  // Khởi tạo giá trị CKScore từ đối tượng Score ban đầu
+        _regularScores = score.RegularScores??"0";  // Khởi tạo giá trị TXScore từ đối tượng Score ban đầu
+        _midTermScore = score.MidTermScore??0;  // Khởi tạo giá trị GKScore từ đối tượng Score ban đầu
+        _finalTermScore = score.FinalTermScore??0;  // Khởi tạo giá trị CKScore từ đối tượng Score ban đầu
         Include();
     }
 

@@ -31,14 +31,14 @@ namespace LearnHub.ViewModels.AdminViewModels
         public IEnumerable<Teacher> Teachers => _teacherStore.Items; //dùng cho import export
         public ICollectionView FilteredTeachers { get; } //ICollectionView giống ObservableCollection nhưng hỗ trợ thêm nhiều tính năng như filter
 
-        private Teacher _selectedTeacher;
-        public Teacher SelectedTeacher // Binding to view
+        private ObservableCollection<Teacher> _selectedTeachers = new();
+        public ObservableCollection<Teacher> SelectedTeachers
         {
-            get => _selectedTeacher;
+            get => _selectedTeachers;
             set
             {
-                _selectedTeacher = value;
-                _teacherStore.SelectedItem = value;
+                _selectedTeachers = value;
+                OnPropertyChanged(nameof(SelectedTeachers));
             }
         }
         //text của search bar
@@ -73,22 +73,32 @@ namespace LearnHub.ViewModels.AdminViewModels
             
             ShowDeleteModalCommand = new NavigateModalCommand(
                 () => new DeleteConfirmViewModel(DeleteTeacher),
-                () => _selectedTeacher != null,
+                () => SelectedTeachers != null && SelectedTeachers.Any(),
                 "Chưa chọn giáo viên để xóa"
             );
 
-            ShowEditModalCommand = new NavigateModalCommand(
-                () => new EditTeacherViewModel(),
-                () => _selectedTeacher != null,
-                "Chưa chọn giáo viên để sửa"
-            );
+            ShowEditModalCommand = new RelayCommand(ExecuteEdit);
 
             SwitchToStudentCommand = new NavigateLayoutCommand(() => new StudentViewModel());
             ExportToExcelCommand = new RelayCommand(ExportToExcel);
             ImportFromExcelCommand = new RelayCommand(ImportFromExcel);
             LoadTeachers();
         }
-
+        public void ExecuteEdit()
+        {
+            if (SelectedTeachers == null || !SelectedTeachers.Any())
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn giáo viên để sửa.");
+                return;
+            }
+            if(SelectedTeachers.Count > 1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 giáo viên để sửa.");
+                return;
+            }
+            _teacherStore.SelectedItem = SelectedTeachers.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new EditTeacherViewModel();
+        }
         // Load teachers from DB and update store
         private async void LoadTeachers()
         {
@@ -99,18 +109,14 @@ namespace LearnHub.ViewModels.AdminViewModels
         // Delete teacher from store and database
         private async void DeleteTeacher()
         {
-            var selectedTeacher = _teacherStore.SelectedItem;  // Accessing SelectedItem from GenericStore<Teacher>
-
-            if (selectedTeacher == null)
-            {
-                ToastMessageViewModel.ShowWarningToast("Không có giáo viên nào được chọn");
-                return;
-            }
+          
             try
             {
-                await GenericDataService<Teacher>.Instance.DeleteOne(e => e.Id == selectedTeacher.Id);
-
-                _teacherStore.Delete(t => t.Id == selectedTeacher.Id);  // Delete from GenericStore
+                foreach(var teacher in SelectedTeachers)
+                {
+                    await GenericDataService<Teacher>.Instance.DeleteOne(e => e.Id == teacher.Id);
+                }
+                LoadTeachers();
                 ToastMessageViewModel.ShowSuccessToast("Xóa giáo viên thành công.");
                 ModalNavigationStore.Instance.Close();
             }

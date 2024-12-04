@@ -3,9 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LearnHub.Views.AdminViews" xmlns:components="clr-namespace:LearnHub.Components"
-             mc:Ignorable="d">
+             xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+             mc:Ignorable="d" Background="#fff7f7" d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <components:AccountInformationDetailsForm/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Border Grid.Row="2" Background="#87C5FC" Margin="15" CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Thông tin tài khoản" Style="{StaticResource font_style}"
+                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            FontSize="20" Margin="25 0 0 0"/>
+                    <Grid Grid.Row="1">
+                        <StackPanel Grid.Column="0">
+                            <!--Tên đăng nhập-->
+                            <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Tên đăng nhập:" Style="{StaticResource font_style}"
+                            VerticalAlignment="Center" Width="120"/>
+                                <TextBox x:Name="tbUsername" FontSize="15" Width="200" Height="30"
+                                     Margin="20 0 0 0" Background="#d9d9d9d9"
+                                     Text="{Binding Username}"
+                                     FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--các nút điều khiển-->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <!--button thêm-->
+            <Button x:Name="btnThem" Content="Đổi mật khẩu" Style="{StaticResource btnStyle}" Width="118"
+                    Command="{Binding SubmitCommand}"
+                    Margin="10 0 10 10" Background="#87C5FC" BorderBrush="Transparent"/>
+            <!--button huỷ-->
+            <Button x:Name="btnHuy" Content="Thoát" Style="{StaticResource btnStyle}" Width="118"
+                    Command="{Binding CancelCommand}"
+                    Margin="10 0 50 10" Background="#93A7BF" BorderBrush="Transparent"/>
+
+        </StackPanel>
+
     </Grid>
 </UserControl>

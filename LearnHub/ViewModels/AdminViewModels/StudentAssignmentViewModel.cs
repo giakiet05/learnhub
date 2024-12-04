@@ -188,6 +188,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             // load year
             var years = await GenericDataService<AcademicYear>.Instance.GetMany(e => e.StartYear > SelectedYear.StartYear);
             if(years.Count()==0) { ToastMessageViewModel.ShowWarningToast("Không có năm học hợp lệ để chuyển lớp"); return; }
+            var grades = await GenericDataService<Grade>.Instance.GetMany(e => e.Number == SelectedGrade.Number + 1);
+            if(grades.Count()==0) { ToastMessageViewModel.ShowWarningToast("Không có khối hợp lệ để chuyển lớp"); return; }
             _yearStore.Load(years);
             ModalNavigationStore.Instance.NavigateCurrentModelViewModel(() => new StudentAssignment_ChangeGradeViewModel());
         }

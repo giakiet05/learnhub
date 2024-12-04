@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+      xmlns:helpers="clr-namespace:LearnHub.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" Background="#fff7f7">
 
@@ -62,10 +63,10 @@
             <!--datagrid để hiển thị list năm học-->
             <DataGrid x:Name="NamHocDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                     CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
-                      PreviewMouseLeftButtonDown="NamHocDG_PreviewMouseLeftButtonDown"
-                      IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Single"
-					  SelectedItem="{Binding SelectedSchoolYear, Mode=TwoWay}"
-					  ItemsSource="{Binding SchoolYears}">
+                      IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended"
+					  ItemsSource="{Binding SchoolYears}"
+                       helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedYears}">
+                
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                         <Setter Property="BorderThickness" Value="0"/>

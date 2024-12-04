@@ -233,10 +233,10 @@ namespace LearnHub.ViewModels.FormViewModels
 
                 semesterResult = await GenericDataService<SemesterResult>.Instance.CreateOne(newSR);
             }
-            AuthorizedLeaveDays = (int)semesterResult.AuthorizedLeaveDays;
-            UnauthorizedLeaveDays = (int)semesterResult.UnauthorizedLeaveDays;
+            AuthorizedLeaveDays = semesterResult.AuthorizedLeaveDays ?? 0;
+            UnauthorizedLeaveDays = semesterResult.UnauthorizedLeaveDays ?? 0;
             Conduct = semesterResult.Conduct;
-            AverageScore = (double)semesterResult.AvgScore;
+            AverageScore = semesterResult.AvgScore ?? 0;
             AcademicPerformance = semesterResult.AcademicPerformance;
             Title = semesterResult.Result;
            

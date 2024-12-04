@@ -44,6 +44,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
             {
                 Id = formViewModel.Id,
                 Number = formViewModel.Number,
+                Name = formViewModel.Number.ToString(),
             };
 
             try

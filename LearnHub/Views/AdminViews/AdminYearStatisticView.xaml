@@ -141,14 +141,14 @@
                     </DataGrid>
 
                     <!--biểu đồ tròn học lực-->
-                    <lvc:PieChart Grid.Row="1" Grid.Column="0" Series="{Binding AcademicPerformanceSeries}" LegendLocation="Right">
+                    <lvc:PieChart Grid.Row="1" Grid.Column="0" Series="{Binding  AcademicPerformancePieSeries}" LegendLocation="Right">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend />
                         </lvc:PieChart.ChartLegend>
                     </lvc:PieChart>
 
                     <!--biểu đồ tròn hạnh kiểm-->
-                    <lvc:PieChart Grid.Row="1" Grid.Column="1" Series="{Binding ConductSeries}" LegendLocation="Right" >
+                    <lvc:PieChart Grid.Row="1" Grid.Column="1" Series="{Binding ConductPieSeries}" LegendLocation="Right" >
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend />
                         </lvc:PieChart.ChartLegend>
@@ -211,7 +211,7 @@
                         </lvc:CartesianChart.AxisX>
                         <!--trục Y-->
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Số lượng"/>
+                            <lvc:Axis Title="Số lượng" />
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Grid>

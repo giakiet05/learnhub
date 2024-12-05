@@ -100,7 +100,7 @@
             <TextBlock FontSize="16" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                        HorizontalAlignment="Center" Margin="0 30 0 0" Cursor="Hand">
                 <Run Text="Chưa có tài khoản? " Foreground="Black"/>
-                <Run Text="Đăng kí" Foreground="#2292f2">
+                <Run Text="Đăng ký" Foreground="#2292f2">
                     <Run.InputBindings>
                         <MouseBinding Gesture="LeftClick" Command="{Binding SwitchToSignUpCommand}"/>
                     </Run.InputBindings>

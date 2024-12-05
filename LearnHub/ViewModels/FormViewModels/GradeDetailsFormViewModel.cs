@@ -23,8 +23,8 @@ namespace LearnHub.ViewModels.AdminViewModels
 				OnPropertyChanged(nameof(Id));
 			}
 		}
-		private int _number;
-		public int Number
+		private int? _number;
+		public int? Number
 		{
 			get
 			{

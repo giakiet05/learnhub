@@ -34,6 +34,20 @@ namespace LearnHub.ViewModels.ExportModalViewModels
             }
         }
 
+        private string _title;
+        public string Title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+
         private async void LoadYears()
         {
             Years = await GenericDataService<AcademicYear>.Instance.GetAll();
@@ -47,6 +61,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
         {
             SubmitCommand = new RelayCommand(ExportToExcel);
             CancelCommand = new CancelCommand();
+            Title = "Xuất TKB";
             LoadYears();
         }
 

@@ -173,13 +173,15 @@ namespace LearnHub.ViewModels.AdminViewModels
                     {
                         var worksheet = package.Workbook.Worksheets.Add("Students");
 
-                        // Thêm tiêu đề chính
-                        worksheet.Cells["A1:N2"].Merge = true; // Merge từ A1 đến N2
+                        // Thêm tiêu đề chính trên một dòng
                         worksheet.Cells["A1"].Value = "Danh sách học sinh";
                         worksheet.Cells["A1"].Style.Font.Size = 16; // Tăng cỡ chữ
                         worksheet.Cells["A1"].Style.Font.Bold = true; // In đậm
                         worksheet.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Cells["A1"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+
+                        // Merge toàn bộ chiều ngang của các cột dữ liệu để tiêu đề căn giữa
+                        worksheet.Cells["A1:N1"].Merge = true;
 
                         // Thêm tiêu đề các cột
                         string[] headers = new string[]
@@ -190,10 +192,10 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                         for (int i = 0; i < headers.Length; i++)
                         {
-                            worksheet.Cells[3, i + 1].Value = headers[i];
-                            worksheet.Cells[3, i + 1].Style.Font.Bold = true; // In đậm tiêu đề
-                            worksheet.Cells[3, i + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                            worksheet.Cells[3, i + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheet.Cells[2, i + 1].Value = headers[i]; // Đưa tiêu đề vào hàng thứ 2
+                            worksheet.Cells[2, i + 1].Style.Font.Bold = true; // In đậm tiêu đề
+                            worksheet.Cells[2, i + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheet.Cells[2, i + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                         }
 
                         // Thêm dữ liệu học sinh
@@ -201,26 +203,26 @@ namespace LearnHub.ViewModels.AdminViewModels
                         for (int i = 0; i < students.Count; i++)
                         {
                             var student = students[i];
-                            worksheet.Cells[i + 4, 1].Value = student.Id;
-                            worksheet.Cells[i + 4, 2].Value = student.Username;
-                            worksheet.Cells[i + 4, 3].Value = student.Password;
-                            worksheet.Cells[i + 4, 4].Value = student.FullName;
-                            worksheet.Cells[i + 4, 5].Value = student.PhoneNumber;
-                            worksheet.Cells[i + 4, 6].Value = student.Birthday?.ToString("dd-MM-yyyy");
-                            worksheet.Cells[i + 4, 7].Value = student.Gender;
-                            worksheet.Cells[i + 4, 8].Value = student.Religion;
-                            worksheet.Cells[i + 4, 9].Value = student.Ethnicity;
-                            worksheet.Cells[i + 4, 10].Value = student.Address;
-                            worksheet.Cells[i + 4, 11].Value = student.FatherName;
-                            worksheet.Cells[i + 4, 12].Value = student.FatherPhone;
-                            worksheet.Cells[i + 4, 13].Value = student.MotherName;
-                            worksheet.Cells[i + 4, 14].Value = student.MotherPhone;
+                            worksheet.Cells[i + 3, 1].Value = student.Id;
+                            worksheet.Cells[i + 3, 2].Value = student.Username;
+                            worksheet.Cells[i + 3, 3].Value = student.Password;
+                            worksheet.Cells[i + 3, 4].Value = student.FullName;
+                            worksheet.Cells[i + 3, 5].Value = student.PhoneNumber;
+                            worksheet.Cells[i + 3, 6].Value = student.Birthday?.ToString("dd-MM-yyyy");
+                            worksheet.Cells[i + 3, 7].Value = student.Gender;
+                            worksheet.Cells[i + 3, 8].Value = student.Religion;
+                            worksheet.Cells[i + 3, 9].Value = student.Ethnicity;
+                            worksheet.Cells[i + 3, 10].Value = student.Address;
+                            worksheet.Cells[i + 3, 11].Value = student.FatherName;
+                            worksheet.Cells[i + 3, 12].Value = student.FatherPhone;
+                            worksheet.Cells[i + 3, 13].Value = student.MotherName;
+                            worksheet.Cells[i + 3, 14].Value = student.MotherPhone;
                         }
 
                         // Vẽ border cho tất cả các ô chứa dữ liệu
-                        var totalRows = students.Count + 3; // Bao gồm header và dữ liệu
+                        var totalRows = students.Count + 2; // Bao gồm header và dữ liệu
                         var totalColumns = headers.Length;
-                        var dataRange = worksheet.Cells[3, 1, totalRows, totalColumns];
+                        var dataRange = worksheet.Cells[2, 1, totalRows, totalColumns];
                         dataRange.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                         dataRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                         dataRange.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
@@ -239,6 +241,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 ToastMessageViewModel.ShowErrorToast($"Xuất dữ liệu thất bại: {ex.Message}");
             }
         }
+
 
 
         //import danh sách từ excel

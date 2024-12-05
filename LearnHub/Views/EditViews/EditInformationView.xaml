@@ -29,6 +29,7 @@
                         <TextBox FontSize="15" Width="200" Height="30"
                                  Background="#d9d9d9d9"
                                  Margin="15 0 0 0" 
+                                 Text="{Binding Username}"
                                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                     </StackPanel>
 
@@ -39,6 +40,7 @@
                         <TextBox FontSize="15" Width="200" Height="30"
                                  Background="#d9d9d9d9"
                                  Margin="15 0 0 0" 
+                                 Text="{Binding SchoolName}"
                                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                     </StackPanel>
 
@@ -49,6 +51,7 @@
                         <TextBox FontSize="15" Width="200" Height="30"
                                  Background="#d9d9d9d9"
                                  Margin="15 0 0 0" 
+                                 Text="{Binding Email}"
                                  FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                     </StackPanel>
                 </StackPanel>

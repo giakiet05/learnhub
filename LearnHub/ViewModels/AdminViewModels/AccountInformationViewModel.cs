@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using LearnHub.Commands;
+using LearnHub.ViewModels.EditModalViewModels;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -56,9 +59,13 @@ namespace LearnHub.ViewModels.AdminViewModels
 				OnPropertyChanged(nameof(RegisterTime));
 			}
 		}
+		public ICommand ChangePasswordCommand { get;  }
+		public ICommand EditInformationCommand { get; }
         public AdminAccountInformationViewModel()
         {
 			LoadInformation();
+			ChangePasswordCommand = new NavigateModalCommand(() => new EditPassworkViewModel());
+            EditInformationCommand = new NavigateModalCommand(()=> new EditInformationViewModel());
         }
 		private async void LoadInformation()
 		{

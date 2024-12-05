@@ -46,7 +46,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             // Khởi tạo các command cho Add, Delete, Edit
             ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteSchoolYear), () => SelectedYears != null && SelectedYears.Any(), "Chưa chọn năm học để xóa");
             ShowAddModalCommand = new NavigateModalCommand(() => new AddSchoolYearViewModel());
-            ShowEditModalCommand = new RelayCommand(ExecuteEdit);
+            ShowEditModalCommand = new NavigateModalCommand(() => new EditSchoolYearViewModel());
             SwitchToGradeCommand = new NavigateLayoutCommand(()=>new GradeViewModel());
             SwitchToMajorCommand = new NavigateLayoutCommand(()=> new MajorViewModel());
 
@@ -57,21 +57,6 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             var schoolYears = await GenericDataService<AcademicYear>.Instance.GetAll();
             _schoolYearStore.Load(schoolYears); // Load vào GenericStore
-        }
-        public void ExecuteEdit()
-        {
-            if(SelectedYears == null || !SelectedYears.Any())
-            {
-                ToastMessageViewModel.ShowWarningToast("Chưa chọn năm học để sửa.");
-                return;
-            }
-            else if (SelectedYears.Count > 1)
-            {
-                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 năm học để sửa.");
-                return ;
-            }
-            _schoolYearStore.SelectedItem = SelectedYears.First();
-            ModalNavigationStore.Instance.CurrentModalViewModel= new EditSchoolYearViewModel();
         }
         // Xóa học sinh đã chọn
         private async void DeleteSchoolYear()

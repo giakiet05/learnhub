@@ -9,8 +9,8 @@ namespace LearnHub.Stores
 {
     public class AccountStore
     {
+        public User? CurrentUser { get; set; }
         private AccountStore() { }
-
 
         private static AccountStore _instance;
 
@@ -23,6 +23,6 @@ namespace LearnHub.Stores
             }
         }
 
-        public User? CurrentUser { get; set; }
+       
     }
 }

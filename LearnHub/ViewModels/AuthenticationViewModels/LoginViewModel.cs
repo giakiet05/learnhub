@@ -75,12 +75,6 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
             NavigationStore.Instance.NavigateCurrentViewModel(() => new WaitingViewModel());
         }
 
-        //private void ExecuteLogin()
-        //{
-        //    NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
-        //}
-
-
 
         private async void ExecuteLogin()
         {
@@ -107,7 +101,5 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
                 ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng";
             }
         }
-        //NavigationStore.Instance.NavigateCurrentViewModel(() => new AdminViewModel());
-
     }
 }

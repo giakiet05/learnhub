@@ -17,9 +17,11 @@ namespace LearnHub.ViewModels.WaitingViewModels
 
         public ICommand NavigateLoginCommand {  get;  }
         
+        public ICommand NavigateSignUpCommand { get; }
         public WaitingViewModel() 
         {
             NavigateLoginCommand = new NavigateViewCommand(() => new LoginViewModel());
+            NavigateSignUpCommand = new NavigateViewCommand(() => new SignUpViewModel());
         }
 
        

@@ -5,19 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LearnHub.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="200" Width="367" Background="#fff7f7">
+             Height="240" Width="400" Background="#fff7f7">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="190"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <Border Margin="10" Background="#87C5FC" CornerRadius="10">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel>
                 <Image Source="pack://application:,,,/LearnHub;component/resource/icons/warning.png"
-               Stretch="Uniform" Height="80" Width="80" Margin="15 0 0 0"/>
-                <TextBlock Text="Xác nhận thoát ?" Style="{StaticResource font_style}"
-                   VerticalAlignment="Center" FontSize="30" Margin="10 0 0 0"/>
+                       Stretch="Fill" Height="80" 
+                       Width="80"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Are you sure?" Style="{StaticResource font_style}"
+                           VerticalAlignment="Center" TextAlignment="Center"
+                           HorizontalAlignment="Center" Foreground="Black"
+                           FontSize="25" Margin="0 5 0 0"/>
+
+                <TextBlock Text="Bạn có chắn chắn muốn đăng xuất?" 
+                           TextWrapping="Wrap" Width="300" Foreground="DimGray"
+                           Style="{StaticResource font_style}" TextAlignment="Center"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" 
+                           FontSize="15" Margin="0 10 0 0"/>
             </StackPanel>
         </Border>
 

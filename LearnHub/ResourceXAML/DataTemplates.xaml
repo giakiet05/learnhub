@@ -70,10 +70,6 @@
         <adminviews:AdminView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type editvm:EditPassworkViewModel}">
-        <editviews:EditPasswordView/>
-    </DataTemplate>
-
     <DataTemplate DataType="{x:Type adminvm:AdminYearStatisticViewModel}">
         <adminviews:AdminYearStatisticView/>
     </DataTemplate>
@@ -192,6 +188,12 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditTeacherViewModel}">
         <editviews:EditTeacherView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type editvm:EditPassworkViewModel}">
+        <editviews:EditPasswordView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type editvm:EditInformationViewModel}">
+        <editviews:EditInformationView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:DeleteConfirmViewModel}">
         <views:DeleteConfirmView/>

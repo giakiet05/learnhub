@@ -40,7 +40,7 @@
                        Margin="0 15 0 0"/>
 
             <!--thông báo lỗi-->
-            <TextBlock Text="{Binding ErrorMessage}" FontSize="26"  HorizontalAlignment="Center"
+            <TextBlock Text="{Binding ErrorMessage}" FontSize="16"  HorizontalAlignment="Center"
                       VerticalAlignment="Center" TextAlignment="Center"
                       Foreground="Red" FontWeight="Normal" Margin="0 5 0 0"/>
 
@@ -97,14 +97,14 @@
             </StackPanel>
 
             <!--nút đăng kí tài khoản-->
-            <TextBlock Text="Chưa có tài khoản? Đăng ký" FontSize="16" Foreground="Green"
-                       FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+            <TextBlock FontSize="16" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                        HorizontalAlignment="Center" Margin="0 30 0 0" Cursor="Hand">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding SwitchToSignUpCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                <Run Text="Chưa có tài khoản? " Foreground="Black"/>
+                <Run Text="Đăng kí" Foreground="#2292f2">
+                    <Run.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding SwitchToSignUpCommand}"/>
+                    </Run.InputBindings>
+                </Run>
             </TextBlock>
 
         </StackPanel>

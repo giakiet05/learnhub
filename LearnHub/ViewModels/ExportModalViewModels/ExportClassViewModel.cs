@@ -4,6 +4,7 @@ using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +12,16 @@ using System.Windows.Input;
 using LearnHub.Commands;
 using Microsoft.Win32;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 using LearnHub.Stores;
+
 
 namespace LearnHub.ViewModels.ExportModalViewModels
 {
-    public class ExportResultViewModel : BaseViewModel
+    public class ExportClassViewModel : BaseViewModel
     {
+
         public IEnumerable<AcademicYear> Years { get; private set; }
 
-        private const double NULL_SCORE = 0;
         private AcademicYear _selectedYear;
         public AcademicYear SelectedYear
         {
@@ -29,22 +30,23 @@ namespace LearnHub.ViewModels.ExportModalViewModels
             {
                 _selectedYear = value;
                 OnPropertyChanged(nameof(SelectedYear));
-            }
-        }
-        private string _selectedSemester;
-        public string SelectedSemester
-        {
-            get
-            {
-                return _selectedSemester;
-            }
-            set
-            {
-                _selectedSemester = value;
-                OnPropertyChanged(nameof(SelectedSemester));
+
             }
         }
 
+        private string _title;
+        public string Title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
 
         private async void LoadYears()
         {
@@ -52,21 +54,20 @@ namespace LearnHub.ViewModels.ExportModalViewModels
             OnPropertyChanged(nameof(Years));
         }
 
-
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public ExportResultViewModel()
+        public ExportClassViewModel()
         {
             SubmitCommand = new RelayCommand(ExportToExcel);
             CancelCommand = new CancelCommand();
+            Title = "Xuất danh sách lớp";
             LoadYears();
         }
-     
 
         private async void ExportToExcel()
         {
-            if (SelectedYear == null || SelectedSemester == null)
+            if (SelectedYear == null)
             {
                 ToastMessageViewModel.ShowWarningToast("Chưa chọn đủ thông tin");
                 return;
@@ -81,7 +82,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                 {
                     Title = "Chọn nơi lưu file Excel",
                     Filter = "Excel Files (*.xlsx)|*.xlsx",
-                    FileName = $"KQ_{SelectedYear.Name}_{SelectedSemester}.xlsx"
+                    FileName = $"DS_{SelectedYear.Name}.xlsx"
                 };
 
                 if (saveFileDialog.ShowDialog() == true) // Nếu người dùng nhấn "Save"
@@ -119,18 +120,6 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                               "Họ và tên",
 
                           };
-                            //Thêm các môn của khối vào tiêu đề
-
-                            var subjectNames = (await GenericDataService<Subject>.Instance.GetMany(e => e.GradeId == classroom.GradeId))
-                                .Select(e => e.Name)
-                                .OrderBy(e => e)
-                                .ToList();
-
-                            headers.AddRange(subjectNames);
-                            headers.Add("Trung bình");
-                            headers.Add("Học lực");
-                            headers.Add("Hạnh kiểm");
-                            headers.Add("Danh hiệu");
 
 
                             //Ghi các headers
@@ -157,76 +146,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                                 worksheet.Cells[i + 3, 1].Value = i + 1; //STT
                                 worksheet.Cells[i + 3, 2].Value = student.FullName; //Họ tên
 
-                                if (SelectedSemester == "HK1" || SelectedSemester == "HK2")
-                                {
-
-
-                                    //lấy danh sách điểm của từng học sinh kèm theo môn
-                                    var scores = await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == student.Id && e.Semester == SelectedSemester,
-                                        include: query => query.Include(e => e.Subject));
-
-                                    for (int j = 3; j <= headers.Count - 4; j++)
-                                    {
-                                        //ở mỗi cột môn (bắt đàu từ 3), kiểm tra trong đống scores thằng nào có subject name trùng với tên cột 
-                                        //thì tính trung bình rồi quăng vào ô đó
-                                        string subjectName = worksheet.Cells[2, j].Value.ToString(); // tên môn (dòng 2)
-                                        double subjectAvgScore = scores.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
-                                        worksheet.Cells[i + 3, j].Value = Math.Round(subjectAvgScore, 2);
-                                    }
-
-                                    //lấy ra semesterresult của học sinh
-                                    var semesterResult = await GenericDataService<SemesterResult>.Instance.GetOne(e => e.StudentId == student.Id
-                                    && e.YearId == SelectedYear.Id && e.Semester == SelectedSemester);
-                                    double semesterAvgScore = semesterResult.AvgScore ?? NULL_SCORE;                     
-                                    //các cột kết quả cuối cùng
-                                    worksheet.Cells[i + 3, headers.Count - 3].Value = Math.Round(semesterAvgScore, 2); //tb cả kì
-                                    worksheet.Cells[i + 3, headers.Count - 2].Value = semesterResult.AcademicPerformance ?? "Chưa có";
-                                    worksheet.Cells[i + 3, headers.Count - 1].Value = semesterResult.Conduct ?? "Chưa có";
-                                    worksheet.Cells[i + 3, headers.Count].Value = semesterResult.Result ?? "Chưa có";
-                              
-
-                                }
-                                else if (SelectedSemester == "Cả năm")
-                                {
-                                    //Lấy điểm của hk1 và hk2
-                                    //Do cả 2 kì học như nhau nên mặc định chiều dài của 2 mảng này bằng nhau đối vớ 1 sinh viên ?
-                                    var scores1 = (await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == student.Id && e.Semester == "HK1",
-                                    include: query => query.Include(e => e.Subject))).ToList();
-                                    var scores2 = (await GenericDataService<Score>.Instance.GetMany(e => e.StudentId == student.Id && e.Semester == "HK2",
-                                    include: query => query.Include(e => e.Subject))).ToList();
-
-
-
-
-                                    if (scores1.Count != scores2.Count)
-                                    {
-                                        ToastMessageViewModel.ShowWarningToast("Chưa đủ thông tin để xuất kết quả cả năm");
-                                        return;
-                                    }
-
-                                    for (int j = 3; j <= headers.Count - 4; j++)
-                                    {
-                                        //ở mỗi cột môn (bắt đàu từ 3), kiểm tra trong đống scores thằng nào có subject name trùng với tên cột 
-                                        //thì tính trung bình rồi quăng vào ô đó
-                                        string subjectName = worksheet.Cells[2, j].Value.ToString(); // tên môn (dòng 2)
-                                        double subjectAvgScore1 = scores1.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
-                                        double subjectAvgScore2 = scores2.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
-                                        //tính điểm tb cả năm (hk2 hệ số 2)
-                                        double yearSubjectAvgScore = (subjectAvgScore1 + subjectAvgScore2 * 2) / 3;
-                                        worksheet.Cells[i + 3, j].Value = Math.Round(yearSubjectAvgScore, 2);
-                                    }
-
-                                    var yearResult = await GenericDataService<YearResult>.Instance.GetOne(e => e.StudentId == student.Id && e.YearId == SelectedYear.Id);
-                                    double yearAvgScore = yearResult.AvgScore ?? NULL_SCORE;
-                                    worksheet.Cells[i + 3, headers.Count - 3].Value = Math.Round(yearAvgScore, 2); //tb cả kì
-                                    worksheet.Cells[i + 3, headers.Count - 2].Value = yearResult.AcademicPerformance ?? "Chưa có";
-                                    worksheet.Cells[i + 3, headers.Count - 1].Value = yearResult.Conduct ?? "Chưa có";
-                                    worksheet.Cells[i + 3, headers.Count].Value = yearResult.Result ?? "Chưa có";
-
-                                }
-
                             }
-
                             // Vẽ border cho tất cả các ô chứa dữ liệu (bảng không cố định)
                             var totalRows = students.Count + 2; // Bao gồm title, header và dữ liệu
                             var totalColumns = headers.Count;
@@ -251,11 +171,11 @@ namespace LearnHub.ViewModels.ExportModalViewModels
 
                             //Nội dung ô title
                             var richText = worksheet.Cells["A1"].RichText;
-                            var title = richText.Add("Kết quả học tập\n");
+                            var title = richText.Add("Danh sách lớp\n");
                             title.Bold = true;
                             title.Size = 20;
 
-                            var content = richText.Add($"Năm học: {SelectedYear.Name}\nHọc kì: {SelectedSemester}\nLớp: {classroom.Name}");
+                            var content = richText.Add($"Năm học: {SelectedYear.Name}\nLớp: {classroom.Name}");
                             content.Size = 14;
 
 
@@ -288,5 +208,6 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                 ToastMessageViewModel.ShowErrorToast($"Xuất dữ liệu thất bại: {ex.Message}");
             }
         }
+
     }
 }

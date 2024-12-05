@@ -6,6 +6,7 @@ using LearnHub.Stores;
 using LearnHub.Stores.AdminStores;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
+using LearnHub.ViewModels.ExportModalViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -92,9 +93,11 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowChangeClassModalCommand { get; private set; }
         public ICommand ShowDeleteModalCommand { get; private set; }
 
+        public ICommand ExportToExcelCommand { get; }
         public StudentAssignmentViewModel()
         {
             SwitchToClassCommand = new NavigateLayoutCommand(() => new ClassViewModel());
+            ExportToExcelCommand = new NavigateModalCommand(() => new ExportClassViewModel());
             _classroomStore = GenericStore<Classroom>.Instance;
             _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
             _gradeStore = GenericStore<Grade>.Instance;

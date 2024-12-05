@@ -175,13 +175,13 @@ namespace LearnHub.ViewModels.AdminViewModels
             else
             {
                 ShowAddModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    () => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
                 ShowEditModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    () => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
                 ShowDeleteModalCommand = new RelayCommand(
-                    _ => MessageBox.Show("Chưa chọn lớp.")
+                    () => ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp.")
                 );
             }
 

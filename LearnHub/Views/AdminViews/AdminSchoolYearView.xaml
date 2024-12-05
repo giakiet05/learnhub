@@ -65,6 +65,7 @@
                     CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
                       IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended"
 					  ItemsSource="{Binding SchoolYears}"
+                      PreviewMouseLeftButtonDown="NamHocDG_PreviewMouseLeftButtonDown"
                        helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedYears}">
                 
                 <DataGrid.CellStyle>

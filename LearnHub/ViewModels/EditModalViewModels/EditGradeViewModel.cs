@@ -56,7 +56,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
 
             // Cập nhật thông tin của selected dựa vào thông tin từ form
             //selectedGrade.Id = formViewModel.Id;
-            selectedGrade.Number = formViewModel.Number;
+            selectedGrade.Number = (int)formViewModel.Number;
             selectedGrade.Name = formViewModel.Number.ToString();
 
             try

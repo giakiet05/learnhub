@@ -82,7 +82,7 @@
                         Style="{StaticResource MaterialDesignRaisedButton}"
                          Command="{Binding LoginCommand}"
                         FontWeight="SemiBold" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-                        Margin="75 0 0 0"/>
+                        Margin="75 0 0 0" IsDefault="True"/>
 
                 <!--nút thoát-->
                 <Button x:Name="btnCancel" Content="Thoát" Width="115" Height="41" FontSize="14"
@@ -100,7 +100,7 @@
             <TextBlock FontSize="16" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                        HorizontalAlignment="Center" Margin="0 30 0 0" Cursor="Hand">
                 <Run Text="Chưa có tài khoản? " Foreground="Black"/>
-                <Run Text="Đăng kí" Foreground="#2292f2">
+                <Run Text="Đăng ký" Foreground="#2292f2">
                     <Run.InputBindings>
                         <MouseBinding Gesture="LeftClick" Command="{Binding SwitchToSignUpCommand}"/>
                     </Run.InputBindings>

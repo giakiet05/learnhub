@@ -111,7 +111,7 @@
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Command="{Binding SignUpCommand}"
                     FontWeight="SemiBold" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-                    Margin="75 0 0 0"/>
+                    Margin="75 0 0 0" IsDefault="True"/>
 
                 <!--nút thoát-->
                 <Button Content="Thoát" Width="115" Height="41" FontSize="14"

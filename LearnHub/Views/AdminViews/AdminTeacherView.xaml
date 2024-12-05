@@ -82,7 +82,8 @@
                       helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedTeachers}"
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       RowStyle="{StaticResource DataGridRowStyle}"
-                      CellStyle="{StaticResource DataGridCellStyle}">
+                      CellStyle="{StaticResource DataGridCellStyle}"
+                      PreviewMouseLeftButtonDown="GiaoVienDG_PreviewMouseLeftButtonDown">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Username}"/>
                     <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}"/>

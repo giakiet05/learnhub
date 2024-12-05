@@ -30,5 +30,17 @@ namespace LearnHub.Views.AuthenticationViews
             tbUsername.Clear();
             tbUsername.Focus();
         }
+
+        private void btnClear2_Click(object sender, RoutedEventArgs e)
+        {
+            email.Clear();
+            email.Focus();
+        }
+
+        private void btnClear1_Click(object sender, RoutedEventArgs e)
+        {
+            schoolname.Clear();
+            schoolname.Focus();
+        }
     }
 }

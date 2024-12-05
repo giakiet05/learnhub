@@ -33,7 +33,7 @@
                            Margin="15 0 50 0" Foreground="#5CB3FF"/>
             </Grid>
 
-            <TextBlock Text="Đăng Nhập" FontSize="35" HorizontalAlignment="Center"
+            <TextBlock Text="Đăng nhập" FontSize="35" HorizontalAlignment="Center"
                        VerticalAlignment="Center" TextAlignment="Center"
                        FontWeight="SemiBold"
                        FontFamily="/Resource/Fonts/Roboto-Mediumlight.ttf #Roboto"
@@ -43,7 +43,7 @@
                 
                 <!--tên đăng nhập-->
                 <TextBox x:Name="tbUsername" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         materialDesign:HintAssist.Hint="Tên Đăng Nhập" FontSize="20"
+                         materialDesign:HintAssist.Hint="Tên đăng nhập" FontSize="20"
                          HorizontalAlignment="Center" Width="298" Height="48"
                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                          Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
@@ -55,7 +55,7 @@
             
             <!--mật khẩu-->
             <PasswordBox x:Name="pbPassword" Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
-                         materialDesign:HintAssist.Hint="Mật Khẩu" FontSize="20"
+                         materialDesign:HintAssist.Hint="Mật khẩu" FontSize="20"
                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                          HorizontalAlignment="Center" Width="298" Height="48"
                          Margin="0 10 0 0"
@@ -70,7 +70,7 @@
             <StackPanel Width="400" Orientation="Horizontal" Margin="0 30 0 0">
                
                 <!--nút xác nhận-->
-                <Button x:Name="btnConfirm" Content="Đăng Nhập" Width="115" Height="41" FontSize="14"
+                <Button x:Name="btnConfirm" Content="Đăng nhập" Width="115" Height="41" FontSize="14"
                         Background="#87C5FC" Foreground="Black" Opacity="0.9"
                         materialDesign:ButtonAssist.CornerRadius="8" BorderThickness="0"
                         Style="{StaticResource MaterialDesignRaisedButton}"

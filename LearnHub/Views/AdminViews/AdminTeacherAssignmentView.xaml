@@ -113,6 +113,7 @@ Style="{StaticResource btnStyle}"/>
                       IsReadOnly="True" CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                       ItemsSource="{Binding TeachingAssignments}" FontSize="16"
                       SelectionMode="Extended"
+                      PreviewMouseLeftButtonDown="PhanCongDG_PreviewMouseLeftButtonDown"
                       helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedTeachingAssignments}">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">

@@ -29,6 +29,7 @@
             <!--bảng điểm của hs đã chọn-->
             <DataGrid x:Name="BangDiem" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                              CanUserDeleteRows="True"  SelectionMode="Single" 
+                      PreviewMouseLeftButtonDown="BangDiem_PreviewMouseLeftButtonDown"
                               ItemsSource="{Binding Path= ScoreViewModels}" IsReadOnly="{Binding IsReadOnly}">
                 <DataGrid.CellStyle>
                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">

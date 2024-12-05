@@ -17,6 +17,7 @@
         <!--datagrid để hiển thị list bộ môn-->
         <DataGrid Grid.Row="1" x:Name="BoMonDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                   IsReadOnly="True" SelectionUnit="FullRow"  SelectionMode="Extended"
+                  PreviewMouseLeftButtonDown="BoMonDG_PreviewMouseLeftButtonDown"
                   CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
                   helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedMajors}"
 			      ItemsSource="{Binding Majors}" >

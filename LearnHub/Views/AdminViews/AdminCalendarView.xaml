@@ -132,7 +132,7 @@
 
             <DataGrid Grid.Row="1" x:Name="ExamScheduleDataGrid" AutoGenerateColumns="False" CanUserAddRows="True"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended"
-                      ItemsSource="{Binding ExamSchedules}" FontSize="16"
+                      ItemsSource="{Binding ExamSchedules}" FontSize="16" PreviewMouseLeftButtonDown="ExamScheduleDataGrid_PreviewMouseLeftButtonDown"
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
                         helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedExamSchedules}" >
                 <DataGrid.CellStyle>

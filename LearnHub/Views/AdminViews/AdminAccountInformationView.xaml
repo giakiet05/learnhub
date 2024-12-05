@@ -33,15 +33,31 @@
                             <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
                                 <TextBlock Text="Tên đăng nhập:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
-                                <TextBlock Text="[Tên đăng nhập tài khoản tán em]" Style="{StaticResource font_style}"
+                                <TextBlock Text="[Tên đăng nhập tài khoản]" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center"/>
                             </StackPanel>
                             
+                            <!--tên trường-->
+                            <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Tên trường:" Style="{StaticResource font_style}"
+                                            VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="[Tên trường]" Style="{StaticResource font_style}"
+                                            VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!--email-->
+                            <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                                <TextBlock Text="Email:" Style="{StaticResource font_style}"
+                                            VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="[Email tài khoản]" Style="{StaticResource font_style}"
+                                            VerticalAlignment="Center"/>
+                            </StackPanel>
+
                             <!--Ngày đăng kí tài khoản-->
                             <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                                 <TextBlock Text="Ngày đăng ký: " Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
-                                <TextBlock Text="[Ngày đăng kí kết hôn cùng em]" Style="{StaticResource font_style}"
+                                <TextBlock Text="[Ngày đăng kí]" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center"/>
                             </StackPanel>
                         </StackPanel>

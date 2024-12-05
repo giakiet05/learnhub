@@ -79,7 +79,7 @@
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Menu items-->
-                <Grid Height="500">
+                <Grid>
                     <StackPanel>
                         <!--Home button-->
                         <RadioButton FontSize="30" IsChecked="True"
@@ -89,14 +89,7 @@
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/home.png" />
                             </RadioButton.Tag>
                         </RadioButton>
-                    </StackPanel>
-                </Grid>
 
-                <Separator Background="Black" VerticalAlignment="Stretch"/>
-
-                <!--Account Items-->
-                <Grid VerticalAlignment="Center">
-                    <StackPanel>
                         <!--Login button-->
                         <RadioButton IsChecked="False"
                                      FontSize="30"

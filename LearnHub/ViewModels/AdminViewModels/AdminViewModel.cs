@@ -37,7 +37,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             ResultCommand = new NavigateLayoutCommand(()=>new ResultViewModel());
             StatisticCommand =new NavigateLayoutCommand(() => new AdminYearStatisticViewModel());
             NavigationStore.Instance.CurrentLayoutModelChanged += OnCurrentLayoutModelChanged;
-            NavigationStore.Instance.CurrentLayoutModel = new SchoolYearViewModel();
+            NavigationStore.Instance.CurrentLayoutModel = new AdminAccountInformationViewModel();
         }
         
         private void OnCurrentLayoutModelChanged()

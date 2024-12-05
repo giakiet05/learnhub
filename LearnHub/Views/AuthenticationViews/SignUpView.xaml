@@ -125,17 +125,17 @@
 
             </StackPanel>
             <!--nút đăng kí tài khoản-->
-            <TextBlock Text="Đã có tài khoản? Đăng nhập" FontSize="16"
-            FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
-            HorizontalAlignment="Center" Margin="0 30 0 0" Cursor="Hand">
-     <i:Interaction.Triggers>
-         <i:EventTrigger EventName="MouseDown">
-             <i:InvokeCommandAction Command="{Binding SwitchToLoginCommand}"/>
-         </i:EventTrigger>
-     </i:Interaction.Triggers>
-            </TextBlock>
+            <TextBlock Text="Đã có tài khoản? Đăng nhập" FontSize="16" Foreground="Green"
+                        FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
+                        HorizontalAlignment="Center" Margin="0 30 0 0" Cursor="Hand">
+             <i:Interaction.Triggers>
+                 <i:EventTrigger EventName="MouseDown">
+                     <i:InvokeCommandAction Command="{Binding SwitchToLoginCommand}"/>
+                 </i:EventTrigger>
+             </i:Interaction.Triggers>
+                    </TextBlock>
         </StackPanel>
-        
-        
+
+
     </Border>
 </UserControl>

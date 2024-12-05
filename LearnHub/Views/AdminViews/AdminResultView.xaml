@@ -27,10 +27,10 @@
         <!--stackpanel các nút chức năng-->
         <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
             <!--nút import excel-->
-            <Button x:Name="btImport" Content="Import" Margin="0 0 20 0"
+            <!--<Button x:Name="btImport" Content="Import" Margin="0 0 20 0"
                     Command="{Binding ImportFromExcelCommand}" Width="90" Height="45" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
-                    Style="{StaticResource btnStyle}"/>
+                    Style="{StaticResource btnStyle}"/>-->
 
             <!--nút export excel-->
             <Button x:Name="btnExport" Content="Export" Margin="0 0 20 0"

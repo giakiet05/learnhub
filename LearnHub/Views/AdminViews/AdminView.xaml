@@ -74,10 +74,19 @@
                 <Separator Background="Black" VerticalAlignment="Stretch"/>
 
                 <!--Menu items-->
-                <Grid Height="500">
+                <Grid>
                     <StackPanel>
-                        <!--Base button-->
+                        <!--Account button-->
                         <RadioButton FontSize="30" IsChecked="True"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding AccountCommand}"
+                                     Content="Thông tin">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/user.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+                        <!--Base button-->
+                        <RadioButton FontSize="30"
                                      Command="{Binding SchoolYearCommand}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Content="Cơ sở">
@@ -137,23 +146,6 @@
                                      Content="Thống kê">
                             <RadioButton.Tag>
                                 <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/chart.png" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-                    </StackPanel>
-                </Grid>
-
-                <Separator Background="Black" VerticalAlignment="Stretch"/>
-
-                <!--Account Items-->
-                <Grid VerticalAlignment="Center">
-                    <StackPanel>
-                        <!--Account button-->
-                        <RadioButton FontSize="30"
-                                     Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding AccountCommand}"
-                                     Content="Thông tin">
-                            <RadioButton.Tag>
-                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/user.png" />
                             </RadioButton.Tag>
                         </RadioButton>
                         <!--Logout button-->

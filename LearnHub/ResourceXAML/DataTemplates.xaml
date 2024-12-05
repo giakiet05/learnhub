@@ -45,7 +45,11 @@
     <DataTemplate DataType="{x:Type exportvm:ExportTimeTableViewModel}">
         <exportviews:ExportTimeTableView/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type exportvm:ExportClassViewModel}">
+        <exportviews:ExportTimeTableView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type exportvm:ExportResultViewModel}">
         <exportviews:ExportResultView/>
     </DataTemplate>

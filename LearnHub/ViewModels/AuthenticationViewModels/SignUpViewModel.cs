@@ -133,14 +133,14 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
                     return;
                 }
 
-                if (Regex.IsMatch(Email, emailPattern))
+                if (!Regex.IsMatch(Email, emailPattern))
                 {
                     ErrorMessage = "Email không hợp lệ";
                     return;
                 }
 
 
-                if (Regex.IsMatch(Password, passwordPattern))
+                if (!Regex.IsMatch(Password, passwordPattern))
                 {
                     ErrorMessage = "Mật khẩu chưa hợp lệ";
                     return;

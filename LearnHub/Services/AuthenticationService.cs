@@ -22,17 +22,19 @@ namespace LearnHub.Services
         {
             using (var context = LearnHubDbContextFactory.Instance.CreateDbContext())
             {
-                User existingUser = await context.Users.FirstOrDefaultAsync(e => e.Username == username);
+                User user = await context.Users.FirstOrDefaultAsync(e => e.Username == username);
 
-                if (existingUser == null)
+                if (user == null)
                     throw new UserNotFoundException(username);
 
                 var passwordHasher = new PasswordHasher<User>();
-                var result = passwordHasher.VerifyHashedPassword(existingUser, existingUser.Password, password);
+
+                var result = passwordHasher.VerifyHashedPassword(user, user.Password, password);
+
                 if (result != PasswordVerificationResult.Success)
                     throw new InvalidPasswordException(username, password);
 
-                if (existingUser.Role == "Admin") return existingUser;
+                if (user.Role == "Admin") return user;
 
                 return null;
             }

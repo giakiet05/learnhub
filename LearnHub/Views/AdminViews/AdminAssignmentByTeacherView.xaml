@@ -132,7 +132,7 @@
     
                     <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
                               IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended" CanUserDeleteRows="True"
-                              ItemsSource="{Binding TeachingAssignments}"
+                              ItemsSource="{Binding TeachingAssignments}" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown"
                               helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedTeachingAssignments}"
                               Margin="5" >
                         <DataGrid.CellStyle>

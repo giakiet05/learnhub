@@ -20,6 +20,7 @@
                   IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended"
                   CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
 				  ItemsSource="{Binding Subjects}"
+                  PreviewMouseLeftButtonDown="MonHocDG_PreviewMouseLeftButtonDown"
                    helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedSubjects}">
             <DataGrid.CellStyle>
                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">

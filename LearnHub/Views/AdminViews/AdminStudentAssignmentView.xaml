@@ -33,6 +33,14 @@
                         Margin="10 0 0 0" FontSize="18" Width="125" Height="50"
                         Style="{StaticResource btnStyle}"/>
             </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
+                <!--nút export excel-->
+                <Button x:Name="btnExport" Content="Export" Margin="0 0 20 0"
+                        Command="{Binding ExportToExcelCommand}" Width="90" Height="45" FontSize="16"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
+            </StackPanel>
         </Grid>
 
 
@@ -137,10 +145,11 @@
                     
                     <!--danh sách học sinh của lớp đã chọn-->
                     <DataGrid Grid.Row="1" x:Name="HocSinhDG" AutoGenerateColumns="False" CanUserAddRows="True" HeadersVisibility="Column"
-          IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended" CanUserDeleteRows="True"
-          ItemsSource="{Binding StudentPlacements}"
-         helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedStudentPlacements}"
-          Margin="5">
+                              IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended" CanUserDeleteRows="True"
+                              ItemsSource="{Binding StudentPlacements}"
+                              PreviewMouseLeftButtonDown="LopDG_PreviewMouseLeftButtonDown"
+                             helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedStudentPlacements}"
+                              Margin="5">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0"/>

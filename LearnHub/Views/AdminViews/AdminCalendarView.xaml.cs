@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,41 +25,29 @@ namespace LearnHub.Views.AdminViews
         {
             InitializeComponent();
         }
-
-        private void TimetableDataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var dataGrid = sender as DataGrid;
-
-            // Lấy đối tượng nơi nhấn chuột
-            var hit = VisualTreeHelper.HitTest(dataGrid, e.GetPosition(dataGrid));
-
-            if (hit != null)
-            {
-                // Xác định dòng được nhấn (nếu có)
-                var row = ItemsControl.ContainerFromElement(dataGrid, hit.VisualHit) as DataGridRow;
-
-                if (row != null)
-                {
-                    // Chọn dòng
-                    dataGrid.SelectedItem = row.Item;
-                }
-                else
-                {
-                    // Nếu nhấn vào khoảng trống, không thay đổi lựa chọn
-                    e.Handled = true;
-                }
-            }
-        }
-
         private void ExamScheduleDataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var dataGrid = sender as DataGrid;
 
-            // Lấy đối tượng nơi nhấn chuột
+            // Kiểm tra nếu nhấn vào thanh cuộn hoặc khu vực không phải nội dung
             var hit = VisualTreeHelper.HitTest(dataGrid, e.GetPosition(dataGrid));
 
             if (hit != null)
             {
+                var visualHit = hit.VisualHit;
+
+                // Kiểm tra xem nơi nhấn chuột có phải là thanh cuộn hay không
+                while (visualHit != null)
+                {
+                    if (visualHit is ScrollBar)
+                    {
+                        // Nếu là thanh cuộn, không chặn sự kiện
+                        return;
+                    }
+
+                    visualHit = VisualTreeHelper.GetParent(visualHit);
+                }
+
                 // Xác định dòng được nhấn (nếu có)
                 var row = ItemsControl.ContainerFromElement(dataGrid, hit.VisualHit) as DataGridRow;
 
@@ -70,7 +59,7 @@ namespace LearnHub.Views.AdminViews
                 else
                 {
                     // Nếu nhấn vào khoảng trống, không thay đổi lựa chọn
-                    e.Handled = true;
+                    return;
                 }
             }
         }

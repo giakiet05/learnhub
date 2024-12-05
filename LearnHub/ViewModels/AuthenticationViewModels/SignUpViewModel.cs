@@ -138,11 +138,15 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
                     ErrorMessage = "Email không hợp lệ";
                     return;
                 }
-
+                if(Password.Length <8) 
+                {
+                    ErrorMessage = "Mật khẩu cần độ dài tối thiểu 8 kí tự.";
+                    return;
+                }
 
                 if (!Regex.IsMatch(Password, passwordPattern))
                 {
-                    ErrorMessage = "Mật khẩu chưa hợp lệ";
+                    ErrorMessage = "Mật khẩu cần bao gồm chữ số, kí tự thường, kí tự in hoa và kí tự đặc biệt.";
                     return;
                 }
 

@@ -26,13 +26,13 @@
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <!--button đổi mk-->
                 <Button Content="Đổi mật khẩu" Width="120" Height="45"
-                    Command="{Binding }" FontSize="16"
+                    Command="{Binding ChangePasswordCommand }" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     VerticalAlignment="Center"
                     Style="{StaticResource btnStyle}"/>
                 <!--button đổi thông tin-->
                 <Button Content="Sửa thông tin" Width="120" Margin="15 0 20 0"
-                    Command="{Binding }" FontSize="16" Height="45"
+                    Command="{Binding EditInformationCommand}" FontSize="16" Height="45"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     VerticalAlignment="Center"
                     Style="{StaticResource btnStyle}"/>
@@ -53,7 +53,7 @@
                         <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
                             <TextBlock Text="Tên đăng nhập:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
-                            <TextBlock Text="[Tên đăng nhập tài khoản]" Style="{StaticResource font_style}"
+                            <TextBlock Text="{Binding Username}" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center"/>
                         </StackPanel>
 
@@ -61,7 +61,7 @@
                         <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                             <TextBlock Text="Tên trường:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
-                            <TextBlock Text="[Tên trường]" Style="{StaticResource font_style}"
+                            <TextBlock Text="{Binding SchoolName}" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center"/>
                         </StackPanel>
 
@@ -69,7 +69,7 @@
                         <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                             <TextBlock Text="Email:" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
-                            <TextBlock Text="[Email tài khoản]" Style="{StaticResource font_style}"
+                            <TextBlock Text="{Binding Email}" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center"/>
                         </StackPanel>
 
@@ -77,7 +77,7 @@
                         <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
                             <TextBlock Text="Ngày đăng ký: " Style="{StaticResource font_style}"
                                             VerticalAlignment="Center" Width="120"/>
-                            <TextBlock Text="[Ngày đăng kí]" Style="{StaticResource font_style}"
+                            <TextBlock Text="{Binding RegisterTime}" Style="{StaticResource font_style}"
                                             VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>

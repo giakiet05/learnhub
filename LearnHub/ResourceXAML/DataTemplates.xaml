@@ -141,9 +141,6 @@
     <DataTemplate DataType="{x:Type addvm:AddSchoolYearViewModel}">
         <addviews:AddSchoolYearView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type addvm:AddNotificationViewModel}">
-        <addviews:AddNotificationView/>
-    </DataTemplate>
     <DataTemplate DataType="{x:Type addvm:AddStudentViewModel}">
         <addviews:AddStudentView/>
     </DataTemplate>
@@ -176,9 +173,6 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditGradeViewModel}">
         <editviews:EditGradeView/>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type editvm:EditNotificationViewModel}">
-        <editviews:EditNotificationView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type editvm:EditStudentViewModel}">
         <editviews:EditStudentView/>

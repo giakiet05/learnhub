@@ -40,7 +40,7 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <!--button thêm-->
                 <Button  Content="Đồng ý" Style="{StaticResource btnStyle}" Width="118"
-                         Command="{Binding SubmitCommand}"
+                         Command="{Binding SubmitCommand}" 
                          Margin="10 0 10 0" Background="#87C5FC" BorderBrush="Transparent"/>
                 <!--button huỷ-->
                 <Button  Content="Huỷ bỏ" Style="{StaticResource btnStyle}" Width="118"

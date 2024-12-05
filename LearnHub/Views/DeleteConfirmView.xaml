@@ -34,7 +34,7 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <!--button xác nhận-->
             <Button x:Name="btnXacNhan" Content="Xác nhận" Style="{StaticResource btnStyle}" Width="118"
-                    Command="{Binding DeleteCommand}"
+                    Command="{Binding DeleteCommand}" 
                     Margin="10 0 10 10" Background="#87C5FC" BorderBrush="Transparent"/>
             <!--button huỷ-->
             <Button x:Name="btnHuy" Content="Huỷ" Style="{StaticResource btnStyle}" Width="118"

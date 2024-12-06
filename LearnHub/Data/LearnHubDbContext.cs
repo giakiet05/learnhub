@@ -18,12 +18,12 @@ namespace LearnHub.Data
         public DbSet<AcademicYear> AcademicYears { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Grade> Grades { get; set; }
-      
+
         public DbSet<ExamSchedule> ExamSchedules { get; set; }
 
         public DbSet<SemesterResult> SemesterResults { get; set; }
         public DbSet<TeachingAssignment> TeachingAssignments { get; set; }
-       
+
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Score> Scores { get; set; }
 
@@ -33,13 +33,12 @@ namespace LearnHub.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             //Composite keys
             modelBuilder.Entity<ExamSchedule>().HasKey(e => new { e.SubjectId, e.Semester, e.ClassroomId, e.ExamType });
             modelBuilder.Entity<TeachingAssignment>().HasKey(e => new { e.ClassroomId, e.Weekday, e.Period });
             modelBuilder.Entity<StudentPlacement>().HasKey(e => new { e.ClassroomId, e.StudentId });
-            modelBuilder.Entity<Score>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId});
-            modelBuilder.Entity<SemesterResult>().HasKey(e => new { e.YearId, e.StudentId , e.Semester});
+            modelBuilder.Entity<Score>().HasKey(e => new { e.SubjectId, e.Semester, e.YearId, e.StudentId });
+            modelBuilder.Entity<SemesterResult>().HasKey(e => new { e.YearId, e.StudentId, e.Semester });
             modelBuilder.Entity<YearResult>().HasKey(e => new { e.YearId, e.StudentId });
 
             //Unique constraints
@@ -50,7 +49,7 @@ namespace LearnHub.Data
             modelBuilder.Entity<User>(e =>
             {
                 e.ToTable(tb => tb.HasCheckConstraint("CK_User_Role", "[Role] IN ('Admin', 'Student', 'Teacher')"));
-               
+
             });
 
             modelBuilder.Entity<Teacher>(e =>
@@ -64,11 +63,11 @@ namespace LearnHub.Data
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Student_Gender", "[Gender] IN ('Nam', 'Nữ')"));
             });
 
-           
+
 
             modelBuilder.Entity<ExamSchedule>(e =>
             {
-             
+
                 e.ToTable(tb => tb.HasCheckConstraint("CK_ExamSchedule_Semester", "[Semester] IN ('HK1', 'HK2')"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_ExamSchedule_ExamType", "[ExamType] IN ('GK', 'CK')"));
             });
@@ -90,7 +89,7 @@ namespace LearnHub.Data
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Semester_Conduct", "[Conduct] IN ('Tốt', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Semester_AcademicPerformance", "[AcademicPerformance] IN ('Xuất sắc', 'Giỏi', 'Khá', 'Trung bình', 'Yếu', 'Kém')"));
                 e.ToTable(tb => tb.HasCheckConstraint("CK_Semester_AvgScore", "[AvgScore] BETWEEN 0 AND 10"));
-              
+
             });
 
             modelBuilder.Entity<YearResult>(e =>

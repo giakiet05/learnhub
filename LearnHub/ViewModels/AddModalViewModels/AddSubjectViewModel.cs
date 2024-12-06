@@ -37,7 +37,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
             }
             var newSubject = new Subject
             {
-                Id = formViewModel.Id,
+                Id = Guid.NewGuid(),
+                OriginalId = formViewModel.Id,
                 Name = formViewModel.Name,
                 LessonNumber = formViewModel.LessonNumber,
                 GradeId = formViewModel.SelectedGrade.Id,

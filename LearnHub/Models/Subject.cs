@@ -10,15 +10,16 @@ namespace LearnHub.Models
 {
     public class Subject : IAdminId
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
+        public string OriginalId { get; set; }
         public string Name { get; set; }
 
         public int? LessonNumber { get; set; }
 
-        public string? GradeId { get; set; }
+        public Guid? GradeId { get; set; }
 
-        public string? MajorId { get; set; }
-        public string? AdminId { get; set; }
+        public Guid? MajorId { get; set; }
+        public Guid? AdminId { get; set; }
         public Admin Admin { get; set; }
 
         //Navigation Properties

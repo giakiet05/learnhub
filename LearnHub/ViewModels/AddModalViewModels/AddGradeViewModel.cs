@@ -42,7 +42,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
             Grade newGrade = new Grade()
             {
-                Id = formViewModel.Id,
+                Id = Guid.NewGuid(),
+                OriginalId = formViewModel.Id,
                 Number = (int)formViewModel.Number,
                 Name = formViewModel.Number.ToString(),
                 AdminId = AccountStore.Instance.CurrentUser.Id

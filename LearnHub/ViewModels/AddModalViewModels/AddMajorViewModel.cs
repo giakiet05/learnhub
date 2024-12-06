@@ -44,7 +44,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
             Major newMajor = new Major()
             {
-                Id = formViewModel.Id,
+                Id = Guid.NewGuid(),
+                OriginalId = formViewModel.Id,
                 Name = formViewModel.Name,
                 AdminId = AccountStore.Instance.CurrentUser.Id
             };

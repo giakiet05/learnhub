@@ -81,7 +81,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 {
                     Score score = new Score()
                     {
-                        YearId = _classroomStore.SelectedItem.YearId,
+                        YearId = (Guid)_classroomStore.SelectedItem.YearId,
                         SubjectId = formViewModel.SelectedSubject.Id,
                         StudentId = student,
                         Semester = "HK1",

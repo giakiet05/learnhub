@@ -42,7 +42,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
             var newSchoolYear = new AcademicYear
             {
-                Id = formViewModel.Id,
+                Id = Guid.NewGuid(),
+                OriginalId = formViewModel.Id,
                 StartYear = formViewModel.StartYear,
                 Name = formViewModel.StartYear+"-"+ (formViewModel.StartYear+1).ToString(),
                 AdminId = AccountStore.Instance.CurrentUser.Id

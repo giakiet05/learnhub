@@ -35,8 +35,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
                    string.IsNullOrWhiteSpace(formViewModel.Name) ||
-                   string.IsNullOrWhiteSpace(formViewModel.SelectedGrade.Id) ||
-                    string.IsNullOrWhiteSpace(formViewModel.SelectedYear.Id) ||
+                   string.IsNullOrWhiteSpace(formViewModel.SelectedGrade.OriginalId) ||
+                    string.IsNullOrWhiteSpace(formViewModel.SelectedYear.OriginalId) ||
                     formViewModel.Capacity <=0
                   )
             {
@@ -46,7 +46,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
             Classroom newClass = new Classroom()
             {
-                Id = formViewModel.Id,
+                Id = Guid.NewGuid(),
+                OriginalId = formViewModel.Id,
                 Name = formViewModel.Name,
                 Capacity = formViewModel.Capacity,
                 GradeId = formViewModel.SelectedGrade?.Id,

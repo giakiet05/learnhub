@@ -81,7 +81,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 foreach (var year in SelectedYears)
                 {
-                    await GenericDataService<AcademicYear>.Instance.DeleteOne(e => e.Id == year.Id);
+                    await GenericDataService<AcademicYear>.Instance.DeleteOne(e => e.OriginalId == year.OriginalId);
                 }
                 LoadSchoolYearsAsync();
 

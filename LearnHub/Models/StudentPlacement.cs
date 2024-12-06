@@ -9,9 +9,9 @@ namespace LearnHub.Models
 {
     public class StudentPlacement : IAdminId
     {
-        public string ClassroomId { get; set; }
-        public string StudentId { get; set; }
-        public string? AdminId { get; set; }
+        public Guid ClassroomId { get; set; }
+        public Guid StudentId { get; set; }
+        public Guid? AdminId { get; set; }
         public Admin Admin { get; set; }
 
         //Navigation Properties

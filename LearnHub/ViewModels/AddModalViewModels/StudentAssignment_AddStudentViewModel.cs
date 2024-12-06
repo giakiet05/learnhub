@@ -184,7 +184,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
             var studentPlacements = await GenericDataService<StudentPlacement>.Instance.GetAll();
 
             //lấy ra studentid của các studentplacement này (học sinh được phân lớp)
-            IEnumerable<string> assignedStudentIds = studentPlacements.Select(e => e.StudentId);
+            IEnumerable<Guid> assignedStudentIds = studentPlacements.Select(e => e.StudentId);
 
 
 

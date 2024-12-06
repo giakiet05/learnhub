@@ -8,7 +8,7 @@ namespace LearnHub.Models
 {
     public interface IAdminId
     {
-        string? AdminId { get; set; }
+        Guid? AdminId { get; set; }
         Admin Admin { get; set; }
     }
 }

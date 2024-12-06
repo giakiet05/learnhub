@@ -257,11 +257,11 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
             if(SelectedMajor == null)
             {
-                Teachers = await GenericDataService<Teacher>.Instance.GetMany(e => e.Major.Id != null);
+                Teachers = await GenericDataService<Teacher>.Instance.GetMany(e => e.Major.OriginalId != null);
             }
             else
             {
-                Teachers = await GenericDataService<Teacher>.Instance.GetMany( e => e.Major.Id == SelectedMajor.Id);
+                Teachers = await GenericDataService<Teacher>.Instance.GetMany( e => e.Major.OriginalId == SelectedMajor.OriginalId);
             }
             OnPropertyChanged(nameof(Teachers));
         }
@@ -277,7 +277,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 //lấy ra các teaching assignment kèm theo teacher và subject vì ef không tự động load những navigation prop này
                 var teachingAssignments = await GenericDataService<TeachingAssignment>.Instance.GetMany(
                     e => e.Teacher.Id == SelectedTeacher.Id
-                    && e.Classroom.AcademicYear.Id == SelectedYear.Id,
+                    && e.Classroom.AcademicYear.OriginalId == SelectedYear.OriginalId,
                     include: query => query.Include(t => t.Classroom) 
                            .Include(t => t.Subject) // Tải Subject nếu cần
                            

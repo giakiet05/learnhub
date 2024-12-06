@@ -19,13 +19,18 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.AcademicYear", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginalId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("StartYear")
@@ -40,26 +45,31 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Classroom", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("Capacity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("GradeId")
+                    b.Property<Guid?>("GradeId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TeacherInChargeId")
+                    b.Property<string>("OriginalId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("YearId")
+                    b.Property<Guid?>("TeacherInChargeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("YearId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -77,19 +87,19 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.ExamSchedule", b =>
                 {
-                    b.Property<string>("SubjectId")
+                    b.Property<Guid>("SubjectId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Semester")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ClassroomId")
+                    b.Property<Guid>("ClassroomId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExamType")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ExamDate")
@@ -114,10 +124,11 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Grade", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -125,6 +136,10 @@ namespace LearnHub.Migrations
 
                     b.Property<int>("Number")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("OriginalId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -135,13 +150,18 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Major", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginalId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -154,19 +174,19 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Score", b =>
                 {
-                    b.Property<string>("SubjectId")
+                    b.Property<Guid>("SubjectId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Semester")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("YearId")
+                    b.Property<Guid>("YearId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentId")
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("AvgScore")
@@ -203,10 +223,10 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.SemesterResult", b =>
                 {
-                    b.Property<string>("YearId")
+                    b.Property<Guid>("YearId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentId")
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Semester")
@@ -215,7 +235,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("AcademicPerformance")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("AuthorizedLeaveDays")
@@ -255,13 +275,13 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.StudentPlacement", b =>
                 {
-                    b.Property<string>("ClassroomId")
+                    b.Property<Guid>("ClassroomId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentId")
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ClassroomId", "StudentId");
@@ -275,22 +295,27 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.Subject", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("GradeId")
+                    b.Property<Guid?>("GradeId")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("LessonNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("MajorId")
+                    b.Property<Guid?>("MajorId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginalId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -307,7 +332,7 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.TeachingAssignment", b =>
                 {
-                    b.Property<string>("ClassroomId")
+                    b.Property<Guid>("ClassroomId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Weekday")
@@ -316,15 +341,13 @@ namespace LearnHub.Migrations
                     b.Property<string>("Period")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SubjectId")
-                        .IsRequired()
+                    b.Property<Guid>("SubjectId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TeacherId")
-                        .IsRequired()
+                    b.Property<Guid>("TeacherId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ClassroomId", "Weekday", "Period");
@@ -340,7 +363,8 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
@@ -373,13 +397,16 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.YearResult", b =>
                 {
-                    b.Property<string>("YearId")
+                    b.Property<Guid>("YearId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentId")
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AcademicPerformance")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("AuthorizedLeaveDays")
@@ -397,14 +424,11 @@ namespace LearnHub.Migrations
                     b.Property<int?>("UnauthorizedLeaveDays")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("YearId", "StudentId");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("AdminId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("YearResults", t =>
                         {
@@ -445,7 +469,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Birthday")
@@ -497,7 +521,7 @@ namespace LearnHub.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Birthday")
@@ -524,7 +548,7 @@ namespace LearnHub.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MajorId")
+                    b.Property<Guid?>("MajorId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
@@ -768,15 +792,15 @@ namespace LearnHub.Migrations
 
             modelBuilder.Entity("LearnHub.Models.YearResult", b =>
                 {
+                    b.HasOne("LearnHub.Models.Admin", "Admin")
+                        .WithMany()
+                        .HasForeignKey("AdminId");
+
                     b.HasOne("LearnHub.Models.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LearnHub.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
 
                     b.HasOne("LearnHub.Models.AcademicYear", "AcademicYear")
                         .WithMany()
@@ -786,9 +810,9 @@ namespace LearnHub.Migrations
 
                     b.Navigation("AcademicYear");
 
-                    b.Navigation("Student");
+                    b.Navigation("Admin");
 
-                    b.Navigation("User");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("LearnHub.Models.Admin", b =>

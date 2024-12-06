@@ -61,7 +61,7 @@ namespace LearnHub.ViewModels.AdminViewModels
     }
 
     public double AverageScore => CalculateAverageScore();
-    public string StudentId => _score.StudentId;
+    public Guid StudentId => _score.StudentId;
     public Subject Subject { get; set; }
     public Student Student { get; set; }
     public AcademicYear AcademicYear { get; set; }

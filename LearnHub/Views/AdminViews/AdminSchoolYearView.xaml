@@ -75,7 +75,7 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã năm học" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Mã năm học" Binding="{Binding OriginalId}"/>
                     <DataGridTextColumn Header="Tên năm học" Binding="{Binding Name}"/>
                 </DataGrid.Columns>
             </DataGrid>

@@ -142,7 +142,7 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã môn" Binding="{Binding Subject.Id}"/>
+                    <DataGridTextColumn Header="Mã môn" Binding="{Binding Subject.OriginalId}"/>
                     <DataGridTextColumn Header="Tên môn" Binding="{Binding Subject.Name}"/>
                     <DataGridTextColumn Header="Ngày" Binding="{Binding ExamDate, StringFormat='dd/MM/yyyy'}"/>
                     <DataGridTextColumn Header="Giờ" Binding="{Binding ExamDate, StringFormat={}{0:H:mm}}"/>

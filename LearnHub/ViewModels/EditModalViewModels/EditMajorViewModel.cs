@@ -36,7 +36,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             {
                 // Điền thông tin vào input
                 MajorDetailsFormViewModel.IsEnable = false;
-                MajorDetailsFormViewModel.Id = selectedMajor.Id;
+                MajorDetailsFormViewModel.Id = selectedMajor.OriginalId;
                 MajorDetailsFormViewModel.Name = selectedMajor.Name;
             }
         }
@@ -62,8 +62,8 @@ namespace LearnHub.ViewModels.EditModalViewModels
 
             try
             {
-                await GenericDataService<Major>.Instance.UpdateOne(selectedMajor, e => e.Id == selectedMajor.Id);
-                GenericStore<Major>.Instance.Update(selectedMajor, e => e.Id == selectedMajor.Id); // Update in store
+                await GenericDataService<Major>.Instance.UpdateOne(selectedMajor, e => e.OriginalId == selectedMajor.OriginalId);
+                GenericStore<Major>.Instance.Update(selectedMajor, e => e.OriginalId == selectedMajor.OriginalId); // Update in store
                 ToastMessageViewModel.ShowSuccessToast("Cập nhật bộ môn thành công.");
                 ModalNavigationStore.Instance.Close();
             }

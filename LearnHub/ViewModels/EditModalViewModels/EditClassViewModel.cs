@@ -42,7 +42,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             {
                 // Điền vào các input thông tin từ selectedClass
                 formViewModel.IsEnable = false;
-                formViewModel.Id = selectedClassroom.Id;
+                formViewModel.Id = selectedClassroom.OriginalId;
                 formViewModel.Name = selectedClassroom.Name;
                 formViewModel.Capacity = selectedClassroom.Capacity;
                 formViewModel.SelectedGrade = selectedClassroom.Grade;
@@ -56,8 +56,8 @@ namespace LearnHub.ViewModels.EditModalViewModels
             var formViewModel = ClassDetailsFormViewModel;
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
                    string.IsNullOrWhiteSpace(formViewModel.Name) ||
-                   string.IsNullOrWhiteSpace(formViewModel.SelectedGrade.Id) ||
-                    string.IsNullOrWhiteSpace(formViewModel.SelectedYear.Id) ||
+                   string.IsNullOrWhiteSpace(formViewModel.SelectedGrade.OriginalId) ||
+                    string.IsNullOrWhiteSpace(formViewModel.SelectedYear.OriginalId) ||
                     formViewModel.Capacity <=0)
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
@@ -67,7 +67,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             var selectedClassroom = _classroomStore.SelectedItem;  // Accessing SelectedItem from GenericStore<Classroom>
 
             // Cập nhật thông tin của selected classroom dựa vào thông tin từ form
-            selectedClassroom.Id = formViewModel.Id;
+            selectedClassroom.OriginalId = formViewModel.Id;
             selectedClassroom.Name = formViewModel.Name;
             selectedClassroom.Capacity = formViewModel.Capacity;
             //thuộc tính khóa ngoại sẽ lưu vào db

@@ -9,11 +9,12 @@ namespace LearnHub.Models
 {
     public class AcademicYear : IAdminId
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; } //khóa chính thực sự
+        public string OriginalId { get; set; } //Id do người dùng nhập
         public string? Name { get; set; }
 
         public int? StartYear { get; set; }
-        public string? AdminId { get; set; }
+        public Guid? AdminId { get; set; }
         public Admin Admin { get; set; }
         //Navigation Properties
         public ICollection<SemesterResult> SemesterResults { get; set; }

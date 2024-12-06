@@ -39,10 +39,18 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 return;
             }
 
+            //kiểm tra xem originalid và adminid có tồn tại chưa (nghĩa là trong 1 tài khoản chỉ có thể có 1 originalid)
+            var existingItem = await GenericDataService<Grade>.Instance.GetOne(x => x.OriginalId == formViewModel.Id && x.AdminId == AccountStore.Instance.CurrentUser.Id);
 
+            if (existingItem != null)
+            {
+                ToastMessageViewModel.ShowWarningToast("Mã này đã tồn tại");
+                return;
+            }
             Grade newGrade = new Grade()
             {
-                Id = formViewModel.Id,
+                Id = Guid.NewGuid(),
+                OriginalId = formViewModel.Id,
                 Number = (int)formViewModel.Number,
                 Name = formViewModel.Number.ToString(),
                 AdminId = AccountStore.Instance.CurrentUser.Id

@@ -11,9 +11,9 @@ namespace LearnHub.Models
     {
         //-----Composite Key------
         [ForeignKey("AcademicYear")]
-        public string YearId { get; set; }
-        public string SubjectId { get; set; }
-        public string StudentId { get; set; }
+        public Guid YearId { get; set; }
+        public Guid SubjectId { get; set; }
+        public Guid StudentId { get; set; }
         public string Semester { get; set; }
    //     public string Type { get; set; } // loại, TX, GK, CK,...
         //-----Composite Key------
@@ -22,7 +22,7 @@ namespace LearnHub.Models
         public double? FinalTermScore { get; set; } // điểm CK
         public string? RegularScores { get; set; } // điểm TX      
         public double? AvgScore { get; set; } // điểm tb
-        public string? AdminId { get; set; }
+        public Guid? AdminId { get; set; }
         public Admin Admin { get; set; }
         //Navigation Properties
         public Subject Subject { get; set; }

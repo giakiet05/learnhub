@@ -104,7 +104,7 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Username}"/>
                             <DataGridTextColumn Header="Tên học sinh" Binding="{Binding FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>

@@ -158,7 +158,7 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
 
                 Admin admin = new Admin()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid(),
                     Username = Username,
                     RegisterTime = DateTime.Now,
                     Email = Email,

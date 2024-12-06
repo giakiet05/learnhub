@@ -107,7 +107,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 //lấy id của các lớp đã phân
                 var assignedClassroomIds = studentPlacements.Select(e => e.ClassroomId);
                 //lấy ra các khối hợp lệ
-                var Grades = await GenericDataService<Grade>.Instance.Query(e=>
+                IEnumerable<Guid?> Grades = (IEnumerable<Guid?>)await GenericDataService<Grade>.Instance.Query(e=>
                 e.Where(e=>e.Number==GradeNumber)
                 .Select(e=>e.Id)
                 );

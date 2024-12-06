@@ -139,12 +139,9 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                 // Remove diacritics from both search text and teacher fields
                 string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
-                string normalizedUsername = TextHelper.RemoveDiacritics(teacher.Username);
-                string normalizedId = TextHelper.RemoveDiacritics(teacher.Id);
+                string normalizedUsername = TextHelper.RemoveDiacritics(teacher.Username);        
                 string normalizedFullName = TextHelper.RemoveDiacritics(teacher.FullName);
-
-                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
-                       normalizedId.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||                  
                        normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
             }
             return false;
@@ -264,7 +261,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         {
                             var teacher = new Teacher
                             {
-                                Id = worksheet.Cells[row, 1].GetValue<string>(),
+                                Id = Guid.NewGuid(),
                                 Username = worksheet.Cells[row, 2].GetValue<string>(),
                                 Password = worksheet.Cells[row, 3].GetValue<string>(),
                                 FullName = worksheet.Cells[row, 4].GetValue<string>(),
@@ -276,7 +273,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 Religion = worksheet.Cells[row, 10].GetValue<string>(),
                                 Ethnicity = worksheet.Cells[row, 11].GetValue<string>(),
                                 Coefficient = worksheet.Cells[row, 12].GetValue<double?>(),
-                                MajorId = worksheet.Cells[row, 13].GetValue<string>(),
+                              
                                 Role = "Teacher" // Gán mặc định Role là Teacher
                             };
 

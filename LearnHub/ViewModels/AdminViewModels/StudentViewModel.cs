@@ -140,11 +140,10 @@ namespace LearnHub.ViewModels.AdminViewModels
                 // Remove diacritics from both search text and student fields
                 string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
                 string normalizedUsername = TextHelper.RemoveDiacritics(student.Username);
-                string normalizedId = TextHelper.RemoveDiacritics(student.Id);
                 string normalizedFullName = TextHelper.RemoveDiacritics(student.FullName);
 
                 return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
-                       normalizedId.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                    
                        normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
             }
             return false;
@@ -280,7 +279,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                             var student = new Student
                             {
                                 Role = "Student",
-                                Id = worksheet.Cells[row, 1].Text,
+                                Id = Guid.NewGuid(),
                                 Username = worksheet.Cells[row, 2].Text,
                                 Password = worksheet.Cells[row, 3].Text,
                                 FullName = worksheet.Cells[row, 4].Text,

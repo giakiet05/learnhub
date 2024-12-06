@@ -91,7 +91,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 foreach(var major in SelectedMajors)
                 {
-                    await GenericDataService<Major>.Instance.DeleteOne(e => e.Id == major.Id);
+                    await GenericDataService<Major>.Instance.DeleteOne(e => e.OriginalId == major.OriginalId);
                 }
                 LoadMajorsAsync();
                 ToastMessageViewModel.ShowSuccessToast("Xóa bộ môn thành công.");

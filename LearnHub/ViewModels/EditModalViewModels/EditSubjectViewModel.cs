@@ -40,7 +40,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             {
                 //Điền vào các input thông tin từ selectedSubject
                 SubjectDetailsFormViewModel.IsEnable = false;
-                SubjectDetailsFormViewModel.Id = selectedSubject.Id;
+                SubjectDetailsFormViewModel.Id = selectedSubject.OriginalId;
                 SubjectDetailsFormViewModel.Name = selectedSubject.Name;
                 SubjectDetailsFormViewModel.LessonNumber = selectedSubject.LessonNumber;
                 SubjectDetailsFormViewModel.SelectedGrade = selectedSubject.Grade;
@@ -71,8 +71,8 @@ namespace LearnHub.ViewModels.EditModalViewModels
             selectedSubject.Grade = formViewModel.SelectedGrade;
             try
             {
-                await GenericDataService<Subject>.Instance.UpdateOne(selectedSubject, e => e.Id == selectedSubject.Id);
-                _subjectStore.Update(selectedSubject, e => e.Id == selectedSubject.Id);  // Update in GenericStore
+                await GenericDataService<Subject>.Instance.UpdateOne(selectedSubject, e => e.OriginalId == selectedSubject.OriginalId);
+                _subjectStore.Update(selectedSubject, e => e.OriginalId == selectedSubject.OriginalId);  // Update in GenericStore
                 ToastMessageViewModel.ShowSuccessToast("Cập nhật môn học thành công");
                 ModalNavigationStore.Instance.Close();
             }

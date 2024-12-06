@@ -23,8 +23,8 @@ namespace LearnHub.Models
         public string? Ethnicity { get; set; }
         public string? Religion { get; set; }
         public double? Coefficient { get; set; } // hệ số lương
-        public string? MajorId { get; set; }
-        public string? AdminId { get; set; }
+        public Guid? MajorId { get; set; }
+        public Guid? AdminId { get; set; }
         public Admin Admin { get; set; }
 
         //Navigation Properties 

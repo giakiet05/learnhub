@@ -72,7 +72,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 foreach (var subject in SelectedSubjects)
                 {
-                    await GenericDataService<Subject>.Instance.DeleteOne(e => e.Id == subject.Id);
+                    await GenericDataService<Subject>.Instance.DeleteOne(e => e.OriginalId == subject.OriginalId);
                 }
 
                 LoadSubjects();

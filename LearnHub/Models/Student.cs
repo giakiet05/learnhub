@@ -23,7 +23,7 @@ namespace LearnHub.Models
         public string? MotherName { get; set; }
         public string? FatherPhone { get; set; }
         public string? MotherPhone { get; set; }
-        public string? AdminId { get; set; }
+        public Guid? AdminId { get; set; }
         public Admin Admin { get; set; }
         //Navigation Properties
         public ICollection<StudentPlacement> StudentPlacements { get; set; }

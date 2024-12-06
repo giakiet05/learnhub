@@ -95,7 +95,7 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã lớp" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Mã lớp" Binding="{Binding OriginalId}"/>
                             <DataGridTextColumn Header="Tên lớp" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="Sĩ số" Binding="{Binding Capacity}"/>
                             <DataGridTextColumn Header="GVCN" Binding="{Binding TeacherInCharge.FullName}"/>
@@ -157,7 +157,7 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Student.Id}"/>
+                            <DataGridTextColumn Header="Mã học sinh" Binding="{Binding Student.Username}"/>
                             <DataGridTextColumn Header="Họ tên" Binding="{Binding Student.FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>

@@ -56,7 +56,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 SubjectId = formViewModel.SelectedSubject.Id,
                 TeacherId = formViewModel.SelectedTeacher.Id,
                 Weekday = formViewModel.SelectedWeekday,
-                Period = formViewModel.SelectedPeriod
+                Period = formViewModel.SelectedPeriod,
+                AdminId = AccountStore.Instance.CurrentUser.Id
             };
 
             try

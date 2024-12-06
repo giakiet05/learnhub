@@ -82,6 +82,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                         {
                             StudentId = student.Id,
                             ClassroomId = _classroomStore.SelectedItem.Id,
+                            AdminId = AccountStore.Instance.CurrentUser.Id
                         };
                         var entity = await GenericDataService<StudentPlacement>.Instance.CreateOne(newStudentPlacement);
                         entity.Student = await GenericDataService<Student>.Instance.GetOne(e => e.Id == entity.StudentId);
@@ -122,11 +123,12 @@ namespace LearnHub.ViewModels.AddModalViewModels
                         {
                             YearId = _yearStore.Id,
                             StudentId = student.Id,
-                            Semester ="HK1",
-                            AuthorizedLeaveDays =0,
-                            UnauthorizedLeaveDays=0,
-                            AvgScore=0,
-                            Result=""
+                            Semester = "HK1",
+                            AuthorizedLeaveDays = 0,
+                            UnauthorizedLeaveDays = 0,
+                            AvgScore = 0,
+                            Result = "",
+                            AdminId = AccountStore.Instance.CurrentUser.Id
                         };
                         // check trùng
                         if (await GenericDataService<SemesterResult>.Instance.GetOne(e => e.YearId == semesterResult.YearId &&
@@ -150,6 +152,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                                 AvgScore = 0,
                                 AuthorizedLeaveDays = 0,
                                 UnauthorizedLeaveDays = 0,
+                                AdminId = AccountStore.Instance.CurrentUser.Id
                             };
                             await GenericDataService<YearResult>.Instance.CreateOne(yearResult);
                         }

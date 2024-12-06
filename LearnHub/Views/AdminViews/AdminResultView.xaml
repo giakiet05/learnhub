@@ -116,7 +116,7 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã HS" Binding="{Binding StudentId}"/>
+                    <DataGridTextColumn Header="Mã HS" Binding="{Binding Student.Username}"/>
                     <DataGridTextColumn Header="Tên HS" Binding="{Binding Student.FullName}"/>
                     <DataGridTextColumn Header="Thường xuyên" Binding="{Binding RegularScores}"/>
                     <DataGridTextColumn Header="Giữa kì" Binding="{Binding MidTermScore}"/>

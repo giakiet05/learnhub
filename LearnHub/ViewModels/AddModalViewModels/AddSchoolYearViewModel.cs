@@ -39,6 +39,14 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
+            //kiểm tra xem originalid và adminid có tồn tại chưa (nghĩa là trong 1 tài khoản chỉ có thể có 1 originalid)
+            var existingItem = await GenericDataService<AcademicYear>.Instance.GetOne(x => x.OriginalId == formViewModel.Id && x.AdminId == AccountStore.Instance.CurrentUser.Id);
+
+            if (existingItem != null)
+            {
+                ToastMessageViewModel.ShowWarningToast("Mã này đã tồn tại");
+                return;
+            }
 
             var newSchoolYear = new AcademicYear
             {

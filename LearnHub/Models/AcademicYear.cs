@@ -9,8 +9,8 @@ namespace LearnHub.Models
 {
     public class AcademicYear : IAdminId
     {
-        public Guid Id { get; set; }
-        public string OriginalId { get; set; }
+        public Guid Id { get; set; } //khóa chính thực sự
+        public string OriginalId { get; set; } //Id do người dùng nhập
         public string? Name { get; set; }
 
         public int? StartYear { get; set; }

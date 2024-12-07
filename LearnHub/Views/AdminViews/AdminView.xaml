@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Menubar grid-->
-        <Grid Grid.Column="0" Background="#56CCF2">
+        <Grid Grid.Column="0" Background="#5CB3FF">
             <!--<Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#56CCF2" Offset="0.0" />

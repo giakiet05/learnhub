@@ -56,7 +56,8 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 SubjectId = formViewModel.SelectedSubject.Id,
                 TeacherId = formViewModel.SelectedTeacher.Id,
                 Weekday = formViewModel.SelectedWeekday,
-                Period = formViewModel.SelectedPeriod
+                Period = formViewModel.SelectedPeriod,
+                AdminId = AccountStore.Instance.CurrentUser.Id
             };
 
             try
@@ -81,7 +82,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 {
                     Score score = new Score()
                     {
-                        YearId = _classroomStore.SelectedItem.YearId,
+                        YearId = (Guid)_classroomStore.SelectedItem.YearId,
                         SubjectId = formViewModel.SelectedSubject.Id,
                         StudentId = student,
                         Semester = "HK1",

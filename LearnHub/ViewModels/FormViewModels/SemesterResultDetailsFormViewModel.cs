@@ -228,7 +228,8 @@ namespace LearnHub.ViewModels.FormViewModels
                     Semester = SelectedSemester,
                     AuthorizedLeaveDays = 0,
                     UnauthorizedLeaveDays = 0,
-                    AvgScore=0
+                    AvgScore = 0,
+                    AdminId = AccountStore.Instance.CurrentUser.Id
                 };
 
                 semesterResult = await GenericDataService<SemesterResult>.Instance.CreateOne(newSR);
@@ -323,6 +324,7 @@ namespace LearnHub.ViewModels.FormViewModels
                     {
                         StudentId = SelectedStudent.Id,
                         YearId = SelectedYear.Id,
+                        AdminId = AccountStore.Instance.CurrentUser.Id
                     };
                     yearResult = await GenericDataService<YearResult>.Instance.CreateOne(newYearResult);
                 }

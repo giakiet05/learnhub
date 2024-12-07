@@ -70,7 +70,7 @@
                     </Style>
                 </DataGrid.CellStyle>
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="Mã lớp" Binding="{Binding Id}" />
+					<DataGridTextColumn Header="Mã lớp" Binding="{Binding OriginalId}" />
 					<DataGridTextColumn Header="Tên lớp" Binding="{Binding Name}" />
 					<DataGridTextColumn Header="Sĩ số" Binding="{Binding Capacity}" />
                     <DataGridTextColumn Header="Năm học" Binding="{Binding AcademicYear.Name}" />

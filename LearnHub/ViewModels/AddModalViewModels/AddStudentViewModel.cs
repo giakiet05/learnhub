@@ -43,7 +43,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
             var newStudent = new Student
             {
                 Role = "Student",
-                Id = formViewModel.Username,
+                Id = Guid.NewGuid(),
                 Username = formViewModel.Username,
                 Password = formViewModel.Password,
                 FullName = formViewModel.FullName,

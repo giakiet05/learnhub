@@ -120,7 +120,8 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
             {
                 var passwordHasher = new PasswordHasher<Admin>();
                 string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-                string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+                string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$"
+;
 
                 if (string.IsNullOrWhiteSpace(Username) ||
                     string.IsNullOrWhiteSpace(Password) ||
@@ -138,11 +139,15 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
                     ErrorMessage = "Email không hợp lệ";
                     return;
                 }
-
+                if(Password.Length <8) 
+                {
+                    ErrorMessage = "Mật khẩu cần độ dài tối thiểu 8 kí tự.";
+                    return;
+                }
 
                 if (!Regex.IsMatch(Password, passwordPattern))
                 {
-                    ErrorMessage = "Mật khẩu chưa hợp lệ";
+                    ErrorMessage = "Mật khẩu cần bao gồm chữ số, kí tự thường, kí tự in hoa và kí tự đặc biệt.";
                     return;
                 }
 
@@ -154,7 +159,7 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
 
                 Admin admin = new Admin()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid(),
                     Username = Username,
                     RegisterTime = DateTime.Now,
                     Email = Email,

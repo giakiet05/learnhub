@@ -35,18 +35,28 @@ namespace LearnHub.ViewModels.AddModalViewModels
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
                    string.IsNullOrWhiteSpace(formViewModel.Name) ||
-                   string.IsNullOrWhiteSpace(formViewModel.SelectedGrade.Id) ||
-                    string.IsNullOrWhiteSpace(formViewModel.SelectedYear.Id) ||
-                    formViewModel.Capacity <=0
+                   string.IsNullOrWhiteSpace(formViewModel.SelectedGrade.OriginalId) ||
+                    string.IsNullOrWhiteSpace(formViewModel.SelectedYear.OriginalId) ||
+                    formViewModel.Capacity <= 0
                   )
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;
             }
 
+            //kiểm tra xem originalid và adminid có tồn tại chưa (nghĩa là trong 1 tài khoản chỉ có thể có 1 originalid)
+            var existingItem = await GenericDataService<Classroom>.Instance.GetOne(x => x.OriginalId == formViewModel.Id && x.AdminId == AccountStore.Instance.CurrentUser.Id);
+
+            if (existingItem != null)
+            {
+                ToastMessageViewModel.ShowWarningToast("Mã này đã tồn tại");
+                return;
+            }
+
             Classroom newClass = new Classroom()
             {
-                Id = formViewModel.Id,
+                Id = Guid.NewGuid(),
+                OriginalId = formViewModel.Id,
                 Name = formViewModel.Name,
                 Capacity = formViewModel.Capacity,
                 GradeId = formViewModel.SelectedGrade?.Id,

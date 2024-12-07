@@ -80,7 +80,7 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Mã giáo viên" Binding="{Binding Username}"/>
                             <DataGridTextColumn Header="Tên giáo viên" Binding="{Binding FullName}"/>
                         </DataGrid.Columns>
                     </DataGrid>

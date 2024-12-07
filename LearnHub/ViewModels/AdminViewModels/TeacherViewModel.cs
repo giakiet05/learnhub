@@ -139,12 +139,9 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                 // Remove diacritics from both search text and teacher fields
                 string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
-                string normalizedUsername = TextHelper.RemoveDiacritics(teacher.Username);
-                string normalizedId = TextHelper.RemoveDiacritics(teacher.Id);
+                string normalizedUsername = TextHelper.RemoveDiacritics(teacher.Username);        
                 string normalizedFullName = TextHelper.RemoveDiacritics(teacher.FullName);
-
-                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
-                       normalizedId.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||                  
                        normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
             }
             return false;
@@ -173,7 +170,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         var worksheet = package.Workbook.Worksheets.Add("Teachers");
 
                         // Tiêu đề chính
-                        worksheet.Cells["A1:M2"].Merge = true; // Merge từ A1 đến M2
+                        worksheet.Cells["A1:M1"].Merge = true; // Merge từ A1 đến M1 (chỉ 1 dòng)
                         worksheet.Cells["A1"].Value = "Danh sách giáo viên";
                         worksheet.Cells["A1"].Style.Font.Size = 16;
                         worksheet.Cells["A1"].Style.Font.Bold = true;
@@ -189,10 +186,10 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                         for (int i = 0; i < headers.Length; i++)
                         {
-                            worksheet.Cells[3, i + 1].Value = headers[i];
-                            worksheet.Cells[3, i + 1].Style.Font.Bold = true;
-                            worksheet.Cells[3, i + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                            worksheet.Cells[3, i + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheet.Cells[2, i + 1].Value = headers[i]; // Bắt đầu từ dòng 2 thay vì dòng 3
+                            worksheet.Cells[2, i + 1].Style.Font.Bold = true;
+                            worksheet.Cells[2, i + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheet.Cells[2, i + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                         }
 
                         // Thêm dữ liệu giáo viên
@@ -200,25 +197,25 @@ namespace LearnHub.ViewModels.AdminViewModels
                         for (int i = 0; i < teachers.Count; i++)
                         {
                             var teacher = teachers[i];
-                            worksheet.Cells[i + 4, 1].Value = teacher.Id;
-                            worksheet.Cells[i + 4, 2].Value = teacher.Username;
-                            worksheet.Cells[i + 4, 3].Value = teacher.Password;
-                            worksheet.Cells[i + 4, 4].Value = teacher.FullName;
-                            worksheet.Cells[i + 4, 5].Value = teacher.Gender;
-                            worksheet.Cells[i + 4, 6].Value = teacher.Birthday?.ToString("dd-MM-yyyy");
-                            worksheet.Cells[i + 4, 7].Value = teacher.Address;
-                            worksheet.Cells[i + 4, 8].Value = teacher.PhoneNumber;
-                            worksheet.Cells[i + 4, 9].Value = teacher.CitizenID;
-                            worksheet.Cells[i + 4, 10].Value = teacher.Religion;
-                            worksheet.Cells[i + 4, 11].Value = teacher.Ethnicity;
-                            worksheet.Cells[i + 4, 12].Value = teacher.Coefficient;
-                            worksheet.Cells[i + 4, 13].Value = teacher.Major?.Name;
+                            worksheet.Cells[i + 3, 1].Value = teacher.Id;
+                            worksheet.Cells[i + 3, 2].Value = teacher.Username;
+                            worksheet.Cells[i + 3, 3].Value = teacher.Password;
+                            worksheet.Cells[i + 3, 4].Value = teacher.FullName;
+                            worksheet.Cells[i + 3, 5].Value = teacher.Gender;
+                            worksheet.Cells[i + 3, 6].Value = teacher.Birthday?.ToString("dd-MM-yyyy");
+                            worksheet.Cells[i + 3, 7].Value = teacher.Address;
+                            worksheet.Cells[i + 3, 8].Value = teacher.PhoneNumber;
+                            worksheet.Cells[i + 3, 9].Value = teacher.CitizenID;
+                            worksheet.Cells[i + 3, 10].Value = teacher.Religion;
+                            worksheet.Cells[i + 3, 11].Value = teacher.Ethnicity;
+                            worksheet.Cells[i + 3, 12].Value = teacher.Coefficient;
+                            worksheet.Cells[i + 3, 13].Value = teacher.Major?.Name;
                         }
 
                         // Vẽ border
-                        var totalRows = teachers.Count + 3; // Bao gồm header và dữ liệu
+                        var totalRows = teachers.Count + 2; // Bao gồm header và dữ liệu
                         var totalColumns = headers.Length;
-                        var dataRange = worksheet.Cells[3, 1, totalRows, totalColumns];
+                        var dataRange = worksheet.Cells[2, 1, totalRows, totalColumns];
                         dataRange.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                         dataRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                         dataRange.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
@@ -235,6 +232,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                 ToastMessageViewModel.ShowErrorToast($"Xuất dữ liệu thất bại: {ex.Message}");
             }
         }
+
 
         private async void ImportFromExcel()
         {
@@ -263,7 +261,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         {
                             var teacher = new Teacher
                             {
-                                Id = worksheet.Cells[row, 1].GetValue<string>(),
+                                Id = Guid.NewGuid(),
                                 Username = worksheet.Cells[row, 2].GetValue<string>(),
                                 Password = worksheet.Cells[row, 3].GetValue<string>(),
                                 FullName = worksheet.Cells[row, 4].GetValue<string>(),
@@ -275,7 +273,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 Religion = worksheet.Cells[row, 10].GetValue<string>(),
                                 Ethnicity = worksheet.Cells[row, 11].GetValue<string>(),
                                 Coefficient = worksheet.Cells[row, 12].GetValue<double?>(),
-                                MajorId = worksheet.Cells[row, 13].GetValue<string>(),
+                              
                                 Role = "Teacher" // Gán mặc định Role là Teacher
                             };
 

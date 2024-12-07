@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Exceptions;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -96,9 +97,18 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
                     ToastMessageViewModel.ShowSuccessToast("Đăng nhập thành công");
                 }
             }
-            catch (Exception)
+            catch(InvalidPasswordException)
             {
                 ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng";
+
+            }
+            catch(UserNotFoundException)
+            {
+                ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng";
+            }
+            catch (Exception)
+            {
+                ErrorMessage = "Có lỗi xảy ra";
             }
         }
     }

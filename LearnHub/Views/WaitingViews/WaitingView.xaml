@@ -90,6 +90,17 @@
                             </RadioButton.Tag>
                         </RadioButton>
 
+                        <!--sign up button-->
+                        <RadioButton IsChecked="False"
+                FontSize="30"
+                Style="{StaticResource MenuButtonTheme}"
+                Command="{Binding NavigateSignUpCommand}"
+                Content="Đăng ký">
+                            <RadioButton.Tag>
+                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/signup.png" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+
                         <!--Login button-->
                         <RadioButton IsChecked="False"
                                      FontSize="30"
@@ -101,16 +112,7 @@
                             </RadioButton.Tag>
                         </RadioButton>
                         
-                        <!--sign up button-->
-                        <RadioButton IsChecked="False"
-                                     FontSize="30"
-                                     Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding NavigateSignUpCommand}"
-                                     Content="Đăng ký">
-                            <RadioButton.Tag>
-                                <BitmapImage UriSource="pack://application:,,,/LearnHub;component/resource/icons/signup.png" />
-                            </RadioButton.Tag>
-                        </RadioButton>
+                     
                     </StackPanel>
                 </Grid>
             </StackPanel>

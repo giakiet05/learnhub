@@ -16,8 +16,8 @@ using LearnHub.ViewModels.EditModalViewModels;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
-   public class SchoolYearViewModel : BaseViewModel
-   {
+    public class SchoolYearViewModel : BaseViewModel
+    {
         // Tạo trường cho GenericStore<AcademicYear>
         private readonly GenericStore<AcademicYear> _schoolYearStore;
         public IEnumerable<AcademicYear> SchoolYears => _schoolYearStore.Items; // Binding vào view
@@ -46,9 +46,9 @@ namespace LearnHub.ViewModels.AdminViewModels
             // Khởi tạo các command cho Add, Delete, Edit
             ShowDeleteModalCommand = new NavigateModalCommand(() => new DeleteConfirmViewModel(DeleteSchoolYear), () => SelectedYears != null && SelectedYears.Any(), "Chưa chọn năm học để xóa");
             ShowAddModalCommand = new NavigateModalCommand(() => new AddSchoolYearViewModel());
-            ShowEditModalCommand = new NavigateModalCommand(() => new EditSchoolYearViewModel());
-            SwitchToGradeCommand = new NavigateLayoutCommand(()=>new GradeViewModel());
-            SwitchToMajorCommand = new NavigateLayoutCommand(()=> new MajorViewModel());
+            ShowEditModalCommand = new RelayCommand(ExecuteEdit);
+            SwitchToGradeCommand = new NavigateLayoutCommand(() => new GradeViewModel());
+            SwitchToMajorCommand = new NavigateLayoutCommand(() => new MajorViewModel());
 
             LoadSchoolYearsAsync();
         }
@@ -58,6 +58,21 @@ namespace LearnHub.ViewModels.AdminViewModels
             var schoolYears = await GenericDataService<AcademicYear>.Instance.GetAll();
             _schoolYearStore.Load(schoolYears); // Load vào GenericStore
         }
+        public void ExecuteEdit()
+        {
+            if (SelectedYears == null || !SelectedYears.Any())
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn năm học để sửa.");
+                return;
+            }
+            else if (SelectedYears.Count > 1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 năm học để sửa.");
+                return;
+            }
+            _schoolYearStore.SelectedItem = SelectedYears.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new EditSchoolYearViewModel();
+        }
         // Xóa học sinh đã chọn
         private async void DeleteSchoolYear()
         {
@@ -66,7 +81,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 foreach (var year in SelectedYears)
                 {
-                    await GenericDataService<AcademicYear>.Instance.DeleteOne(e => e.Id == year.Id);
+                    await GenericDataService<AcademicYear>.Instance.DeleteOne(e => e.OriginalId == year.OriginalId);
                 }
                 LoadSchoolYearsAsync();
 

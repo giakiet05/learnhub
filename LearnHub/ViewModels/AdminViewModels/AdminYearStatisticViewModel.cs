@@ -186,7 +186,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         private async void LoadGrades()
         {
             var grades = await GenericDataService<Grade>.Instance.GetAll();
-            Grades.Add(new Grade { Id = Guid.NewGuid().ToString(), Name = "Tất cả", Number = 0 }); // thêm grade tạm thời tất cả
+            Grades.Add(new Grade { Id = Guid.NewGuid(), OriginalId = "TC" , Name = "Tất cả", Number = 0 }); // thêm grade tạm thời tất cả
             foreach (var grade in grades)
             {
                 Grades.Add(grade);

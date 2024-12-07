@@ -28,7 +28,7 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã bộ môn" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Mã bộ môn" Binding="{Binding OriginalId}"/>
                 <DataGridTextColumn Header="Tên bộ môn" Binding="{Binding Name}" />
             </DataGrid.Columns>
         </DataGrid>

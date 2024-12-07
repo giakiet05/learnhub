@@ -45,7 +45,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
             Teacher newTeacher = new Teacher()
             {
                 Role = "Teacher",
-                Id = formViewModel.Username,
+                Id = Guid.NewGuid(),
                 Username = formViewModel.Username,
                 Password = formViewModel.Password,
                 FullName = formViewModel.FullName,

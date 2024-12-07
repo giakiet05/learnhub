@@ -34,7 +34,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             {
                 // Điền thông tin vào input
                 GradeDetailsFormViewModel.IsEnable = false;
-                GradeDetailsFormViewModel.Id = selectedGrade.Id;
+                GradeDetailsFormViewModel.Id = selectedGrade.OriginalId;
                 GradeDetailsFormViewModel.Number = (int)selectedGrade.Number;
             }
         }
@@ -56,13 +56,13 @@ namespace LearnHub.ViewModels.EditModalViewModels
 
             // Cập nhật thông tin của selected dựa vào thông tin từ form
             //selectedGrade.Id = formViewModel.Id;
-            selectedGrade.Number = formViewModel.Number;
+            selectedGrade.Number = (int)formViewModel.Number;
             selectedGrade.Name = formViewModel.Number.ToString();
 
             try
             {
-                await GenericDataService<Grade>.Instance.UpdateOne(selectedGrade, e => e.Id == selectedGrade.Id);
-                GenericStore<Grade>.Instance.Update(selectedGrade, e => e.Id == selectedGrade.Id); // Update in store
+                await GenericDataService<Grade>.Instance.UpdateOne(selectedGrade, e => e.OriginalId == selectedGrade.OriginalId);
+                GenericStore<Grade>.Instance.Update(selectedGrade, e => e.OriginalId == selectedGrade.OriginalId); // Update in store
                 ToastMessageViewModel.ShowSuccessToast("Cập nhật khối thành công.");
                 ModalNavigationStore.Instance.Close();
             }

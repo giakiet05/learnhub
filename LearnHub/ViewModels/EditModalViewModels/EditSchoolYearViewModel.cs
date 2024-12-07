@@ -38,7 +38,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             if (selectedSchoolYear != null)
             {
                 SchoolYearDetailsFormViewModel.IsEnable = false;
-                SchoolYearDetailsFormViewModel.Id = selectedSchoolYear.Id;
+                SchoolYearDetailsFormViewModel.Id = selectedSchoolYear.OriginalId;
                 SchoolYearDetailsFormViewModel.StartYear = (int)selectedSchoolYear.StartYear;
             }
         }
@@ -54,14 +54,14 @@ namespace LearnHub.ViewModels.EditModalViewModels
 
             var selectedSchoolYear = _schoolYearStore.SelectedItem;  // Accessing SelectedItem from GenericStore<AcademicYear>
 
-            selectedSchoolYear.Id = formViewModel.Id;
+            selectedSchoolYear.OriginalId = formViewModel.Id;
             selectedSchoolYear.StartYear = formViewModel.StartYear;
             selectedSchoolYear.Name = formViewModel.StartYear + "-"+(formViewModel.StartYear + 1).ToString();
 
             try
             {
-                await GenericDataService<AcademicYear>.Instance.UpdateOne(selectedSchoolYear, e => e.Id == selectedSchoolYear.Id);
-                _schoolYearStore.Update(selectedSchoolYear, e => e.Id == selectedSchoolYear.Id);  // Update in GenericStore
+                await GenericDataService<AcademicYear>.Instance.UpdateOne(selectedSchoolYear, e => e.OriginalId == selectedSchoolYear.OriginalId);
+                _schoolYearStore.Update(selectedSchoolYear, e => e.OriginalId == selectedSchoolYear.OriginalId);  // Update in GenericStore
 
                 ToastMessageViewModel.ShowSuccessToast("Cập nhật năm học thành công");
                 ModalNavigationStore.Instance.Close();

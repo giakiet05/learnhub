@@ -75,7 +75,7 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã khối" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Mã khối" Binding="{Binding  OriginalId}"/>
                     <DataGridTextColumn Header="Tên khối" Binding="{Binding Number}"/>
                 </DataGrid.Columns>
             </DataGrid>

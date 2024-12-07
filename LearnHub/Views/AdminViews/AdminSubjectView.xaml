@@ -29,7 +29,7 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã môn học" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Mã môn học" Binding="{Binding  OriginalId}"/>
                 <DataGridTextColumn Header="Tên môn học" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Bộ môn" Binding="{Binding Major.Name}"/>
                 <DataGridTextColumn Header="Khối" Binding="{Binding Grade.Number}"/>

@@ -173,7 +173,7 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="pack://application:,,,/LearnHub;component/resource/icons/user.png"
                    HorizontalAlignment="Left" Margin="15 0 0 0" Height="40" Width="40"/>
-                <TextBlock Text="Admin" Style="{StaticResource font_style}" Foreground="#5CB3FF"
+                <TextBlock Text="{Binding SchoolName}" Style="{StaticResource font_style}" Foreground="#5CB3FF"
                            FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
             </StackPanel>
 

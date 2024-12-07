@@ -95,7 +95,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             {
                 foreach(var classroom in SelectedClassrooms)
                 {
-                    await GenericDataService<Classroom>.Instance.DeleteOne(e => e.Id == classroom.Id);
+                    await GenericDataService<Classroom>.Instance.DeleteOne(e => e.OriginalId == classroom.OriginalId);
                 }
                 LoadClassrooms();
 

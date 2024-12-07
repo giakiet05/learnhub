@@ -18,6 +18,7 @@
             </LinearGradientBrush>
         </Border.Background>
         <Border Background="#fff7f7"
+                BorderBrush="Gray" BorderThickness="2"
                 CornerRadius="20"
                 Width="500" Height="600"
                 VerticalAlignment="Center" 
@@ -105,7 +106,7 @@
                 <TextBlock FontSize="16" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"
                        HorizontalAlignment="Center" Margin="0 30 0 0" Cursor="Hand">
                 <Run Text="Chưa có tài khoản? " Foreground="Black"/>
-                <Run Text="Đăng kí" Foreground="#2292f2" TextDecorations="Underline">
+                <Run Text="Đăng ký" Foreground="#2292f2" TextDecorations="Underline">
                     <Run.InputBindings>
                         <MouseBinding Gesture="LeftClick" Command="{Binding SwitchToSignUpCommand}"/>
                     </Run.InputBindings>

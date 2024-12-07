@@ -41,12 +41,12 @@
 
         <Grid Grid.Row="1">
             <Border BorderBrush="Gray" BorderThickness="2" Margin="10" CornerRadius="10">
-                <Border.Background>
+                <!--<Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#56CCF2" Offset="0.0"/>
                         <GradientStop Color="#2F80ED" Offset="1.0"/>
                     </LinearGradientBrush>
-                </Border.Background>
+                </Border.Background>-->
                 <Grid Margin="0 20 0 0">
                     <StackPanel Grid.Column="0">
                         <!--Tên đăng nhập-->

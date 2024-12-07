@@ -18,13 +18,13 @@
         </Grid.ColumnDefinitions>
 
         <!--Menubar grid-->
-        <Grid Grid.Column="0">
-            <Grid.Background>
+        <Grid Grid.Column="0" Background="#56CCF2">
+            <!--<Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#56CCF2" Offset="0.0" />
                     <GradientStop Color="#2F80ED" Offset="1.0" />
                 </LinearGradientBrush>
-            </Grid.Background>
+            </Grid.Background>-->
 
             <StackPanel Width="215" x:Name="menubar_pnl">
 

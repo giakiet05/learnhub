@@ -35,6 +35,7 @@
     <None Remove="Resource\Icons\view.png" />
     <None Remove="Resource\Icons\warning.png" />
     <None Remove="Resource\Images\march7.jpg" />
+    <None Remove="Resource\Images\wallpaper.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,6 +82,7 @@
     <Resource Include="Resource\Icons\view.png" />
     <Resource Include="Resource\Icons\warning.png" />
     <Resource Include="Resource\Images\march7.jpg" />
+    <Resource Include="Resource\Images\wallpaper.jpg" />
   </ItemGroup>
 
 </Project>

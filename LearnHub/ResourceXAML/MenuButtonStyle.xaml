@@ -25,10 +25,10 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#ccdbe3"/>
+                                <Setter TargetName="Border" Property="Background" Value="#9be3fa"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#ccdbe3"/>
+                                <Setter TargetName="Border" Property="Background" Value="#9be3fa"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

@@ -33,7 +33,7 @@
                     Style="{StaticResource btnStyle}"/>-->
 
             <!--nút export excel-->
-            <Button x:Name="btnExport" Content="Export" Margin="0 0 20 0"
+            <Button x:Name="btnExport" Content="Xuất KQ" Margin="0 0 20 0"
                     Command="{Binding ExportToExcelCommand}" Width="90" Height="45" FontSize="16"
                     Background="#5CB3FF" BorderBrush="Transparent"
                     Style="{StaticResource btnStyle}"/>

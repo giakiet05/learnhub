@@ -272,10 +272,15 @@ namespace LearnHub.ViewModels.AdminViewModels
                         }
 
                         // Read data from the worksheet
-                        var importedStudents = new List<Student>();
-                        int row = 4; // Assuming row 1 contains headers
+                        int importedCount = 0;
+                        int row = 3; // Assuming row 1 contains headers
                         while (worksheet.Cells[row, 1].Value != null)
                         {
+                            if (string.IsNullOrWhiteSpace(worksheet.Cells[row, 1].Text)) // Username
+                            {
+                                continue; // Skip the empty row
+                            }
+
                             var student = new Student
                             {
                                 Role = "Student",
@@ -292,26 +297,26 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 FatherName = worksheet.Cells[row, 11].Text,
                                 FatherPhone = worksheet.Cells[row, 12].Text,
                                 MotherName = worksheet.Cells[row, 13].Text,
-                                MotherPhone = worksheet.Cells[row, 14].Text
+                                MotherPhone = worksheet.Cells[row, 14].Text,
+                                AdminId = AccountStore.Instance.CurrentUser.Id,
                             };
-
-                            student.Password = _passwordHasher.HashPassword(student, student.Password);
+                         //hash password
+                                student.Password = _passwordHasher.HashPassword(student, student.Password);
+                         
                             // Check for duplicates (by Username or another unique field)
                             if (!_studentStore.Items.Any(s => s.Username == student.Username))
                             {
-                                importedStudents.Add(student);
+                                importedCount++;
+                                await GenericDataService<Student>.Instance.CreateOne(student);
+                                _studentStore.Add(student); // Append to existing data
                             }
                             row++;
                         }
 
                         // Add only non-duplicate students to the store
-                        foreach (var student in importedStudents)
-                        {
-                            await GenericDataService<Student>.Instance.CreateOne(student);
-                            _studentStore.Add(student); // Append to existing data
-                        }
+                        
 
-                        ToastMessageViewModel.ShowSuccessToast($"Import thành công! Đã thêm {importedStudents.Count} học sinh mới");
+                        ToastMessageViewModel.ShowSuccessToast($"Import thành công! Đã thêm {importedCount} học sinh mới");
                     }
                 }
             }

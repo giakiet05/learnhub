@@ -23,8 +23,8 @@
     <None Remove="Resource\Icons\icons8-school-26.png" />
     <None Remove="Resource\Icons\login.png" />
     <None Remove="Resource\Icons\logout.png" />
+    <None Remove="Resource\Icons\menu-effect.png" />
     <None Remove="Resource\Icons\menu.png" />
-    <None Remove="Resource\Icons\menu_effect.png" />
     <None Remove="Resource\Icons\result.png" />
     <None Remove="Resource\Icons\semester.png" />
     <None Remove="Resource\Icons\signup.png" />
@@ -70,8 +70,8 @@
     </Resource>
     <Resource Include="Resource\Icons\login.png" />
     <Resource Include="Resource\Icons\logout.png" />
+    <Resource Include="Resource\Icons\menu-effect.png" />
     <Resource Include="Resource\Icons\menu.png" />
-    <Resource Include="Resource\Icons\menu_effect.png" />
     <Resource Include="Resource\Icons\result.png" />
     <Resource Include="Resource\Icons\semester.png" />
     <Resource Include="Resource\Icons\signup.png" />

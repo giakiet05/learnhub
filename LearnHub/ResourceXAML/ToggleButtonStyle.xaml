@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--togglebutton style template-->
     <ImageBrush x:Key="tb_mouse_over"
-             ImageSource="pack://application:,,,/LearnHub;component/resource/icons/menu_effect.png"/>
+             ImageSource="pack://application:,,,/LearnHub;component/resource/icons/menu-effect.png"/>
 
     <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
 

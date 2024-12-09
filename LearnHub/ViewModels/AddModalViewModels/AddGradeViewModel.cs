@@ -52,7 +52,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 Id = Guid.NewGuid(),
                 OriginalId = formViewModel.Id,
                 Number = (int)formViewModel.Number,
-                Name = formViewModel.Number.ToString(),
+                Name = formViewModel.Number?.ToString(),
                 AdminId = AccountStore.Instance.CurrentUser.Id
             };
 

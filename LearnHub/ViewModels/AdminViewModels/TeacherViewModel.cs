@@ -28,7 +28,7 @@ namespace LearnHub.ViewModels.AdminViewModels
     public class TeacherViewModel : BaseViewModel
     {
         private readonly GenericStore<Teacher> _teacherStore;
-        private readonly PasswordHasher<Teacher> _passwordHasher;
+        private readonly PasswordHasher<User> _passwordHasher;
         public IEnumerable<Teacher> Teachers => _teacherStore.Items; //dùng cho import export
         public ICollectionView FilteredTeachers { get; } //ICollectionView giống ObservableCollection nhưng hỗ trợ thêm nhiều tính năng như filter
 
@@ -63,7 +63,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public TeacherViewModel()
         {
             _teacherStore = GenericStore<Teacher>.Instance;  // Using GenericStore<Teacher> as a field
-            _passwordHasher = new PasswordHasher<Teacher>();
+            _passwordHasher = new PasswordHasher<User>();
             //Set up filter
             FilteredTeachers = CollectionViewSource.GetDefaultView(_teacherStore.Items);
             FilteredTeachers.Filter = FilterTeachersBySearchText;
@@ -139,9 +139,9 @@ namespace LearnHub.ViewModels.AdminViewModels
 
                 // Remove diacritics from both search text and teacher fields
                 string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
-                string normalizedUsername = TextHelper.RemoveDiacritics(teacher.Username);        
+                string normalizedUsername = TextHelper.RemoveDiacritics(teacher.Username);
                 string normalizedFullName = TextHelper.RemoveDiacritics(teacher.FullName);
-                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||                  
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
                        normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
             }
             return false;
@@ -181,7 +181,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         string[] headers = new string[]
                         {
                     "Mã giáo viên", "Tên tài khoản", "Mật khẩu", "Họ tên", "Giới tính", "Ngày sinh", "Địa chỉ",
-                    "Số điện thoại", "CMND/CCCD", "Tôn giáo", "Dân tộc", "Hệ số lương", "Chuyên ngành"
+                    "Số điện thoại", "CMND/CCCD", "Tôn giáo", "Dân tộc","Ngày vào làm", "Lương cơ bản" , "Hệ số lương", "Bộ môn"
                         };
 
                         for (int i = 0; i < headers.Length; i++)
@@ -208,8 +208,11 @@ namespace LearnHub.ViewModels.AdminViewModels
                             worksheet.Cells[i + 3, 9].Value = teacher.CitizenID;
                             worksheet.Cells[i + 3, 10].Value = teacher.Religion;
                             worksheet.Cells[i + 3, 11].Value = teacher.Ethnicity;
-                            worksheet.Cells[i + 3, 12].Value = teacher.Coefficient;
-                            worksheet.Cells[i + 3, 13].Value = teacher.Major?.Name;
+                            worksheet.Cells[i + 3, 12].Value = teacher.DateOfJoining;
+                            worksheet.Cells[i + 3, 13].Value = teacher.Salary;
+                            worksheet.Cells[i + 3, 14].Value = teacher.Coefficient;
+                            worksheet.Cells[i + 3, 15].Value = teacher.Major?.Name;
+
                         }
 
                         // Vẽ border
@@ -254,11 +257,16 @@ namespace LearnHub.ViewModels.AdminViewModels
                     {
                         var worksheet = package.Workbook.Worksheets[0]; // Lấy sheet đầu tiên
                         int rowCount = worksheet.Dimension.Rows;
-
-                        var importedTeachers = new List<Teacher>();
-
-                        for (int row = 4; row <= rowCount; row++) // Bắt đầu từ hàng 4 (bỏ header)
+                        int importedCount = 0;
+                        for (int row = 3; row <= rowCount; row++) // Bắt đầu từ hàng 4 (bỏ header)
                         {
+
+                            if (string.IsNullOrWhiteSpace(worksheet.Cells[row, 1].Text)) 
+                            {
+                                continue; // Skip the empty row
+                            }
+
+                            var major = await GenericDataService<Major>.Instance.GetOne(e => e.Name == worksheet.Cells[row, 15].Text);
                             var teacher = new Teacher
                             {
                                 Id = Guid.NewGuid(),
@@ -272,27 +280,33 @@ namespace LearnHub.ViewModels.AdminViewModels
                                 CitizenID = worksheet.Cells[row, 9].GetValue<string>(),
                                 Religion = worksheet.Cells[row, 10].GetValue<string>(),
                                 Ethnicity = worksheet.Cells[row, 11].GetValue<string>(),
-                                Coefficient = worksheet.Cells[row, 12].GetValue<double?>(),
-                              
+                                DateOfJoining = worksheet.Cells[row, 12].GetValue<DateTime?>(),
+                                Salary = worksheet.Cells[row, 13].GetValue<int?>(),
+                                Coefficient = worksheet.Cells[row, 14].GetValue<double?>(),
+                                AdminId = AccountStore.Instance.CurrentUser.Id,
+                                MajorId = major?.Id ?? null,
                                 Role = "Teacher" // Gán mặc định Role là Teacher
                             };
 
+                           //Hash password
                             teacher.Password = _passwordHasher.HashPassword(teacher, teacher.Password);
-                            // Check for duplicates (by Username or another unique field)
+                            
+
+                            // Check for duplicates (by Username or another unique field) thì lưu vào database và cập nhật store
                             if (!_teacherStore.Items.Any(s => s.Username == teacher.Username))
                             {
-                                importedTeachers.Add(teacher);
+                                importedCount++;
+                                var entity = await GenericDataService<Teacher>.Instance.CreateOne(teacher);
+                                if (entity.MajorId != null)
+                                    entity.Major = await GenericDataService<Major>.Instance.GetOne(e => e.Id == teacher.MajorId);
+                                _teacherStore.Add(entity);
                             }
                         }
 
-                        // Lưu vào database và cập nhật store
-                        foreach (var teacher in importedTeachers)
-                        {
-                            await GenericDataService<Teacher>.Instance.CreateOne(teacher);
-                            _teacherStore.Add(teacher);
-                        }
 
-                        ToastMessageViewModel.ShowSuccessToast($"Import {importedTeachers.Count} giáo viên thành công.");
+
+
+                        ToastMessageViewModel.ShowSuccessToast($"Import {importedCount} giáo viên thành công.");
                     }
                 }
             }
@@ -301,6 +315,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                 ToastMessageViewModel.ShowErrorToast($"Import dữ liệu thất bại: {ex.Message}");
             }
         }
+
+
+
 
 
     }

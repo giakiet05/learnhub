@@ -42,11 +42,11 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style.Setters>
 
-        <Style.Triggers>
+        <!--<Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="IsEnabled" Value="False"/>
             </Trigger>
-        </Style.Triggers>
+        </Style.Triggers>-->
         
     </Style>
 </ResourceDictionary>

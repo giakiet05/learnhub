@@ -21,7 +21,7 @@
                 <TextBlock Text="Bạn có chắc không?" Style="{StaticResource font_style}"
                            VerticalAlignment="Center" TextAlignment="Center"
                            HorizontalAlignment="Center" Foreground="Black"
-                           FontSize="25" Margin="0 5 0 0"/>
+                           FontSize="25" Margin="0 15 0 0"/>
 
                 <TextBlock Text="Bạn có chắn chắn muốn đăng xuất?" 
                            TextWrapping="Wrap" Width="300" Foreground="Black"

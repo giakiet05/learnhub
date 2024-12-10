@@ -138,6 +138,23 @@ namespace LearnHub.ViewModels.AdminViewModels
         private async void LoadTeachers()
         {
             Teachers = await GenericDataService<Teacher>.Instance.GetAll();
+
+            // Group teachers by name and add suffixes to duplicate names
+            var groupedByName = Teachers
+                .GroupBy(t => t.FullName)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            foreach (var group in groupedByName.Values)
+            {
+                if (group.Count > 1) // Handle duplicates
+                {
+                
+                    foreach (var teacher in group)
+                    {
+                        teacher.FullName = $"{teacher.FullName} ({teacher.Username})";
+                    }
+                }
+            }
             OnPropertyChanged(nameof(Teachers));
         }
     }

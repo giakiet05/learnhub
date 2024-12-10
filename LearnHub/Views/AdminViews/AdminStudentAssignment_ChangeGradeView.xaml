@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="LearnHub.Views.AdminViews.AdminStudentAssignment_ChangeGradeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LearnHub.Views.AdminViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="130" d:DesignWidth="470" Background="#fff7f7">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top"
+                    Margin="15">
+            <!--chọn năm học-->
+            <TextBlock Text="Năm: " VerticalAlignment="Center"
+                     FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
+            <ComboBox x:Name="cbNam" Width="100" Height="30" FontSize="13"
+                       ItemsSource="{Binding Years}"
+SelectedItem="{Binding SelectedYear}"
+   DisplayMemberPath="Name"
+                      Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+
+            <!--chọn khối-->
+            <TextBlock Text="Khối: " VerticalAlignment="Center" Margin="15 0 0 0"
+                        FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
+            <ComboBox x:Name="cbKhoi" Width="100" Height="30" FontSize="13"
+                        ItemsSource="{Binding Grades}"
+  SelectedItem="{Binding SelectedGrade}"
+  DisplayMemberPath="Name"
+                      Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+
+            <!--chọn lớp-->
+            <TextBlock Text="Lớp: " VerticalAlignment="Center" Margin="15 0 0 0"
+                        FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
+            <ComboBox x:Name="cbLop" Width="100" Height="30" FontSize="13"
+                         ItemsSource="{Binding Classrooms}"
+ SelectedItem="{Binding SelectedClassroom}"
+   DisplayMemberPath="Name"
+                      Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+        </StackPanel>
+
+        <!-- Nút thao tác -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,0,0">
+            <Button Content="Đồng ý" Width="118" Margin="10,0,10,10"
+                    Background="#87C5FC" BorderBrush="Transparent"
+                    Command="{Binding SubmitCommand}"
+                    Style="{StaticResource btnStyle}"/>
+
+            <Button Content="Huỷ bỏ" Width="118" Background="#93A7BF" 
+                    Command="{Binding CancelCommand}"
+                    BorderBrush="Transparent" Margin="0 0 10 10"
+                    Style="{StaticResource btnStyle}"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

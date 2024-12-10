@@ -29,7 +29,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
         public IEnumerable<Classroom> Classrooms { get; private set; }
 
         public List<int> Grades { get; private set; }
-        public int GradeNumber => _gradeStore.SelectedItem.Number+1;
+        public int GradeNumber => _gradeStore.SelectedItem.Number + 1;
 
         private int _selectedGrade;
 
@@ -48,9 +48,9 @@ namespace LearnHub.ViewModels.EditModalViewModels
             {
                 _selectedYear = value;
                 LoadClassrooms();
-               
+
                 //OnPropertyChanged(nameof(SelectedYear));
-               
+
             }
         }
 
@@ -73,12 +73,12 @@ namespace LearnHub.ViewModels.EditModalViewModels
             _classroomStore = GenericStore<Classroom>.Instance;
             _studentPlacementStore = GenericStore<StudentPlacement>.Instance;
             _yearStore = GenericStore<AcademicYear>.Instance;
-            _gradeStore = GenericStore<Grade>.Instance; 
+            _gradeStore = GenericStore<Grade>.Instance;
             SubmitCommand = new RelayCommand(ExecuteSubmit);
             CancelCommand = new CancelCommand();
             Grades = new List<int>();
-            Grades.Add(GradeNumber );
-            SelectedGrade = GradeNumber;    
+            Grades.Add(GradeNumber);
+            SelectedGrade = GradeNumber;
             Years = _yearStore.Items;
             OnPropertyChanged(nameof(Years));
         }
@@ -90,7 +90,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
         // làm sao biết lớp hiện tại là gì ? => store
         private async void LoadClassrooms()
         {
-            if ( SelectedYear == null)
+            if (SelectedYear == null)
             {
                 Classrooms = Enumerable.Empty<Classroom>();
                 ToastMessageViewModel.ShowWarningToast("Không có lớp trống để chuyển.");
@@ -107,10 +107,11 @@ namespace LearnHub.ViewModels.EditModalViewModels
                 //lấy id của các lớp đã phân
                 var assignedClassroomIds = studentPlacements.Select(e => e.ClassroomId);
                 //lấy ra các khối hợp lệ
-                IEnumerable<Guid?> Grades = (IEnumerable<Guid?>)await GenericDataService<Grade>.Instance.Query(e=>
-                e.Where(e=>e.Number==GradeNumber)
-                .Select(e=>e.Id)
-                );
+                List<Guid?> Grades = (await GenericDataService<Grade>.Instance.Query(e =>
+      e.Where(e => e.Number == GradeNumber)
+       .Select(e => (Guid?)e.Id) // Cast to nullable Guid
+  )).ToList();
+
                 //lấy các lớp có id không thuộc id của các lớp đã phân (nghĩa là lớp chưa được phân)
                 Classrooms = await GenericDataService<Classroom>.Instance.GetMany(
                     e => Grades.Contains(e.GradeId) &&
@@ -118,10 +119,10 @@ namespace LearnHub.ViewModels.EditModalViewModels
                     e.Id != _classroomStore.SelectedItem.Id &&
                    !assignedClassroomIds.Contains(e.Id)
                 );
-                if (Classrooms.Count() ==0 )
+                if (Classrooms.Count() == 0)
                 {
                     ToastMessageViewModel.ShowWarningToast("Không có lớp trống để chuyển.");
-                    return ;
+                    return;
                 }
             }
             OnPropertyChanged(nameof(Classrooms));
@@ -205,7 +206,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
                         Semester = "HK1",
                         AuthorizedLeaveDays = 0,
                         UnauthorizedLeaveDays = 0,
-                        AvgScore=0,
+                        AvgScore = 0,
                         AdminId = AccountStore.Instance.CurrentUser.Id
                     };
                     // check trùng

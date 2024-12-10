@@ -32,6 +32,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
 
             // Validation for required fields
             if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
+                formViewModel.Number == null ||
                 formViewModel.Number <= 0
                  )
             {
@@ -52,7 +53,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
                 Id = Guid.NewGuid(),
                 OriginalId = formViewModel.Id,
                 Number = (int)formViewModel.Number,
-                Name = formViewModel.Number?.ToString(),
+                Name = formViewModel.Number.ToString(),
                 AdminId = AccountStore.Instance.CurrentUser.Id
             };
 

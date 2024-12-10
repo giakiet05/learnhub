@@ -46,7 +46,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
         {
             SchoolYearDetailsFormViewModel formViewModel = SchoolYearDetailsFormViewModel;
 
-            if (string.IsNullOrWhiteSpace(formViewModel.Id) || formViewModel.StartYear<0)
+            if (string.IsNullOrWhiteSpace(formViewModel.Id) || formViewModel.StartYear == null || formViewModel.StartYear<0)
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");
                 return;

@@ -43,7 +43,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
         {
             GradeDetailsFormViewModel formViewModel = GradeDetailsFormViewModel;
 
-            if (string.IsNullOrWhiteSpace(formViewModel.Id) ||
+            if (string.IsNullOrWhiteSpace(formViewModel.Id) || formViewModel.Number == null ||
               formViewModel.Number <= 0
                  )
             {

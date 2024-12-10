@@ -14,12 +14,11 @@
 
         <Border Margin="10" Background="#87C5FC" CornerRadius="10">
             <StackPanel>
-                <Image Source="pack://application:,,,/LearnHub;component/resource/icons/warning.png"
-                       Stretch="Fill" Height="80" 
-                       Width="80"
-                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Image Source="pack://application:,,,/LearnHub;component/resource/icons/logoutconfirm.png"
+                       Stretch="Uniform" Height="70" Width="80"
+                       Margin="0 8 0 0"/>
 
-                <TextBlock Text="Are you sure?" Style="{StaticResource font_style}"
+                <TextBlock Text="Bạn có chắc không?" Style="{StaticResource font_style}"
                            VerticalAlignment="Center" TextAlignment="Center"
                            HorizontalAlignment="Center" Foreground="Black"
                            FontSize="25" Margin="0 5 0 0"/>

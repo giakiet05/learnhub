@@ -25,9 +25,8 @@ namespace LearnHub.ViewModels.AdminViewModels
             set
             {
                 _selectedSubject = value;
-                //GenericStore<Subject>.Instance.SelectedItem = _selectedSubject;
                 OnPropertyChanged(nameof(SelectedSubject));
-
+                LoadTeachers();
             }
         }
 
@@ -37,9 +36,9 @@ namespace LearnHub.ViewModels.AdminViewModels
             get => _selectedTeacher;
             set
             {
-                _selectedTeacher = value;
-                //GenericStore<Teacher>.Instance.SelectedItem = _selectedTeacher;
+                _selectedTeacher = value;        
                 OnPropertyChanged(nameof(SelectedTeacher));
+
 
             }
         }
@@ -93,7 +92,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
             LoadSubjects();
-            LoadTeachers();
+        
 
         }
 
@@ -107,8 +106,34 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         private async void LoadTeachers()
         {
-            Teachers = await GenericDataService<Teacher>.Instance.GetAll();
+            if (SelectedSubject == null)
+            {
+                Teachers = Enumerable.Empty<Teacher>();
+            }
+            else
+            {
+                Teachers = await GenericDataService<Teacher>.Instance.GetMany(e => e.MajorId == SelectedSubject.MajorId);
+
+                // Group teachers by name and add suffixes to duplicate names
+                var groupedByName = Teachers
+                    .GroupBy(t => t.FullName)
+                    .ToDictionary(g => g.Key, g => g.ToList());
+
+                foreach (var group in groupedByName.Values)
+                {
+                    if (group.Count > 1) // Handle duplicates
+                    {
+                       
+                        foreach (var teacher in group)
+                        {
+                            teacher.FullName = $"{teacher.FullName} ({teacher.Username})";
+                        }
+                    }
+                }
+            }
+
             OnPropertyChanged(nameof(Teachers));
         }
+
     }
 }

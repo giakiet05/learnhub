@@ -34,7 +34,7 @@ namespace LearnHub.ViewModels.AddModalViewModels
             var formViewModel = AssignmentByTeacherDetailsFormViewModel;
             var selectedTeacher = GenericStore<Teacher>.Instance.SelectedItem;
             // Validation for required fields
-            if (formViewModel.SelectedWeekday == null || formViewModel.SelectedPeriod == null || formViewModel.SelectedClassroom == null)
+            if (formViewModel.SelectedWeekday == null || formViewModel.SelectedPeriod == null || formViewModel.SelectedClassroom == null || formViewModel.SelectedSubject == null)
 
             {
                 ToastMessageViewModel.ShowWarningToast("Thông tin thiếu hoặc không chính xác. Những trường có đánh dấu * là bắt buộc");

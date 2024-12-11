@@ -300,14 +300,20 @@ namespace LearnHub.ViewModels.FormViewModels
                    
                     if ( AuthorizedLeaveDays >= 0 && UnauthorizedLeaveDays >= 0)
                     {
-                        semesterResult.Conduct = Conduct;
-                        semesterResult.AuthorizedLeaveDays = AuthorizedLeaveDays;
-                        semesterResult.UnauthorizedLeaveDays = UnauthorizedLeaveDays;
-                        semesterResult.AcademicPerformance = AcademicPerformance;
-                        semesterResult.AvgScore = AverageScore;
-                        semesterResult.Result = Title;
-                        var test = await GenericDataService<SemesterResult>.Instance.UpdateOne(semesterResult, e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
-                        ToastMessageViewModel.ShowSuccessToast("Sửa kết quả học kì thành công");
+                        if(semesterResult.Conduct != Conduct || semesterResult.AuthorizedLeaveDays != AuthorizedLeaveDays ||
+                           semesterResult.UnauthorizedLeaveDays != UnauthorizedLeaveDays || semesterResult.AcademicPerformance != AcademicPerformance ||
+                           semesterResult.AvgScore != AverageScore || semesterResult.Result != Title)
+                        {
+                            semesterResult.Conduct = Conduct;
+                            semesterResult.AuthorizedLeaveDays = AuthorizedLeaveDays;
+                            semesterResult.UnauthorizedLeaveDays = UnauthorizedLeaveDays;
+                            semesterResult.AcademicPerformance = AcademicPerformance;
+                            semesterResult.AvgScore = AverageScore;
+                            semesterResult.Result = Title;
+                            var test = await GenericDataService<SemesterResult>.Instance.UpdateOne(semesterResult, e => e.StudentId == SelectedStudent.Id && e.YearId == SelectedYear.Id && SelectedSemester == e.Semester);
+                            ToastMessageViewModel.ShowSuccessToast("Sửa kết quả học kì thành công");
+                        }
+                      
                     }
                     else
                     {

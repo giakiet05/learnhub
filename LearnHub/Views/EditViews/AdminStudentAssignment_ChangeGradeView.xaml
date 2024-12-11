@@ -19,7 +19,7 @@
                      FontSize="15" FontFamily="/Resource/Fonts/Roboto-Medium.ttf #Roboto"/>
             <ComboBox x:Name="cbNam" Width="100" Height="30" FontSize="13"
                        ItemsSource="{Binding Years}"
-SelectedItem="{Binding SelectedYear}"
+                       SelectedItem="{Binding SelectedYear}"
    DisplayMemberPath="Name"
                       Background="#d9d9d9d9" FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
 

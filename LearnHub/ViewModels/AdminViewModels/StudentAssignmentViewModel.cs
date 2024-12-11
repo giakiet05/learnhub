@@ -189,7 +189,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             
             if (SelectedClassroom == null) { ToastMessageViewModel.ShowWarningToast("Chưa chọn lớp."); return; }
             // load year
-            var years = await GenericDataService<AcademicYear>.Instance.GetMany(e => e.StartYear > SelectedYear.StartYear);
+            var years = await GenericDataService<AcademicYear>.Instance.GetMany(e => e.StartYear == SelectedYear.StartYear+1);
             if(years.Count()==0) { ToastMessageViewModel.ShowWarningToast("Không có năm học hợp lệ để chuyển lớp"); return; }
             var grades = await GenericDataService<Grade>.Instance.GetMany(e => e.Number == SelectedGrade.Number + 1);
             if(grades.Count()==0) { ToastMessageViewModel.ShowWarningToast("Không có khối hợp lệ để chuyển lớp"); return; }

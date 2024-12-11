@@ -1,4 +1,5 @@
 ﻿using LearnHub.Commands;
+using LearnHub.Helpers;
 using LearnHub.Models;
 using LearnHub.Services;
 using LearnHub.Stores;
@@ -8,9 +9,11 @@ using LearnHub.ViewModels.EditModalViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LearnHub.ViewModels.AdminViewModels
@@ -18,8 +21,8 @@ namespace LearnHub.ViewModels.AdminViewModels
     public class GradeViewModel : BaseViewModel
     {
         private readonly GenericStore<Grade> _gradeStore; // Field lưu trữ Store
-      
-        public IEnumerable<Grade> Grades => _gradeStore.Items; // Binding vào view
+
+        public ICollectionView FilteredGrades { get; }
 
 
         private ObservableCollection<Grade> _selectedGrades = new();
@@ -39,6 +42,38 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand SwitchToSchoolYearCommand { get; }
         public ICommand SwitchToMajorCommand { get; }
 
+        //text của search bar
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterGrade(); // Call the filter logic whenever SearchText changes
+            }
+        }
+        private void FilterGrade()
+        {
+            FilteredGrades.Refresh(); // Refresh the filtered view
+        }
+
+        private bool FilterGradesBySearchText(object item)
+        {
+            if (item is Grade grade)
+            {
+                if (string.IsNullOrWhiteSpace(SearchText)) return true; // No filter if SearchText is empty
+
+                // Remove diacritics from both search text and teacher fields
+                string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
+                string normalizedUsername = TextHelper.RemoveDiacritics(grade.Name);
+                string normalizedFullName = TextHelper.RemoveDiacritics(grade.OriginalId);
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                       normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
+        }
         public GradeViewModel()
         {
             _gradeStore = GenericStore<Grade>.Instance; // Khởi tạo Store
@@ -54,7 +89,9 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowEditModalCommand = new RelayCommand(ExecuteEdit);
             SwitchToSchoolYearCommand = new NavigateLayoutCommand(() => new SchoolYearViewModel());
             SwitchToMajorCommand = new NavigateLayoutCommand( () => new MajorViewModel());
-
+            //Set up filter
+            FilteredGrades = CollectionViewSource.GetDefaultView(_gradeStore.Items);
+            FilteredGrades.Filter = FilterGradesBySearchText;
             LoadGradesAsync(); // Nạp dữ liệu ban đầu
         }
         public void ExecuteEdit()

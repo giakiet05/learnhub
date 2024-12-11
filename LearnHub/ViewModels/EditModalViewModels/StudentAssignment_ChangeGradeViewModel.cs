@@ -80,6 +80,7 @@ namespace LearnHub.ViewModels.EditModalViewModels
             Grades.Add(GradeNumber);
             SelectedGrade = GradeNumber;
             Years = _yearStore.Items;
+            SelectedYear = Years.FirstOrDefault();
             OnPropertyChanged(nameof(Years));
         }
 
@@ -150,7 +151,8 @@ namespace LearnHub.ViewModels.EditModalViewModels
             IEnumerable<StudentPlacement> newStudentPlacements = studentPlacements.Select(item => new StudentPlacement
             {
                 ClassroomId = _selectedClassroom.Id,
-                StudentId = item.StudentId
+                StudentId = item.StudentId,
+                AdminId = item.AdminId,
             });
 
             try

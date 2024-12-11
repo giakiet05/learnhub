@@ -29,19 +29,6 @@ namespace LearnHub.ViewModels.AdminViewModels
 
         public IEnumerable<AcademicYear> Years { get; private set; }
         public IEnumerable<TeachingAssignment> TeachingAssignments => _teachingAssignmentStore.Items;
-
-        //private TeachingAssignment _selectedTeachingAssignment;
-        //public TeachingAssignment SelectedTeachingAssignment
-        //{
-        //    get => _selectedTeachingAssignment;
-        //    set
-        //    {
-               
-        //        _selectedTeachingAssignment = value;
-        //        _teachingAssignmentStore.SelectedItem = value;
-        //        OnPropertyChanged(nameof(SelectedTeachingAssignment));
-        //    }
-        //}
         private ObservableCollection<TeachingAssignment> _selectedTeachingAssignments = new();
         public ObservableCollection<TeachingAssignment> SelectedTeachingAssignments
         {
@@ -77,10 +64,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                 
                     _selectedTeacher = value;
                     _teacherStore.SelectedItem = value;
-                    OnPropertyChanged(nameof(SelectedTeacher));
-                    LoadYears();
-                
-              
+                LoadTeachingAssignments();
+                OnPropertyChanged(nameof(SelectedTeacher));           
             }
         }
 
@@ -118,6 +103,7 @@ namespace LearnHub.ViewModels.AdminViewModels
             SwitchToCalendarCommand = new NavigateLayoutCommand(() => new CalendarViewModel());
             SwitchToTeacherAssignmentCommand = new NavigateLayoutCommand(() => new TeachingAssignmentViewModel());
             _teachingAssignmentStore.Clear();
+            LoadYears();
             LoadMajors();
             UpdateModalCommands(); // Khởi tạo lệnh khi tạo ViewModel
         }
@@ -268,7 +254,7 @@ namespace LearnHub.ViewModels.AdminViewModels
        
         private async void LoadTeachingAssignments()
         {
-            if (SelectedTeacher == null)
+            if (SelectedTeacher == null || SelectedMajor==null || SelectedYear ==null )
             {
                 _teachingAssignmentStore.Load(Enumerable.Empty<TeachingAssignment>());
             }

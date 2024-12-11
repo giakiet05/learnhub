@@ -72,7 +72,7 @@
             <!--datagrid để hiển thị list khối lớp--> 
             <DataGrid x:Name="KhoiLopDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10,10,10,10"
-                      ItemsSource="{Binding Grades}" FontSize="16"
+                      ItemsSource="{Binding FilteredGrades}" FontSize="16"
                       PreviewMouseLeftButtonDown="KhoiLopDG_PreviewMouseLeftButtonDown"
                        helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedGrades}"
                       IsReadOnly="True" SelectionUnit="FullRow"  SelectionMode="Extended" Grid.ColumnSpan="2">

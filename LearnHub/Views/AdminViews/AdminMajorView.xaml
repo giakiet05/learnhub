@@ -21,7 +21,7 @@
                   PreviewMouseLeftButtonDown="BoMonDG_PreviewMouseLeftButtonDown"
                   CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
                   helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedMajors}"
-			      ItemsSource="{Binding Majors}" >
+			      ItemsSource="{Binding FilteredMajors}" >
             <DataGrid.CellStyle>
                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                     <Setter Property="BorderThickness" Value="0"/>

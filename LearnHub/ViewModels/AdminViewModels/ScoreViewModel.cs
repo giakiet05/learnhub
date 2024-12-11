@@ -1,5 +1,6 @@
 ﻿using LearnHub.Models;
 using LearnHub.Services;
+using LiveCharts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,12 +24,29 @@ namespace LearnHub.ViewModels.AdminViewModels
         get => _regularScores;
         set
         {
-          
+                if (string.IsNullOrWhiteSpace(value)) value = "0";
+                int count = 0;
+                // Tính trung bình điểm, bao gồm TXScore, GKScore, CKScore
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    double[] txScores =value.Split(' ')
+                                                .Select(s => double.Parse(s.Trim(), System.Globalization.CultureInfo.InvariantCulture))
+                                                .ToArray();
+                    count++;
+                    foreach (var txScore in txScores)
+                    {
+                        if (txScore > 10.0 || txScore < 0)
+                        {
+                            ToastMessageViewModel.ShowErrorToast("Nhập điểm không hợp lệ.");
+                            return;
+                        }
+                    }
+                }
                 _regularScores = value;
                 _score.RegularScores = value;
-                OnPropertyChanged(nameof(RegularScores));  // Thông báo thay đổi của TXScore
-               OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi TXScore thay đổi
-            
+                OnPropertyChanged(nameof(RegularScores));
+                OnPropertyChanged(nameof(AverageScore));
+
         }
     }
 
@@ -38,6 +56,11 @@ namespace LearnHub.ViewModels.AdminViewModels
         get => _midTermScore;
         set
         {
+                if (value > 10.0 || value < 0)
+                {
+                    ToastMessageViewModel.ShowErrorToast("Nhập điểm không hợp lệ.");
+                    return;
+                }
                 _midTermScore = value;
                 _score.MidTermScore = value;
                 OnPropertyChanged(nameof(MidTermScore));
@@ -52,7 +75,12 @@ namespace LearnHub.ViewModels.AdminViewModels
         get => _finalTermScore;
         set
         {
-              _finalTermScore = value;
+                if (value > 10.0 || value < 0)
+                {
+                    ToastMessageViewModel.ShowErrorToast("Nhập điểm không hợp lệ.");
+                    return;
+                }
+                _finalTermScore = value;
                 _score.FinalTermScore = value;
                 OnPropertyChanged(nameof(FinalTermScore));
                 OnPropertyChanged(nameof(AverageScore));  // Tính lại điểm trung bình khi CKScore thay đổi
@@ -112,8 +140,8 @@ namespace LearnHub.ViewModels.AdminViewModels
         return count > 0 ? sum / count : 0;
     }
 
-  
-    public static IEnumerable<ScoreViewModel> ConvertToScoreViewModels(IEnumerable<Score> scores)
+       
+        public static IEnumerable<ScoreViewModel> ConvertToScoreViewModels(IEnumerable<Score> scores)
     {
         return scores.Select(score => new ScoreViewModel(score));
     }

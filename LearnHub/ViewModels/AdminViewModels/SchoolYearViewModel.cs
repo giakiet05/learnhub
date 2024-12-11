@@ -13,6 +13,9 @@ using System.Windows;
 using LearnHub.Stores.AdminStores;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
+using System.ComponentModel;
+using System.Windows.Data;
+using LearnHub.Helpers;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -20,7 +23,7 @@ namespace LearnHub.ViewModels.AdminViewModels
     {
         // Tạo trường cho GenericStore<AcademicYear>
         private readonly GenericStore<AcademicYear> _schoolYearStore;
-        public IEnumerable<AcademicYear> SchoolYears => _schoolYearStore.Items; // Binding vào view
+        public ICollectionView FilteredSchoolYears { get; }
 
         private ObservableCollection<AcademicYear> _selectedYears = new();
         public ObservableCollection<AcademicYear> SelectedYears
@@ -32,6 +35,19 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(SelectedYears));
             }
         }
+        //text của search bar
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterSchoolYears(); // Call the filter logic whenever SearchText changes
+            }
+        }
+
         // Các command cho các hành động như Add, Delete, Edit
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
@@ -50,7 +66,30 @@ namespace LearnHub.ViewModels.AdminViewModels
             SwitchToGradeCommand = new NavigateLayoutCommand(() => new GradeViewModel());
             SwitchToMajorCommand = new NavigateLayoutCommand(() => new MajorViewModel());
 
+            //Set up filter
+            FilteredSchoolYears = CollectionViewSource.GetDefaultView(_schoolYearStore.Items);
+            FilteredSchoolYears.Filter = FilterSchoolYearsBySearchText;
             LoadSchoolYearsAsync();
+        }
+        private void FilterSchoolYears()
+        {
+            FilteredSchoolYears.Refresh(); // Refresh the filtered view
+        }
+
+        private bool FilterSchoolYearsBySearchText(object item)
+        {
+            if (item is AcademicYear year)
+            {
+                if (string.IsNullOrWhiteSpace(SearchText)) return true; // No filter if SearchText is empty
+
+                // Remove diacritics from both search text and teacher fields
+                string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
+                string normalizedUsername = TextHelper.RemoveDiacritics(year.Name);
+                string normalizedFullName = TextHelper.RemoveDiacritics(year.OriginalId);
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                       normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
         }
         // Tải danh sách schoolYears từ DB rồi cập nhật vào GenericStore
         private async void LoadSchoolYearsAsync()

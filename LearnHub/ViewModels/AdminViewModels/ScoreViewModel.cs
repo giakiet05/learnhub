@@ -26,22 +26,31 @@ namespace LearnHub.ViewModels.AdminViewModels
         {
                 if (string.IsNullOrWhiteSpace(value)) value = "0";
                 int count = 0;
-                // Tính trung bình điểm, bao gồm TXScore, GKScore, CKScore
-                if (!string.IsNullOrWhiteSpace(value))
+                try
                 {
-                    double[] txScores =value.Split(' ')
-                                                .Select(s => double.Parse(s.Trim(), System.Globalization.CultureInfo.InvariantCulture))
-                                                .ToArray();
-                    count++;
-                    foreach (var txScore in txScores)
+                    // Tính trung bình điểm, bao gồm TXScore, GKScore, CKScore
+                    if (!string.IsNullOrWhiteSpace(value))
                     {
-                        if (txScore > 10.0 || txScore < 0)
+                        double[] txScores = value.Split(' ')
+                                                    .Select(s => double.Parse(s.Trim(), System.Globalization.CultureInfo.InvariantCulture))
+                                                    .ToArray();
+                        count++;
+                        foreach (var txScore in txScores)
                         {
-                            ToastMessageViewModel.ShowErrorToast("Nhập điểm không hợp lệ.");
-                            return;
+                            if (txScore > 10.0 || txScore < 0)
+                            {
+                                ToastMessageViewModel.ShowErrorToast("Nhập điểm không hợp lệ.");
+                                return;
+                            }
                         }
                     }
                 }
+                catch
+                {
+                    ToastMessageViewModel.ShowErrorToast("Nhập điểm không hợp lệ.");
+                    return;
+                }
+               
                 _regularScores = value;
                 _score.RegularScores = value;
                 OnPropertyChanged(nameof(RegularScores));

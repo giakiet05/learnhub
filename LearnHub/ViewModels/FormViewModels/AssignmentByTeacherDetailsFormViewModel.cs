@@ -50,6 +50,7 @@ namespace LearnHub.ViewModels.FormViewModels
             {
                 _selectedGrade = value;
                 //GenericStore<Teacher>.Instance.SelectedItem = _selectedTeacher;
+                LoadSubjects();
                 LoadClassrooms();
                 OnPropertyChanged(nameof(SelectedGrade));
 
@@ -104,7 +105,7 @@ namespace LearnHub.ViewModels.FormViewModels
 
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
-            LoadSubjects();
+
             LoadGrades();
 
         }
@@ -113,7 +114,7 @@ namespace LearnHub.ViewModels.FormViewModels
         {
             var selectedTeacher = GenericStore<Teacher>.Instance.SelectedItem;
             if (selectedTeacher != null)
-                Subjects = await GenericDataService<Subject>.Instance.GetMany(e => e.Major.Id == selectedTeacher.MajorId);
+                Subjects = await GenericDataService<Subject>.Instance.GetMany(e => e.Major.Id == selectedTeacher.MajorId && e.GradeId==SelectedGrade.Id);
             OnPropertyChanged(nameof(Subjects));
         }
         private async void LoadClassrooms()

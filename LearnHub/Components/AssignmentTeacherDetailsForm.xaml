@@ -47,7 +47,7 @@
                 </StackPanel>
                 
                 <!--Thứ-->
-                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Thứ: " Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="110"/>
                     <TextBlock Text="*" Foreground="Red"/>
@@ -65,7 +65,7 @@
                 </StackPanel>
                 
                 <!--Tiết-->
-                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Tiết: " Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="110"/>
                     <TextBlock Text="*" Foreground="Red"/>

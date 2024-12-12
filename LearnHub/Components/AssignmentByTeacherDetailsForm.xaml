@@ -14,8 +14,23 @@
         <!--hộp thông tin Khối lớp-->
         <Border Grid.Row="0" Background="#87C5FC" Margin="15" CornerRadius="10">
             <StackPanel>
-                <!--Tên Môn-->
+                <!--khối lớp-->
                 <StackPanel Margin="25" Orientation="Horizontal">
+                    <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
+                                VerticalAlignment="Center" Width="100"/>
+                    <TextBlock Text="*" Foreground="Red"/>
+                    <ComboBox x:Name="cbGV" FontSize="15" Width="200" Height="30"
+                              Margin="15 0 0 0" Background="#d9d9d9d9"  
+                              ItemsSource="{Binding Grades}"
+                              DisplayMemberPath="Number"
+                              SelectedValuePath="Id"
+                              SelectedValue="{Binding SelectedGrade.Id}"
+                              SelectedItem="{Binding SelectedGrade, Mode=TwoWay}"
+                              FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
+                </StackPanel>
+
+                <!--Tên Môn-->
+                <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
                     <TextBlock Text="Tên môn:" Style="{StaticResource font_style}"
                          VerticalAlignment="Center" Width="100"/>
                     <TextBlock Text="*" Foreground="Red"/>
@@ -30,23 +45,8 @@
                         FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
                 </StackPanel>
 
-                <!--khối lớp-->
-                <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
-                    <TextBlock Text="Khối lớp:" Style="{StaticResource font_style}"
-                        VerticalAlignment="Center" Width="100"/>
-                    <TextBlock Text="*" Foreground="Red"/>
-                    <ComboBox x:Name="cbGV" FontSize="15" Width="200" Height="30"
-                          Margin="15 0 0 0" Background="#d9d9d9d9"  
-                          ItemsSource="{Binding Grades}"
-                          DisplayMemberPath="Number"
-                          SelectedValuePath="Id"
-                          SelectedValue="{Binding SelectedGrade.Id}"
-                          SelectedItem="{Binding SelectedGrade, Mode=TwoWay}"
-                          FontFamily="/Resource/Fonts/Roboto-medium.ttf #Roboto"/>
-                </StackPanel>
-
                 <!--lớp-->
-                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Lớp:" Style="{StaticResource font_style}"
                                 VerticalAlignment="Center" Width="100"/>
                     <TextBlock Text="*" Foreground="Red"/>
@@ -61,7 +61,7 @@
                 </StackPanel>
 
                 <!--Thứ-->
-                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Thứ: " Style="{StaticResource font_style}"
                             VerticalAlignment="Center" Width="100"/>
                     <TextBlock Text="*" Foreground="Red"/>
@@ -79,7 +79,7 @@
                 </StackPanel>
 
                 <!--Tiết-->
-                <StackPanel Margin="25 20 0 0" Orientation="Horizontal">
+                <StackPanel Margin="25 25 0 0" Orientation="Horizontal">
                     <TextBlock Text="Tiết: " Style="{StaticResource font_style}"
                             VerticalAlignment="Center" Width="100"/>
                     <TextBlock Text="*" Foreground="Red"/>

@@ -270,12 +270,15 @@ namespace LearnHub.ViewModels.FormViewModels
                         oldScore.FinalTermScore != score.FinalTermScore ||
                         oldScore.RegularScores != score.RegularScores)
                     {
+                        oldScore.MidTermScore = score.MidTermScore;
+                        oldScore.FinalTermScore = score.FinalTermScore;
+                        oldScore.RegularScores = score.RegularScores;
                         // cập nhật điểm mới
-                        await GenericDataService<Score>.Instance.UpdateOne(score._score, e =>
-                   e.YearId == score._score.YearId &&
-                   e.SubjectId == score._score.SubjectId &&
-                   e.StudentId == score._score.StudentId &&
-                   e.Semester == score._score.Semester);
+                        await GenericDataService<Score>.Instance.UpdateOne(oldScore, e =>
+                   e.YearId == oldScore.YearId &&
+                   e.SubjectId == oldScore.SubjectId &&
+                   e.StudentId == oldScore.StudentId &&
+                   e.Semester == oldScore.Semester);
 
                         successed++;
                     }
@@ -362,7 +365,7 @@ namespace LearnHub.ViewModels.FormViewModels
                 else yearResult.AcademicPerformance = "Kém";
 
                 if (yearResult.Conduct == null) yearResult.Result = "Chưa xếp loại.";
-                else if (yearResult.AvgScore >= 8 && min >= 6.5 && yearResult.Conduct == "Tốt") Title = "Học Sinh Giỏi";
+                else if (yearResult.AvgScore >= 8 && min >= 6.5 && yearResult.Conduct == "Tốt") yearResult.Result = "Học Sinh Giỏi";
                 else if (yearResult.AvgScore > 6.5 && (yearResult.Conduct == "Tốt" || yearResult.Conduct == "Khá") && min >= 5) yearResult.Result = "Học Sinh Tiên Tiến";
                 else if (yearResult.AvgScore >= 5.0 && (yearResult.Conduct != "Yếu" || yearResult.Conduct != "Kém") && min >= 3.5) yearResult.Result = "Học Sinh Trung Bình";
                 else yearResult.Result = "Học Sinh Yếu";

@@ -133,7 +133,7 @@
 
             <Separator Grid.Row="1" Background="Black" VerticalAlignment="Stretch"/>
 
-            <Image Grid.Row="2" Source="/Resource/Images/wallpaper.jpg" Stretch="Fill" Opacity="0.8"/>
+            <Image Grid.Row="2" Source="/Resource/Images/wallpaper4.jpg" Stretch="Fill"/>
         </Grid>
 
     </Grid>

@@ -92,8 +92,6 @@ namespace LearnHub.ViewModels.AdminViewModels
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
             LoadSubjects();
-        
-
         }
 
         private async void LoadSubjects()

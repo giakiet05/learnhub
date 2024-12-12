@@ -67,7 +67,7 @@
 			<DataGrid x:Name="LopDG" AutoGenerateColumns="False" CanUserAddRows="True"
                       IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended"
                       CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10"
-                      ItemsSource="{Binding Classrooms}" FontSize="16"
+                      ItemsSource="{Binding FilteredClassrooms}" FontSize="16"
                       PreviewMouseLeftButtonDown="LopDG_PreviewMouseLeftButtonDown"
                      helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedClassrooms}">
                 <DataGrid.CellStyle>

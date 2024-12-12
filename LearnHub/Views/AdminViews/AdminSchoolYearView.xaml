@@ -72,7 +72,7 @@
             <DataGrid x:Name="NamHocDG" AutoGenerateColumns="False" CanUserAddRows="True" 
                     CanUserDeleteRows="True" HeadersVisibility="Column" Margin="10" FontSize="16"
                       IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended"
-					  ItemsSource="{Binding SchoolYears}"
+					  ItemsSource="{Binding FilteredSchoolYears}"
                       PreviewMouseLeftButtonDown="NamHocDG_PreviewMouseLeftButtonDown"
                        helpers:DataGridSelectedItemsBehavior.BindableSelectedItems="{Binding SelectedYears}">
                 

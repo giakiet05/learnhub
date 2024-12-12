@@ -14,6 +14,9 @@ using LearnHub.Stores.AdminStores;
 using Microsoft.EntityFrameworkCore;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
+using System.ComponentModel;
+using System.Windows.Data;
+using LearnHub.Helpers;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -21,8 +24,8 @@ namespace LearnHub.ViewModels.AdminViewModels
     {
         // Tạo trường cho GenericStore<Classroom>
         private readonly GenericStore<Classroom> _classroomStore;
-        public IEnumerable<Classroom> Classrooms => _classroomStore.Items; // Binding vào view
         private ObservableCollection<Classroom> _selectedClassrooms = new();
+        public ICollectionView FilteredClassrooms { get; }
         public ObservableCollection<Classroom> SelectedClassrooms
         {
             get => _selectedClassrooms;
@@ -32,8 +35,19 @@ namespace LearnHub.ViewModels.AdminViewModels
                 OnPropertyChanged(nameof(SelectedClassrooms));
             }
         }
+        //text của search bar
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterClassrooms(); // Call the filter logic whenever SearchText changes
+            }
+        }
 
-      
 
         public ICommand ShowAddModalCommand { get; }
         public ICommand ShowDeleteModalCommand { get; }
@@ -51,8 +65,31 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowEditModalCommand = new RelayCommand(ExecuteEdit);
 
             SwitchToStudentAssignmentCommand = new NavigateLayoutCommand(() => new StudentAssignmentViewModel());
+            //Set up filter
+            FilteredClassrooms = CollectionViewSource.GetDefaultView(_classroomStore.Items);
+            FilteredClassrooms.Filter = FilterClassroomsBySearchText;
 
             LoadClassrooms();
+        }
+        private void FilterClassrooms()
+        {
+            FilteredClassrooms.Refresh(); // Refresh the filtered view
+        }
+
+        private bool FilterClassroomsBySearchText(object item)
+        {
+            if (item is Classroom classroom)
+            {
+                if (string.IsNullOrWhiteSpace(SearchText)) return true; // No filter if SearchText is empty
+
+                // Remove diacritics from both search text and teacher fields
+                string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
+                string normalizedUsername = TextHelper.RemoveDiacritics(classroom.Name);
+                string normalizedFullName = TextHelper.RemoveDiacritics(classroom.OriginalId);
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                       normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
         }
         public void ExecuteEdit()
         {

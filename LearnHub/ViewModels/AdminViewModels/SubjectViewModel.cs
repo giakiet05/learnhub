@@ -14,12 +14,15 @@ using LearnHub.Stores.AdminStores;
 using Microsoft.EntityFrameworkCore;
 using LearnHub.ViewModels.AddModalViewModels;
 using LearnHub.ViewModels.EditModalViewModels;
+using System.ComponentModel;
+using LearnHub.Helpers;
+using System.Windows.Data;
 namespace LearnHub.ViewModels.AdminViewModels
 {
     public class SubjectViewModel : BaseViewModel
     {
         private readonly GenericStore<Subject> _subjectStore;
-        public IEnumerable<Subject> Subjects => _subjectStore.Items; // Binding vào view
+        public ICollectionView FilteredSubjects { get; }
 
         private ObservableCollection<Subject> _selectedSubjects = new();
         public ObservableCollection<Subject> SelectedSubjects
@@ -36,6 +39,38 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowDeleteModalCommand { get; }
         public ICommand ShowEditModalCommand { get; }
         public ICommand SwitchToMajorCommand { get; }
+        //text của search bar
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterSubjects(); // Call the filter logic whenever SearchText changes
+            }
+        }
+        private void FilterSubjects()
+        {
+            FilteredSubjects.Refresh(); // Refresh the filtered view
+        }
+
+        private bool FilterSubjectsBySearchText(object item)
+        {
+            if (item is Subject subject)
+            {
+                if (string.IsNullOrWhiteSpace(SearchText)) return true; // No filter if SearchText is empty
+
+                // Remove diacritics from both search text and teacher fields
+                string normalizedSearchText = TextHelper.RemoveDiacritics(SearchText);
+                string normalizedUsername = TextHelper.RemoveDiacritics(subject.Name);
+                string normalizedFullName = TextHelper.RemoveDiacritics(subject.OriginalId);
+                return normalizedUsername.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase) ||
+                       normalizedFullName.Contains(normalizedSearchText, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
+        }
         public SubjectViewModel()
         {
             _subjectStore = GenericStore<Subject>.Instance; // Tạo trường cho GenericStore
@@ -47,6 +82,10 @@ namespace LearnHub.ViewModels.AdminViewModels
             ShowAddModalCommand = new NavigateModalCommand(() => new AddSubjectViewModel());
             ShowEditModalCommand = new RelayCommand(ExecuteEdit);
             SwitchToMajorCommand = new NavigateLayoutCommand(() => new MajorViewModel());
+
+            //Set up filter
+            FilteredSubjects = CollectionViewSource.GetDefaultView(_subjectStore.Items);
+            FilteredSubjects.Filter = FilterSubjectsBySearchText;
             LoadSubjects();
         }
 

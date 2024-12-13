@@ -1,17 +1,11 @@
-﻿using LearnHub.Commands;
-using LearnHub.Data;
+﻿using LearnHub.Data;
 using LearnHub.Models;
 using LearnHub.Services;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using static OfficeOpenXml.ExcelErrorValue;
 
 namespace LearnHub.ViewModels.AdminViewModels
 {
@@ -275,7 +269,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         Title = type,
                         Values = new ChartValues<int> { count },
                         DataLabels = true,
-                       
+                        
                     });
                  
                 }
@@ -308,7 +302,6 @@ namespace LearnHub.ViewModels.AdminViewModels
                         Title = type,
                         Values = new ChartValues<int> { count },
                         DataLabels = true,
-                      
                     });
                 }
             }
@@ -478,17 +471,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                     {
                         Title = key,
                         Values = new ChartValues<int>(academicPerformanceDict[key]),
-                        DataLabels = false,
-                        //LabelPoint = point =>
-                        //{
-                        //    // Tính tỷ lệ phần trăm
-                        //    double percentage = totalAcademicPerformance > 0
-                        //        ? (point.Y / totalAcademicPerformance) * 100
-                        //        : 0;
-
-                        //    // Hiển thị giá trị nếu percentage >= 0.01 (1%)
-                        //    return percentage >= 0.01 ? $"{point.Y}   ({percentage:F2}%)" : point.Y.ToString();
-                        //}
+                        DataLabels = false, // Hiển thị nhãn trên cột
+                        LabelPoint = point => $"{point.Y} ({(point.Y / totalAcademicPerformance * 100):0.##}%)" // Nhãn kết hợp,
                     });
                 }
 
@@ -501,14 +485,8 @@ namespace LearnHub.ViewModels.AdminViewModels
                     {
                         Title = key,
                         Values = new ChartValues<int>(conductDict[key]),
-
-                        //LabelPoint = point =>
-                        //{
-                        //    double percentage = totalConduct > 0
-                        //        ? (point.Y / totalConduct) * 100
-                        //        : 0;
-                        //    return $"{point.Y}   ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
-                        //}
+                        DataLabels = false, // Hiển thị nhãn trên cột
+                        LabelPoint = point => $"{point.Y} ({(point.Y / totalConduct * 100):0.##}%)", // Nhãn kết hợp
                     });
                 }
 

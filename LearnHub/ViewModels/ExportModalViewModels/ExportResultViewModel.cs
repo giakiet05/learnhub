@@ -76,6 +76,19 @@ namespace LearnHub.ViewModels.ExportModalViewModels
 
             try
             {
+
+                var classrooms = (await GenericDataService<Classroom>.Instance
+                      .GetMany(e => e.YearId == SelectedYear.Id, include: query => query.Include(e => e.Grade)))
+                      .OrderBy(e => e.Grade.Number)
+                      .OrderBy(e => e.Name)
+                      .ToList();
+
+                if (!classrooms.Any())
+                {
+                    ToastMessageViewModel.ShowWarningToast("Không có lớp nào để xuất");
+                    return;
+                }
+
                 // Tạo SaveFileDialog để người dùng chọn nơi lưu file
                 var saveFileDialog = new SaveFileDialog
                 {
@@ -90,12 +103,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
 
                     //lấy tất cả lớp của năm được chọn, xếp theo khối => tên
 
-                    var classrooms = (await GenericDataService<Classroom>.Instance
-                         .GetMany(e => e.YearId == SelectedYear.Id, include: query => query.Include(e => e.Grade)))
-                         .OrderBy(e => e.Grade.Number)
-                         .OrderBy(e => e.Name)
-                         .ToList();
-
+                 
                     using (var package = new ExcelPackage())
                     {
                         //vòng lặp cho từng sheet
@@ -170,7 +178,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                                         //ở mỗi cột môn (bắt đàu từ 3), kiểm tra trong đống scores thằng nào có subject name trùng với tên cột 
                                         //thì tính trung bình rồi quăng vào ô đó
                                         string subjectName = worksheet.Cells[2, j].Value.ToString(); // tên môn (dòng 2)
-                                        double subjectAvgScore = scores.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
+                                        double subjectAvgScore = scores.FirstOrDefault(e => e.Subject.Name == subjectName)?.AvgScore ?? NULL_SCORE; //điểm match với tên môn
                                         worksheet.Cells[i + 3, j].Value = Math.Round(subjectAvgScore, 2);
                                     }
 
@@ -209,8 +217,8 @@ namespace LearnHub.ViewModels.ExportModalViewModels
                                         //ở mỗi cột môn (bắt đàu từ 3), kiểm tra trong đống scores thằng nào có subject name trùng với tên cột 
                                         //thì tính trung bình rồi quăng vào ô đó
                                         string subjectName = worksheet.Cells[2, j].Value.ToString(); // tên môn (dòng 2)
-                                        double subjectAvgScore1 = scores1.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
-                                        double subjectAvgScore2 = scores2.FirstOrDefault(e => e.Subject.Name == subjectName).AvgScore ?? NULL_SCORE; //điểm match với tên môn
+                                        double subjectAvgScore1 = scores1.FirstOrDefault(e => e.Subject.Name == subjectName)?.AvgScore ?? NULL_SCORE; //điểm match với tên môn
+                                        double subjectAvgScore2 = scores2.FirstOrDefault(e => e.Subject.Name == subjectName)?.AvgScore ?? NULL_SCORE; //điểm match với tên môn
                                         //tính điểm tb cả năm (hk2 hệ số 2)
                                         double yearSubjectAvgScore = (subjectAvgScore1 + subjectAvgScore2 * 2) / 3;
                                         worksheet.Cells[i + 3, j].Value = Math.Round(yearSubjectAvgScore, 2);

@@ -154,12 +154,22 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
+
+
+                if (!Teachers.Any())
+                {
+                    ToastMessageViewModel.ShowWarningToast("Không có giáo viên nào để xuất");
+                    return;
+                }
+
                 var saveFileDialog = new SaveFileDialog
                 {
                     Title = "Chọn nơi lưu file Excel",
                     Filter = "Excel Files (*.xlsx)|*.xlsx",
                     FileName = "TeachersExport.xlsx"
                 };
+
+
 
                 if (saveFileDialog.ShowDialog() == true)
                 {

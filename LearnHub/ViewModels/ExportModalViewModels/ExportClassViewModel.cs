@@ -77,6 +77,19 @@ namespace LearnHub.ViewModels.ExportModalViewModels
 
             try
             {
+
+                var classrooms = (await GenericDataService<Classroom>.Instance
+                      .GetMany(e => e.YearId == SelectedYear.Id, include: query => query.Include(e => e.Grade)))
+                      .OrderBy(e => e.Grade.Number)
+                      .OrderBy(e => e.Name)
+                      .ToList();
+
+                if (!classrooms.Any())
+                {
+                    ToastMessageViewModel.ShowWarningToast("Không có lớp nào để xuất");
+                    return;
+                }
+
                 // Tạo SaveFileDialog để người dùng chọn nơi lưu file
                 var saveFileDialog = new SaveFileDialog
                 {
@@ -91,11 +104,7 @@ namespace LearnHub.ViewModels.ExportModalViewModels
 
                     //lấy tất cả lớp của năm được chọn, xếp theo khối => tên
 
-                    var classrooms = (await GenericDataService<Classroom>.Instance
-                         .GetMany(e => e.YearId == SelectedYear.Id, include: query => query.Include(e => e.Grade)))
-                         .OrderBy(e => e.Grade.Number)
-                         .OrderBy(e => e.Name)
-                         .ToList();
+                 
 
                     using (var package = new ExcelPackage())
                     {

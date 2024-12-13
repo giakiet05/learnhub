@@ -275,14 +275,9 @@ namespace LearnHub.ViewModels.AdminViewModels
                         Title = type,
                         Values = new ChartValues<int> { count },
                         DataLabels = true,
-                        LabelPoint = chartPoint =>
-                        {
-                            double percentage = TotalStudents > 0
-                                ? (chartPoint.Y / TotalStudents) * 100
-                                : 0;
-                            return $"{chartPoint.Y} ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
-                        }
+                       
                     });
+                 
                 }
             }
         }
@@ -313,13 +308,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         Title = type,
                         Values = new ChartValues<int> { count },
                         DataLabels = true,
-                        LabelPoint = chartPoint =>
-                        {
-                            double percentage = TotalStudents > 0
-                                ? (chartPoint.Y / TotalStudents) * 100
-                                : 0;
-                            return $"{chartPoint.Y} ({percentage:F2}%)";
-                        }
+                      
                     });
                 }
             }
@@ -489,17 +478,17 @@ namespace LearnHub.ViewModels.AdminViewModels
                     {
                         Title = key,
                         Values = new ChartValues<int>(academicPerformanceDict[key]),
+                        DataLabels = false,
+                        //LabelPoint = point =>
+                        //{
+                        //    // Tính tỷ lệ phần trăm
+                        //    double percentage = totalAcademicPerformance > 0
+                        //        ? (point.Y / totalAcademicPerformance) * 100
+                        //        : 0;
 
-                        LabelPoint = point =>
-                        {
-                            // Tính tỷ lệ phần trăm
-                            double percentage = totalAcademicPerformance > 0
-                                ? (point.Y / totalAcademicPerformance) * 100
-                                : 0;
-                            return $"{point.Y}   ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
-                        },
-                     
-
+                        //    // Hiển thị giá trị nếu percentage >= 0.01 (1%)
+                        //    return percentage >= 0.01 ? $"{point.Y}   ({percentage:F2}%)" : point.Y.ToString();
+                        //}
                     });
                 }
 
@@ -513,13 +502,13 @@ namespace LearnHub.ViewModels.AdminViewModels
                         Title = key,
                         Values = new ChartValues<int>(conductDict[key]),
 
-                        LabelPoint = point =>
-                        {
-                            double percentage = totalConduct > 0
-                                ? (point.Y / totalConduct) * 100
-                                : 0;
-                            return $"{point.Y}   ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
-                        }
+                        //LabelPoint = point =>
+                        //{
+                        //    double percentage = totalConduct > 0
+                        //        ? (point.Y / totalConduct) * 100
+                        //        : 0;
+                        //    return $"{point.Y}   ({percentage:F2}%)"; // Giá trị và tỷ lệ phần trăm
+                        //}
                     });
                 }
 

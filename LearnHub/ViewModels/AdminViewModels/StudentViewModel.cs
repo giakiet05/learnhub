@@ -156,13 +156,23 @@ namespace LearnHub.ViewModels.AdminViewModels
 
             try
             {
+
+                if (!Students.Any())
+                {
+                    ToastMessageViewModel.ShowWarningToast("Không có học sinh nào để xuất");
+                    return;
+                }
+
                 // Tạo SaveFileDialog để người dùng chọn nơi lưu file
                 var saveFileDialog = new SaveFileDialog
                 {
                     Title = "Chọn nơi lưu file Excel",
                     Filter = "Excel Files (*.xlsx)|*.xlsx",
-                    FileName = "StudentsExport.xlsx"
+                    FileName = "DS_HS.xlsx"
                 };
+
+           
+
 
                 if (saveFileDialog.ShowDialog() == true) // Nếu người dùng nhấn "Save"
                 {

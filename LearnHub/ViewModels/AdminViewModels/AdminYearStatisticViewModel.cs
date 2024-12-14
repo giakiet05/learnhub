@@ -472,7 +472,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         Title = key,
                         Values = new ChartValues<int>(academicPerformanceDict[key]),
                         DataLabels = false, // Hiển thị nhãn trên cột
-                        LabelPoint = point => $"{point.Y} ({(point.Y / totalAcademicPerformance * 100):0.##}%)" // Nhãn kết hợp,
+                       
                     });
                 }
 
@@ -486,7 +486,7 @@ namespace LearnHub.ViewModels.AdminViewModels
                         Title = key,
                         Values = new ChartValues<int>(conductDict[key]),
                         DataLabels = false, // Hiển thị nhãn trên cột
-                        LabelPoint = point => $"{point.Y} ({(point.Y / totalConduct * 100):0.##}%)", // Nhãn kết hợp
+                      
                     });
                 }
 

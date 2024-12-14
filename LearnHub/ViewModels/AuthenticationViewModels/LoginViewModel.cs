@@ -18,7 +18,7 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private string _username = "a";
+        private string _username;
         public string Username 
         {
             get
@@ -32,7 +32,7 @@ namespace LearnHub.ViewModels.AuthenticationViewModels
             }
         }
 
-        private string _password = "Abc123!@#";
+        private string _password;
         public string Password
         {
             get => _password;

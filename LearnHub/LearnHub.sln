@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnHub", "LearnHub.csproj", "{30556F30-34EA-4864-AB08-E00C0E5CB398}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LearnHubSetup", "..\LearnHubSetup\LearnHubSetup.vdproj", "{273AC993-D3FC-46D0-BB87-B7240DE1DF5A}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LearnHubInstaller", "..\LearnHubInstaller\LearnHubInstaller.vdproj", "{4A49A3C3-37AE-4979-BF40-EEB104930A31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{30556F30-34EA-4864-AB08-E00C0E5CB398}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30556F30-34EA-4864-AB08-E00C0E5CB398}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30556F30-34EA-4864-AB08-E00C0E5CB398}.Release|Any CPU.Build.0 = Release|Any CPU
-		{273AC993-D3FC-46D0-BB87-B7240DE1DF5A}.Debug|Any CPU.ActiveCfg = Debug
-		{273AC993-D3FC-46D0-BB87-B7240DE1DF5A}.Release|Any CPU.ActiveCfg = Release
+		{4A49A3C3-37AE-4979-BF40-EEB104930A31}.Debug|Any CPU.ActiveCfg = Debug
+		{4A49A3C3-37AE-4979-BF40-EEB104930A31}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

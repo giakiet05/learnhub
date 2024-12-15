@@ -112,29 +112,6 @@ namespace LearnHub.ViewModels.AdminViewModels
             "Không", "Phật giáo", "Thiên Chúa giáo", "Tin Lành","Hồi giáo", "Hòa Hảo", "Cao Đài", "Khác"
         };
 
-        private string _selectedEthnicity;
-        public string SelectedEthnicity
-        {
-            get => _selectedEthnicity;
-            set
-            {
-                _selectedEthnicity = value;
-                OnPropertyChanged(); // Cập nhật giao diện khi giá trị thay đổi
-            }
-        }
-
-        private string _selectedReligion;
-        public string SelectedReligion
-        {
-            get => _selectedReligion;
-            set
-            {
-                _selectedReligion = value;
-                OnPropertyChanged();
-            }
-        }
-
-
         public string? Ethnicity
         {
             get => _ethnicity;

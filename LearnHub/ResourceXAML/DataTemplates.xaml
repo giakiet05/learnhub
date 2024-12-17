@@ -16,7 +16,9 @@
                     xmlns:exportvm="clr-namespace:LearnHub.ViewModels.ExportModalViewModels"
                     xmlns:exportviews="clr-namespace:LearnHub.Views.ExportViews"
                     xmlns:vm="clr-namespace:LearnHub.ViewModels">
-    <!--#region ToastMessage -->
+    <DataTemplate DataType="{x:Type adminvm:StudentScoreViewModel}">
+    <views:StudentScoreView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:ToastMessageViewModel}">
         <views:ToastMessageView/>
     </DataTemplate>

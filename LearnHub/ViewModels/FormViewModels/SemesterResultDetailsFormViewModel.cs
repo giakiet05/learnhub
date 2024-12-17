@@ -20,6 +20,7 @@ namespace LearnHub.ViewModels.FormViewModels
 
         public ICommand ChangeStateCommand { get; }
         public ObservableCollection<ScoreViewModel> ScoreViewModels { get; private set; }
+
         public Student SelectedStudent;
         public AcademicYear SelectedYear;
         public string SelectedSemester;

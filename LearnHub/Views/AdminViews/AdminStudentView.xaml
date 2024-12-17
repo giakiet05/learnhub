@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:helpers="clr-namespace:LearnHub.Helpers"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="1040" Background="#fff7f7">
+      d:DesignHeight="450" d:DesignWidth="1200" Background="#fff7f7">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -43,6 +43,10 @@
 
             <!--stackpanel các nút chức năng-->
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
+                <Button Content="Xem" Margin="20 0 0 0"
+                        Command="{Binding ShowScoreCommand}" Width="90" Height="45" FontSize="16"
+                        Background="#5CB3FF" BorderBrush="Transparent"
+                        Style="{StaticResource btnStyle}"/>
                 <!--nút thêm học sinh mới-->
                 <Button x:Name="btnThem" Content="Thêm" Margin="20 0 0 0"
                         Command="{Binding ShowAddModalCommand}" Width="90" Height="45" FontSize="16"

@@ -10,16 +10,6 @@
                             <Image Source="/Resource/Icons/view.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Sửa" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
-                        <MenuItem.Icon>
-                            <Image Source="/Resource/Icons/edit.png" Width="16" Height="16" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="Xoá" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
-                        <MenuItem.Icon>
-                            <Image Source="/Resource/Icons/delete.png" Width="16" Height="16" />
-                        </MenuItem.Icon>
-                    </MenuItem>
                 </ContextMenu>
             </Setter.Value>
         </Setter>

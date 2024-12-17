@@ -62,6 +62,7 @@ namespace LearnHub.ViewModels.AdminViewModels
         public ICommand ShowEditModalCommand { get; }
         public ICommand SwitchToTeacherCommand { get; }
         public ICommand ExportToExcelCommand { get; }
+        public ICommand ShowScoreCommand { get; }
         public ICommand ImportFromExcelCommand { get; private set; }
 
         public StudentViewModel()
@@ -81,7 +82,23 @@ namespace LearnHub.ViewModels.AdminViewModels
             SwitchToTeacherCommand = new NavigateLayoutCommand(() => new TeacherViewModel());
             ExportToExcelCommand = new RelayCommand(ExportToExcel);
             ImportFromExcelCommand = new RelayCommand(ImportFromExcel);
+            ShowScoreCommand = new RelayCommand(Show);
             LoadStudentsAsync();
+        }
+        public void Show()
+        {
+            if (SelectedStudents == null || !SelectedStudents.Any())
+            {
+                ToastMessageViewModel.ShowWarningToast("Chưa chọn học sinh để xem.");
+                return;
+            }
+            if (SelectedStudents.Count > 1)
+            {
+                ToastMessageViewModel.ShowWarningToast("Chỉ chọn 1 học sinh để xem.");
+                return;
+            }
+            _studentStore.SelectedItem = SelectedStudents.First();
+            ModalNavigationStore.Instance.CurrentModalViewModel = new StudentScoreViewModel();
         }
         public void ExecutEdit()
         {
